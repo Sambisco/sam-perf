@@ -1,0 +1,36 @@
+$('#save').click(function() {
+    var name = [];
+    var email = [];
+    var mobile = [];
+    var message = [];
+
+    $('.name').each(function() {
+        name.push($(this).text());
+    });
+
+    $('.email').each(function() {
+        email.push($(this).text());
+    });
+
+    $('.mobile').each(function() {
+        mobile.push($(this).text());
+    });
+
+    $('.message').each(function() {
+        message.push($(this).text());
+    });
+
+    $.ajax({
+        url: "insert.php",
+        method: "POST",
+        data: { name: name, email: email, mobile: mobile, message: message },
+        success: function(data) {
+            alert(data);
+            $("td[contentEditable='true']").text("");
+            for (var i = 2; i <= count; i++) {
+                $('tr#' + i + '').remove();
+            }
+            fetch_item_data();
+        }
+    });
+});

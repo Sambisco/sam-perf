@@ -1,0 +1,181 @@
+                            @import url("style.css");
+
+                            .main-content .main-sous-content .main-tables {
+                                padding: 10px 15px;
+                                border-radius: 10px;
+                            }
+
+                            .main-content .main-sous-content .main-tables .title {
+                                margin: 15px 0;
+                            }
+
+                            .main-content .main-sous-content .main-tables .table-content {
+                                display: grid;
+                            }
+
+                            .mytab,
+                            .mytab1 {
+                                border-collapse: collapse;
+                                width: 100%;
+                                border: solid 1px #bdc3c7;
+                                margin-top: 15px;
+                            }
+
+                            .mytab thead,
+                            .mytab1 thead {
+                                background-color: var(--background-icon) !important;
+                                color: #fff;
+                            }
+
+                            .mytab tr {
+                                transition: all .2s ease-in;
+                                cursor: pointer;
+                            }
+
+                            .mytab th {
+                                text-align: center;
+                            }
+
+                            .mytab td {
+                                height: 25px;
+                                text-align: left;
+                                border-bottom: solid 1px #ddd;
+                            }
+
+                            .mytab1 th,
+                            td {
+                                padding: 5px;
+                                text-align: center;
+                            }
+
+                            .mytab tbody tr:hover {
+                                background: #f5f5f5;
+                                transform: scale(1.02);
+                                box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
+                            }
+
+
+                            table.dataTable {
+                                box-shadow: #bbbbbb 0px 0px 5px 0px;
+                            }
+
+                            .dataTables_wrapper select,
+                            .dataTables_wrapper .dataTables_filter input {
+                                color: #4a5568;
+                                /*text-gray-700*/
+                                padding-left: 1rem;
+                                /*pl-4*/
+                                padding-right: 1rem;
+                                /*pl-4*/
+                                padding-top: .5rem;
+                                /*pl-2*/
+                                padding-bottom: .5rem;
+                                /*pl-2*/
+                                line-height: 1.25;
+                                /*leading-tight*/
+                                border-width: 2px;
+                                /*border-2*/
+                                border-radius: .25rem;
+                                border-color: #edf2f7;
+                                /*border-gray-200*/
+                                background-color: #edf2f7;
+                                /*bg-gray-200*/
+                            }
+
+                            table.dataTable {
+                                box-shadow: #bbbbbb 0px 0px 5px 0px;
+                            }
+
+                            .mytab thead {
+                                background-color: var(--background-icon) !important;
+                            }
+
+                            .mytab thead>tr,
+                            .mytab thead>tr>th {
+                                background-color: var(--background-icon) !important;
+                                color: #fff;
+                                font-weight: normal;
+                                text-align: start;
+                            }
+
+                            table.dataTable thead th,
+                            table.dataTable thead td {
+                                border-bottom: 0px solid #111 !important;
+                            }
+
+                            .dataTables_wrapper>div {
+                                margin: 5px;
+                            }
+
+                            table.dataTable.display tbody tr.even>.sorting_1,
+                            table.dataTable.order-column.stripe tbody tr.even>.sorting_1 table.dataTable.display tbody tr.even,
+                            table.dataTable.display tbody tr.odd>.sorting_1,
+                            table.dataTable.order-column.stripe tbody tr.odd>.sorting_1,
+                            table.dataTable.display tbody tr.odd {
+                                background-color: #ffffff;
+                            }
+
+                            table.dataTable thead th {
+                                position: relative;
+                                background-image: none !important;
+                            }
+
+                            table.dataTable thead th.sorting:after,
+                            table.dataTable thead th.sorting_asc:after,
+                            table.dataTable thead th.sorting_desc:after {
+                                position: absolute;
+                                top: 12px;
+                                right: 8px;
+                                display: block;
+                                font-family: "Font Awesome\ 5 Free";
+                            }
+
+                            table.dataTable thead th.sorting:after {
+                                content: "\f0dc";
+                                color: #ddd;
+                                font-size: 0.8em;
+                                padding-top: 0.12em;
+                            }
+
+                            table.dataTable thead th.sorting_asc:after {
+                                content: "\f0de";
+                            }
+
+                            table.dataTable thead th.sorting_desc:after {
+                                content: "\f0dd";
+                            }
+
+                            table.dataTable.display tbody tr:hover>.sorting_1,
+                            table.dataTable.order-column.hover tbody tr:hover>.sorting_1 {
+                                background-color: #f2f2f2 !important;
+                                color: #000;
+                            }
+
+                            .mytab tbody tr:hover {
+                                background: #f5f5f5;
+                                transform: scale(1.02);
+                                box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
+                            }
+
+                            .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+                            .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+                                background: var(--background-icon) !important;
+                                border-radius: 50px;
+                                background-color: var(--background-icon) !important;
+                                color: #fff !important
+                            }
+
+                            .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+                            .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+                                border: 1px solid #979797;
+                                background: var(--background-hover) !important;
+                                border-radius: 50px !important;
+                                background-color: #005f9e !important;
+                                color: #fff !important;
+                            }
+
+                            @media screen and (max-width:767px) {
+                                .main-content .main-sous-content .main-tables .table-content {
+                                    overflow: auto;
+                                }
+                            }

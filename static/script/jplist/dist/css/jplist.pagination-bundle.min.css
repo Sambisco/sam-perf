@@ -1,0 +1,111 @@
+/**
+* jPList - jQuery Data Grid Controls 0.0.70 - http://jplist.com 
+* Copyright 2015 jPList Software.
+*/
+:root {
+    --linear-gradient: linear-gradient(to left, hsl(204, 68%, 40%), #002740);
+    --background: #002740;
+    --background-icon: #005f9e;
+    --border-color: #005f9e;
+    --background-button: linear-gradient(135deg, hsl(204, 60%, 62%), #005f9e);
+    --background-hover: linear-gradient(-135deg, hsl(204, 57%, 65%), #005f9e);
+    --disabled-form: #0e99f5;
+    --background-select: #5897fb;
+}
+
+:root.principal {
+    --linear-gradient: linear-gradient(to left, hsl(204, 68%, 40%), #002740);
+    --background: #002740;
+    --background-icon: #005f9e;
+    --border-color: #005f9e;
+    --background-button: linear-gradient(135deg, hsl(204, 60%, 62%), #005f9e);
+    --background-hover: linear-gradient(-135deg, hsl(204, 57%, 65%), #005f9e);
+    --disabled-form: #0e99f5;
+    --background-select: #5897fb;
+}
+
+:root.green {
+    --linear-gradient: linear-gradient(to left, hsl(126, 46%, 54%), #024308);
+    --background: #024308;
+    --background-icon: #024308;
+    --border-color: #024308;
+    --background-button: linear-gradient(135deg, hsl(124, 89%, 86%), #024308);
+    --background-hover: linear-gradient(-135deg, hsl(126, 66%, 72%), #024308);
+    --disabled-form: #378f40;
+    --background-select: #0a8816;
+}
+:root.orange {
+    --linear-gradient: linear-gradient(-135deg, hsl(37, 80%, 81%), #452c03);
+    --background: #955d02;
+    --background-icon: #955d02;
+    --border-color: #955d02;
+    --background-button: linear-gradient(135deg, hsl(37, 77%, 65%), #955d02);
+    --background-hover: linear-gradient(-135deg, hsl(37, 77%, 65%), #955d02);
+    --disabled-form: #d7ad68;
+    --background-select: #955d02;
+}
+ :root.purple {
+     --linear-gradient: linear-gradient(to left, hsl(285, 93%, 73%), #46045c);
+     --background: #46045c;
+     --background-icon: #46045c;
+     --border-color: #46045c;
+     --background-button: linear-gradient(135deg, hsl(285, 81%, 81%), #46045c);
+     --background-hover: linear-gradient(-135deg, hsl(285, 81%, 81%), #46045c);
+     --disabled-form: #e290fe;
+     --background-select: #46045c;
+ }
+.lato {
+    font-family: 'Lato', sans-serif
+}
+
+.jplist-panel .jplist-pagination {
+    cursor: pointer;
+    float: left;
+    line-height: 30px;
+}
+
+.jplist-panel .jplist-pagination button {
+    display: inline-block;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    background: var(--background-icon);
+    cursor: pointer;
+}
+.jplist-panel .jplist-pagination button:hover {
+    background: var(--background-hover);
+}
+.jplist-panel .jplist-pagination .jplist-current {
+    font-weight: bold;
+    color: var(--background-icon);
+    background: #fff;
+    border: solid 1px var(--background-icon);
+}
+.jplist-panel .jplist-pagination .jplist-current:hover{
+    background: var(--background-hover);
+    color: #fff;
+}
+.jplist-panel .jplist-pagination .jplist-pagingprev,
+.jplist-panel .jplist-pagination .jplist-pagingmid,
+.jplist-panel .jplist-pagination .jplist-pagingnext {
+    float: left
+}
+
+.jplist-panel .jplist-pagination .jplist-pagingprev button,
+.jplist-panel .jplist-pagination .jplist-pagingnext button {
+    font-size: 20px;
+    font-family: "Courier New", Courier, monospace;
+    cursor: pointer;
+}
+.jplist-panel .jplist-pagination .jplist-pagingprev button:hover,
+.jplist-panel .jplist-pagination .jplist-pagingnext button:hover {
+    background: var(--background-hover);
+}
+.jplist-one-page {
+    display: none
+}
+
+.jplist-empty {
+    display: none
+}

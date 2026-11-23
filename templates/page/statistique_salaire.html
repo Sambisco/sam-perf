@@ -1,0 +1,4572 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+<input type="hidden" id="date_reference" value="{{ current_year }}">
+
+<!------MAIN-CONTENT-------->
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1>Statistique</h1>
+			<div class="content-top_slider">
+				<button type="button" class="button_slide pre-btn_slider"><i
+						class="fas fa-angle-left"></i></button>
+				<div class="top_slider">
+					{% for date_row in range(current_year, 2023, -1) %}
+					<div class="slide years years_{{ date_row }}"
+						style="padding:5px;"
+						id="{{ date_row }}" data-id="{{ date_row }}">
+						{{ date_row }}
+					</div>
+					{% endfor %}
+				</div>
+				<div type="button" class="button_slide nxt-btn_slider"><i
+						class="fas fa-angle-right"></i></div>
+
+			</div>
+		</div>
+		<div class="baniere-right">
+
+		</div>
+	</div>
+	<div class="main-sous-content">
+		<div class="bar-container">
+			<div class="circle"><i class="fas fa-chart-line"></i></div>
+
+			<!-- Section gauche : cartes -->
+			<div class="left-section">
+				<div class="swiper mySwiper">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau1">Tableau</div>
+										<div id="download1">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique1">
+									<canvas id="barChart1"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau2">Tableau</div>
+										<div id="download2">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique2">
+									<canvas id="barChart2"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau3">Tableau</div>
+										<div id="download3">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique3">
+									<canvas id="barChart3"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau4">Tableau</div>
+										<div id="download4">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique4">
+									<canvas id="barChart4"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau5">Tableau</div>
+										<div id="download5">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique5">
+									<canvas id="barChart5"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau6">Tableau</div>
+										<div id="download6">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique6">
+									<canvas id="barChart6"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
+
+			<!-- Section droite : clipath -->
+			<div class="right-section clipath">
+				<ul class="bar-container-menu bar-container-active">
+					<div class="bar-container-toggle bar-container-active">G</div>
+
+					<li style="--i:0;" class="bar-container-active" id="bar"><a href="#"><i
+								class="fa fa-chart-bar"></i></a></li>
+					<li style="--i:1;" id="line"><a href="#"><i
+								class="fa fa-chart-line"></i></a></li>
+					<li style="--i:2;" id="pie"><a href="#"><i
+								class="fa fa-chart-pie"></i></a></li>
+					<li style="--i:3;" id="doughnut"><a href="#"><i
+								class="fa fa-ring"></i></a></li>
+
+					<div class="indicator"></div>
+				</ul>
+				<p>Visualisez vos différents diagrammes <br> ainsi que vos tableaux.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau1-modal---------->
+<div class="grand close-modal" id="tableau1-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Periode du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								placeholder="Cotisation amicale" id="date_du1">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								id="date_au1">
+
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau1">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf1">PDF</button>
+						</div>
+					</div>
+				</div>
+				<table id="example1" class="stripe hover mytab" style="width:100%;"
+					data-order='[[0,"desc"]]'>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="no-export">Photo</th>
+							<th style="min-width:200px;">Prenom</th>
+							<th style="min-width:100px;">Nom</th>
+							<th style="min-width:100px;">Matricule</th>
+							<th style="min-width:200px;">Categorie</th>
+							<th style="min-width:200px;">Poste occupe</th>
+							<th style="min-width:150px;">Telephone</th>
+							<th style="min-width:150px;">Periode paie</th>
+							<th style="min-width:200px;">Date paie</th>
+							<th style="min-width:150px;">Mode paie</th>
+							<th style="min-width:200px;">Salaire de base</th>
+							<th style="min-width:200px;">Salaire brute</th>
+							<th style="min-width:200px;">Salaire net</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Total</th>
+							<th class="no-export"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;text-align:center"></th>
+							<th style="min-width:200px;text-align:center"></th>
+							<th style="min-width:200px;text-align:center"></th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau2-modal---------->
+<div class="grand close-modal" id="tableau2-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Periode du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du2" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au2" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau2">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf2">PDF</button>
+						</div>
+					</div>
+				</div>
+				<table id="example2" class="stripe hover mytab" style="width:100%;"
+					data-order='[[0,"desc"]]'>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="no-export">Photo</th>
+							<th style="min-width:200px;">Prenom</th>
+							<th style="min-width:100px;">Nom</th>
+							<th style="min-width:100px;">Matricule</th>
+							<th style="min-width:200px;">Categorie</th>
+							<th style="min-width:200px;">Poste occupe</th>
+							<th style="min-width:150px;">Telephone</th>
+							<th style="min-width:150px;">Periode paie</th>
+							<th style="min-width:200px;">Date paie</th>
+							<th style="min-width:150px;">Mode paie</th>
+							<th style="min-width:200px;">Fonction</th>
+							<th style="min-width:200px;">Sujétion</th>
+							<th style="min-width:200px;">Responsabilité</th>
+							<th style="min-width:200px;">Sursalaire</th>
+							<th style="min-width:200px;">Logement</th>
+						</tr>
+					</thead>
+
+					<tbody>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Total</th>
+							<th class="no-export"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"> </th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau3-modal---------->
+<div class="grand close-modal" id="tableau3-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Periode du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du3" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au3" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau3">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf3">PDF</button>
+						</div>
+					</div>
+				</div>
+				<table id="example3" class="stripe hover mytab" style="width:100%;"
+					data-order='[[0,"desc"]]'>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="no-export">Photo</th>
+							<th style="min-width:200px;">Prenom</th>
+							<th style="min-width:100px;">Nom</th>
+							<th style="min-width:100px;">Matricule</th>
+							<th style="min-width:200px;">Categorie</th>
+							<th style="min-width:200px;">Poste occupe</th>
+							<th style="min-width:150px;">Telephone</th>
+							<th style="min-width:150px;">Periode paie</th>
+							<th style="min-width:200px;">Date paie</th>
+							<th style="min-width:150px;">Mode paie</th>
+							<th style="min-width:200px;">IPRES Régime Général</th>
+							<th style="min-width:200px;">IPRES Régime Cadre</th>
+							<th style="min-width:200px;">Part TRIMF</th>
+							<th style="min-width:200px;">Montant TRIMF</th>
+							<th style="min-width:200px;">Part IRPP</th>
+							<th style="min-width:200px;">Montant IRPP</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Total</th>
+							<th class="no-export"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau4-modal---------->
+<div class="grand close-modal" id="tableau4-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Periode du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du4" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au4" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau4">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf4">PDF</button>
+						</div>
+					</div>
+				</div>
+				<table id="example4" class="stripe hover mytab" style="width:100%;"
+					data-order='[[0,"desc"]]'>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="no-export">Photo</th>
+							<th style="min-width:200px;">Prenom</th>
+							<th style="min-width:100px;">Nom</th>
+							<th style="min-width:100px;">Matricule</th>
+							<th style="min-width:200px;">Categorie</th>
+							<th style="min-width:200px;">Poste occupe</th>
+							<th style="min-width:150px;">Telephone</th>
+							<th style="min-width:150px;">Periode paie</th>
+							<th style="min-width:200px;">Date paie</th>
+							<th style="min-width:150px;">Mode paie</th>
+							<th style="min-width:200px;">IPRES Régime Général</th>
+							<th style="min-width:200px;">IPRES Régime Cadre</th>
+							<th style="min-width:200px;">CSS - Accident travail</th>
+							<th style="min-width:250px;">CSS - Allocation familiale</th>
+							<th style="min-width:200px;">CFCE</th>
+						</tr>
+					</thead>
+
+					<tbody>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Total</th>
+							<th class="no-export"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:250px;"></th>
+							<th style="min-width:200px;"></th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau5-modal---------->
+<div class="grand close-modal" id="tableau5-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Periode du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du5" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au5" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau5">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf5">PDF</button>
+						</div>
+					</div>
+				</div>
+				<table id="example5" class="stripe hover mytab" style="width:100%;"
+					data-order='[[0,"desc"]]'>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="no-export">Photo</th>
+							<th style="min-width:200px;">Prenom</th>
+							<th style="min-width:100px;">Nom</th>
+							<th style="min-width:100px;">Matricule</th>
+							<th style="min-width:200px;">Categorie</th>
+							<th style="min-width:200px;">Poste occupe</th>
+							<th style="min-width:150px;">Telephone</th>
+							<th style="min-width:150px;">Periode paie</th>
+							<th style="min-width:200px;">Date paie</th>
+							<th style="min-width:150px;">Mode paie</th>
+							<th style="min-width:200px;">Cotisation amicale</th>
+							<th style="min-width:200px;">Retenue Tabaski</th>
+							<th style="min-width:200px;">Autre</th>
+						</tr>
+					</thead>
+
+					<tbody>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Total</th>
+							<th class="no-export"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau5-modal---------->
+<div class="grand close-modal" id="tableau6-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Periode du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du6" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au6" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau6">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf6">PDF</button>
+						</div>
+					</div>
+				</div>
+				<table id="example6" class="stripe hover mytab" style="width:100%;"
+					data-order='[[0,"desc"]]'>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="no-export">Photo</th>
+							<th style="min-width:200px;">Prenom</th>
+							<th style="min-width:100px;">Nom</th>
+							<th style="min-width:100px;">Matricule</th>
+							<th style="min-width:200px;">Categorie</th>
+							<th style="min-width:200px;">Poste occupe</th>
+							<th style="min-width:150px;">Telephone</th>
+							<th style="min-width:150px;">Periode paie</th>
+							<th style="min-width:200px;">Date paie</th>
+							<th style="min-width:150px;">Mode paie</th>
+							<th style="min-width:200px;">Transport</th>
+							<th style="min-width:200px;">Telephone</th>
+							<th style="min-width:200px;">Autre</th>
+						</tr>
+					</thead>
+
+					<tbody>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Total</th>
+							<th class="no-export"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:100px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:150px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+							<th style="min-width:200px;"></th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+$(document).ready(function() {
+
+
+});
+var divs = $('.top_slider div');
+var ordered = divs.sort(function(a, b) {
+	return $(b).attr('id') - $(a).attr('id');
+});
+$('.top_slider div:first-of-type').addClass("changeColor");
+//empty the main div and re-append the ordered divs
+$('.top_slider').empty().append(ordered)
+
+$(document).on('click', '.slide', function(e) {
+	e.preventDefault();
+	var years = $(this).data('id');
+	$(".slide").removeClass("changeColor")
+	$(".years_" + years).addClass("changeColor")
+})
+
+
+
+$(document).ready(function () {
+
+    var id = $('#id_reference').val();
+    var date = $('#date_reference').val();
+
+    $.ajax({
+        url: "../controller/dashboard/statistique",
+        method: "POST",
+        data: { id: id, date: date },
+        dataType: "JSON",
+        success: function (data) {
+
+            console.log(data);
+
+            // =======================
+            // 🔥 ARRAYS
+            // =======================
+            let date_du = [];
+            let salaire_base = [];
+            let salaire_brute = [];
+            let salaire_net = [];
+
+            let ind_fonction = [];
+            let ind_sujetion = [];
+            let ind_responsabilite = [];
+            let ind_sursalaire = [];
+            let ind_logement = [];
+
+            let iprg_employe = [];
+            let irpc_employe = [];
+            let sum_trimf = [];
+            let sum_irpp = [];
+
+            let irprg_patronale = [];
+            let irpc_patronale = [];
+            let css_accident_travail = [];
+            let css_allocation_familiale = [];
+            let cfce = [];
+
+            let amicale = [];
+            let tabaski = [];
+            let ind_transport = [];
+            let ind_telephone_in = [];
+            let ind_autre_indemnite = [];
+            let s_aute_cotisation = [];
+
+            for (let i = 0; i < data.length; i++) {
+
+                date_du.push(data[i].date_du);
+
+                salaire_base.push(data[i].salaire_base);
+                salaire_brute.push(data[i].salaire_brute);
+                salaire_net.push(data[i].salaire_net);
+
+                ind_fonction.push(data[i].ind_fonction);
+                ind_sujetion.push(data[i].ind_sujetion);
+                ind_responsabilite.push(data[i].ind_responsabilite);
+                ind_sursalaire.push(data[i].ind_sursalaire);
+                ind_logement.push(data[i].ind_logement);
+
+                iprg_employe.push(data[i].iprg_employe);
+                irpc_employe.push(data[i].irpc_employe);
+                sum_trimf.push(data[i].sum_trimf);
+                sum_irpp.push(data[i].sum_irpp);
+
+                irprg_patronale.push(data[i].irprg_patronale);
+                irpc_patronale.push(data[i].irpc_patronale);
+                css_accident_travail.push(data[i].css_accident_travail);
+                css_allocation_familiale.push(data[i].css_allocation_familiale);
+                cfce.push(data[i].cfce);
+
+                amicale.push(data[i].amicale);
+                tabaski.push(data[i].tabaski);
+                ind_transport.push(data[i].ind_transport);
+                ind_telephone_in.push(data[i].ind_telephone_in);
+                ind_autre_indemnite.push(data[i].ind_autre_indemnite);
+                s_aute_cotisation.push(data[i].s_aute_cotisation);
+            }
+
+            // =======================
+            // 🔥 CLEAN CHARTS (IMPORTANT VPS)
+            // =======================
+            if (window.charts) {
+                window.charts.forEach(c => c.destroy());
+            }
+            window.charts = [];
+
+            // =======================
+            // 🔥 COMMON OPTIONS v4
+            // =======================
+            const baseOptions = (title) => ({
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: title,
+                        font: {
+                            size: 16,
+                            family: "Poppins"
+                        }
+                    },
+                    legend: {
+                        position: "top"
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: false,
+                        grid: { display: false }
+                    },
+                    y: {
+                        stacked: false,
+                        grid: {
+                            display: true,
+                            color: "rgba(255,99,132,0.2)"
+                        }
+                    }
+                }
+            });
+
+            // =======================
+            // 🔥 CHART 1
+            // =======================
+            window.charts.push(new Chart(document.getElementById("barChart1"), {
+                type: "bar",
+                data: {
+                    labels: date_du,
+                    datasets: [
+                        { label: "Salaire base", data: salaire_base, backgroundColor: "#0d6e80" },
+                        { label: "Salaire brute", data: salaire_brute, backgroundColor: "#123d8e" },
+                        { label: "Salaire net", data: salaire_net, backgroundColor: "#de2525" }
+                    ]
+                },
+                options: baseOptions(`Salaire ${date}`)
+            }));
+
+            // =======================
+            // 🔥 CHART 2
+            // =======================
+            window.charts.push(new Chart(document.getElementById("barChart2"), {
+                type: "bar",
+                data: {
+                    labels: date_du,
+                    datasets: [
+                        { label: "Fonction", data: ind_fonction, backgroundColor: "#0d6e80" },
+                        { label: "Sujétion", data: ind_sujetion, backgroundColor: "#123d8e" },
+                        { label: "Responsabilité", data: ind_responsabilite, backgroundColor: "#de2525" },
+                        { label: "Sursalaire", data: ind_sursalaire, backgroundColor: "#008000" },
+                        { label: "Logement", data: ind_logement, backgroundColor: "#808000" }
+                    ]
+                },
+                options: baseOptions(`Indemnité ${date}`)
+            }));
+
+            // =======================
+            // 🔥 CHART 3
+            // =======================
+            window.charts.push(new Chart(document.getElementById("barChart3"), {
+                type: "bar",
+                data: {
+                    labels: date_du,
+                    datasets: [
+                        { label: "IPRES RG", data: iprg_employe, backgroundColor: "#800000" },
+                        { label: "IPRES Cadre", data: irpc_employe, backgroundColor: "#0000FF" },
+                        { label: "TRIMF", data: sum_trimf, backgroundColor: "#454545" },
+                        { label: "IRPP", data: sum_irpp, backgroundColor: "#800080" }
+                    ]
+                },
+                options: baseOptions(`Charges salariales ${date}`)
+            }));
+
+            // =======================
+            // 🔥 CHART 4
+            // =======================
+            window.charts.push(new Chart(document.getElementById("barChart4"), {
+                type: "bar",
+                data: {
+                    labels: date_du,
+                    datasets: [
+                        { label: "IPRES RG", data: irprg_patronale, backgroundColor: "#ff0000" },
+                        { label: "IPRES Cadre", data: irpc_patronale, backgroundColor: "#00ff00" },
+                        { label: "CSS AT", data: css_accident_travail, backgroundColor: "#ff00ff" },
+                        { label: "CSS AF", data: css_allocation_familiale, backgroundColor: "#808080" },
+                        { label: "CFCE", data: cfce, backgroundColor: "#008000" }
+                    ]
+                },
+                options: baseOptions(`Charges patronales ${date}`)
+            }));
+
+            // =======================
+            // 🔥 CHART 5
+            // =======================
+            window.charts.push(new Chart(document.getElementById("barChart5"), {
+                type: "bar",
+                data: {
+                    labels: date_du,
+                    datasets: [
+                        { label: "Amicale", data: amicale, backgroundColor: "#0d6e80" },
+                        { label: "Tabaski", data: tabaski, backgroundColor: "#123d8e" },
+                        { label: "Autre", data: ind_autre_indemnite, backgroundColor: "#00ff00" }
+                    ]
+                },
+                options: baseOptions(`Cotisation ${date}`)
+            }));
+
+            // =======================
+            // 🔥 CHART 6
+            // =======================
+            window.charts.push(new Chart(document.getElementById("barChart6"), {
+                type: "bar",
+                data: {
+                    labels: date_du,
+                    datasets: [
+                        { label: "Transport", data: ind_transport, backgroundColor: "#c0c0c0" },
+                        { label: "Téléphone", data: ind_telephone_in, backgroundColor: "#808000" },
+                        { label: "Autre", data: ind_autre_indemnite, backgroundColor: "#008000" }
+                    ]
+                },
+                options: baseOptions(`Prime ${date}`)
+            }));
+
+        }
+    });
+
+});
+</script>
+
+<script>
+//------------BOUTTON CLICK---------------//
+$(document).on('click', '.years', function(e) {
+	//---------LINE------------//
+	var id = $('#id_reference').val();
+	var date = $(this).data('id');
+	$(".fetch_annee").html(date);
+	$("#div-graphique1").html("")
+	$("#div-graphique1").html('<canvas id="barChart1"></canvas>')
+
+	$("#div-graphique2").html("")
+	$("#div-graphique2").html('<canvas id="barChart2"></canvas>')
+
+	$("#div-graphique3").html("")
+	$("#div-graphique3").html('<canvas id="barChart3"></canvas>')
+
+	$("#div-graphique4").html("")
+	$("#div-graphique4").html('<canvas id="barChart4"></canvas>')
+
+	$("#div-graphique5").html("")
+	$("#div-graphique5").html('<canvas id="barChart5"></canvas>')
+
+	$("#div-graphique6").html("")
+	$("#div-graphique6").html('<canvas id="barChart6"></canvas>')
+	
+	$.ajax({
+		url: "../controller/dashboard/statistique",
+		method: "POST",
+		data: {
+			id: id,
+			date: date
+		},
+		dataType: "JSON",
+		success: function(data) {
+			console.log(data)
+			var date_du = [];
+			var salaire_base = [];
+			var salaire_brute = [];
+			var salaire_net = [];
+			var ind_fonction = [];
+			var ind_sujetion = [];
+			var ind_responsabilite = [];
+			var ind_sursalaire = [];
+			var ind_logement = [];
+			var iprg_employe = [];
+			var irpc_employe = [];
+			var sum_trimf = [];
+			var sum_irpp = [];
+			var irprg_patronale = [];
+			var irpc_patronale = [];
+			var css_accident_travail = [];
+			var css_allocation_familiale = [];
+			var cfce = [];
+			var amicale = [];
+			var tabaski = [];
+			var ind_transport = [];
+			var ind_telephone_in = [];
+			var ind_autre_indemnite = [];
+			var s_aute_cotisation = [];
+			for (var count = 0; count < data.length; count++) {
+				date_du.push(data[count].date_du);
+				salaire_base.push(data[count].salaire_base);
+				salaire_brute.push(data[count].salaire_brute);
+				salaire_net.push(data[count].salaire_net);
+				ind_fonction.push(data[count].ind_fonction);
+				ind_sujetion.push(data[count].ind_sujetion);
+				ind_responsabilite.push(data[count].ind_responsabilite);
+				ind_sursalaire.push(data[count].ind_sursalaire);
+				ind_logement.push(data[count].ind_logement);
+				iprg_employe.push(data[count].iprg_employe);
+				irpc_employe.push(data[count].irpc_employe);
+				sum_trimf.push(data[count].sum_trimf);
+				sum_irpp.push(data[count].sum_irpp);
+				irprg_patronale.push(data[count].irprg_patronale);
+				irpc_patronale.push(data[count].irpc_patronale);
+				css_accident_travail.push(data[count].css_accident_travail);
+				css_allocation_familiale.push(data[count].css_allocation_familiale);
+				cfce.push(data[count].cfce);
+				amicale.push(data[count].amicale);
+				tabaski.push(data[count].tabaski);
+				ind_transport.push(data[count].ind_transport);
+				ind_telephone_in.push(data[count].ind_telephone_in);
+				ind_autre_indemnite.push(data[count].ind_autre_indemnite);
+				s_aute_cotisation.push(data[count].s_aute_cotisation);
+			}
+			Chart.defaults.global.defaultFontFamilly = "Poppins";
+			new Chart("barChart1", {
+				type: "bar",
+				data: {
+					labels: date_du,
+					datasets: [{
+						label: "Salaire de base",
+						backgroundColor: "#0d6e80",
+						data: salaire_base
+					}, {
+						label: "Salaire brute",
+						backgroundColor: "#123d8e",
+						data: salaire_brute
+					}, {
+						label: "Salaire net",
+						backgroundColor: "#de2525",
+						data: salaire_net
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+
+					title: {
+						display: true,
+						text: `Salaire ${date}`
+					},
+					legend: {
+						position: 'top'
+					},
+					y: {
+						stacked: true,
+						grid: {
+							display: true,
+							color: "rgba(255,99,132,0.2)"
+						}
+					},
+					x: {
+						grid: {
+							display: false
+						}
+					}
+				}
+			})
+			new Chart("barChart2", {
+				type: "bar",
+				data: {
+					labels: date_du,
+					datasets: [{
+						label: "Fonction",
+						backgroundColor: "#0d6e80",
+						data: ind_fonction
+					}, {
+						label: "Sujétion",
+						backgroundColor: "#123d8e",
+						data: ind_sujetion
+					}, {
+						label: "Responsabilité",
+						backgroundColor: "#de2525",
+						data: ind_responsabilite
+					}, {
+						label: "Sursalaire",
+						backgroundColor: "#008000",
+						data: ind_sursalaire
+					}, {
+						label: "Logement",
+						backgroundColor: "#808000",
+						data: ind_logement
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+
+					title: {
+						display: true,
+						text: `Indémnité ${date}`
+					},
+					legend: {
+						position: 'top'
+					},
+					y: {
+						stacked: true,
+						grid: {
+							display: true,
+							color: "rgba(255,99,132,0.2)"
+						}
+					},
+					x: {
+						grid: {
+							display: false
+						}
+					}
+				}
+			})
+			new Chart("barChart3", {
+				type: "bar",
+				data: {
+					labels: date_du,
+					datasets: [{
+						label: "IPRES Régime Général",
+						backgroundColor: "#800000",
+						data: iprg_employe
+					}, {
+						label: "IPRES Régime Cadre",
+						backgroundColor: "#0000FF",
+						data: irpc_employe
+					}, {
+						label: "TRIMF",
+						backgroundColor: "#454545",
+						data: sum_trimf
+					}, {
+						label: "IRPP",
+						backgroundColor: "#800080",
+						data: sum_irpp
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+
+					title: {
+						display: true,
+						text: `Charges salariales ${date}`
+					},
+					legend: {
+						position: 'top'
+					},
+					y: {
+						stacked: true,
+						grid: {
+							display: true,
+							color: "rgba(255,99,132,0.2)"
+						}
+					},
+					x: {
+						grid: {
+							display: false
+						}
+					}
+				}
+			})
+			new Chart("barChart4", {
+				type: "bar",
+				data: {
+					labels: date_du,
+					datasets: [{
+						label: "IPRES Régime Général",
+						backgroundColor: "#ff0000",
+						data: irprg_patronale
+					}, {
+						label: "IPRES Régime Cadre",
+						backgroundColor: "#00ff00",
+						data: irpc_patronale
+					}, {
+						label: "CSS - Accident travail",
+						backgroundColor: "#ff00ff",
+						data: css_accident_travail
+					}, {
+						label: "CSS - Allocation familiale",
+						backgroundColor: "#808080",
+						data: css_allocation_familiale
+					}, {
+						label: "CFCE",
+						backgroundColor: "#008000",
+						data: cfce
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+
+					title: {
+						display: true,
+						text: `Charges Patronales ${date}`
+					},
+					legend: {
+						position: 'top'
+					},
+					y: {
+						stacked: true,
+						grid: {
+							display: true,
+							color: "rgba(255,99,132,0.2)"
+						}
+					},
+					x: {
+						grid: {
+							display: false
+						}
+					}
+				}
+			})
+			new Chart("barChart5", {
+				type: "bar",
+				data: {
+					labels: date_du,
+					datasets: [{
+						label: "Amicale",
+						backgroundColor: "#0d6e80",
+						data: amicale
+					}, {
+						label: "Tabaski",
+						backgroundColor: "#123d8e",
+						data: tabaski
+					}, {
+						label: "Autre",
+						backgroundColor: "#00ff00",
+						data: ind_autre_indemnite
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+
+					title: {
+						display: true,
+						text: `Cotisation ${date}`
+					},
+					legend: {
+						position: 'top'
+					},
+					y: {
+						stacked: true,
+						grid: {
+							display: true,
+							color: "rgba(255,99,132,0.2)"
+						}
+					},
+					x: {
+						grid: {
+							display: false
+						}
+					}
+				}
+			})
+			new Chart("barChart6", {
+				type: "bar",
+				data: {
+					labels: date_du,
+					datasets: [{
+						label: "Transport",
+						backgroundColor: "#c0c0c0",
+						data: ind_transport
+					}, {
+						label: "Telephone",
+						backgroundColor: "#808000",
+						data: ind_telephone_in
+					}, {
+						label: "Autre",
+						backgroundColor: "#008000",
+						data: ind_autre_indemnite
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+
+					title: {
+						display: true,
+						text: `Prime ${date}`
+					},
+					legend: {
+						position: 'top'
+					},
+					y: {
+						stacked: true,
+						grid: {
+							display: true,
+							color: "rgba(255,99,132,0.2)"
+						}
+					},
+					x: {
+						grid: {
+							display: false
+						}
+					}
+				}
+			})
+
+		}
+	})
+
+});
+// DATE 1
+$(document).ready(function() {
+	var id = $('#id_reference').val();
+	var date = $('#date_reference').val();
+	var date_du1 = $('#date_du1').val();
+	var date_au1 = $('#date_au1').val();
+
+	$("#example1").dataTable().fnDestroy()
+	$.ajax({
+		url: "../controller/dashboard/tableau",
+		method: "POST",
+		data: {
+			tableau1: id,
+			date: date,
+			date_du1: date_du1,
+			date_au1: date_au1
+		},
+		//dataType: "JSON",
+		success: function(response) {
+			console.log(response)
+			$('#example1 tbody').html("");
+			//insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var a = 0; a < gp_data.length; a++) {
+				$('#example1 tbody').append(`
+			                <tr>
+				               <td>${gp_data[a].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[a].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[a].prenom}</td>
+				               <td style="text-align:center;">${gp_data[a].nom}</td>
+				               <td style="text-align:center;">${gp_data[a].matricule}</td>
+				               <td style="text-align:center;">${gp_data[a].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[a].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[a].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[a].date_du}</td>
+				               <td style="text-align:center;">${gp_data[a].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[a].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[a].salaire_base}</td>
+				               <td style="text-align:center;">${gp_data[a].salaire_brute}</td>
+				               <td style="text-align:center;">${gp_data[a].salaire_net}</td>
+			                </tr>
+						`);
+			}
+			$("#example1").DataTable({
+				scrollX: true,
+				lengthMenu: [
+					[10, 25, 50, 250, -1],
+					[10, 25, 50, 250, "Tous"]
+				],
+				layout: {
+					topStart: {
+						buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+					}
+				},
+				"language": {
+
+					"sEmptyTable": "Aucune donnée disponible dans le tableau",
+					"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+					"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+					"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+					"sInfoPostFix": "",
+					"sInfoThousands": ",",
+					"sLengthMenu": "Afficher _MENU_ éléments",
+					"sLoadingRecords": "Chargement...",
+					"sProcessing": "Traitement...",
+					"sSearch": "Rechercher :",
+					"sZeroRecords": "Aucun élément correspondant trouvé",
+					"oPaginate": {
+						"sFirst": "Premier",
+						"sLast": "Dernier",
+						"sNext": "Suivant",
+						"sPrevious": "Précédent"
+					},
+					"oAria": {
+						"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+						"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+					},
+					"select": {
+						"rows": {
+							"_": "%d lignes sélectionnées",
+							"0": "Aucune ligne sélectionnée",
+							"1": "1 ligne sélectionnée"
+						}
+					}
+				},
+				footerCallback: function(tfoot, data, start, end, display) {
+					var api = this.api();
+					$(api.column(11).footer()).html(
+						api.column(11, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(12).footer()).html(
+						api.column(12, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(13).footer()).html(
+						api.column(13, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+				}
+			});
+		}
+	})
+	$('#date_du1').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du1 = $('#date_du1').val();
+		var date_au1 = $('#date_au1').val();
+
+		$("#example1").dataTable().fnDestroy()
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau1: id,
+				date: date,
+				date_du1: date_du1,
+				date_au1: date_au1
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example1 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var a = 0; a < gp_data.length; a++) {
+					$('#example1 tbody').append(`
+			                <tr>
+				               <td>${gp_data[a].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[a].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[a].prenom}</td>
+				               <td style="text-align:center;">${gp_data[a].nom}</td>
+				               <td style="text-align:center;">${gp_data[a].matricule}</td>
+				               <td style="text-align:center;">${gp_data[a].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[a].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[a].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[a].date_du}</td>
+				               <td style="text-align:center;">${gp_data[a].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[a].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[a].salaire_base}</td>
+				               <td style="text-align:center;">${gp_data[a].salaire_brute}</td>
+				               <td style="text-align:center;">${gp_data[a].salaire_net}</td>
+			                </tr>
+						`);
+				}
+				$("#example1").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(13).footer()).html(
+							api.column(13, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+				});
+			}
+		})
+	})
+	$('#date_au1').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du1 = $('#date_du1').val();
+		var date_au1 = $('#date_au1').val();
+
+		$("#example1").dataTable().fnDestroy()
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau1: id,
+				date: date,
+				date_du1: date_du1,
+				date_au1: date_au1
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example1 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var a = 0; a < gp_data.length; a++) {
+					$('#example1 tbody').append(`
+			                <tr>
+				               <td>${gp_data[a].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[a].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[a].prenom}</td>
+				               <td style="text-align:center;">${gp_data[a].nom}</td>
+				               <td style="text-align:center;">${gp_data[a].matricule}</td>
+				               <td style="text-align:center;">${gp_data[a].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[a].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[a].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[a].date_du}</td>
+				               <td style="text-align:center;">${gp_data[a].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[a].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[a].salaire_base}</td>
+				               <td style="text-align:center;">${gp_data[a].salaire_brute}</td>
+				               <td style="text-align:center;">${gp_data[a].salaire_net}</td>
+			                </tr>
+						`);
+				}
+				$("#example1").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(13).footer()).html(
+							api.column(13, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+				});
+			}
+		})
+	})
+})
+//DATE 2
+$(document).ready(function() {
+	var id = $('#id_reference').val();
+	var date = $('#date_reference').val();
+	var date_du2 = $('#date_du2').val();
+	var date_au2 = $('#date_au2').val();
+
+	$("#example2").dataTable().fnDestroy()
+
+	$.ajax({
+		 url: "../controller/dashboard/tableau",
+		method: "POST",
+		data: {
+			tableau2: id,
+			date: date,
+			date_du2: date_du2,
+			date_au2: date_au2
+		},
+		//dataType: "JSON",
+		success: function(response) {
+			console.log(response)
+			$('#example2 tbody').html("");
+			//insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var b = 0; b < gp_data.length; b++) {
+				$('#example2 tbody').append(`
+			                <tr>
+				               <td>${gp_data[b].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[b].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[b].prenom}</td>
+				               <td style="text-align:center;">${gp_data[b].nom}</td>
+				               <td style="text-align:center;">${gp_data[b].matricule}</td>
+				               <td style="text-align:center;">${gp_data[b].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[b].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[b].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[b].date_du}</td>
+				               <td style="text-align:center;">${gp_data[b].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[b].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[b].ind_fonction}</td>
+				               <td style="text-align:center;">${gp_data[b].ind_sujetion}</td>
+				               <td style="text-align:center;">${gp_data[b].ind_responsabilite}</td>
+							   <td style="text-align:center;">${gp_data[b].ind_sursalaire}</td>
+							   <td style="text-align:center;">${gp_data[b].ind_logement}</td>
+			                </tr>
+						`);
+			}
+			$("#example2").DataTable({
+				scrollX: true,
+				lengthMenu: [
+					[10, 25, 50, 250, -1],
+					[10, 25, 50, 250, "Tous"]
+				],
+				layout: {
+					topStart: {
+						buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+					}
+				},
+				"language": {
+
+					"sEmptyTable": "Aucune donnée disponible dans le tableau",
+					"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+					"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+					"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+					"sInfoPostFix": "",
+					"sInfoThousands": ",",
+					"sLengthMenu": "Afficher _MENU_ éléments",
+					"sLoadingRecords": "Chargement...",
+					"sProcessing": "Traitement...",
+					"sSearch": "Rechercher :",
+					"sZeroRecords": "Aucun élément correspondant trouvé",
+					"oPaginate": {
+						"sFirst": "Premier",
+						"sLast": "Dernier",
+						"sNext": "Suivant",
+						"sPrevious": "Précédent"
+					},
+					"oAria": {
+						"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+						"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+					},
+					"select": {
+						"rows": {
+							"_": "%d lignes sélectionnées",
+							"0": "Aucune ligne sélectionnée",
+							"1": "1 ligne sélectionnée"
+						}
+					}
+				},
+				footerCallback: function(tfoot, data, start, end, display) {
+					var api = this.api();
+					$(api.column(11).footer()).html(
+						api.column(11, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(12).footer()).html(
+						api.column(12, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(13).footer()).html(
+						api.column(13, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(14).footer()).html(
+						api.column(14, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(15).footer()).html(
+						api.column(15, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+				}
+
+			});
+		}
+	})
+	$('#date_du2').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du2 = $('#date_du2').val();
+		var date_au2 = $('#date_au2').val();
+
+		$("#example2").dataTable().fnDestroy()
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau2: id,
+				date: date,
+				date_du2: date_du2,
+				date_au2: date_au2
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example2 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var b = 0; b < gp_data.length; b++) {
+					$('#example2 tbody').append(`
+			                <tr>
+				               <td>${gp_data[b].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[b].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[b].prenom}</td>
+				               <td style="text-align:center;">${gp_data[b].nom}</td>
+				               <td style="text-align:center;">${gp_data[b].matricule}</td>
+				               <td style="text-align:center;">${gp_data[b].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[b].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[b].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[b].date_du}</td>
+				               <td style="text-align:center;">${gp_data[b].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[b].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[b].ind_fonction}</td>
+				               <td style="text-align:center;">${gp_data[b].ind_sujetion}</td>
+				               <td style="text-align:center;">${gp_data[b].ind_responsabilite}</td>
+							   <td style="text-align:center;">${gp_data[b].ind_sursalaire}</td>
+							   <td style="text-align:center;">${gp_data[b].ind_logement}</td>
+			                </tr>
+						`);
+				}
+				$("#example2").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(13).footer()).html(
+							api.column(13, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(14).footer()).html(
+							api.column(14, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(15).footer()).html(
+							api.column(15, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+
+				});
+			}
+		})
+	})
+	$('#date_au2').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du2 = $('#date_du2').val();
+		var date_au2 = $('#date_au2').val();
+
+		$("#example2").dataTable().fnDestroy()
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau2: id,
+				date: date,
+				date_du2: date_du2,
+				date_au2: date_au2
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example2 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var b = 0; b < gp_data.length; b++) {
+					$('#example2 tbody').append(`
+			                <tr>
+				               <td>${gp_data[b].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[b].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[b].prenom}</td>
+				               <td style="text-align:center;">${gp_data[b].nom}</td>
+				               <td style="text-align:center;">${gp_data[b].matricule}</td>
+				               <td style="text-align:center;">${gp_data[b].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[b].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[b].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[b].date_du}</td>
+				               <td style="text-align:center;">${gp_data[b].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[b].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[b].ind_fonction}</td>
+				               <td style="text-align:center;">${gp_data[b].ind_sujetion}</td>
+				               <td style="text-align:center;">${gp_data[b].ind_responsabilite}</td>
+							   <td style="text-align:center;">${gp_data[b].ind_sursalaire}</td>
+							   <td style="text-align:center;">${gp_data[b].ind_logement}</td>
+			                </tr>
+						`);
+				}
+				$("#example2").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(13).footer()).html(
+							api.column(13, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(14).footer()).html(
+							api.column(14, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(15).footer()).html(
+							api.column(15, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+
+				});
+			}
+		})
+	})
+})
+//DATE 3
+$(document).ready(function() {
+	var id = $('#id_reference').val();
+	var date = $('#date_reference').val();
+	var date_du3 = $('#date_du3').val();
+	var date_au3 = $('#date_au3').val();
+	$("#example3").dataTable().fnDestroy()
+
+	$.ajax({
+		 url: "../controller/dashboard/tableau",
+		method: "POST",
+		data: {
+			tableau3: id,
+			date: date,
+			date_du3: date_du3,
+			date_au3: date_au3
+		},
+		//dataType: "JSON",
+		success: function(response) {
+			console.log(response)
+			$('#example3 tbody').html("");
+			//insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var c = 0; c < gp_data.length; c++) {
+				$('#example3 tbody').append(`
+			                <tr>
+				               <td>${gp_data[c].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[c].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[c].prenom}</td>
+				               <td style="text-align:center;">${gp_data[c].nom}</td>
+				               <td style="text-align:center;">${gp_data[c].matricule}</td>
+				               <td style="text-align:center;">${gp_data[c].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[c].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[c].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[c].date_du}</td>
+				               <td style="text-align:center;">${gp_data[c].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[c].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[c].iprg_employe}</td>
+				               <td style="text-align:center;">${gp_data[c].irpc_employe}</td>
+				               <td style="text-align:center;">${gp_data[c].s_nb_trimf}</td>
+							   <td style="text-align:center;">${gp_data[c].sum_trimf}</td>
+							   <td style="text-align:center;">${gp_data[c].s_nb_irpp}</td>
+							    <td style="text-align:center;">${gp_data[c].sum_irpp}</td>
+			                </tr>
+						`);
+			}
+			$("#example3").DataTable({
+				scrollX: true,
+				lengthMenu: [
+					[10, 25, 50, 250, -1],
+					[10, 25, 50, 250, "Tous"]
+				],
+				layout: {
+					topStart: {
+						buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+					}
+				},
+				"language": {
+
+					"sEmptyTable": "Aucune donnée disponible dans le tableau",
+					"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+					"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+					"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+					"sInfoPostFix": "",
+					"sInfoThousands": ",",
+					"sLengthMenu": "Afficher _MENU_ éléments",
+					"sLoadingRecords": "Chargement...",
+					"sProcessing": "Traitement...",
+					"sSearch": "Rechercher :",
+					"sZeroRecords": "Aucun élément correspondant trouvé",
+					"oPaginate": {
+						"sFirst": "Premier",
+						"sLast": "Dernier",
+						"sNext": "Suivant",
+						"sPrevious": "Précédent"
+					},
+					"oAria": {
+						"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+						"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+					},
+					"select": {
+						"rows": {
+							"_": "%d lignes sélectionnées",
+							"0": "Aucune ligne sélectionnée",
+							"1": "1 ligne sélectionnée"
+						}
+					}
+				},
+				footerCallback: function(tfoot, data, start, end, display) {
+					var api = this.api();
+					$(api.column(11).footer()).html(
+						api.column(11, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(12).footer()).html(
+						api.column(12, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(14).footer()).html(
+						api.column(14, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(16).footer()).html(
+						api.column(16, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+				}
+			});
+		}
+	})
+	$('#date_du3').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du3 = $('#date_du3').val();
+		var date_au3 = $('#date_au3').val();
+		$("#example3").dataTable().fnDestroy()
+
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau3: id,
+				date: date,
+				date_du3: date_du3,
+				date_au3: date_au3
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example3 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var c = 0; c < gp_data.length; c++) {
+					$('#example3 tbody').append(`
+			                <tr>
+				               <td>${gp_data[c].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[c].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[c].prenom}</td>
+				               <td style="text-align:center;">${gp_data[c].nom}</td>
+				               <td style="text-align:center;">${gp_data[c].matricule}</td>
+				               <td style="text-align:center;">${gp_data[c].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[c].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[c].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[c].date_du}</td>
+				               <td style="text-align:center;">${gp_data[c].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[c].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[c].iprg_employe}</td>
+				               <td style="text-align:center;">${gp_data[c].irpc_employe}</td>
+				               <td style="text-align:center;">${gp_data[c].s_nb_trimf}</td>
+							   <td style="text-align:center;">${gp_data[c].sum_trimf}</td>
+							   <td style="text-align:center;">${gp_data[c].s_nb_irpp}</td>
+							    <td style="text-align:center;">${gp_data[c].sum_irpp}</td>
+			                </tr>
+						`);
+				}
+				$("#example3").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(14).footer()).html(
+							api.column(14, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(16).footer()).html(
+							api.column(16, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+				});
+			}
+		})
+	})
+	$('#date_au3').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du3 = $('#date_du3').val();
+		var date_au3 = $('#date_au3').val();
+		$("#example3").dataTable().fnDestroy();
+
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau3: id,
+				date: date,
+				date_du3: date_du3,
+				date_au3: date_au3
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example3 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var c = 0; c < gp_data.length; c++) {
+					$('#example3 tbody').append(`
+			                <tr>
+				               <td>${gp_data[c].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[c].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[c].prenom}</td>
+				               <td style="text-align:center;">${gp_data[c].nom}</td>
+				               <td style="text-align:center;">${gp_data[c].matricule}</td>
+				               <td style="text-align:center;">${gp_data[c].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[c].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[c].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[c].date_du}</td>
+				               <td style="text-align:center;">${gp_data[c].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[c].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[c].iprg_employe}</td>
+				               <td style="text-align:center;">${gp_data[c].irpc_employe}</td>
+				               <td style="text-align:center;">${gp_data[c].s_nb_trimf}</td>
+							   <td style="text-align:center;">${gp_data[c].sum_trimf}</td>
+							   <td style="text-align:center;">${gp_data[c].s_nb_irpp}</td>
+							    <td style="text-align:center;">${gp_data[c].sum_irpp}</td>
+			                </tr>
+						`);
+				}
+				$("#example3").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(14).footer()).html(
+							api.column(14, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(16).footer()).html(
+							api.column(16, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+				});
+			}
+		})
+	})
+})
+//DATE 4
+$(document).ready(function() {
+	var id = $('#id_reference').val();
+	var date = $('#date_reference').val();
+	var date_du4 = $('#date_du4').val();
+	var date_au4 = $('#date_au4').val();
+	$("#example4").dataTable().fnDestroy()
+
+	$.ajax({
+		 url: "../controller/dashboard/tableau",
+		method: "POST",
+		data: {
+			tableau4: id,
+			date: date,
+			date_du4: date_du4,
+			date_au4: date_au4
+		},
+		//dataType: "JSON",
+		success: function(response) {
+			console.log(response)
+			$('#example4 tbody').html("");
+			//insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var d = 0; d < gp_data.length; d++) {
+				$('#example4 tbody').append(`
+			                <tr>
+				               <td>${gp_data[d].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[d].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[d].prenom}</td>
+				               <td style="text-align:center;">${gp_data[d].nom}</td>
+				               <td style="text-align:center;">${gp_data[d].matricule}</td>
+				               <td style="text-align:center;">${gp_data[d].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[d].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[d].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[d].date_du}</td>
+				               <td style="text-align:center;">${gp_data[d].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[d].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[d].irprg_patronale}</td>
+				               <td style="text-align:center;">${gp_data[d].irpc_patronale}</td>
+				               <td style="text-align:center;">${gp_data[d].css_accident_travail}</td>
+							   <td style="text-align:center;">${gp_data[d].css_allocation_familiale}</td>
+							   <td style="text-align:center;">${gp_data[d].cfce}</td>
+			                </tr>
+						`);
+			}
+			$("#example4").DataTable({
+				scrollX: true,
+				lengthMenu: [
+					[10, 25, 50, 250, -1],
+					[10, 25, 50, 250, "Tous"]
+				],
+				layout: {
+					topStart: {
+						buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+					}
+				},
+				"language": {
+
+					"sEmptyTable": "Aucune donnée disponible dans le tableau",
+					"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+					"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+					"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+					"sInfoPostFix": "",
+					"sInfoThousands": ",",
+					"sLengthMenu": "Afficher _MENU_ éléments",
+					"sLoadingRecords": "Chargement...",
+					"sProcessing": "Traitement...",
+					"sSearch": "Rechercher :",
+					"sZeroRecords": "Aucun élément correspondant trouvé",
+					"oPaginate": {
+						"sFirst": "Premier",
+						"sLast": "Dernier",
+						"sNext": "Suivant",
+						"sPrevious": "Précédent"
+					},
+					"oAria": {
+						"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+						"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+					},
+					"select": {
+						"rows": {
+							"_": "%d lignes sélectionnées",
+							"0": "Aucune ligne sélectionnée",
+							"1": "1 ligne sélectionnée"
+						}
+					}
+				},
+				footerCallback: function(tfoot, data, start, end, display) {
+					var api = this.api();
+					$(api.column(11).footer()).html(
+						api.column(11, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(12).footer()).html(
+						api.column(12, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(13).footer()).html(
+						api.column(13, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(14).footer()).html(
+						api.column(14, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(15).footer()).html(
+						api.column(15, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+				}
+			});
+		}
+	})
+	$('#date_du4').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du4 = $('#date_du4').val();
+		var date_au4 = $('#date_au4').val();
+		$("#example4").dataTable().fnDestroy();
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau4: id,
+				date: date,
+				date_du4: date_du4,
+				date_au4: date_au4
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example4 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var d = 0; d < gp_data.length; d++) {
+					$('#example4 tbody').append(`
+			                <tr>
+				               <td>${gp_data[d].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[d].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[d].prenom}</td>
+				               <td style="text-align:center;">${gp_data[d].nom}</td>
+				               <td style="text-align:center;">${gp_data[d].matricule}</td>
+				               <td style="text-align:center;">${gp_data[d].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[d].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[d].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[d].date_du}</td>
+				               <td style="text-align:center;">${gp_data[d].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[d].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[d].irprg_patronale}</td>
+				               <td style="text-align:center;">${gp_data[d].irpc_patronale}</td>
+				               <td style="text-align:center;">${gp_data[d].css_accident_travail}</td>
+							   <td style="text-align:center;">${gp_data[d].css_allocation_familiale}</td>
+							   <td style="text-align:center;">${gp_data[d].cfce}</td>
+			                </tr>
+						`);
+				}
+				$("#example4").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(13).footer()).html(
+							api.column(13, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(14).footer()).html(
+							api.column(14, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(15).footer()).html(
+							api.column(15, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+				});
+			}
+		})
+	})
+	$('#date_au4').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du4 = $('#date_du4').val();
+		var date_au4 = $('#date_au4').val();
+		$("#example4").dataTable().fnDestroy()
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau4: id,
+				date: date,
+				date_du4: date_du4,
+				date_au4: date_au4
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example4 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var d = 0; d < gp_data.length; d++) {
+					$('#example4 tbody').append(`
+			                <tr>
+				               <td>${gp_data[d].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[d].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[d].prenom}</td>
+				               <td style="text-align:center;">${gp_data[d].nom}</td>
+				               <td style="text-align:center;">${gp_data[d].matricule}</td>
+				               <td style="text-align:center;">${gp_data[d].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[d].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[d].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[d].date_du}</td>
+				               <td style="text-align:center;">${gp_data[d].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[d].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[d].irprg_patronale}</td>
+				               <td style="text-align:center;">${gp_data[d].irpc_patronale}</td>
+				               <td style="text-align:center;">${gp_data[d].css_accident_travail}</td>
+							   <td style="text-align:center;">${gp_data[d].css_allocation_familiale}</td>
+							   <td style="text-align:center;">${gp_data[d].cfce}</td>
+			                </tr>
+						`);
+				}
+				$("#example4").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(13).footer()).html(
+							api.column(13, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(14).footer()).html(
+							api.column(14, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(15).footer()).html(
+							api.column(15, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+				});
+			}
+		})
+	})
+})
+//DATE 5
+$(document).ready(function() {
+	var id = $('#id_reference').val();
+	var date = $('#date_reference').val();
+	var date_du5 = $('#date_du5').val();
+	var date_au5 = $('#date_au5').val();
+	$("#example5").dataTable().fnDestroy();
+
+	$.ajax({
+		 url: "../controller/dashboard/tableau",
+		method: "POST",
+		data: {
+			tableau5: id,
+			date: date,
+			date_du5: date_du5,
+			date_au5: date_au5
+		},
+		//dataType: "JSON",
+		success: function(response) {
+			console.log(response)
+			$('#example5 tbody').html("");
+			//insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var e = 0; e < gp_data.length; e++) {
+				$('#example5 tbody').append(`
+			                <tr>
+				               <td>${gp_data[e].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[e].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[e].prenom}</td>
+				               <td style="text-align:center;">${gp_data[e].nom}</td>
+				               <td style="text-align:center;">${gp_data[e].matricule}</td>
+				               <td style="text-align:center;">${gp_data[e].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[e].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[e].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[e].date_du}</td>
+				               <td style="text-align:center;">${gp_data[e].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[e].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[e].s_amicale}</td>
+				               <td style="text-align:center;">${gp_data[e].s_tabaski}</td>
+				               <td style="text-align:center;">${gp_data[e].s_aute_cotisation}</td>
+			                </tr>
+						`);
+			}
+			$("#example5").DataTable({
+				scrollX: true,
+				lengthMenu: [
+					[10, 25, 50, 250, -1],
+					[10, 25, 50, 250, "Tous"]
+				],
+				layout: {
+					topStart: {
+						buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+					}
+				},
+				"language": {
+
+					"sEmptyTable": "Aucune donnée disponible dans le tableau",
+					"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+					"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+					"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+					"sInfoPostFix": "",
+					"sInfoThousands": ",",
+					"sLengthMenu": "Afficher _MENU_ éléments",
+					"sLoadingRecords": "Chargement...",
+					"sProcessing": "Traitement...",
+					"sSearch": "Rechercher :",
+					"sZeroRecords": "Aucun élément correspondant trouvé",
+					"oPaginate": {
+						"sFirst": "Premier",
+						"sLast": "Dernier",
+						"sNext": "Suivant",
+						"sPrevious": "Précédent"
+					},
+					"oAria": {
+						"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+						"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+					},
+					"select": {
+						"rows": {
+							"_": "%d lignes sélectionnées",
+							"0": "Aucune ligne sélectionnée",
+							"1": "1 ligne sélectionnée"
+						}
+					}
+				},
+				footerCallback: function(tfoot, data, start, end, display) {
+					var api = this.api();
+					$(api.column(11).footer()).html(
+						api.column(11, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(12).footer()).html(
+						api.column(12, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(13).footer()).html(
+						api.column(13, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+				}
+			});
+		}
+	})
+	$('#date_du5').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du5 = $('#date_du5').val();
+		var date_au5 = $('#date_au5').val();
+		$("#example5").dataTable().fnDestroy();
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau5: id,
+				date: date,
+				date_du5: date_du5,
+				date_au5: date_au5
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example5 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var e = 0; e < gp_data.length; e++) {
+					$('#example5 tbody').append(`
+			                <tr>
+				               <td>${gp_data[e].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[e].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[e].prenom}</td>
+				               <td style="text-align:center;">${gp_data[e].nom}</td>
+				               <td style="text-align:center;">${gp_data[e].matricule}</td>
+				               <td style="text-align:center;">${gp_data[e].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[e].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[e].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[e].date_du}</td>
+				               <td style="text-align:center;">${gp_data[e].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[e].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[e].s_amicale}</td>
+				               <td style="text-align:center;">${gp_data[e].s_tabaski}</td>
+				               <td style="text-align:center;">${gp_data[e].s_aute_cotisation}</td>
+			                </tr>
+						`);
+				}
+				$("#example5").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(13).footer()).html(
+							api.column(13, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+				});
+			}
+		})
+	})
+	$('#date_au5').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du5 = $('#date_du5').val();
+		var date_au5 = $('#date_au5').val();
+		$("#example5").dataTable().fnDestroy();
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau5: id,
+				date: date,
+				date_du5: date_du5,
+				date_au5: date_au5
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example5 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var e = 0; e < gp_data.length; e++) {
+					$('#example5 tbody').append(`
+			                <tr>
+				               <td>${gp_data[e].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[e].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[e].prenom}</td>
+				               <td style="text-align:center;">${gp_data[e].nom}</td>
+				               <td style="text-align:center;">${gp_data[e].matricule}</td>
+				               <td style="text-align:center;">${gp_data[e].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[e].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[e].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[e].date_du}</td>
+				               <td style="text-align:center;">${gp_data[e].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[e].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[e].s_amicale}</td>
+				               <td style="text-align:center;">${gp_data[e].s_tabaski}</td>
+				               <td style="text-align:center;">${gp_data[e].s_aute_cotisation}</td>
+			                </tr>
+						`);
+				}
+				$("#example5").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(13).footer()).html(
+							api.column(13, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+				});
+			}
+		})
+	})
+})
+//DATE 6
+$(document).ready(function() {
+	var id = $('#id_reference').val();
+	var date = $('#date_reference').val();
+	var date_du6 = $('#date_du6').val();
+	var date_au6 = $('#date_au6').val();
+	$("#example6").dataTable().fnDestroy();
+
+	$.ajax({
+		 url: "../controller/dashboard/tableau",
+		method: "POST",
+		data: {
+			tableau6: id,
+			date: date,
+			date_du6: date_du6,
+			date_au6: date_au6
+		},
+		//dataType: "JSON",
+		success: function(response) {
+			console.log(response)
+			$('#example6 tbody').html("");
+			//insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var f = 0; f < gp_data.length; f++) {
+				$('#example6 tbody').append(`
+			                <tr>
+				               <td>${gp_data[f].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[f].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[f].prenom}</td>
+				               <td style="text-align:center;">${gp_data[f].nom}</td>
+				               <td style="text-align:center;">${gp_data[f].matricule}</td>
+				               <td style="text-align:center;">${gp_data[f].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[f].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[f].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[f].date_du}</td>
+				               <td style="text-align:center;">${gp_data[f].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[f].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[f].ind_telephone_in}</td>
+				               <td style="text-align:center;">${gp_data[f].ind_telephone_in}</td>
+				               <td style="text-align:center;">${gp_data[f].ind_autre_indemnite}</td>
+			                </tr>
+						`);
+			}
+			$("#example6").DataTable({
+				scrollX: true,
+				lengthMenu: [
+					[10, 25, 50, 250, -1],
+					[10, 25, 50, 250, "Tous"]
+				],
+				layout: {
+					topStart: {
+						buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+					}
+				},
+				"language": {
+
+					"sEmptyTable": "Aucune donnée disponible dans le tableau",
+					"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+					"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+					"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+					"sInfoPostFix": "",
+					"sInfoThousands": ",",
+					"sLengthMenu": "Afficher _MENU_ éléments",
+					"sLoadingRecords": "Chargement...",
+					"sProcessing": "Traitement...",
+					"sSearch": "Rechercher :",
+					"sZeroRecords": "Aucun élément correspondant trouvé",
+					"oPaginate": {
+						"sFirst": "Premier",
+						"sLast": "Dernier",
+						"sNext": "Suivant",
+						"sPrevious": "Précédent"
+					},
+					"oAria": {
+						"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+						"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+					},
+					"select": {
+						"rows": {
+							"_": "%d lignes sélectionnées",
+							"0": "Aucune ligne sélectionnée",
+							"1": "1 ligne sélectionnée"
+						}
+					}
+				},
+				footerCallback: function(tfoot, data, start, end, display) {
+					var api = this.api();
+					$(api.column(11).footer()).html(
+						api.column(11, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(12).footer()).html(
+						api.column(12, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+					$(api.column(13).footer()).html(
+						api.column(13, {
+							page: 'current'
+						}).data().reduce(function(a, b) {
+							var intVal = function(i) {
+								return typeof i === 'string' ?
+									i.replace(/\,/g, '.').replace(
+										/[^\d.-]/g, '') * 1 :
+									typeof i === 'number' ?
+									i : 0;
+							};
+							return intVal(a) + intVal(b);
+
+						}, 0).toLocaleString("fi-FI", {
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})
+					);
+				}
+			});
+		}
+	})
+	$('#date_du6').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du6 = $('#date_du6').val();
+		var date_au6 = $('#date_au6').val();
+		$("#example6").dataTable().fnDestroy();
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau6: id,
+				date: date,
+				date_du6: date_du6,
+				date_au6: date_au6
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example6 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var f = 0; f < gp_data.length; f++) {
+					$('#example6 tbody').append(`
+			                <tr>
+				               <td>${gp_data[f].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[f].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[f].prenom}</td>
+				               <td style="text-align:center;">${gp_data[f].nom}</td>
+				               <td style="text-align:center;">${gp_data[f].matricule}</td>
+				               <td style="text-align:center;">${gp_data[f].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[f].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[f].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[f].date_du}</td>
+				               <td style="text-align:center;">${gp_data[f].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[f].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[f].ind_telephone_in}</td>
+				               <td style="text-align:center;">${gp_data[f].ind_telephone_in}</td>
+				               <td style="text-align:center;">${gp_data[f].ind_autre_indemnite}</td>
+			                </tr>
+						`);
+				}
+				$("#example6").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(13).footer()).html(
+							api.column(13, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+				});
+			}
+		})
+	})
+	$('#date_au6').on('input', function(e) {
+		var id = $('#id_reference').val();
+		var date = $('#date_reference').val();
+		var date_du6 = $('#date_du6').val();
+		var date_au6 = $('#date_au6').val();
+		$("#example6").dataTable().fnDestroy();
+		$.ajax({
+			 url: "../controller/dashboard/tableau",
+			method: "POST",
+			data: {
+				tableau6: id,
+				date: date,
+				date_du6: date_du6,
+				date_au6: date_au6
+			},
+			//dataType: "JSON",
+			success: function(response) {
+				console.log(response)
+				$('#example6 tbody').html("");
+				//insérer le texte de test.php dans votre div
+				var gp_data = response;
+				for (var f = 0; f < gp_data.length; f++) {
+					$('#example6 tbody').append(`
+			                <tr>
+				               <td>${gp_data[f].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[f].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[f].prenom}</td>
+				               <td style="text-align:center;">${gp_data[f].nom}</td>
+				               <td style="text-align:center;">${gp_data[f].matricule}</td>
+				               <td style="text-align:center;">${gp_data[f].s_categorie}</td>
+				               <td style="text-align:center;">${gp_data[f].s_poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[f].telephone_e}</td>
+				               <td style="text-align:center;">${gp_data[f].date_du}</td>
+				               <td style="text-align:center;">${gp_data[f].date_paiement}</td>
+				               <td style="text-align:center;">${gp_data[f].mode_paie}</td>
+				               <td style="text-align:center;">${gp_data[f].ind_telephone_in}</td>
+				               <td style="text-align:center;">${gp_data[f].ind_telephone_in}</td>
+				               <td style="text-align:center;">${gp_data[f].ind_autre_indemnite}</td>
+			                </tr>
+						`);
+				}
+				$("#example6").DataTable({
+					scrollX: true,
+					lengthMenu: [
+						[10, 25, 50, 250, -1],
+						[10, 25, 50, 250, "Tous"]
+					],
+					layout: {
+						topStart: {
+							buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5',
+								'pdfHtml5'
+							]
+						}
+					},
+					"language": {
+
+						"sEmptyTable": "Aucune donnée disponible dans le tableau",
+						"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+						"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+						"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+						"sInfoPostFix": "",
+						"sInfoThousands": ",",
+						"sLengthMenu": "Afficher _MENU_ éléments",
+						"sLoadingRecords": "Chargement...",
+						"sProcessing": "Traitement...",
+						"sSearch": "Rechercher :",
+						"sZeroRecords": "Aucun élément correspondant trouvé",
+						"oPaginate": {
+							"sFirst": "Premier",
+							"sLast": "Dernier",
+							"sNext": "Suivant",
+							"sPrevious": "Précédent"
+						},
+						"oAria": {
+							"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+							"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+						},
+						"select": {
+							"rows": {
+								"_": "%d lignes sélectionnées",
+								"0": "Aucune ligne sélectionnée",
+								"1": "1 ligne sélectionnée"
+							}
+						}
+					},
+					footerCallback: function(tfoot, data, start, end, display) {
+						var api = this.api();
+						$(api.column(11).footer()).html(
+							api.column(11, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(12).footer()).html(
+							api.column(12, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+						$(api.column(13).footer()).html(
+							api.column(13, {
+								page: 'current'
+							}).data().reduce(function(a, b) {
+								var intVal = function(i) {
+									return typeof i === 'string' ?
+										i.replace(/\,/g, '.')
+										.replace(/[^\d.-]/g, '') *
+										1 :
+										typeof i === 'number' ?
+										i : 0;
+								};
+								return intVal(a) + intVal(b);
+
+							}, 0).toLocaleString("fi-FI", {
+								minimumFractionDigits: 0,
+								maximumFractionDigits: 0
+							})
+						);
+					}
+				});
+			}
+		})
+	})
+	 $('#download1').on('click', function (e) {
+            domtoimage.toBlob(document.getElementById('div-graphique1')).then(function (blob) {
+                window.saveAs(blob, 'Salaire.png')
+            })
+        })
+
+        $( '#download2').on('click', function (e) {
+            domtoimage.toBlob(document.getElementById('div-graphique2')).then(function (blob) {
+                window.saveAs(blob, 'Indemnite.png')
+            })
+        })
+
+        $('#download3').on('click', function (e) {
+            domtoimage.toBlob(document.getElementById('div-graphique3')).then(function (blob) {
+                window.saveAs(blob, 'Charges salariales.png')
+            })
+        })
+        $('#download4').on('click' , function (e) {
+            domtoimage.toBlob(document.getElementById('div-graphique4')).then(function (blob) {
+                window.saveAs(blob, 'Charges Patronales.png')
+            })
+        })
+        $('#download5').on('click', function (e) {
+            domtoimage.toBlob(document.getElementById('div-graphique5')).then(function (blob) {
+                window.saveAs(blob, 'Cotisation.png')
+            })
+        })
+        $('#download6').on('click', function (e) {
+            domtoimage.toBlob(document.getElementById('div-graphique6')).then(function (blob) {
+                window.saveAs(blob, 'Prime.png')
+            })
+        })
+
+	$('#ExportdataPdf1').click(function() {
+		let table = $("#example1").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		const doc = new jsPDF('l', 'mm')
+		doc.autoTable({
+			html: table[0],
+			styles: {
+				overflow: 'linebreak',
+				fontSize: 8,
+				halign: 'center'
+			},
+		})
+		doc.save('Salaire')
+	})
+	$('#Exporttableau1').click(function() {
+		let table = $("#example1").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		TableToExcel.convert(table[0], {
+			name: `Salaire.xlsx`,
+			sheet: {
+				name: 'Salaire'
+			}
+		});
+	});
+	$('#ExportdataPdf2').click(function() {
+		let table = $("#example2").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		const doc = new jsPDF('l', 'mm')
+		doc.autoTable({
+			html: table[0],
+			styles: {
+				overflow: 'linebreak',
+				fontSize: 8,
+				halign: 'center'
+			},
+		})
+		doc.save('Indemnite')
+	})
+	$('#Exporttableau2').click(function() {
+		let table = $("#example2").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		TableToExcel.convert(table[0], {
+			name: `Indemnite.xlsx`,
+			sheet: {
+				name: 'Indemnite'
+			}
+		});
+	});
+	$('#ExportdataPdf3').click(function() {
+		let table = $("#example3").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		const doc = new jsPDF('l', 'mm')
+		doc.autoTable({
+			html: table[0],
+			styles: {
+				overflow: 'linebreak',
+				fontSize: 8,
+				halign: 'center'
+			},
+		})
+		doc.save('Charges salariales')
+	})
+	$('#Exporttableau3').click(function() {
+		let table = $("#example3").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		TableToExcel.convert(table[0], {
+			name: `Charges salariales.xlsx`,
+			sheet: {
+				name: 'Charges salariales'
+			}
+		});
+	});
+	$('#ExportdataPdf4').click(function() {
+		let table = $("#example4").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		const doc = new jsPDF('l', 'mm')
+		doc.autoTable({
+			html: table[0],
+			styles: {
+				overflow: 'linebreak',
+				fontSize: 8,
+				halign: 'center'
+			},
+		})
+		doc.save('Charges patronales')
+	})
+	$('#Exporttableau4').click(function() {
+		let table = $("#example4").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		TableToExcel.convert(table[0], {
+			name: `Charges patronales.xlsx`,
+			sheet: {
+				name: 'Charges patronales'
+			}
+		});
+	});
+	$('#ExportdataPdf5').click(function() {
+		let table = $("#example5").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		const doc = new jsPDF('l', 'mm')
+		doc.autoTable({
+			html: table[0],
+			styles: {
+				overflow: 'linebreak',
+				fontSize: 8,
+				halign: 'center'
+			},
+		})
+		doc.save('Cotisation')
+	})
+	$('#Exporttableau5').click(function() {
+		let table = $("#example5").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		TableToExcel.convert(table[0], {
+			name: `Cotisation.xlsx`,
+			sheet: {
+				name: 'Cotisation'
+			}
+		});
+	});
+	$('#ExportdataPdf6').click(function() {
+		let table = $("#example6").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		const doc = new jsPDF('l', 'mm')
+		doc.autoTable({
+			html: table[0],
+			styles: {
+				overflow: 'linebreak',
+				fontSize: 8,
+				halign: 'center'
+			},
+		})
+		doc.save('Prime')
+	})
+	$('#Exporttableau6').click(function() {
+		let table = $("#example6").clone();
+		console.log(table);
+		table.find(".no-export").each(function() {
+			$(this).remove();
+		});
+		TableToExcel.convert(table[0], {
+			name: `Prime.xlsx`,
+			sheet: {
+				name: 'Prime'
+			}
+		});
+	});
+})
+</script>
+<?php } else {
+header("Location:../");
+} ?>

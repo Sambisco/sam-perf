@@ -1,0 +1,576 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<!------MAIN-CONTENT-------->
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1>Demande d'absence</h1>
+		</div>
+		<div class="baniere-right">
+
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-clock"></i></div>
+		<div class="main-sous-content">
+
+			<div class="content-list content-list1">
+
+			</div>
+			<!----------------PAGINATION----------->
+			<div class="pagination">
+				<div class="showingInfo" id="showingInfo1"></div>
+				<div class="showingPage" id="pagination1"></div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<!------MODAL AJOUT-------->
+<div class="petit close-modal" id="ajouter-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">Gestion pointage</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="container-form">
+					<form id="insertForm">
+						<div class="user-details-login">
+							<div class="input-group">
+								<label class="label-details">Date</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-home fa-icon"></i></span>
+									<input type="date" class="text-input" name="date" id="date_nbr_absence"
+										required="required" placeholder="Nom departement"
+										value="<?php echo date('Y-m-d'); ?>">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Nombre d'absence</label>
+								<div class="input-box">
+									<span class="span-left"><i
+											class="fa fa-exclamation-triangle fa-icon"></i></span>
+									<input type="text" class="text-input" id="nbre_absence"
+										readonly="readonly"
+										placeholder="Nom departement">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="insertdata">Enregister</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!------FIN MODAL AJOUT-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+	<div class="petit close-modal" id="modifier-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">Demande d'absence</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="up_profil_imgPreview">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="edit_id" id="edit_id">
+
+						<h1 class="card-title" id="up-title-name"></h1>
+						<div class="nextstep-update nextstep-active-update">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Période du</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input" name="date_v"
+											required="required"
+											id="date_du" placeholder="Nom departement" readonly>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Période au</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input" name="date_v"
+											required="required"
+											id="date_au" placeholder="Nom departement" readonly>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Motif</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-signature fa-icon"></i></span>
+										<input type="text" class="text-input" name="date_v"
+											required="required"
+											id="motif" placeholder="Motif" readonly>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nombre de jours</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-signature fa-icon"></i></span>
+										<input type="text" class="text-input" name="date_v"
+											required="required"
+											id="nbr_jour" placeholder="Motif" readonly>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">A. et S. du supérieur hiérarchique
+									</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-ring fa-icon"></i></span>
+										<select name="avis"
+											class="js-searchBox edit_contrat13 input-required-update1"
+											id="avis" required="required">
+											<option value>Selectionnez</option>
+											<option value="Oui">Oui</option>
+											<option value="Non">Non</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group fetch-input">
+									<label class="label-details">Precision supérieur hiérarchique</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-signature fa-icon"></i></span>
+										<input type="text" class="text-input" name="precision_superieur"
+											placeholder="Precisez" id="precision_superieur"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group fetch-input">
+									<label class="label-details">Document</label>
+									<div class="input-box">
+										<input type="file" class="text-file etablissement" name="fichier">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Avis du RH </label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-ring fa-icon"></i></span>
+										<select name="avis_rh"
+											class="js-searchBox edit_contrat13 input-required-update1"
+											id="avis_rh"
+											required="required">
+											<option value>Selectionnez</option>
+											<option value="Oui">Accepter</option>
+											<option value="Non">Rejetter</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="updatetdata">Enregistrer</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL MODIFIER-------->
+<!------MODAL SUPPRIMER-------->
+<div class="petit close-modal" id="supprimer-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">SUPPRIMER Salaire</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="container-form">
+					<form id="deleteForm">
+						<input type="hidden" name="delete_id" id="delete_id">
+
+						<div class="user-details-login">
+							<div class="input-group">
+								<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-trash"></i> </span>
+									<input type="text" class="text-input" name id="nom_del" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="deletedata">Supprimer</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!------FIN MODAL SUPPRIMER-------->
+<div class="grand close-modal" id="indemnite-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<div class="input-box">
+							<button type="submit" class="footer-button-export"
+								id="Exportindemnite">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf">PDF</button>
+
+						</div>
+					</div>
+				</div>
+				<div class="tb_pointage">
+
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+fetchdata()
+
+function fetchdata() {
+	var id = $("#id_reference").val()
+	$.ajax({
+		url: "../controller/demande_absence/fetch_demande_absence",
+		type: "POST",
+		data: {
+			id: id
+		},
+		success: function(response) {
+			$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var a = 0; a < gp_data.length; a++) {
+				var div1 = `<div class="parent box result well">
+					 <div class="card">
+					   <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[a].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].prenom} ${gp_data[a].nom}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[a].matricule}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-chalkboard-teacher"></i><span>${gp_data[a].poste_occupe}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar-check"></i><span>${gp_data[a].periode_du}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar-times"></i><span>${gp_data[a].periode_au}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-file-contract"></i><span>${gp_data[a].motif}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-clock"></i><span>${gp_data[a].nbr_jour} jours</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-hourglass-half"></i><span>${gp_data[a].avis_rh}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+							<ul class="navigation_list">
+					           <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="updatebtn" data-id="${gp_data[a].id_demande_absence}">
+					           	<a href="#">
+					           		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+					           		<span class="text">Modifier</span>
+									<span class="lampe"></span>
+					           	</a>
+					           </li>
+					           <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="printbtn" data-id="${gp_data[a].id_demande_absence}">
+					           	<a href="#">
+					           		<span class="icon"><i class="fas fa-file"></i></span>
+					           		<span class="text">Imprimer</span>
+									<span class="lampe"></span>
+					           	</a>
+					           </li>
+				           </ul>
+						</div>
+					</div>
+				  </div>`;
+				$('.content-list1').append(div1);
+			}
+			updateSectionItems(0);
+		},
+	})
+}
+
+	 $(document).on("click", ".active_nav_click_list", function (e) {
+            e.preventDefault();
+			var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+			console.log("ID chiffré cliqué:", encryptedId);
+
+			// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+			var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+			$(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+			$(this).addClass("active_nav_list");
+
+			// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+		});
+$(document).on('click', '#printbtn', function(e) {
+	var id = $(this).data('id');
+	window.open(`../pdf/demande_absence?pdf=${id}`, '_blank');
+})
+$('.js-searchBox').select2({
+	width: '100%'
+});
+//PHOTO
+$('.fab-button').on('click', function() {
+	$(".fab-show").show(600);
+	$(".fab-hide").show();
+	$(".fab-button").hide();
+})
+$('.fab-hide').on('click', function() {
+	$(".fab-button").show();
+	$(".fab-show").hide(600);
+	$(".fab-hide").hide();
+})
+$("#infoindemnite").click(function() {
+	tb_pointage();
+	$("#indemnite-modal").fadeIn();
+});
+$(document).ready(function(e) {
+	//INSERTION
+	$("#insertForm").on('submit', function(e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '../controller/absence/insert',
+			data: new FormData(this),
+			//dataType: 'json',
+			contentType: false,
+			cache: false,
+			processData: false,
+
+			success: function(response) {
+				console.log(response)
+				if (response === 'true') {
+					Swal.fire({
+						icon: 'success',
+						title: 'Existe',
+						text: "L'absence a déja été enregistrer.",
+						confirmButtonColor: '#127b8e',
+						showConfirmButton: false,
+						timer: 2000
+					})
+
+				} else {
+					Swal.fire({
+						icon: 'success',
+						title: 'Enregistré',
+						text: "Enregistrement effectué avec succés.",
+						confirmButtonColor: '#127b8e',
+						showConfirmButton: false,
+						timer: 2000
+					}).then(function() {
+						fetchdata();
+					});
+				}
+			}
+		});
+		$("#ajouter-modal").fadeOut();
+
+	});
+	//UPDATE
+	$("#updateForm").on('submit', function(e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '../controller/demande_absence/save',
+			data: new FormData(this),
+			dataType: 'json',
+			contentType: false,
+			cache: false,
+			processData: false,
+
+			success: function(response) {
+				console.log(response)
+			}
+		});
+		$("#modifier-modal").fadeOut();
+		Swal.fire({
+			icon: 'success',
+			title: 'Modifié',
+			text: "Modification effectuée avec succés.",
+			confirmButtonColor: '#127b8e',
+			showConfirmButton: false,
+			timer: 2000
+		}).then(function() {
+			fetchdata();
+		});
+	});
+	// SUPPRIMER
+	$("#deleteForm").on('submit', function(e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '../controller/departement/delete',
+			data: new FormData(this),
+			dataType: 'json',
+			contentType: false,
+			cache: false,
+			processData: false,
+
+			success: function(response) {
+				console.log(response)
+			}
+		});
+		$("#supprimer-modal").fadeOut();
+		Swal.fire({
+			icon: 'error',
+			title: 'Supprimé',
+			text: "Suppression effectuée avec succés.",
+			confirmButtonColor: '#127b8e',
+			showConfirmButton: false,
+			timer: 2000
+		}).then(function() {
+			fetchdata();
+		});
+	});
+});
+
+// SHOW UPDATE
+$(document).on('click', '#updatebtn', function(e) {
+	var id_demande_absence = $(this).data('id');
+	$.ajax({
+		url: '../controller/demande_absence/fetch_demande_absence',
+		type: "post",
+		data: {
+			id_demande_absence: id_demande_absence
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data)
+			$("#edit_id").val(data.id_demande_absence);
+			$("#up-title-name").html(data.prenom + " " + data.nom);
+			$(".title-matricule").html(data.matricule);
+			$(".profil_imgPreview").attr("src", data.photo);
+			$("#motif").val(data.motif);
+			$("#date_du").val(data.periode_du);
+			$("#date_au").val(data.periode_au);
+			$("#nbr_jour").val(data.nbr_jour);
+			$("#avis_rh").val(data.avis_rh).trigger("change");
+			$("#precision_superieur").val(data.precision_superieur);
+			$("#avis").val(data.avis).trigger("change")
+			$("#modifier-modal").fadeIn();
+		}
+
+	});
+
+
+});
+//SHOW DELETE
+$(document).on('click', '#deletebtn', function(e) {
+
+	e.preventDefault();
+
+	var id_departement = $(this).data('id');
+	$.ajax({
+		url: '../controller/departement/fetch_departement',
+		type: "post",
+		data: {
+			id_departement: id_departement
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data.logo)
+			$("#delete_id").val(data.id_departement);
+			$("#nom_del").val(data.nom_departement);
+			$("#supprimer-modal").fadeIn();
+
+		}
+
+	});
+
+});
+$('#ExportdataPdf').click(function() {
+	let table = $("#example1").clone();
+	console.log(table);
+	table.find(".no-export").each(function() {
+		$(this).remove();
+	});
+	const doc = new jsPDF('l', 'mm')
+	doc.autoTable({
+		html: table[0],
+		styles: {
+			overflow: 'linebreak',
+			fontSize: 8,
+			halign: 'center'
+		},
+	})
+	doc.save('Demande absence')
+})
+$('#Exportindemnite').click(function() {
+	let table = $("#example1").clone();
+	console.log(table);
+	table.find(".no-export").each(function() {
+		$(this).remove();
+	});
+	TableToExcel.convert(table[0], {
+		name: `Demande absence.xlsx`,
+		sheet: {
+			name: 'Demande absence'
+		}
+	});
+});
+//SHOW INFO
+</script>

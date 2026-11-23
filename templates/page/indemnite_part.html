@@ -1,0 +1,2679 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<!------MAIN-CONTENT-------->
+<div class="main-content ">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1>Indemnite | Part</h1>
+		</div>
+		<div class="baniere-right">
+			<div class="content-navigation">
+				<ul class="navigation">
+					<li class="active_nav_click" id="service" style="display: none;">
+						<a href="#">
+							<span class="icon"><i class="fas fa-signature"></i></span>
+							<span class="text">Contrat</span>
+						</a>
+					</li>
+					<li class="active_nav_click" id="employe" style="display: none;">
+						<a href="#">
+							<span class="icon"><i class="fas fa-users"></i></span>
+							<span class="text">Recruit...</span>
+						</a>
+					</li>
+					<li class="active_nav active_nav_click" id="infocomplete">
+						<a href="#">
+							<span class="icon"><i class="fas fa-file-export"></i></span>
+							<span class="text">Exporter</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-home"></i></div>
+		<!---------SOUS CONTAINT 1----------->
+		<div class="main-sous-content main-sous-content1 active-main-sous-content">
+
+			<div class="content-global">
+				<div class="content-list content-list1">
+
+				</div>
+				<!----------------PAGINATION----------->
+				<div class="pagination">
+					<div class="showingInfo" id="showingInfo1"></div>
+					<div class="showingPage" id="pagination1"></div>
+				</div>
+
+			</div>
+		</div>
+		<!---------FIN SOUS CONTAINT 1----------->
+
+		<!---------SOUS CONTAINT 2----------->
+
+		<!---------FIN SOUS CONTAINT 2----------->
+	</div>
+</div>
+<!------MODAL AJOUT INSCRIPTION-------->
+<form id="insertConge">
+	<div class="petit close-modal" id="ajouter-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close">
+					<span>AJOUTER Contrat</span>
+					<div class="btn-close-modal close-modal">
+						<i class="fa fa-times-circle"></i>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="id_employe" id="id_employe">
+						<div class="upload">
+							<img src="../img/image/image-profil.png" alt class="profil_imgPreview"
+								id="ad_profil_imgPreview">
+						</div>
+						<div class="title-name" id="ad_title-name"></div>
+						<div class="title-matricule" id="ad_title-matricule"
+							style="display: none;"></div>
+						<!----------ProgressBar--------->
+						<div class="progressbarcontrat">
+							<div class="progress-line" id="progress-line"></div>
+							<div class="progress-step progress-step-active"
+								data-title="Recruitement"></div>
+							<div class="progress-step" data-title="Contrat"></div>
+							<div class="progress-step" data-title="Part / Indemnite"></div>
+							<div class="progress-step" data-title="Personnel"></div>
+							<div class="progress-step" data-title="Document"></div>
+						</div>
+
+						<!---------Form----------------->
+						<div class="nextstep nextstep-active">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Demande d'emploi</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-chalkboard-teacher fa-icon"></i></span>
+										<input type="text" class="text-input etablissement" name="poste"
+											id="add_poste"
+											placeholder="Demande d'emploi" readonly>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Telephone</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-phone fa-rotate-90 fa-icon"></i></span>
+										<input type="text" class="text-input" name="telephone_e"
+											id="add_telephone_e"
+											required="required" placeholder="Telephone" readonly>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">N° carte d'identite</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input input-required0" name="cin_e"
+											id="cin_e" required="required"
+											placeholder="N° carte d'identite"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nationalité</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-flag fa-icon"></i></span>
+										<input type="text" class="text-input input-required0"
+											name="nationalite" id="nationalite"
+											placeholder="Nationalité"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nom du père</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text" class="text-input etablissement input-required0"
+											name="nom_pere" id="nom_pere"
+											placeholder="Nom du père"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nom de la mère</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text" class="text-input etablissement input-required0"
+											name="nom_mere" id="nom_mere"
+											placeholder="Nom de la mère"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="button"
+									class="footer-button-register btn-next-progress btn-next-progress0"
+									id="inscriptdata">Suivant</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+						<div class="nextstep">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Nature du contrat <span
+											class="required-required">*</span></label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-signature  fa-icon"></i></span>
+										<input type="text" class="text-input contrat9 input-required1"
+											name="nature"
+											placeholder="Nature du contrat" id required
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Poste Occupé</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-chalkboard-teacher fa-icon"></i></span>
+										<input type="text" class="text-input contrat10 input-required1"
+											name="poste_occupe" placeholder="Poste Occupé" id required
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date embauche</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i>
+										</span>
+										<input type="date" class="text-input contrat11 input-required11"
+											name="date_embauche" id required
+											value="<?php echo date('Y-m-d'); ?>">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date fin de contrat</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i>
+										</span>
+										<input type="date" class="text-input contrat12 input-required11"
+											name="date_sorti" id required value="<?php echo date('Y-m-d'); ?>">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Categorie</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-graduation-cap fa-icon"></i></span>
+										<select name="categorie" class="js-searchBox input-required11"
+											required="required">
+											<option value>Selectionnez</option>
+											<option value="Cadre">Cadre</option>
+											<option value="Non cadre">Non cadre</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Situation Matrimoniale</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-ring fa-icon"></i></span>
+										<select name="situation_matr"
+											class="js-searchBox contrat13 input-required11"
+											id required="required">
+											<option value>Selectionnez</option>
+											<option value="Célibataire">Célibataire</option>
+											<option value="Marié(e)">Marié(e)</option>
+											<option value="Veuf(ve)">Veuf(ve)</option>
+											<option value="Divorcé(e)">Divorcé(e)</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Conjoint(e)</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-users fa-icon"></i></span>
+										<input type="text" class="text-input edit_contrat14 input-required1"
+											name="conjoint" placeholder="Conjoint(e)" id
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nombre d'enfant</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-users fa-icon"></i></span>
+										<input type="text" class="text-input contrat14 input-required1"
+											name="enfant"
+											placeholder="Nombre d'enfant" id required
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nombre d'heure par semaine</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-clock fa-icon"></i></span>
+										<input type="text" class="text-input contrat15 input-required1"
+											name="heure"
+											placeholder="Nombre d'heure par semaine" id required
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Salaire de base</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-address-card fa-icon"></i></span>
+										<input type="text" class="text-input salaire_lettre input-required1"
+											name="salaire" placeholder="Salaire de base" id required
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+										<input type="hidden" name="salaire_en_lettre" id="salaire_lettre">
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="button" class="footer-button-register btn-prev-progress"
+									id="inscriptdata">Précedent</button>
+								<button type="button"
+									class="footer-button-register btn-next-progress btn-next-progress1"
+									id="inscriptdata">Suivant</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+						<div class="nextstep">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">PART TRIMF</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<select name="nb_trimf"
+											class="js-searchBox contrat13 input-required2"
+											id
+											required="required">
+											<option value>Selectionnez</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">PART IRPP</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<select name="nb_irpp" class="js-searchBox contrat13 input-required2"
+											id
+											required="required">
+											<option value>Selectionnez</option>
+											<option value="1">1</option>
+											<option value="1.5">1.5</option>
+											<option value="2">2</option>
+											<option value="2.5">2.5</option>
+											<option value="3">3</option>
+											<option value="3.5">3.5</option>
+											<option value="4">4</option>
+											<option value="4.5">4.5</option>
+											<option value="5">5</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnité de fonction </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input contrat17" name="fonction"
+											placeholder="Indemnité de fonction" id
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnité de sujétion</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input contrat18" name="sujetion"
+											placeholder="Indemnité de sujétion" id
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnité de responsabilité </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input contrat19" name="responsabilite"
+											placeholder="Indemnité de responsabilité " id
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Sursalaire </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input contrat19" name="sursalaire"
+											placeholder="Sursalaire" id
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnité de logement </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input contrat20" name="logement"
+											placeholder="indemnités de logement" id
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnité de transport (non
+										imposable)</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input contrat20" name="transport"
+											placeholder="indemnités de transport" id
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnité frais téléphonique (non
+										imposable)</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input contrat20" name="telephone_in"
+											placeholder="Indemnités frais téléphonique" id
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Autre indemnité (non imposable)</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input contrat20"
+											name="autre_indemnite"
+											placeholder="Autre indemnité" id
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="button" class="footer-button-register btn-prev-progress"
+									id="inscriptdata">Précedent</button>
+								<button type="button"
+									class="footer-button-register btn-next-progress btn-next-progress2"
+									id="inscriptdata">Suivant</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+						<div class="nextstep">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Departement</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-home fa-icon"></i></span>
+										<select name="id_departement" class="js-searchBox input-required3"
+											required="required">
+											<?php
+											echo $departement;
+											?>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Antenne Regionale</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-home fa-icon"></i></span>
+										<select name="id_region" class="js-searchBox input-required3"
+											required="required">
+											<?php
+											echo $region;
+											?> </select>
+									</div>
+								</div>
+
+								<div class="input-group">
+									<label class="label-details">Horaire début</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa  fa-clock fa-icon"></i></span>
+										<input type="time" class="text-input input-required3 heure_debut"
+											name="heure_debut" placeholder="Horaire début" id
+											required="required">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Horaire décente</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa  fa-clock fa-icon"></i></span>
+										<input type="time" class="text-input input-required3 heure_decente"
+											name="heure_decente" placeholder="Horaire décente" id
+											required="required">
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="button" class="footer-button-register btn-prev-progress"
+									id="inscriptdata">Précedent</button>
+								<button type="button"
+									class="footer-button-register btn-next-progress btn-next-progress3"
+									id="inscriptdata">Suivant</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+						<div class="nextstep">
+							<div class="user-details-login">
+								<textarea name="document_lettre" id="document_lettre" cols="30"
+									rows="10"></textarea>
+							</div>
+							<div class="footer-modal">
+								<button type="button" class="footer-button-register btn-prev-progress"
+									id="inscriptdata">Précedent</button>
+								<button type="submit" class="footer-button-register"
+									id="inscriptdata">Enregistrer</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL AJOUT INSCRIPTION-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+
+	<div class="petit close-modal" id="modifier-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span>MODIFIER</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="up_profil_imgPreview">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="edit_updapte_part" id="edit_id">
+						<input type="hidden" name="id_employe" id="edit_employe">
+
+						<h1 class="card-title" id="up-title-name"></h1>
+						<div class="progressbarcontrat">
+							<div class="progress-line-update" id="progress-line-update"></div>
+							<div class="progress-step-update  progress-step-active-update"
+								data-title="Nombre&nbsp;de&nbsp;part"></div>
+							<div class="progress-step-update" data-title="Indemnite"></div>
+						</div>
+
+						<div class="nextstep-update nextstep-active-update">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Categorie</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-graduation-cap fa-icon"></i></span>
+										<select name="categorie" class="js-searchBox input-required-update"
+											id="edit_id_charge" required="required">
+											<option value>Selectionnez</option>
+											<option value="Cadre">Cadre</option>
+											<option value="Non cadre">Non cadre</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Situation Matrimoniale</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-ring fa-icon"></i></span>
+										<select name="situation_matr"
+											class="js-searchBox edit_contrat13 input-required-update"
+											id="edit_situation_matr" required="required">
+											<option value>Selectionnez</option>
+											<option value="Célibataire">Célibataire</option>
+											<option value="Marié(e)">Marié(e)</option>
+											<option value="Veuf(ve)">Veuf(ve)</option>
+											<option value="Divorcé(e)">Divorcé(e)</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Conjoint(e)</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-users fa-icon"></i></span>
+										<input type="text"
+											class="text-input edit_contrat14 input-required-update"
+											name="conjoint" placeholder="Conjoint(e)" id="edit_conjoint"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nombre d'enfant</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-users fa-icon"></i></span>
+										<input type="text"
+											class="text-input edit_contrat14 input-required-update"
+											name="enfant" placeholder="Nombre d'enfant" id="edit_enfant"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nombre d'heure par semaine</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-clock fa-icon"></i></span>
+										<input type="text"
+											class="text-input edit_contrat15 input-required-update"
+											name="heure" placeholder="Nombre d'heure par semaine"
+											id="edit_heure"
+											required
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Salaire de base</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-address-card fa-icon"></i></span>
+										<input type="text"
+											class="text-input edit_contrat16 input-required-update"
+											name="salaire" placeholder="Salaire de base" id="edit_salaire">
+										<input type="hidden" name="salaire_en_lettre"
+											id="edit_salaire_lettre">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">PART TRIMF</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<select name="nb_trimf"
+											class="js-searchBox contrat13 input-required-update"
+											id="edit_nb_trimf" required="required">
+											<option value>Selectionnez</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">PART IRPP</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<select name="nb_irpp"
+											class="js-searchBox contrat13 input-required-update"
+											id="edit_nb_irpp" required="required">
+											<option value>Selectionnez</option>
+											<option value="1.0">1</option>
+											<option value="1.5">1.5</option>
+											<option value="2.0">2</option>
+											<option value="2.5">2.5</option>
+											<option value="3.0">3</option>
+											<option value="3.5">3.5</option>
+											<option value="4.0">4</option>
+											<option value="4.5">4.5</option>
+											<option value="5.0">5</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="nextstep-update">
+							<div class="user-details-register">
+
+								<div class="input-group">
+									<label class="label-details">Indemnité de fonction </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="fonction"
+											placeholder="Indemnité de fonction" id="edit_fonction"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnité de sujétion</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="sujetion"
+											placeholder="Indemnité de sujétion" id="edit_sujetion"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnité de responsabilité </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="responsabilite"
+											placeholder="Indemnité de responsabilité " id="edit_responsabilite"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Sursalaire </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="sursalaire"
+											placeholder="Sursalaire" id="edit_sursalaire"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnités de logement </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="logement"
+											placeholder="indemnités de congés" id="edit_logement"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnités de transport (non
+										imposable)</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="transport"
+											placeholder="indemnités de transport" id="edit_transport"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Indemnités frais téléphonique (non
+										imposable)</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input " name="telephone_in"
+											placeholder="Indemnités frais téléphonique" id="edit_telephone"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Autre indemnité (non imposable)</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa  fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input contrat20"
+											name="autre_indemnite"
+											placeholder="Autre indemnité" id="edit_autre_indemnite"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="footer-modal">
+							<button type="button" class="footer-button-register"
+								id="btn-prev-progress-update">Précedent</button>
+							<button type="button" class="footer-button-register"
+								id="btn-next-progress-update">Suivant</button>
+							<button type="submit" class="footer-button-register"
+								id="submit-btn-update">Modifier</button>
+							<button type="button"
+								class="footer-button-close close-modal">Fermer</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL MODIFIER-------->
+
+<!------MODAL SUPPRIMER-------->
+<div class="petit close-modal" id="supprimer-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">SUPPRIMER Contrat</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="container-form">
+					<form id="deleteForm">
+						<input type="hidden" name="delete_id" id="delete_id">
+						<div class="upload">
+							<img src="../img/image/image-profil.png" alt class="profil_imgPreview"
+								id="del_profil_imgPreview">
+						</div>
+						<div class="title-name" id="del_title-name"></div>
+						<div class="title-matricule" id="del_title-matricule"></div>
+						<div class="user-details-login">
+							<div class="input-group">
+								<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-trash"></i> </span>
+									<input type="text" class="text-input" name id="nom_del" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="deletedata">Supprimer</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!------FIN MODAL SUPPRIMER-------->
+<!------MODAL INFO-------->
+<form id="saveLetter">
+	<div class="grand close-modal" id="lettre-modal">
+		<div class="modal-panel-grand">
+			<div class="overlay-inner">
+				<div class="modal-close">
+					<span class="title">Contrat</span>
+					<div class="btn-close-modal close-modal">
+						<i class="fa fa-times-circle"></i>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-letter">
+
+						<input type="hidden" name="id_lettre_contrat" id="id_lettre_contrat">
+						<input type="hidden" name="id_reference" id="get_id_reference">
+						<textarea name="corps_text" class="text-input" id="text-input" cols="30"
+							rows="10"></textarea>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="btnsaveLetter">Enregistrer</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!------FIN MODAL INFO-------->
+<!--------MODAL INFO GENERAL------->
+<div class="grand close-modal" id="infocomplet-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Information contrat</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<section class="timeline_about card_tab_pane">
+					<div class="tabs">
+						<ul>
+							<li class="timeline tab_btn active_tab">
+								<i class="ri-eye-fill ri"></i>
+								<span>Part</span>
+							</li>
+							<li class="about tab_btn">
+								<i class="ri-user-3-fill ri"></i>
+								<span>Indémnité</span>
+							</li>
+						</ul>
+					</div>
+
+					<div class="contact_Info content_tab active_tab">
+						<div class="user-details-register user-details-register-dasboard">
+							<div class="input-group">
+								<div class="input-box" style="display: flex;gap:5px;">
+									<button type="submit" class="footer-button-export"
+										id="Exportcontrat">EXCEL</button>
+									<button type="submit" class="footer-button-export"
+										id="ExportdataPdf">PDF</button>
+								</div>
+							</div>
+						</div>
+						<table id="example" class="stripe hover mytab" style="width:100%;"
+							data-order='[[0,"desc"]]'>
+							<thead>
+								<tr>
+									<th>#</th>
+									<th class="no-export">Photo</th>
+									<th style="min-width:200px">Prenom</th>
+									<th style="min-width:100px">Nom</th>
+									<th style="min-width:100px">Matricule</th>
+									<th style="min-width:150px">Date de naissance</th>
+									<th style="min-width:150px">Lieu de naissance</th>
+									<th style="min-width:150px">Telephone</th>
+									<th style="min-width:150px">Contrat</th>
+									<th style="min-width:250px">Poste Occupé</th>
+									<th style="min-width:200px">Date d'embauche</th>
+									<th style="min-width:200px">Date fin de contrat</th>
+									<th style="min-width:150px">Salaire de base</th>
+									<th style="min-width:250px">Situation matrimoniale</th>
+									<th style="min-width:150px">Conjoint(e)</th>
+									<th style="min-width:150px">Enfant</th>
+									<th style="min-width:100px">IRPP</th>
+									<th style="min-width:100px">TRIMF</th>
+									<th style="min-width:100px">Genre</th>
+									<th style="min-width:250px">Expire</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+
+						</table>
+					</div>
+					<div class="contact_Info content_tab">
+						<div class="user-details-register user-details-register-dasboard">
+							<div class="input-group">
+								<div class="input-box" style="display: flex;gap:5px;">
+									<button type="submit" class="footer-button-export"
+										id="Exportindemnite">EXCEL</button>
+									<button type="submit" class="footer-button-export"
+										id="ExportdataPdf1">PDF</button>
+								</div>
+							</div>
+						</div>
+						<table id="example1" class="stripe hover mytab" style="width:100%;"
+							data-order='[[0,"desc"]]'>
+							<thead>
+								<tr>
+									<th>#</th>
+									<th class="no-export">Photo</th>
+									<th style="min-width:200px;">Prenom</th>
+									<th style="min-width:200px;">Nom</th>
+									<th style="min-width:200px;">Matricule</th>
+									<th style="min-width:200px;">Date de naissance</th>
+									<th style="min-width:200px;">Lieu de naissance</th>
+									<th style="min-width:200px;">Telephone</th>
+									<th style="min-width:200px;">Categorie</th>
+									<th style="min-width:200px;">Fonction</th>
+									<th style="min-width:200px;">Sujetion</th>
+									<th style="min-width:200px;">Responsabilite</th>
+									<th style="min-width:200px;">Sursalaire</th>
+									<th style="min-width:200px;">Logement</th>
+									<th style="min-width:100px;">Transport</th>
+									<th style="min-width:100px;">Téléphone</th>
+									<th style="min-width:100px;">Autre</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+
+						</table>
+					</div>
+					<div class="contact_Info content_tab">
+						<div class="user-details-register user-details-register-dasboard">
+							<div class="input-group">
+								<div class="input-box" style="display: flex;gap:5px;">
+									<button type="submit" class="footer-button-export"
+										id="Exportpersonnel">EXCEL</button>
+									<button type="submit" class="footer-button-export"
+										id="ExportdataPdf2">PDF</button>
+								</div>
+							</div>
+						</div>
+						<table id="example2" class="stripe hover mytab" style="width:100%;"
+							data-order='[[0,"desc"]]'>
+							<thead>
+								<tr>
+									<th>#</th>
+									<th class="no-export">Photo</th>
+									<th style="min-width:200px;">Prenom</th>
+									<th style="min-width:100px;">Nom</th>
+									<th style="min-width:100px;">Matricule</th>
+									<th style="min-width:150px;">Date de naissance</th>
+									<th style="min-width:150px;">Lieu de naissance</th>
+									<th style="min-width:150px;">Telephone</th>
+									<th style="min-width:150px;">Categorie</th>
+									<th style="min-width:150px;">Poste Occupé</th>
+									<th style="min-width:150px;">Service</th>
+									<th style="min-width:150px;">Antenne Regionale</th>
+									<th style="min-width:150px;">Heure Début</th>
+									<th style="min-width:150px;">Heure Décente</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+
+						</table>
+					</div>
+				</section>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--------FIN MODAL INFO GENERAL------->
+<!--------MODAL INFO INDEMNITE------->
+
+<!--------FIN MODAL INFO INDEMNITE------->
+<!--------MODAL INFO PERSONNEL------->
+
+<!--------FIN MODAL INFO PERSONNEL------->
+<!---------------CARTE PERSONNEL------------->
+<div class="petit close-modal" id="carte-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">Qr code</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="grand-content-card">
+					<div class="content-card" id="content-card">
+						<div class="input-group" id="input-group-carte">
+							<div class="content-list-card" id="content-list-card">
+								<div class="qrcodescan">
+									<div class="img-scan">
+										<img src alt id="carte_qr">
+										<div class="name">
+											<h1 id="carte_nom"></h1>
+											<p id="carte_matricule"></p>
+											<p id="carte_poste"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="submit" class="footer-button-register"
+					id="download">Telecharger</button>
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+		var tabs = document.querySelectorAll(".tab_btn");
+		var all_content_tab = document.querySelectorAll(".content_tab");
+
+		tabs.forEach((tab, index) => {
+			tab.addEventListener("click", (e) => {
+				tabs.forEach(tab => {
+					tab.classList.remove('active_tab')
+				})
+				tab.classList.add('active_tab');
+				all_content_tab.forEach(content_tab => {
+					content_tab.classList.remove('active_tab')
+				})
+				all_content_tab[index].classList.add('active_tab');
+			})
+		})
+
+		function fetchdata() {
+			var id = $("#id_reference").val()
+			$.ajax({
+				url: "../controller/contrat/fetch_contrat",
+				type: "POST",
+				data: {
+					indemnite: id
+				},
+				success: function(response) {
+					$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						var div1 = `<div class="parent box result well">
+					 <div class="card">
+					   <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[a].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].prenom} ${gp_data[a].nom}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[a].matricule}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-chalkboard-teacher"></i><span>${gp_data[a].poste_occupe}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar-check"></i><span>${gp_data[a].date_embauche}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar-times"></i><span>${gp_data[a].date_sorti}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-hourglass-half"></i><span>${gp_data[a].nombre_annee}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						    <ul class="navigation_list">
+					               <li class="active_nav_list" id="updatebtn" data-id="${gp_data[a].id_contrat}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+					               		<span class="text">Modifier</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+				            </ul>
+						</div>
+					</div>
+				  </div>`;
+						$('.content-list1').append(div1);
+					}
+					updateSectionItems(0);
+				},
+			})
+			$("#example").dataTable().fnDestroy()
+
+			$.ajax({
+				url: "../controller/contrat/fetch_contrat",
+				type: "POST",
+				data: {
+					id: id
+				},
+				success: function(response) {
+					$('#example tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var c = 0; c < gp_data.length; c++) {
+						$('#example tbody').append(`
+			  <tr>
+				<td>${gp_data[c].count}</td>
+				<td class="no-export">
+					<img src="${gp_data[c].photo}" alt="" width="30" height="30">
+				</td>
+				<td style="text-align:center;">${gp_data[c].prenom}</td>
+				<td style="text-align:center;">${gp_data[c].nom}</td>
+				<td style="text-align:center;">${gp_data[c].matricule}</td>
+				<td style="text-align:center;">${gp_data[c].date_n}</td>
+				<td style="text-align:center;">${gp_data[c].lieu_n}</td>
+				<td style="text-align:center;">${gp_data[c].telephone_e}</td>
+				<td style="text-align:center;">${gp_data[c].nature}</td>
+				<td style="text-align:center;">${gp_data[c].poste_occupe}</td>
+				<td style="text-align:center;">${gp_data[c].date_embauche}</td>
+				<td style="text-align:center;">${gp_data[c].date_sorti}</td>
+				<td style="text-align:center;">${gp_data[c].salaire}</td>
+				<td style="text-align:center;">${gp_data[c].situation_matr}</td>
+				<td style="text-align:center;">${gp_data[c].conjoint}</td>
+				<td style="text-align:center;">${gp_data[c].enfant}</td>
+				<td style="text-align:center;">${gp_data[c].nb_irpp}</td>
+				<td style="text-align:center;">${gp_data[c].nb_trimf}</td>
+				<td style="text-align:center;">${gp_data[c].genre}</td>
+				<td style="text-align:center;">${gp_data[c].nombre_annee}</td>
+			   </tr>
+						`);
+					}
+					$("#example").DataTable({
+						scrollX: true,
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+
+					});
+
+				}
+			})
+
+			$("#example1").dataTable().fnDestroy()
+			$.ajax({
+				url: "../controller/contrat/fetch_contrat",
+				type: "POST",
+				data: {
+					indemnite: id
+				},
+				success: function(response) {
+					$('#example1 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data =response;
+					for (var d = 0; d < gp_data.length; d++) {
+						$('#example1 tbody').append(`
+			  <tr>
+				<td>${gp_data[d].count}</td>
+				<td class="no-export">
+					<img src="${gp_data[d].photo}" alt="" width="30" height="30">
+				</td>
+				<td style="text-align:center;">${gp_data[d].prenom}</td>
+				<td style="text-align:center;">${gp_data[d].nom}</td>
+				<td style="text-align:center;">${gp_data[d].matricule}</td>
+				<td style="text-align:center;">${gp_data[d].date_n}</td>
+				<td style="text-align:center;">${gp_data[d].lieu_n}</td>
+				<td style="text-align:center;">${gp_data[d].telephone_e}</td>
+				<td style="text-align:center;">${gp_data[d].categorie}</td>
+				<td style="text-align:center;">${gp_data[d].fonction}</td>
+				<td style="text-align:center;">${gp_data[d].sujetion}</td>
+				<td style="text-align:center;">${gp_data[d].responsabilite}</td>
+				<td style="text-align:center;">${gp_data[d].sursalaire}</td>
+				<td style="text-align:center;">${gp_data[d].logement}</td>
+				<td style="text-align:center;">${gp_data[d].transport}</td>
+				<td style="text-align:center;">${gp_data[d].telephone_in}</td>
+				<td style="text-align:center;">${gp_data[d].autre_indemnite}</td>
+			   </tr>
+						`);
+					}
+					$("#example1").DataTable({
+						scrollX: true,
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+
+					});
+
+				}
+			})
+		}
+
+
+		$(document).on('input', '#edit_salaire', function(e) {
+			var options_sn = {
+				lang: "fr",
+				digitsLengthW2F: 3,
+				decimalSeperator: "virgule"
+			}
+			var contrat16 = $('#edit_salaire').val();
+			var sum2 = contrat16.toString().replace(/\,/g, '.');
+			var salaire_lettre = sum2.replace(/\s+/g, '');
+			if ($('#edit_salaire').val() == "") {
+				$("#edit_salaire_lettre").val("")
+			} else {
+				$("#edit_salaire_lettre").val($.spellingNumber(salaire_lettre, options_sn));
+			}
+		})
+		$(document).on('input', '.salaire_lettre', function(e) {
+			var options_sn = {
+				lang: "fr",
+				digitsLengthW2F: 3,
+				decimalSeperator: "virgule"
+			}
+			var contrat16 = $('.salaire_lettre').val();
+			var sum2 = contrat16.toString().replace(/\,/g, '.');
+			var salaire_lettre = sum2.replace(/\s+/g, '');
+			if ($('.salaire_lettre').val() == "") {
+				$("#salaire_lettre").val("")
+			} else {
+				$("#salaire_lettre").val($.spellingNumber(salaire_lettre, options_sn));
+			}
+		})
+
+		$('document').ready(function() {
+			fetchletter();
+			fetchdata()
+		})
+
+		function fetchletter() {
+			var id = $("#id_reference").val()
+
+			$.ajax({
+				url: "../controller/document_administratif/fetch_letter_contrat",
+				type: "POST",
+				data: {
+					id: id
+				},
+				dataType: 'json',
+				success: function(data) {
+
+					$("#id_lettre_contrat").val(data.id_lettre_contrat)
+					tinymce.get('text-input').setContent(data.corps_text);
+					tinymce.get('document_lettre').setContent(data.corps_text);
+				}
+			})
+		}
+
+		$("#btn-modal-lettre").click(function() {
+			$("#get_id_reference").val($("#id_reference").val());
+			fetchletter();
+			$("#lettre-modal").fadeIn();
+		});
+		$('document').ready(function() {
+
+			$('#demo').jplist({
+				itemsBox: '.list',
+				itemPath: '.list-item',
+				panelPath: '.jplist-panel'
+				//,debug: true
+			});
+		});
+	</script>
+<script>
+		$(document).on("click", ".active_nav_click_list", function (e) {
+			e.preventDefault();
+			var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+			console.log("ID chiffré cliqué:", encryptedId);
+
+			// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+			var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+			$(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+			$(this).addClass("active_nav_list");
+
+			// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+		});
+		$(document).on('click', '.shared-nav', function(e) {
+			var id = $(this).data('id');
+
+			var link = "../pdf/contrat?pdf=" + id
+			navigator.share({
+				text: 'Cliquez sur le lien pour télécharger le document du contrat !', // Text to be shared
+				url: link, // URL to be shared
+				files: [] // An array of File objects to be shared
+			})
+
+		})
+		$("#infocomplete").click(function() {
+			$("#infocomplet-modal").fadeIn();
+		});
+		$("#infoindemnite").click(function() {
+			fetchtb_indemnite()
+			$("#indemnite-modal").fadeIn();
+		});
+		$("#infopersonnel").click(function() {
+			fetchtb_personnel()
+			$("#personnel-modal").fadeIn();
+		});
+
+
+		$('.fab-button').on('click', function() {
+			$(".fab-show").show(600);
+			$(".fab-hide").show();
+			$(".fab-button").hide();
+		})
+		$('.fab-hide').on('click', function() {
+			$(".fab-button").show();
+
+			$(".fab-show").hide(600);
+			$(".fab-hide").hide();
+		})
+		$(document).on('click', '.toggle-btn', function(e) {
+			var id = $(this).data('id');
+			$("#nav_" + id).toggleClass("active");
+			$("#toggle-btn-close_" + id).toggleClass("fa-times");
+		})
+		$(document).on('click', '.fab-button1', function(e) {
+			var id = $(this).data('id');
+			$("#fab-show1_" + id).toggle("slow");
+			$("#fas1_" + id).toggleClass("fa-times");
+			$("#fab-show1_" + id).attr(('style', 'display:block'))
+		})
+		$(document).on('click', '.partager', function(e) {
+			var id = $(this).data('id');
+			$("#li-partager_" + id).toggle("slow");
+		})
+		$('.js-searchBox').select2({
+			width: '100%'
+		});
+
+		//PHOTO
+		$(document).on("change", "#photo", function() {
+			var file = this.files[0];
+			console.log(file);
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#imgPreview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(file);
+			}
+		})
+		$(document).on("change", "#update_photo", function() {
+			var file = this.files[0];
+			console.log(file);
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#update_imgPreview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(file);
+			}
+		})
+		$(document).ready(function(e) {
+			//INSERTION
+			$("#insertConge").on('submit', function(e) {
+				e.preventDefault();
+				$("#ajouter-modal").fadeOut();
+
+				$.ajax({
+					type: 'POST',
+					url: '../controller/contrat/insert',
+					data: new FormData(this),
+					//dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function(response) {
+
+						if (response === 'true') {
+							Swal.fire({
+								icon: 'success',
+								title: 'Existe',
+								text: "Le contrat a déja été enregistrer.",
+								confirmButtonColor: '#127b8e',
+								showConfirmButton: false,
+								timer: 2000
+							})
+							formStepsNum = 0
+							updateformSteps_add()
+							updateProgressBar_add()
+							fetchdata()
+
+						} else {
+							Swal.fire({
+								icon: 'success',
+								title: 'Enregistré',
+								text: "Enregistrement effectué avec succés.",
+								confirmButtonColor: '#127b8e',
+								showConfirmButton: false,
+								timer: 2000
+							}).then(function() {
+
+							});
+							formStepsNum = 0
+							updateformSteps_add()
+							updateProgressBar_add()
+							fetchdata()
+
+						}
+					}
+				});
+
+				$(this).find('input:text, input:password, input:file, textarea').val('');
+				$(this).find('select').val(null).trigger('change');
+				$('.heure_debut').val("--:--");
+				$('.heure_decente').val("--:--");
+				$('.btn-next-progress1').attr('disabled', 'disabled')
+				$(".btn-next-progress1").css({
+					background: 'rgb(37, 157, 237)'
+				});
+			});
+			//UPDATE
+			$("#updateForm").on('submit', function(e) {
+				e.preventDefault();
+
+				const multiStep = window.myFormMultiStep_update;
+
+                if (!multiStep.validateCurrentStep()) return;
+
+				$.ajax({
+					type: 'POST',
+                    url: '../controller/contrat/save',
+					data: new FormData(this),
+					//dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function(response) {
+
+						console.log(response);
+						
+					}
+				});
+				$("#modifier-modal").fadeOut();
+				Swal.fire({
+					icon: 'success',
+					title: 'Modifié',
+					text: "Modification effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+                        multiStep.resetForm();
+						fetchdata();
+				});
+			});
+			// SUPPRIMER
+			$("#deleteForm").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller/contrat/delete',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response);
+
+					}
+				});
+				$("#supprimer-modal").fadeOut();
+
+				Swal.fire({
+					icon: 'error',
+					title: 'Supprimé',
+					text: "Suppression effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+				});
+
+			});
+			// INSERT LETTER
+
+			$("#saveLetter").on('submit', function(e) {
+				e.preventDefault();
+
+				$.ajax({
+					type: 'POST',
+					url: '../controller/contrat/insert_letter',
+					data: new FormData(this),
+					//dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function(response) {
+						fetchletter()
+					}
+				});
+				$("#lettre-modal").fadeOut();
+
+				Swal.fire({
+					icon: 'success',
+					title: 'Enregistré',
+					text: "Enregistrement effectué avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+
+					fetchletter();
+				});
+				tinymce.editors['text-input'].hide();
+			});
+
+			//UPDATE LETTER
+
+		});
+
+		$(document).on("click", "#togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#show-eye").toggleClass('fa-eye');
+			$("#show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+
+		});
+		$(document).on("click", "#update_togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#update_password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#update_show-eye").toggleClass('fa-eye');
+			$("#update_show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+
+		});
+
+
+		// SHOW UPDATE
+		$(document).on('click', '#updatebtn', function(e) {
+
+			e.preventDefault();
+			var options_sn = {
+				lang: "fr",
+				digitsLengthW2F: 3,
+				decimalSeperator: "virgule"
+			}
+
+			var id_contrat = $(this).data('id');
+			$.ajax({
+				url: '../controller/contrat/fetch_contrat',
+				type: "post",
+				data: {
+					id_contrat: id_contrat
+				},
+				dataType: 'json',
+				success: function(data) {
+
+					console.log(data)
+					$("#edit_id").val(data.id_contrat);
+					$('#edit_employe').val(data.id_employe)
+					$(".edit_contrat1").val(data.prenom + " " + data.nom);
+					$("#update_poste").val(data.poste);
+					$("#update_telephone_e").val(data.telephone_e);
+					$("#nationalite_edit").val(data.nationalite);
+					$("#cin_e_edit").val(data.cin_e);
+					$("#nom_pere_edit").val(data.nom_pere);
+					$("#nom_mere_edit").val(data.nom_mere);
+					$("#edit_nature").val(data.nature);
+					$("#edit_poste").val(data.poste_occupe);
+					$("#edit_date_embauche").val(data.date_embauch);
+					$("#edit_date_sorti").val(data.date_sorti);
+					$("#edit_situation_matr").val(data.situation_matr).trigger("change");
+					$("#edit_nb_trimf").val(data.nb_trimf).trigger("change");
+					$("#edit_nb_irpp").val(data.nb_irpp).trigger("change");
+					$("#edit_conjoint").val(data.conjoint);
+					$("#edit_enfant").val(data.enfant);
+					$("#edit_heure").val(data.heure);
+					$("#edit_salaire").val(data.salaire);
+					var contrat16 = data.salaire;
+					var sum2 = contrat16.toString().replace(/\,/g, '.');
+					var salaire_lettre = sum2.replace(/\s+/g, '');
+					$("#edit_salaire_lettre").val($.spellingNumber(salaire_lettre, options_sn));
+					$("#edit_fonction").val(data.fonction);
+					$("#edit_sujetion").val(data.sujetion);
+					$("#edit_responsabilite").val(data.responsabilite);
+					$("#edit_sursalaire").val(data.sursalaire);
+					$("#edit_logement").val(data.logement);
+					$("#edit_autre_indemnite").val(data.autre_indemnite);
+					$("#edit_transport").val(data.transport);
+					$("#edit_telephone").val(data.telephone_in);
+					$("#edit_id_charge").val(data.id_categorie).trigger("change");
+					$("#up-title-name").html(data.prenom + " " + data.nom);
+					$(".title-matricule").html(data.matricule);
+					$(".profil_imgPreview").attr("src", data.photo);
+				
+					$("#modifier-modal").fadeIn();
+
+				}
+
+			});
+
+		});
+		//SHOW DELETE
+		$(document).on('click', '#deletebtn', function(e) {
+
+			e.preventDefault();
+
+			var id_contrat = $(this).data('id');
+			$.ajax({
+				url: '../controller/contrat/fetch_contrat',
+				type: "post",
+				data: {
+					id_contrat: id_contrat
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data)
+
+					$("#delete_id").val(data.id_contrat);
+					$("#del_title-name").html(data.prenom + " " + data.nom);
+					$("#del_title-matricule").html(data.matricule);
+					$("#nom_del").val(data.nature);
+					$(".profil_imgPreview").attr("src", data.photo);
+					$("#supprimer-modal").fadeIn();
+
+				}
+
+			});
+
+		});
+
+		//SHOW INFO
+		$(document).on('click', '#cartebtn', function(e) {
+			var id_contrat = $(this).data('id');
+			$.ajax({
+				url: '../controller/contrat/fetch_contrat',
+				type: "post",
+				data: {
+					id_contrat: id_contrat
+				},
+				dataType: 'json',
+				success: function(data) {
+					$("#ministere").html(data.ministere);
+					$("#sous-entreprise").html(data.entreprise);
+					$("#ref_entre").html(data.telephone + " | " + data.email);
+					$("#carte_nom").html(data.prenom + " " + data.nom);
+					$("#carte_nom").html(data.prenom + " " + data.nom);
+					$("#carte_nom").html(data.prenom + " " + data.nom);
+					$("#carte_poste").html(data.poste_occupe);
+					$("#carte_adresse").html(data.adresse_e);
+					$("#carte_telephone").html(data.telephone_e);
+					$("#carte_matricule").html(data.matricule);
+					$("#carte_email").html(data.email_e);
+					$("#carte_photo").attr("src", data.photo);
+					$("#carte_qr").attr("src", data.photo_qr);
+					$("#drapeau").attr("src", data.drapeau);
+					$("#logo_pf2e").attr("src", data.logo);
+				}
+			})
+			$("#carte-modal").fadeIn();
+		});
+		//SHOW INSCRIPTION
+		$(document).on('click', '#servicebtn', function(e) {
+			e.preventDefault();
+			var id_employe = $(this).data('id');
+			$.ajax({
+				url: '../controller/employe/fetch_employe',
+				type: "post",
+				data: {
+					id_employe: id_employe
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data)
+
+					$("#id_employe").val(data.id_employe);
+					$("#ad_title-name").html(data.prenom + " " + data.nom);
+					$("#ad_title-matricule").html(data.matricule);
+					$("#ad_profil_imgPreview").attr("src", data.photo);
+					$(".contrat1").val(data.prenom + " " + data.nom);
+					$("#add_poste").val(data.poste);
+					$("#add_telephone_e").val(data.telephone_e);
+					$(".contrat4").val(data.nationalite);
+					$(".contrat5").val(data.adresse_e);
+					$(".contrat6").val(data.cin_e);
+					$(".contrat7").val(data.nom_pere);
+					$(".contrat8").val(data.nom_mere);
+					$("#ajouter-modal").fadeIn();
+				}
+			});
+		});
+		$(document).on('change', '#superieur_hierarchique', function(e) {
+
+			e.preventDefault();
+			var id_employe = $(this).val();
+
+			$.ajax({
+				url: '../controller/contrat/fetch_superieur_hierarchique',
+				type: "post",
+				data: {
+					id_employe: id_employe
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data)
+					$("#nom_superieur").val(data.nom_superieur);
+					$("#matricule_superieur").val(data.matricule_superieur)
+					$("#email_superieur").val(data.email_superieur);
+					$("#tel_superieur").val(data.tel_superieur);
+					$("#fonction_hierarchique").val(data.poste_occupe);
+					checkInputs3()
+				}
+			});
+		})
+		$(document).on('change', '#edit_superieur_hierarchique', function(e) {
+
+			e.preventDefault();
+			var id_employe = $(this).val();
+
+			$.ajax({
+				url: '../controller/contrat/fetch_superieur_hierarchique',
+				type: "post",
+				data: {
+					id_employe: id_employe
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data)
+					$("#edit_nom_superieur").val(data.nom_superieur);
+					$("#edit_matricule_superieur").val(data.matricule_superieur)
+					$("#edit_email_superieur").val(data.email_superieur);
+					$("#edit_tel_superieur").val(data.tel_superieur);
+					$("#edit_fonction_hierarchique").val(data.poste_occupe);
+					updatecheck3()
+				}
+			});
+		})
+		$(document).on('click', '#printbtn', function(e) {
+
+			e.preventDefault();
+
+			var id_contrat = $(this).data('id');
+			$.ajax({
+				url: '../controller/contrat/fetch_imprime',
+				type: "post",
+				data: {
+					id_contrat: id_contrat
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data);
+					var element =
+						`<div>
+				<div style=" margin-left: 60px;margin-right: 60px;">${data.document_imprimer}</div>
+				</div>`;
+					const opt = {
+						margin: [0.5, 0, 1, 0], //top, left, bottom, right
+						filename: 'Contrat.pdf',
+						image: {
+							type: 'jpeg',
+							quality: 0.98
+						},
+						html2canvas: {
+							scale: 2,
+						},
+						jsPDF: {
+							unit: "in",
+							format: "letter",
+							orientation: "portrait",
+
+						},
+						pagebreak: {
+							mode: ['avoid-all', 'css', 'legacy']
+						}
+						//It determines how HTML elements should be split.
+						// noPdfOpenParams: true
+					};
+
+					const pdf = html2pdf().set(opt).from(element).toPdf().get('pdf').then(function(pdf) {
+						var totalPages = pdf.internal.getNumberOfPages();
+
+						for (let i = 1; i <= totalPages; i++) {
+							pdf.setPage(i);
+							pdf.setTextColor(100);
+							pdf.setFontSize(8);
+							pdf.setFont(undefined, 'bold')
+							pdf.text(pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize
+								.getHeight() - 0.6,
+								"________________________________________________________________________________________________________________________", {
+									align: 'center',
+								});
+							pdf.setFontSize(7);
+							pdf.setFont(undefined, 'normal')
+							pdf.text(pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize
+								.getHeight() - 0.47,
+								`${data.ministere}`, {
+									align: 'center',
+								});
+							pdf.setFontSize(8);
+							pdf.setFont(undefined, 'bold')
+							pdf.text(pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize
+								.getHeight() - 0.36,
+								`${data.entreprise}`, {
+									align: 'center',
+								});
+							pdf.setFontSize(7);
+							pdf.setFont(undefined, 'normal')
+							pdf.text(pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize
+								.getHeight() - 0.26,
+								`${data.adresse}`, {
+									align: 'center',
+								});
+							pdf.setFontSize(7);
+							pdf.setFont(undefined, 'normal')
+							pdf.text(pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize
+								.getHeight() - 0.16,
+								`Téléphone : ${data.telephone} | Fax : ${data.fax} | BP : ${data.bp} | Site web ${data.web} | Email : ${data.email}`, {
+									align: 'center',
+								});
+
+						}
+						pdf.setProperties({
+							title: 'Contrat'
+						})
+						if (window.matchMedia('(max-width: 767px)').matches) {
+							pdf.save('Contrat.pdf');
+						} else {
+							window.open(pdf.output('bloburl'), "_blank");
+						}
+						window.close();
+
+					})
+				}
+			});
+		});
+		$(document).on('input', '#contrat11', function(e) {
+
+		})
+
+		$(document).on('input', '.searchBox2', function(e) {
+			var keyup = $(this).val();
+			$(".keyup-search").val(keyup);
+			if ($(".keyup-search").val(keyup)) {
+				$(".keyup-search").keyup()
+			}
+		})
+		var node = document.getElementById('border-carte');
+		var btn = document.getElementById('download');
+
+		btn.onclick = function() {
+			var carte_nom = $("#carte_nom").text();
+			domtoimage.toBlob(document.getElementById('input-group-carte')).then(function(blob) {
+				window.saveAs(blob, carte_nom)
+			})
+		}
+	</script>
+<script>
+		tinymce.init({
+			selector: 'textarea#text-input',
+			language: "fr_FR",
+			height: 650,
+			statusbar: false,
+			promotion: false,
+			editable_root: true,
+			editable_class: 'editable',
+			init_instance_callback: "insert_contents",
+			toolbar_sticky: true,
+			toolbar_mode: 'sliding',
+			plugins: [
+				'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+				'searchreplace', 'wordcount', 'visualblocks', 'fullscreen', 'insertdatetime', 'media',
+				'table', 'emoticons', 'template', 'footnotes', 'pagebreak'
+			],
+			toolbar: "alignleft aligncenter alignright alignjustify  alignnone | anchor | blockquote blocks | backcolor | bold | copy | cut | fontfamily fontsize forecolor h1 h2 h3 h4 h5 h6 hr indent | italic | language | lineheight | newdocument | outdent | paste pastetext | redo | remove removeformat | selectall | strikethrough | styles | subscript superscript underline | undo | visualaid | a11ycheck advtablerownumbering typopgraphy anchor restoredraft casechange charmap checklist code codesample addcomment showcomments ltr rtl editimage fliph flipv imageoptions rotateleft rotateright emoticons export footnotes footnotesupdate formatpainter fullscreen help image insertdatetime link openlink unlink bullist numlist media mergetags mergetags_list nonbreaking pagebreak pageembed permanentpen preview quickimage quicklink quicktable cancel save searchreplace spellcheckdialog spellchecker | table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader | tableofcontents tableofcontentsupdate | template typography | insertfile | visualblocks visualchars | wordcount|pagebreak",
+			menu: {
+				favs: {
+					title: 'menu',
+					items: ' searchreplace | emoticons'
+				}
+			},
+			setup: function(e) {
+				e.on('change', function() {
+					tinymce.triggerSave();
+				})
+			},
+			theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+			menubar: 'favs file edit view insert format tools table',
+			templates: [{
+				title: "Advanced Template template example",
+				description: 'This template has additional markup that is shown in the "preview" of the template, but is not inserted in to TinyMCE.',
+				content: "<body>" +
+					'<p style="color: red; font-weight:bold;">This appears in the template preview, but will not be inserted in to TinyMCE.</p>' +
+					'<div class="mceTmpl">' +
+					"<p>This is the actual template content that will be inserted.</p>" +
+					"<ul>" +
+					"<li>And can include nested elements</li>" +
+					"<li>So your templates can still include your complex HTML</li>" +
+					"</ul>" +
+					"</div>" +
+					"</body>"
+			}],
+			content_style: `
+        body {
+          background: #fff;
+        }
+
+        /* Disable the blue "focus" border for the editable region */
+        .editable-section:focus-visible {
+          outline: none !important;
+        }
+
+        .header,
+        .footer {
+          font-size: 0.8rem;
+          color: #ddd;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 0 1rem 0;
+        }
+
+        .header .right-text {
+          text-align: right;
+        }
+
+        .footer {
+          padding:2rem 0 0 0;
+          text-align: center;
+        }
+
+        /* Apply page-like styling */
+        @media (min-width: 840px) {
+          html {
+            background: #eceef4;
+            min-height: 100%;
+            padding: 0.5rem;
+          }
+
+          body {
+            background-color: #fff;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+            box-sizing: border-box;
+            margin: 1rem auto 0;
+            max-width: 920px;
+            min-height: calc(100vh - 1rem);
+            padding: 2rem 6rem 2rem 6rem;
+          }
+        }
+      `,
+			image_title: true,
+			// enable automatic uploads of images represented by blob or data URIs
+			automatic_uploads: true,
+			// add custom filepicker only to Image dialog
+			file_picker_types: 'image',
+			file_picker_callback: function(cb, value, meta) {
+				var input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
+
+				input.onchange = function() {
+					var file = this.files[0];
+					var reader = new FileReader();
+
+					reader.onload = function() {
+						var id = 'blobid' + (new Date()).getTime();
+						var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						var base64 = reader.result.split(',')[1];
+						var blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
+
+						// call the callback and populate the Title field with the file name
+						cb(blobInfo.blobUri(), {
+							title: file.name
+						});
+					};
+					reader.readAsDataURL(file);
+				};
+
+				input.click();
+			}
+		});
+
+		tinymce.init({
+			selector: 'textarea#document_lettre',
+			language: "fr_FR",
+			height: 460,
+			statusbar: false,
+			promotion: false,
+			editable_root: true,
+			editable_class: 'editable',
+			init_instance_callback: "insert_contents",
+			toolbar_sticky: true,
+			toolbar_mode: 'sliding',
+			plugins: [
+				'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+				'searchreplace', 'wordcount', 'visualblocks', 'fullscreen', 'insertdatetime', 'media',
+				'table', 'emoticons', 'template', 'footnotes', 'pagebreak'
+			],
+			setup: function(e) {
+				e.on('change', function() {
+					tinymce.triggerSave();
+				})
+			},
+			toolbar: "alignleft aligncenter alignright alignjustify  alignnone | anchor | blockquote blocks | backcolor | bold | copy | cut | fontfamily fontsize forecolor h1 h2 h3 h4 h5 h6 hr indent | italic | language | lineheight | newdocument | outdent | paste pastetext | redo | remove removeformat | selectall | strikethrough | styles | subscript superscript underline | undo | visualaid | a11ycheck advtablerownumbering typopgraphy anchor restoredraft casechange charmap checklist code codesample addcomment showcomments ltr rtl editimage fliph flipv imageoptions rotateleft rotateright emoticons export footnotes footnotesupdate formatpainter fullscreen help image insertdatetime link openlink unlink bullist numlist media mergetags mergetags_list nonbreaking pagebreak pageembed permanentpen preview quickimage quicklink quicktable cancel save searchreplace spellcheckdialog spellchecker | table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader | tableofcontents tableofcontentsupdate | template typography | insertfile | visualblocks visualchars | wordcount|pagebreak",
+			menu: {
+				favs: {
+					title: 'menu',
+					items: ' searchreplace | emoticons'
+				}
+			},
+			theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+			menubar: 'favs file edit view insert format tools table',
+			templates: [{
+				title: "Advanced Template template example",
+				description: 'This template has additional markup that is shown in the "preview" of the template, but is not inserted in to TinyMCE.',
+				content: "<body>" +
+					'<p style="color: red; font-weight:bold;">This appears in the template preview, but will not be inserted in to TinyMCE.</p>' +
+					'<div class="mceTmpl">' +
+					"<p>This is the actual template content that will be inserted.</p>" +
+					"<ul>" +
+					"<li>And can include nested elements</li>" +
+					"<li>So your templates can still include your complex HTML</li>" +
+					"</ul>" +
+					"</div>" +
+					"</body>"
+			}],
+			content_style: `
+        body {
+          background: #fff;
+        }
+
+        /* Disable the blue "focus" border for the editable region */
+        .editable-section:focus-visible {
+          outline: none !important;
+        }
+
+        .header,
+        .footer {
+          font-size: 0.8rem;
+          color: #ddd;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 0 1rem 0;
+        }
+
+        .header .right-text {
+          text-align: right;
+        }
+
+        .footer {
+          padding:2rem 0 0 0;
+          text-align: center;
+        }
+
+        /* Apply page-like styling */
+        @media (min-width: 840px) {
+          html {
+            background: #eceef4;
+            min-height: 100%;
+            padding: 0.5rem;
+          }
+
+          body {
+            background-color: #fff;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+            box-sizing: border-box;
+            margin: 1rem auto 0;
+            max-width: 920px;
+            min-height: calc(100vh - 1rem);
+            padding: 2rem 6rem 2rem 6rem;
+          }
+        }
+      `,
+			image_title: true,
+			// enable automatic uploads of images represented by blob or data URIs
+			automatic_uploads: true,
+			// add custom filepicker only to Image dialog
+			file_picker_types: 'image',
+			file_picker_callback: function(cb, value, meta) {
+				var input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
+
+				input.onchange = function() {
+					var file = this.files[0];
+					var reader = new FileReader();
+
+					reader.onload = function() {
+						var id = 'blobid' + (new Date()).getTime();
+						var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						var base64 = reader.result.split(',')[1];
+						var blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
+
+						// call the callback and populate the Title field with the file name
+						cb(blobInfo.blobUri(), {
+							title: file.name
+						});
+					};
+					reader.readAsDataURL(file);
+				};
+
+				input.click();
+			},
+
+		});
+
+		tinymce.init({
+			selector: 'textarea#edit_document_lettre',
+			language: "fr_FR",
+			height: 460,
+			statusbar: false,
+			promotion: false,
+			toolbar_sticky: true,
+			toolbar_mode: 'sliding',
+			plugins: [
+				'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+				'searchreplace', 'wordcount', 'visualblocks', 'fullscreen', 'insertdatetime', 'media',
+				'table', 'emoticons', 'template', 'footnotes', 'pagebreak'
+			],
+			toolbar: "alignleft aligncenter alignright alignjustify  alignnone | anchor | blockquote blocks | backcolor | bold | copy | cut | fontfamily fontsize forecolor h1 h2 h3 h4 h5 h6 hr indent | italic | language | lineheight | newdocument | outdent | paste pastetext | redo | remove removeformat | selectall | strikethrough | styles | subscript superscript underline | undo | visualaid | a11ycheck advtablerownumbering typopgraphy anchor restoredraft casechange charmap checklist code codesample addcomment showcomments ltr rtl editimage fliph flipv imageoptions rotateleft rotateright emoticons export footnotes footnotesupdate formatpainter fullscreen help image insertdatetime link openlink unlink bullist numlist media mergetags mergetags_list nonbreaking pagebreak pageembed permanentpen preview quickimage quicklink quicktable cancel save searchreplace spellcheckdialog spellchecker | table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader | tableofcontents tableofcontentsupdate | template typography | insertfile | visualblocks visualchars | wordcount|pagebreak",
+			menu: {
+				favs: {
+					title: 'menu',
+					items: ' searchreplace | emoticons'
+				}
+			},
+			setup: function(e) {
+				e.on('change', function() {
+					tinymce.triggerSave();
+				})
+			},
+			theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+			menubar: 'favs file edit view insert format tools table',
+			templates: [{
+				title: "Advanced Template template example",
+				description: 'This template has additional markup that is shown in the "preview" of the template, but is not inserted in to TinyMCE.',
+				content: "<body>" +
+					'<p style="color: red; font-weight:bold;">This appears in the template preview, but will not be inserted in to TinyMCE.</p>' +
+					'<div class="mceTmpl">' +
+					"<p>This is the actual template content that will be inserted.</p>" +
+					"<ul>" +
+					"<li>And can include nested elements</li>" +
+					"<li>So your templates can still include your complex HTML</li>" +
+					"</ul>" +
+					"</div>" +
+					"</body>"
+			}],
+			content_style: `
+        body {
+          background: #fff;
+        }
+
+        /* Disable the blue "focus" border for the editable region */
+        .editable-section:focus-visible {
+          outline: none !important;
+        }
+
+        .header,
+        .footer {
+          font-size: 0.8rem;
+          color: #ddd;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 0 1rem 0;
+        }
+
+        .header .right-text {
+          text-align: right;
+        }
+
+        .footer {
+          padding:2rem 0 0 0;
+          text-align: center;
+        }
+
+        /* Apply page-like styling */
+        @media (min-width: 840px) {
+          html {
+            background: #eceef4;
+            min-height: 100%;
+            padding: 0.5rem;
+          }
+
+          body {
+            background-color: #fff;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+            box-sizing: border-box;
+            margin: 1rem auto 0;
+            max-width: 920px;
+            min-height: calc(100vh - 1rem);
+            padding: 2rem 6rem 2rem 6rem;
+          }
+        }
+      `,
+			image_title: true,
+			// enable automatic uploads of images represented by blob or data URIs
+			automatic_uploads: true,
+			// add custom filepicker only to Image dialog
+			file_picker_types: 'image',
+			file_picker_callback: function(cb, value, meta) {
+				var input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
+
+				input.onchange = function() {
+					var file = this.files[0];
+					var reader = new FileReader();
+
+					reader.onload = function() {
+						var id = 'blobid' + (new Date()).getTime();
+						var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						var base64 = reader.result.split(',')[1];
+						var blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
+
+						// call the callback and populate the Title field with the file name
+						cb(blobInfo.blobUri(), {
+							title: file.name
+						});
+					};
+					reader.readAsDataURL(file);
+				};
+
+				input.click();
+			},
+
+		});
+		// SLIDER FORM NEXT ADD
+		$(document).ready(function () {
+				window.myFormMultiStep = (function () {
+					const $form = $('#insertForm');
+					const $steps = $form.find('.nextstep');
+					const $progressSteps = $('.progress-step');
+					const $progressLine = $('.progress-line');
+					const totalSteps = $steps.length;
+					let currentStep = 0;
+
+					function updateButtons() {
+						$('#btn-prev-progress').toggle(currentStep !== 0);
+						$('#btn-next-progress').toggle(currentStep < totalSteps - 1);
+						$('#submit-btn').toggle(currentStep === totalSteps - 1);
+					}
+
+					function updateProgress() {
+						$progressSteps.each(function (index) {
+							$(this).toggleClass('progress-step-active', index <= currentStep);
+						});
+						const progressPercent = totalSteps > 1 ? (currentStep / (totalSteps - 1)) * 100 : 100;
+						$progressLine.css('width', progressPercent + '%');
+					}
+
+					function validateStep(step) {
+						let valid = true;
+						const $inputs = $steps.eq(step).find('.input-required1');
+						const validatedGroups = new Set();
+
+						$inputs.each(function () {
+							const $input = $(this);
+							let isEmpty = false;
+
+							if ($input.is('input[type="text"], input[type="email"], input[type="date"], input[type="time"], textarea')) {
+								isEmpty = !$input.val().trim();
+							} else if ($input.is('select')) {
+								isEmpty = !$input.val();
+							} else if ($input.is(':checkbox') || $input.is(':radio')) {
+								const name = $input.attr('name');
+								if (validatedGroups.has(name)) return;
+								isEmpty = !$(`input[name="${name}"]:checked`).length;
+								validatedGroups.add(name);
+							}
+
+							const $inputBox = $input.closest('.input-box');
+
+							if (isEmpty) {
+								$input.addClass('error');
+								$inputBox.addClass('error');
+								let $errorMsg = $input.siblings('.error-msg');
+								if ($errorMsg.length === 0) {
+									$input.after('<div class="error-msg" style="color:red; font-size:12px;"></div>');
+								} else {
+									$errorMsg.show();
+								}
+								valid = false;
+							} else {
+								$input.removeClass('error');
+								$inputBox.removeClass('error');
+								$input.siblings('.error-msg').hide();
+							}
+						});
+						return valid;
+					}
+
+					// Initialisation
+					$steps.hide().eq(currentStep).show();
+					updateButtons();
+					updateProgress();
+
+					$('#btn-next-progress').click(function () {
+						if (validateStep(currentStep)) {
+							if (currentStep < totalSteps - 1) {
+								currentStep++;
+								$steps.hide().eq(currentStep).show();
+								updateButtons();
+								updateProgress();
+							}
+						}
+					});
+
+					$('#btn-prev-progress').click(function () {
+						if (currentStep > 0) {
+							currentStep--;
+							$steps.hide().eq(currentStep).show();
+							updateButtons();
+							updateProgress();
+						}
+					});
+
+					$form.on('input change', '.input-required1', function () {
+						const $input = $(this);
+						const $inputBox = $input.closest('.input-box');
+						let isValid = true;
+
+						if ($input.is('input[type="text"], input[type="email"], input[type="date"], textarea')) {
+							isValid = $input.val().trim() !== '';
+						} else if ($input.is('select')) {
+							isValid = $input.val() !== '';
+						} else if ($input.is(':checkbox') || $input.is(':radio')) {
+							const name = $input.attr('name');
+							isValid = $(`input[name="${name}"]:checked`).length > 0;
+						}
+
+						if (isValid) {
+							$input.removeClass('error');
+							$inputBox.removeClass('error');
+							$input.siblings('.error-msg').hide();
+						}
+					});
+
+					return {
+						getCurrentStep: () => currentStep,
+						validateCurrentStep: () => validateStep(currentStep),
+						resetForm: () => {
+							currentStep = 0;
+							$steps.hide().eq(currentStep).show();
+							updateButtons();
+							updateProgress();
+							$form[0].reset();
+							$form.find('input:text, input:password, input:file, textarea').val('');
+				            $form.find('select').val(null).trigger('change');
+							$form.find('input:time').val('--:--');
+
+						}
+					};
+				})();
+				
+				window.myFormMultiStep_update = (function () {
+				const $form = $('#updateForm');
+				const $steps = $form.find('.nextstep-update');
+				const $progressSteps = $('.progress-step-update');
+				const $progressLine = $('.progress-line-update');
+				const totalSteps = $steps.length;
+				let currentStep = 0;
+
+				function updateButtons() {
+					$('#btn-prev-progress-update').toggle(currentStep !== 0);
+					$('#btn-next-progress-update').toggle(currentStep < totalSteps - 1);
+					$('#submit-btn-update').toggle(currentStep === totalSteps - 1);
+				}
+
+				function updateProgress() {
+					$progressSteps.each(function (index) {
+						$(this).toggleClass('progress-step-active-update', index <= currentStep);
+					});
+					const progressPercent = totalSteps > 1 ? (currentStep / (totalSteps - 1)) * 100 : 100;
+					$progressLine.css('width', progressPercent + '%');
+				}
+
+				function validateStep(step) {
+					let valid = true;
+					const $inputs = $steps.eq(step).find('.input-required-update');
+					const validatedGroups = new Set();
+
+					$inputs.each(function () {
+						const $input = $(this);
+						let isEmpty = false;
+
+						if ($input.is('input[type="text"], input[type="email"], input[type="date"], input[type="time"], textarea')) {
+							isEmpty = !$input.val().trim();
+						} else if ($input.is('select')) {
+							isEmpty = !$input.val();
+						} else if ($input.is(':checkbox') || $input.is(':radio')) {
+							const name = $input.attr('name');
+							if (validatedGroups.has(name)) return;
+							isEmpty = !$(`input[name="${name}"]:checked`).length;
+							validatedGroups.add(name);
+						}
+
+						const $inputBox = $input.closest('.input-box');
+
+						if (isEmpty) {
+							$input.addClass('error');
+							$inputBox.addClass('error');
+							let $errorMsg = $input.siblings('.error-msg');
+							if ($errorMsg.length === 0) {
+								$input.after('<div class="error-msg" style="color:red; font-size:12px;"></div>');
+							} else {
+								$errorMsg.show();
+							}
+							valid = false;
+						} else {
+							$input.removeClass('error');
+							$inputBox.removeClass('error');
+							$input.siblings('.error-msg').hide();
+						}
+					});
+					return valid;
+				}
+
+				// Initialisation
+				$steps.hide().eq(currentStep).show();
+				updateButtons();
+				updateProgress();
+
+				$('#btn-next-progress-update').click(function () {
+					if (validateStep(currentStep)) {
+						if (currentStep < totalSteps - 1) {
+							currentStep++;
+							$steps.hide().eq(currentStep).show();
+							updateButtons();
+							updateProgress();
+						}
+					}
+				});
+
+				$('#btn-prev-progress-update').click(function () {
+					if (currentStep > 0) {
+						currentStep--;
+						$steps.hide().eq(currentStep).show();
+						updateButtons();
+						updateProgress();
+					}
+				});
+
+				$form.on('input change', '.input-required-update', function () {
+					const $input = $(this);
+					const $inputBox = $input.closest('.input-box');
+					let isValid = true;
+
+					if ($input.is('input[type="text"], input[type="email"], input[type="date"], textarea')) {
+						isValid = $input.val().trim() !== '';
+					} else if ($input.is('select')) {
+						isValid = $input.val() !== '';
+					} else if ($input.is(':checkbox') || $input.is(':radio')) {
+						const name = $input.attr('name');
+						isValid = $(`input[name="${name}"]:checked`).length > 0;
+					}
+
+					if (isValid) {
+						$input.removeClass('error');
+						$inputBox.removeClass('error');
+						$input.siblings('.error-msg').hide();
+					}
+				});
+
+				return {
+					getCurrentStep: () => currentStep,
+					validateCurrentStep: () => validateStep(currentStep),
+					resetForm: () => {
+						currentStep = 0;
+						$steps.hide().eq(currentStep).show();
+						updateButtons();
+						updateProgress();
+						$form[0].reset();
+						$form.find('select').val('').trigger('change');
+						$("#update_imgPreview").attr("src", "{{ url_for('static', filename='img/image/image-profil.png') }}");
+					}
+				};
+			})();
+		});
+		$('#ExportdataPdf').click(function() {
+			let table = $("#example").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			const doc = new jsPDF('l', 'mm')
+			doc.autoTable({
+				html: table[0],
+				styles: {
+					overflow: 'linebreak',
+					fontSize: 8,
+					halign: 'center'
+				},
+			})
+			doc.save('Contrat')
+		})
+		$('#Exportcontrat').click(function() {
+			let table = $("#example").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			TableToExcel.convert(table[0], {
+				name: `Contrat.xlsx`,
+				sheet: {
+					name: 'Contrat'
+				}
+			});
+		});
+		$('#ExportdataPdf1').click(function() {
+			let table = $("#example1").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			const doc = new jsPDF('l', 'mm')
+			doc.autoTable({
+				html: table[0],
+				styles: {
+					overflow: 'linebreak',
+					fontSize: 8,
+					halign: 'center'
+				},
+			})
+			doc.save('Indemnite')
+		})
+		$('#Exportindemnite').click(function() {
+			let table = $("#example1").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			TableToExcel.convert(table[0], {
+				name: `Indemnite.xlsx`,
+				sheet: {
+					name: 'Indemnite'
+				}
+			});
+		});
+		$('#ExportdataPdf2').click(function() {
+			let table = $("#example2").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			const doc = new jsPDF('l', 'mm')
+			doc.autoTable({
+				html: table[0],
+				styles: {
+					overflow: 'linebreak',
+					fontSize: 8,
+					halign: 'center'
+				},
+			})
+			doc.save('Personnel')
+		})
+		$('#Exportpersonnel').click(function() {
+			let table = $("#example2").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			TableToExcel.convert(table[0], {
+				name: `Personnel.xlsx`,
+				sheet: {
+					name: 'Personnel'
+				}
+			});
+		});
+	</script>

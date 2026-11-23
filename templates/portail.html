@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sam perf</title>
+        <link
+            href="{{ url_for('static', filename='img/logo/diapositive.png') }}"
+            rel="icon">
+        <link rel="stylesheet"
+            href="{{ url_for('static', filename='css/fontawesome-free/css/all.min.css') }}">
+        <link rel="stylesheet"
+            href="{{ url_for('static', filename='css/css/style-form.css') }}">
+        <script
+            src="{{ url_for('static', filename='script/jquery/jquery.min.js') }}"></script>
+        <script
+            src="{{ url_for('static', filename='script/script/script.js') }}"
+            defer></script>
+    </head>
+
+    <body>
+        <div class="icons-switcher">
+            <i class="fas fa-palette"></i>
+        </div>
+        <div class="color-box">
+            <div class="color-switchers">
+                <button class="btn-switcher principal active-color"
+                    id="principal" data-color="#005f9e"></button>
+                <button class="btn-switcher green-switcher" id="green-switcher"
+                    data-color="#04640e"></button>
+                <button class="btn-switcher purple-switcher"
+                    id="purple-switcher" data-color="#8e44ad"></button>
+                <button class="btn-switcher red-switcher" id="red-switcher"
+                    data-color="#93080d"></button>
+            </div>
+        </div>
+        <div class="content-body">
+            <div class="overlay"></div>
+            <div class="container3D">
+                <div class="clipath">
+                    <i class="fa fa-chalkboard-teacher"></i>
+                    <h1>Bienvenue à</h1>
+                    <h2>Sam-perf</h2>
+                </div>
+                <div class="parent">
+                    <div class="card">
+                        <div class="content-date-box">
+                            <div class="date-box">
+                                <span class="month"></span>
+                                <span class="date"><i
+                                        class="fa fa-lock"></i></span>
+                            </div>
+                        </div>
+                        <div class="content-box">
+                            <h1 class="card-title"> Se connecter</h1>
+                            <div class="container-form">
+                                <form
+                                    action="{{ url_for('login_employe_route') }}"
+                                    method="post">
+                                    <div class="user-details-login">
+                                        <div class="input-group">
+                                            <label class="label-details">Email
+                                                ou
+                                                Telephone</label>
+                                            <div class="input-box">
+                                                <span class="span-left"><i
+                                                        class="fa fa-envelope fa-icon"></i>
+                                                </span>
+                                                <input type="text"
+                                                    class="text-input"
+                                                    name="emailconnect" id
+                                                    required="required"
+                                                    placeholder="Email ou Telephone"
+                                                    value>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="label-details">Mot de
+                                                passe</label>
+                                            <div class="input-box">
+                                                <span class="span-left"><i
+                                                        class="fa fa-key fa-icon"></i></span>
+                                                <input type="password"
+                                                    class="text-input"
+                                                    name="mdpconnect"
+                                                    id="password"
+                                                    required="required"
+                                                    placeholder="Entrer mot de passe"
+                                                    value>
+                                                <span class="span-right"
+                                                    id="togglePassword"><i
+                                                        class="fa fa-eye-slash"
+                                                        id="show-eye"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="full-button-login">
+                                        <input type="submit" class="btn-full"
+                                            name="login" value="Connexion">
+                                    </div>
+                                    {% if message %}
+                                    <div
+                                        class="alert-info-danger alert-info hide">
+                                        <span class="alert-info-danger-msg">
+                                            <span
+                                                class="fas fa-exclamation-circle"></span>
+                                            <span class="msg-danger">
+                                                {{message}}
+                                            </span>
+                                        </span>
+                                        <div
+                                            class="close-alert-info-danger close-alert-info">
+                                            <span class="fas fa-times"></span>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="separator"></div>
+                                    <div class="foot">
+                                        <span><a
+                                                href="{{ url_for('register') }}">Créer
+                                                un compte
+                                                |</a></span>
+                                        <span><a
+                                                href="{{ url_for('email_recupe_portail') }}">Mot
+                                                de
+                                                passe oublié ?</a></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script language="JavaScript">
+        $(document).on("click", "#togglePassword", function(e) {
+            // toggle the type attribute
+            var password = $('#password');
+            if (password.attr("type") === "password") {
+                password.attr("type", "text");
+            } else {
+                password.attr("type", "password");
+            }
+            $("#show-eye").toggleClass('fa-eye');
+            $("#show-eye").toggleClass('fa-eye-slash');
+            // toggle the eye icon
+        });
+    </script>
+    </body>
+
+</html>

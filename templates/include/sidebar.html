@@ -1,0 +1,168 @@
+
+<!------SIDE-BAR-------->
+<nav class="sidebar">
+  <div class="logo-details">
+    <img src="{% if result_reference.logo %}
+                  {{ url_for('static', filename='img/logo/' ~ result_reference.logo) }}
+                {% else %}
+                  {{ url_for('static', filename='img/image/image.jpg') }}
+                {% endif %}">
+    <span class="logo-name">
+      <h5>{{ result_reference['entreprise'] if result_reference['entreprise']
+        else 'Entreprise'
+        }}</h5>
+    </span>
+  </div>
+  <div class="nav-links">
+
+    {% if profil %}
+    {# Ici tu gères les menus selon le profil #}
+    {% if profil == 'Ressources humaines' %}
+    {% include 'include/menu_rh.html' %}
+    {% elif profil == 'Salaire' %}
+    {% include 'include/menu_salaire.html' %}
+    {% elif profil == 'Pointage' %}
+    {% include 'include/menu_pointage.html' %}
+    {% elif profil == 'Comptable matiére' %}
+    {% include 'include/menu_gstock.html' %}
+    {% elif profil in ['Administrateur', 'Sup-administrateur'] %}
+    {# Tes conditions pour add ici #}
+    {% if 'add' in request.args %}
+    {% include 'include/menu_rh_add.html' %}
+    {% elif 'add_g' in request.args %}
+    {% include 'include/menu_gstock_add.html' %}
+    {% else %}
+    {% include 'include/menu_admin.html' %}
+    {% endif %}
+    {% else %}
+    {# Profil inconnu - afficher menu par défaut ou message #}
+    Menu par défaut pour profil inconnu
+    {% endif %}
+    {% else %}
+    {# Pas de profil dans la session #}
+    {% if 'add' in request.args %}
+    {% include 'include/menu_rh_add.html' %}
+    {% elif 'add_g' in request.args %}
+    {% include 'include/menu_gstock_add.html' %}
+    {% else %}
+    {% include 'include/menu_admin.html' %}
+    {% endif %}
+    {% endif %}
+    {% if profil %}
+    {% if profil == 'Sup-administrateur' %}
+    <li>
+      <a href="{{ url_for('page', page_name='user') }}?id={{ id_m }}">
+        <i class=" fas fa-user"></i>
+        <span class="link-name">Utilisateur</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link-name" href="#">Utilisateur</a></li>
+      </ul>
+    </li>
+    {% endif %}
+    {% else %}
+    {% if 'add' in request.args %}
+    {% elif 'add_g' in request.args %}
+    {% else %}
+    <li>
+      <a href="{{ url_for('page', page_name='user') }}?id={{ id_m }}">
+        <i class=" fas fa-user"></i>
+        <span class="link-name">Utilisateur</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link-name" href="#">Utilisateur</a></li>
+      </ul>
+    </li>
+    {% endif %}
+    {% endif %}
+  </div>
+  <div class="profile-details">
+    <div class="profile-content">
+      <img
+        src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+        class="img-profil-user">
+    </div>
+
+    <div class="name-job">
+      <div class="profile-name">
+        {{ result['nom_sub_user'] if profil else result['nomuser'] }}
+      </div>
+      <div class="job">
+        {{ profil if profil else 'Administrateur' }}
+      </div>
+    </div>
+
+    {% if profil %}
+    {% if profil in ['Administrateur', 'Sup-administrateur'] %}
+    <a href="{{ url_for('page', page_name='reference') }}?id={{ id_m }}"><i
+        class="fas fa-sign-out-alt"></i></a>
+    {% else %}
+    <a href="#"><i class="fas fa-sign-out-alt"></i></a>
+    {% endif %}
+    {% else %}
+    {% if 'add' in request.args %}
+    <a href="{{ url_for('page', page_name='reference') }}?id={{ id_m }}"><i
+        class="fas fa-sign-out-alt"></i></a>
+    {% else %}
+    <a href="{{ url_for('page', page_name='reference') }}?id={{ id_m }}"><i
+        class="fas fa-sign-out-alt"></i></a>
+    {% endif %}
+    {% endif %}
+
+  </div>
+  <div class="color-box">
+    <div class="color-switchers">
+      <button class="btn-switcher principal active-color" id="principal"
+        data-color="#005f9e"></button>
+      <button class="btn-switcher green-switcher" id="green-switcher"
+        data-color="#04640e"></button>
+      <button class="btn-switcher purple-switcher" id="purple-switcher"
+        data-color="#8e44ad"></button>
+      <button class="btn-switcher red-switcher" id="red-switcher"
+        data-color="#93080d"></button>
+    </div>
+  </div>
+</nav>
+<!------------PETIT MODAL---------------->
+
+<div class="petit close-modal" id="deconnect">
+  <div class="modal-panel-petit" style="margin-top: 100px;">
+    <div class="overlay-inner">
+      <div class="modal-close-content">
+        <div class="modal-close">
+          <span class="title">Ohh No!</span>
+          <div class="btn-close-modal close-modal">
+            <i class="fa fa-times-circle"></i>
+          </div>
+        </div>
+        <div class="container-upload1">
+          <div class="upload1">
+            <div class="fa fa-lock"></div>
+          </div>
+        </div>
+      </div>
+      <div class="corps-modal">
+        <div class="container-form">
+          <div class="nextstep nextstep-active">
+            <div class="user-details-login">
+              <p style="margin-top: 20px;">
+                Sélectionnez "Déconnexion" ci-dessous si vous êtes prêt à
+                mettre fin à votre session en cours ?
+              </p>
+            </div>
+            <div class="footer-modal">
+              <a href="{{ url_for('logout') }}"><button type="button"
+                  class="footer-button-register"
+                  id="btn-deconnect">Déconnexion</button></a>
+              <button type="button"
+                class="footer-button-close close-modal">Fermer</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<!------FOOTER-------->

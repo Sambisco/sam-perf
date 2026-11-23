@@ -1,0 +1,771 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<div class="main-content">
+    <div class="bloc-header">
+        <div class="overlay">
+
+        </div>
+        <div class="baniere-left">
+            <h1>Utilisateur</h1>
+        </div>
+        <div class="baniere-right">
+            <div class="content-navigation">
+                <ul class="navigation">
+                    <li class="active_nav active_nav_click"
+                        id="btn-modal-ajouter">
+                        <a href="#">
+                            <span class="icon"><i
+                                    class="fas fa-fw fa-plus"></i></span>
+                            <span class="text">Ajouter</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="section-content">
+        <div class="circle"><i class="fas fa-user"></i></div>
+        <div class="main-sous-content">
+
+            <div class="content-list content-list1">
+
+            </div>
+            <!----------------PAGINATION----------->
+            <div class="pagination">
+                <div class="showingInfo" id="showingInfo1"></div>
+                <div class="showingPage" id="pagination1"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!------MODAL AJOUT-------->
+<form id="insertForm">
+    <div class="petit close-modal" id="ajouter-modal">
+        <div class="modal-panel-petit">
+            <div class="overlay-inner">
+                <div class="modal-close-content">
+                    <div class="modal-close">
+                        <span class="title">AJOUTER UTILISATEUR</span>
+                        <div class="btn-close-modal close-modal">
+                            <i class="fa fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="container-upload">
+                        <div class="upload">
+                            <img
+                                src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+                                alt id="imgPreview">
+                            <div class="round">
+                                <input type="file" name="photo" id="photo"
+                                    class="file-upload">
+                                <i class="fa fa-camera"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="corps-modal">
+                    <div class="container-form">
+                        <input type="hidden" name="id_reference"
+                            id="get_id_reference">
+                        <input type="hidden" name="insert_id" id="insert_id">
+
+                        <div class="nextstep nextstep-active">
+                            <div class="user-details-register">
+                                <div class="input-group">
+                                    <label class="label-details">Nom
+                                        complet</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-user fa-icon"></i></span>
+                                        <input type="text"
+                                            class="text-input nom_sub_user"
+                                            name="nom_sub_user" id
+                                            placeholder="Nom complet"
+                                            required="required"
+                                            onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Telephone</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-phone fa-icon"></i></span>
+                                        <input type="text"
+                                            class="text-input telephone_sub_user"
+                                            name="telephone_sub_user"
+                                            id="id_telephone_sub_user"
+                                            placeholder="Telephone"
+                                            required="required">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Email</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-envelope fa-icon"></i>
+                                        </span>
+                                        <input type="text"
+                                            class="text-input sub_email"
+                                            name="sub_email" id
+                                            placeholder="Email"
+                                            required="required">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label class="label-details">Profil</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-user-circle fa-icon"></i>
+                                        </span>
+                                        <select name="profil"
+                                            class="js-searchBox profil"
+                                            required="required">
+                                            <option value>Selectionnez un
+                                                profil</option>
+                                            <option
+                                                value="Administrateur">Administrateur</option>
+                                            <option
+                                                value="Ressources humaines">Ressources
+                                                humaines</option>
+                                            <option
+                                                value="Salaire">Salaire</option>
+                                            <option
+                                                value="Pointage">Pointage</option>
+                                            <option
+                                                value="Comptable matiére">Comptable
+                                                matiére</option>
+                                            <option
+                                                value="Assistant(e) C. matiére">Assistant(e)
+                                                C. matiére</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Mot de
+                                        passe</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-lock fa-icon"></i></span>
+                                        <input type="password"
+                                            class="text-input sub_password"
+                                            name="sub_password" id="password"
+                                            placeholder="Mot de passe"
+                                            required="required">
+                                        <span class="span-right"
+                                            id="togglePassword"><i
+                                                class="fa fa-eye-slash"
+                                                id="show-eye"></i></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="footer-modal">
+                                <button type="submit"
+                                    class="footer-button-register"
+                                    id="insertdata">Enregister</button>
+                                <button type="button"
+                                    class="footer-button-close close-modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!------FIN MODAL AJOUT-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+    <div class="petit close-modal" id="modifier-modal">
+        <div class="modal-panel-petit">
+            <div class="overlay-inner">
+                <div class="modal-close-content">
+                    <div class="modal-close">
+                        <span class="title">MODIFIER UTILISATEUR</span>
+                        <div class="btn-close-modal close-modal">
+                            <i class="fa fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="container-upload">
+                        <div class="upload">
+                            <img
+                                src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+                                alt id="update_imgPreview">
+                            <div class="round">
+                                <input type="file" name="photo"
+                                    id="update_photo" class="file-upload">
+                                <i class="fa fa-camera"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="corps-modal">
+                    <div class="container-form">
+                        <input type="hidden" name="edit_id" id="edit_id">
+
+                        <div class="nextstep nextstep-active">
+
+                            <div class="user-details-register">
+                                <div class="input-group">
+                                    <label class="label-details">Nom
+                                        complet</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-user fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="nom_sub_user"
+                                            id="nom_sub_user"
+                                            placeholder="Nom complet"
+                                            required="required"
+                                            onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Telephone</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-phone fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="telephone_sub_user"
+                                            id="telephone_sub_user"
+                                            placeholder="Telephone"
+                                            required="required">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Email</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-envelope fa-icon"></i>
+                                        </span>
+                                        <input type="text" class="text-input"
+                                            name="sub_email" id="sub_email"
+                                            placeholder="Email"
+                                            required="required">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label class="label-details">Profil</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-user-circle fa-icon"></i>
+                                        </span>
+                                        <select name="profil" id="profil"
+                                            class="js-searchBox"
+                                            required="required">
+                                            <option value>Selectionnez un
+                                                profil</option>
+                                            <option
+                                                value="Administrateur">Administrateur</option>
+                                            <option
+                                                value="Ressources humaines">Ressources
+                                                humaines</option>
+                                            <option
+                                                value="Salaire">Salaire</option>
+                                            <option
+                                                value="Pointage">Pointage</option>
+                                            <option
+                                                value="Comptable matiére">Comptable
+                                                matiére</option>
+                                            <option
+                                                value="Assistant(e) C. matiére">Assistant(e)
+                                                C. matiére</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Mot de
+                                        passe</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-lock fa-icon"></i></span>
+                                        <input type="password"
+                                            class="text-input"
+                                            name="sub_password"
+                                            id="update_password"
+                                            placeholder="Mot de passe"
+                                            required="required">
+                                        <span class="span-right"
+                                            id="update_togglePassword"><i
+                                                class="fa fa-eye-slash"
+                                                id="update_show-eye"></i></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="footer-modal">
+                                <button type="submit"
+                                    class="footer-button-register"
+                                    id="updatetdata">Modifier</button>
+                                <button type="button"
+                                    class="footer-button-close close-modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!------FIN MODAL MODIFIER-------->
+<!------MODAL SUPPRIMER-------->
+<form id="deleteForm">
+    <div class="petit close-modal" id="supprimer-modal">
+        <div class="modal-panel-petit">
+            <div class="overlay-inner">
+                <div class="modal-close-content">
+                    <div class="modal-close">
+                        <span class="title">SUPPRIMER utilisateur</span>
+                        <div class="btn-close-modal close-modal">
+                            <i class="fa fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="container-upload">
+                        <div class="upload">
+                            <img
+                                src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+                                alt id="del_imgPreview">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="corps-modal">
+                    <div class="container-form">
+                        <input type="hidden" name="delete_id" id="delete_id">
+
+                        <div class="nextstep nextstep-active">
+                            <div class="user-details-login">
+                                <div class="input-group">
+                                    <label class="label-details">Voulez-vous
+                                        vraiment supprimer ?</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-trash"></i> </span>
+                                        <input type="text" class="text-input"
+                                            name id="nom_del" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-modal">
+                                <button type="submit"
+                                    class="footer-button-register"
+                                    id="deletedata">Supprimer</button>
+                                <button type="button"
+                                    class="footer-button-close close-modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<!------FIN MODAL SUPPRIMER-------->
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+        function fetchdata() {
+            var id = $("#id_reference").val()
+            $.ajax({
+                url: "../controller/user/fetch_user",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    $('.content-list1').html(""); //insérer le texte de test.php dans votre div
+                    var gp_data = response;
+                    for (var a = 0; a < gp_data.length; a++) {
+                        var div1 = `<div class="parent box result well">
+					 <div class="card">
+					    <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[a].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].nom_sub_user}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-user"></i><span>${gp_data[a].profil}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-phone fa-rotate-90"></i><span>${gp_data[a].telephone_sub_user}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-envelope"></i><span>${gp_data[a].sub_email}</span>
+								</div>
+							</div>
+						</div>
+                        <div class="content-navigation_list">
+                            <ul class="navigation_list">
+					               <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="updatebtn" data-id="${gp_data[a].id_sub_users}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+					               		<span class="text">Modifier</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+                                   <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="deletebtn" data-id="${gp_data[a].id_sub_users}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-trash"></i></span>
+					               		<span class="text">Supprimer</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+				            </ul>
+                        </div>
+					</div>
+				  </div>`;
+                        $('.content-list1').append(div1);
+
+                    }
+                   updateSectionItems(0);
+                },
+            })
+        }
+
+
+        $('document').ready(function() {
+            fetchdata()
+        })
+       $(document).on("click", ".active_nav_click_list", function (e) {
+				e.preventDefault();
+				var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+				console.log("ID chiffré cliqué:", encryptedId);
+
+				// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+				var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+				$(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+				$(this).addClass("active_nav_list");
+
+				// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+			});
+        $("#btn-modal-ajouter").click(function() {
+            $("#get_id_reference").val($("#id_reference").val());
+            $("#ajouter-modal").fadeIn();
+        });
+        $(document).on('click', '.toggle-btn', function(e) {
+            var id = $(this).data('id');
+            $("#nav_" + id).toggleClass("active");
+            $("#toggle-btn-close_" + id).toggleClass("fa-times");
+        })
+
+        $('.js-searchBox').select2({
+            width: '100%'
+        });
+
+       //PHOTO
+		$(document).on("change", "#photo", function(e) {
+    const file = this.files[0];
+    if (!file) return;
+
+    // --- Compression + redimensionnement 800px ---
+    compressImage(file, 800, 800, 0.9).then(finalBlob => {
+
+        const sizeKB = Math.round(finalBlob.size / 1024);
+        console.log("✔ Taille finale : " + sizeKB + " Ko");
+
+        // Remplacer le fichier dans l’input (optionnel)
+        const dt = new DataTransfer();
+        dt.items.add(new File([finalBlob], "photo_compressed.jpg", { type: "image/jpeg" }));
+        document.getElementById("photo").files = dt.files;
+
+        // Aperçu version compressée
+        $('#imgPreview').attr('src', URL.createObjectURL(finalBlob));
+    });
+});
+				// ==========================================================
+// 🔹 Aperçu + COMPRESSER (garde ton updateForm intact)
+// ==========================================================
+$(document).on("change", "#update_photo", function(e) {
+    const file = this.files[0];
+    if (!file) return;
+
+    // --- Compression + redimensionnement 800px ---
+    compressImage(file, 800, 800, 0.9).then(finalBlob => {
+
+        const sizeKB = Math.round(finalBlob.size / 1024);
+        console.log("✔ Taille finale : " + sizeKB + " Ko");
+
+        // Remplacer le fichier dans l’input (optionnel)
+        const dt = new DataTransfer();
+        dt.items.add(new File([finalBlob], "photo_compressed.jpg", { type: "image/jpeg" }));
+        document.getElementById("update_photo").files = dt.files;
+
+        // Aperçu version compressée
+        $('#update_imgPreview').attr('src', URL.createObjectURL(finalBlob));
+    });
+});
+
+// ==========================================================
+// 🔹 Fonction de compression
+// ==========================================================
+function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.9) {
+    return new Promise(function(resolve, reject) {
+        const img = new Image();
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        img.onload = function() {
+            const canvas = document.createElement("canvas");
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = Math.round(height * maxWidth / width);
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = Math.round(width * maxHeight / height);
+                    height = maxHeight;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(function(blob) {
+                resolve(blob);
+            }, "image/jpeg", quality);
+        };
+
+        img.onerror = function(err) {
+            reject(err);
+        };
+    });
+}
+        $(document).ready(function(e) {
+            //INSERTION
+           
+             $("#insertForm").on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: '../controller/user/save',
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(response) {
+                // response est maintenant un objet JSON {status, message}
+                if (response.status === 'exists') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Utilisateur existe',
+                        text: response.message,
+                        confirmButtonColor: '#127b8e',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else if (response.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Succès',
+                        text: response.message,
+                        confirmButtonColor: '#127b8e',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    fetchdata(); // rafraîchit la table
+                    
+                $("#ajouter-modal").fadeOut();
+                } else if (response.status === 'error') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur',
+                        text: response.message,
+                        confirmButtonColor: '#127b8e'
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur Ajax',
+                    text: error,
+                    confirmButtonColor: '#127b8e'
+                });
+            }
+        });
+         $(this).find('input:text, input:password, input:file, textarea').val('');
+                    $(this).find('select').val(null).trigger('change');
+    });
+            //UPDATE
+            $("#updateForm").on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '../controller/user/save',
+                    data: new FormData(this),
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(response) {
+                        console.log(response)
+                    }
+                });
+                $("#modifier-modal").hide();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Modifié',
+                    text: "Modification effectuée avec succés.",
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(function() {
+                    fetchdata()
+                });
+            });
+            // SUPPRIMER
+            $("#deleteForm").on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '../controller/user/save',
+                    data: new FormData(this),
+                    //dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(response) {
+                        console.log(response)
+                         if (response.status === 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Supprimé',
+                                text: response.message,
+                                confirmButtonColor: '#127b8e',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            fetchdata(); // rafraîchit la table
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur',
+                                text: response.message,
+                                confirmButtonColor: '#127b8e'
+                            });
+                        }
+                    }
+                });
+                $("#supprimer-modal").hide();
+
+                
+
+            });
+
+        });
+        $("#togglePassword").on("click", function(e) {
+            // toggle the type attribute
+            var password = $('#password');
+            if (password.attr("type") === "password") {
+                password.attr("type", "text");
+            } else {
+                password.attr("type", "password");
+            }
+            $("#show-eye").toggleClass('fa-eye');
+            $("#show-eye").toggleClass('fa-eye-slash');
+            // toggle the eye icon
+
+        });
+        $("#update_togglePassword").on("click", function(e) {
+            // toggle the type attribute
+            var password = $('#update_password');
+            if (password.attr("type") === "password") {
+                password.attr("type", "text");
+            } else {
+                password.attr("type", "password");
+            }
+            $("#update_show-eye").toggleClass('fa-eye');
+            $("#update_show-eye").toggleClass('fa-eye-slash');
+            // toggle the eye icon
+
+        });
+
+        // SHOW UPDATE
+        $(document).on('click', '#updatebtn', function(e) {
+
+            e.preventDefault();
+
+            var id_user = $(this).data('id');
+            $.ajax({
+                url: '../controller/user/fetch_user',
+                type: "post",
+                data: {
+                    id_user: id_user
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data.logo)
+
+                    $("#edit_id").val(data.id_sub_users);
+                    $("#nom_sub_user").val(data.nom_sub_user);
+                    $("#telephone_sub_user").val(data.telephone_sub_user);
+                    $("#sub_email").val(data.sub_email);
+                    $("#profil").val(data.profil).trigger("change");
+                    $("#update_imgPreview").attr("src", data.photo);
+                    $("#modifier-modal").show();
+
+                }
+
+            });
+
+        });
+        //SHOW DELETE
+        $(document).on('click', '#deletebtn', function(e) {
+
+            e.preventDefault();
+
+            var id_user = $(this).data('id');
+            $.ajax({
+                url: '../controller/user/fetch_user',
+                type: "post",
+                data: {
+                    id_user: id_user
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data.logo)
+
+                    $("#delete_id").val(data.id_sub_users);
+                    $("#nom_del").val(data.nom_sub_user);
+                    $("#del_imgPreview").attr("src", data.photo);
+                    $("#supprimer-modal").show();
+
+                }
+
+            });
+
+        });
+    </script>

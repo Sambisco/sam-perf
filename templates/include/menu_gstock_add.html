@@ -1,0 +1,112 @@
+<li>
+	<a href="{{ url_for('gstock', page_name='dashboard', id=id_m, add_g='1') }}">
+		<i class="fas fa-fw fa-tachometer-alt"></i>
+		<span class="link-name">Tableau de bord</span>
+	</a>
+	<ul class="sub-menu blank">
+		<li><a class="link-name" href="#">Tableau de bord</a></li>
+	</ul>
+</li>
+<li>
+	<a href="{{ url_for('gstock', page_name='categorie', id=id_m, add_g='1') }}">
+		<i class="fas fa-fw fa-list-alt"></i>
+		<span class="link-name">Categorie</span>
+	</a>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">Categorie</a></li>
+	</ul>
+</li>
+<li>
+	<a href="{{ url_for('gstock', page_name='matiere', id=id_m, add_g='1') }}">
+		<i class="fas fa-fw fa-database"></i>
+		<span class="link-name">Matiere</span>
+	</a>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">Matiere</a></li>
+	</ul>
+</li>
+<li>
+	<a href="{{ url_for('gstock', page_name='entree', id=id_m, add_g='1') }}">
+		<i class="fas fa-fw fa-file-import"></i>
+		<span class="link-name">Entree</span>
+	</a>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">Entree</a></li>
+	</ul>
+</li>
+
+<li>
+	<div class="iocn-link">
+		<a href="#">
+			<i class="fas fa-fw fa-file-export"></i>
+			<span class="link-name">Sortie</span>
+		</a>
+		<i class="fa fa-chevron-down arrow"></i>
+	</div>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">Sortie</a></li>
+		<li><a href="{{ url_for('gstock', page_name='sortie_interne', id=id_m, add_g='1') }}">Sortie interne</a></li>
+		<li><a href="{{ url_for('gstock', page_name='sortie_externe', id=id_m, add_g='1') }}">Sortie externe</a></li>
+	</ul>
+</li>
+<li>
+	<a href="{{ url_for('gstock', page_name='affectation', id=id_m, add_g='1') }}">
+		<i class="fas fa-fw fa-file-contract"></i>
+		<span class="link-name">Affectation</span>
+	</a>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">Affectation</a></li>
+	</ul>
+</li>
+<li>
+	<a href="{{ url_for('gstock', page_name='mutation', id=id_m, add_g='1') }}">
+		<i class="fas fa-fw fa-exchange-alt"></i>
+		<span class="link-name">Mutation</span>
+	</a>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">Mutation</a></li>
+	</ul>
+</li>
+<li>
+	<a href="{{ url_for('gstock', page_name='fournisseur', id=id_m, add_g='1') }}">
+		<i class="fas fa-fw fa-user"></i>
+		<span class="link-name">Fournisseur</span>
+	</a>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">Fournisseur</a></li>
+	</ul>
+</li>
+<li>
+	<div class="iocn-link">
+		<a href="#">
+			<i class="fas fa-fw fa-gas-pump"></i>
+			<span class="link-name">Carburant</span>
+		</a>
+		<i class="fa fa-chevron-down arrow"></i>
+	</div>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">Carburant</a></li>
+		<li><a
+				href="{{ url_for('gstock', page_name='dotation', id=id_m, add_g='1') }}">Dotation</a></li>
+		<li><a
+				href="{{ url_for('gstock', page_name='reception', id=id_m, add_g='1') }}">Reception</a></li>
+	</ul>
+</li>
+
+<li style="display:none;">
+	<div class="iocn-link">
+		<a href="#">
+			<i class="fas fa-fw fa-cogs"></i>
+			<span class="link-name">Immobilisation</span>
+		</a>
+		<i class="fa fa-chevron-down arrow"></i>
+	</div>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">Immobilisation</a></li>
+		<li><a
+				href="{{ url_for('gstock', page_name='immobilisation', id=id_m, add_g='1') }}">Immobilisation</a></li>
+	</ul>
+</li>
+<!------------PETIT MODAL---------------->
+
+<!------FOOTER-------->

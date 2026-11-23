@@ -1,0 +1,658 @@
+     * {
+          font-family: Georgia, 'Times New Roman', Times, serif
+     }
+
+     @page {
+          margin: 1.5cm;
+          /* PAS de marge page */
+          height: 29.7cm
+     }
+
+     body,
+     html {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+     }
+
+     .page-container {
+          width: 100%;
+          height: 100%;
+          border: 1px solid #000;
+          box-sizing: border-box;
+     }
+
+     .page-break {
+          page-break-before: always;
+     }
+
+     .div1 {
+          display: flex;
+          width: 100%;
+          border-bottom: 1px solid #000;
+     }
+
+     .div1-left {
+          width: 65%;
+          padding-left: 10px;
+          padding-right: 10px;
+     }
+
+     .div1-left h6 {
+          text-align: center;
+          font-weight: 100;
+     }
+
+     .div1-left .sous-div1-left1 {
+          display: flex;
+          justify-content: center;
+          font-size: 9pt;
+          margin-top: -15px;
+     }
+
+     .div1-left .sous-div1-left1 div:nth-child(2) {
+          width: 30%;
+          border-bottom: 1px solid #000;
+          margin-right: 10px;
+     }
+
+     .div1-left .sous-div1-left1 div:nth-child(4) {
+          width: 30%;
+          border-bottom: 1px solid #000;
+     }
+
+     .div1-left .sous-div1-left2 {
+          text-align: center;
+          font-size: 9.5pt;
+          margin-top: 10px;
+     }
+
+     .div1-left .sous-div1-left3 {
+          text-align: left;
+          font-size: 8pt;
+          margin-top: 10px;
+          padding-left: 30px;
+          margin-bottom: 10px;
+     }
+
+     /* div1-right */
+
+     .div1-right {
+          border-left: 1px solid #000;
+          width: 35%;
+     }
+
+     .div1-right h6 {
+          text-align: center;
+          font-size: 8pt;
+          font-weight: 100;
+     }
+
+     .div2 {
+          display: flex;
+          border-bottom: #000 1px solid;
+          padding-top: 10px;
+          gap: 30px;
+          padding-bottom: 5px;
+     }
+
+     .div2-left,
+     .div2-right {
+          width: 40%;
+          font-size: 8pt;
+     }
+
+     .div2-left {
+          padding-left: 40px;
+     }
+
+     .div2-right1,
+     .div2-right2 {
+          display: flex;
+          width: 315px;
+     }
+
+     .div2-right1 {
+          border-top: 2px solid #000;
+          border-right: 2px solid #000;
+
+     }
+
+     .div2-right2 {
+          border-bottom: 2px solid #000;
+          border-right: 2px solid #000;
+     }
+
+     .div2-right1>div,
+     .div2-right2>div {
+          width: 20px !important;
+          height: 20px;
+          box-sizing: border-box;
+          flex: 0 0 20px;
+          /* si le parent est en flex */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-left: 1px solid #000;
+
+     }
+
+
+     .div2-right1 div:nth-child(3),
+     .div2-right1 div:nth-child(5),
+     .div2-right1 div:nth-child(6),
+     .div2-right1 div:nth-child(8),
+     .div2-right1 div:nth-child(9),
+     .div2-right1 div:nth-child(12),
+     .div2-right1 div:nth-child(13),
+     .div2-right1 div:nth-child(14),
+     .div2-right1 div:nth-child(15) {
+          border-left: 1px solid #fff;
+     }
+
+     .div2-right3 {
+          display: flex;
+     }
+
+     .div2-right3>div {
+          box-sizing: border-box;
+     }
+
+     .div2-right3 div:nth-child(1) {
+          width: 20px !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: 0 0 20px;
+     }
+
+     .div2-right3 div:nth-child(2) {
+          width: 25px !important;
+          display: flex;
+          align-items: center;
+          justify-content: right;
+          flex: 0 0 25px;
+     }
+
+     .div2-right3 div:nth-child(3) {
+          width: 60px !important;
+          display: flex;
+          align-items: center;
+          justify-content: right;
+          flex: 0 0 60px;
+     }
+
+     .div2-right3 div:nth-child(4) {
+          width: 60px !important;
+          display: flex;
+          align-items: center;
+          justify-content: right;
+          flex: 0 0 60px;
+     }
+
+     .div2-right3 div:nth-child(5) {
+          width: 40px !important;
+          display: flex;
+          align-items: center;
+          justify-content: right;
+          flex: 0 0 40px;
+     }
+
+     .div2-right3 div:nth-child(6) {
+          width: 60px !important;
+          display: flex;
+          align-items: center;
+          justify-content: right;
+          flex: 0 0 60px;
+     }
+
+     .div3 {
+          padding-top: 5px;
+          padding-left: 10px;
+          padding-right: 10px;
+          display: flex;
+          width: 100%;
+          font-size: 8pt;
+     }
+
+     .div3-left,
+     .div3-right {
+          width: 50%;
+     }
+
+     .div3-left .div3-left2 {
+          margin-top: 50px;
+          display: flex;
+     }
+
+     .div3-left .div3-left2 div:nth-child(1),
+     .div3-left .div3-left2 div:nth-child(2) {
+          width: 50%;
+     }
+
+     .div3-left .div3-left2 .embauche_licencie {
+          padding: 5px;
+          border: #000 solid 1px;
+     }
+
+     .div3-left .div3-left3 {
+          margin-top: 10px;
+     }
+
+     .div3-right {
+          text-align: center;
+     }
+
+     .div3-right div:nth-child(2) {
+          height: 50px;
+          border-left: #000 solid 1px;
+          border-top: #000 solid 1px;
+          border-bottom: #000 solid 1px;
+          width: 97%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+     }
+
+     .div4 {
+          margin-top: 20px;
+          padding-left: 10px;
+          font-size: 10pt;
+     }
+
+     .div5 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div5 div:nth-child(2) {
+          width: 25%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div5 div:nth-child(4) {
+          width: 40%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div5 div:nth-child(6) {
+          width: 20%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div6 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div6 div:nth-child(2) {
+          width: 18%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div6 div:nth-child(4) {
+          width: 20%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div6 div:nth-child(6) {
+          width: 20%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div6 div:nth-child(8) {
+          width: 20%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div7 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div7 div:nth-child(2) {
+          width: 20%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div7 div:nth-child(4) {
+          width: 20%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div7 div:nth-child(6) {
+          width: 20%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div8 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div8 div:nth-child(2) {
+          width: 100%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div9 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div9 div:nth-child(2) {
+          width: 30%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div9 div:nth-child(4) {
+          width: 30%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div9 div:nth-child(6) {
+          width: 30%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div10 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div10 div:nth-child(2) {
+          width: 100%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div11 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div11 div:nth-child(2) {
+          width: 30%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div11 div:nth-child(4) {
+          width: 30%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div11 div:nth-child(6) {
+          width: 30%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div12 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div12 div:nth-child(2) {
+          width: 100%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div13 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div13 div:nth-child(2) {
+          width: 30%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div13 div:nth-child(4) {
+          width: 30%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div13 div:nth-child(6) {
+          width: 30%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div14,
+     .div15,
+     .div16,
+     .div17 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div14 div:nth-child(2),
+     .div15 div:nth-child(2),
+     .div16 div:nth-child(2),
+     .div17 div:nth-child(2) {
+          width: 100%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div18 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div18 div:nth-child(2) {
+          width: 50%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .div18 div:nth-child(4) {
+          width: 50%;
+          text-align: center;
+          border-bottom: #000 1px solid;
+     }
+
+     .separateur {
+          border-top: #000 1px solid;
+          margin-top: 20px;
+     }
+
+     .div19 {
+          display: flex;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 8pt;
+          padding-top: 20px;
+          padding-left: 10px;
+          padding-right: 10px;
+          white-space: nowrap;
+     }
+
+     .div19 .left {
+          padding-left: 30px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+     }
+
+     .div19 .right {
+          padding-left: 70px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+     }
+
+     .div19 .right .right2 {
+          display: flex;
+          gap: 5px;
+          font-weight: bold;
+          white-space: nowrap;
+     }
+
+     .div19 .right .right2 .right2-2 {
+          width: 143px;
+          border-bottom: #000 1px solid;
+          text-align: center;
+     }
+
+     .div19 .right .right3 {
+          display: flex;
+          gap: 5px;
+          white-space: nowrap;
+     }
+
+     .div19 .right .right3 .right3-3 {
+          border-bottom: #000 1px solid;
+          width: 100%;
+     }
+
+     .div20 {
+          padding-top: 20px;
+          padding-left: 40px;
+     }
+
+     .div20 p {
+          margin-top: 40px;
+          padding-left: 140px;
+          font-size: 8pt;
+          margin-bottom: 30px;
+     }
+
+     .div21 {
+          margin-top: 20px;
+          padding-left: 10px;
+          font-size: 8pt;
+     }
+
+     .div21 div:nth-child(1) {
+          font-weight: bold;
+     }
+
+     .div21 div:nth-child(2) {
+          padding-left: 140px;
+     }
+
+     .div22 {
+          margin-top: 5px;
+          padding-left: 10px;
+          font-size: 8pt;
+          display: flex;
+          gap: 40px;
+     }
+
+     .div23 {
+          margin-top: 10px;
+          padding-left: 10px;
+          font-size: 8pt;
+          display: flex;
+          gap: 10px;
+          flex-direction: column;
+     }
+
+     .div23 .heure_heure {
+          padding: 5px;
+          border: #000 solid 1px;
+     }
+
+     .div24 {
+          margin-top: 30px;
+          padding-left: 10px;
+          font-size: 8pt;
+          display: flex;
+          flex-direction: column;
+          gap: 100px;
+     }
+
+     .div25 {
+          margin-top: 40px;
+          padding-left: 10px;
+          font-size: 8pt;
+          display: flex;
+     }
+
+     .div25>div {
+          width: 50%;
+          text-align: center;
+     }
+     .div26{
+          border-top: #000 solid 1px;
+          margin-top: 180px;
+          font-size: 8pt;
+          padding-top: 10px;
+          padding-left: 20px;
+          padding-right: 20px;
+     }

@@ -1,0 +1,383 @@
+:root {
+    --linear-gradient: linear-gradient(to left, hsl(204, 68%, 40%), #002740);
+    --background: #002740;
+    --background-icon: #005f9e;
+    --border-color: #005f9e;
+    --background-button: linear-gradient(135deg, hsl(204, 60%, 62%), #005f9e);
+    --background-hover: linear-gradient(-135deg, hsl(204, 57%, 65%), #005f9e);
+    --disabled-form: #0e99f5;
+    --background-select: #5897fb;
+}
+
+:root.principal {
+    --linear-gradient: linear-gradient(to left, hsl(204, 68%, 40%), #002740);
+    --background: #002740;
+    --background-icon: #005f9e;
+    --border-color: #005f9e;
+    --background-button: linear-gradient(135deg, hsl(204, 60%, 62%), #005f9e);
+    --background-hover: linear-gradient(-135deg, hsl(204, 57%, 65%), #005f9e);
+    --disabled-form: #0e99f5;
+    --background-select: #5897fb;
+}
+
+:root.green {
+    --linear-gradient: linear-gradient(to left, hsl(126, 46%, 54%), #024308);
+    --background: #024308;
+    --background-icon: #024308;
+    --border-color: #024308;
+    --background-button: linear-gradient(135deg, hsl(124, 89%, 86%), #024308);
+    --background-hover: linear-gradient(-135deg, hsl(126, 66%, 72%), #024308);
+    --disabled-form: #378f40;
+    --background-select: #0a8816;
+}
+:root.orange {
+    --linear-gradient: linear-gradient(-135deg, hsl(37, 80%, 81%), #452c03);
+    --background: #955d02;
+    --background-icon: #955d02;
+    --border-color: #955d02;
+    --background-button: linear-gradient(135deg, hsl(37, 77%, 65%), #955d02);
+    --background-hover: linear-gradient(-135deg, hsl(37, 77%, 65%), #955d02);
+    --disabled-form: #d7ad68;
+    --background-select: #955d02;
+}
+ :root.purple {
+     --linear-gradient: linear-gradient(to left, hsl(285, 93%, 73%), #46045c);
+     --background: #46045c;
+     --background-icon: #46045c;
+     --border-color: #46045c;
+     --background-button: linear-gradient(135deg, hsl(285, 81%, 81%), #46045c);
+     --background-hover: linear-gradient(-135deg, hsl(285, 81%, 81%), #46045c);
+     --disabled-form: #e290fe;
+     --background-select: #46045c;
+ }
+.lato {
+    font-family: Lato, sans-serif
+}
+.jplist{
+    display: flex;
+    flex-direction: column;
+}
+.jplist-hidden {
+    display: none
+}
+
+.jplist-sticky {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    background: #f1f1f1;
+    padding-bottom: 5px
+}
+
+.sticky-demo .panel>.center {
+    max-width: 100%
+}
+
+.sticky-demo .jplist-sticky>.center {
+    max-width: 95%
+}
+
+.no-cssgradients .jplist-panel button:hover {
+    background: #f4f4f4
+}
+
+.jplist-panel {
+    color: #27252a;
+    margin: 20px 0 20px 0;
+}
+
+.jplist-panel button {
+    float: left;
+    height: 30px;
+    box-shadow: 0 0 1px #fff;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    text-shadow: 1px 1px 1px #fff;
+    color: #27252a;
+    background: #fff;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(100%, #efefef));
+    background: -webkit-linear-gradient(top, #fff 0, #efefef 100%);
+    background: linear-gradient(to bottom, #fff 0, #efefef 100%);
+    margin: 10px 10px 0 0
+}
+
+.jplist-panel button:hover {
+    color: #0381bb;
+    background: #f2f2f2;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fafafa), color-stop(100%, #ededed));
+    background: -webkit-linear-gradient(top, #fafafa 0, #ededed 100%);
+    background: linear-gradient(to bottom, #fafafa 0, #ededed 100%)
+}
+
+.jplist-panel button.jplist-disabled {
+    background: #e3e3e3;
+    color: #6c6c6c;
+    cursor: default
+}
+
+.jplist-panel button.jplist-selected {
+    color: #f03800
+}
+
+.jplist-panel input[type=text] {
+    float: left;
+    height: 30px;
+    box-shadow: 0 0 1px #fff;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid var(--background-icon);
+    border-right: none;
+    outline: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    text-shadow: 1px 1px 1px #fff;
+    color: #27252a;
+    width: 200px;
+    text-indent: 5px;
+    background: #fff;
+}
+
+.jplist-panel input[type=checkbox],
+.jplist-panel input[type=radio] {
+    float: left;
+    display: inline-block;
+    height: 30px;
+    background: #fff;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #27252a
+}
+
+.jplist-panel label {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    display: inline-block;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #27252a;
+    cursor: pointer
+}
+
+.jplist-panel input.jplist-no-right-border {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0
+}
+
+.text-filter-box {
+    display: flex;
+}
+
+.jplist-icon {
+    height: 30px;
+    background-color: var(--background-icon);
+    border: 1px solid var(--background-icon);
+    color: #fff;
+    margin-left: -105px;
+    border-bottom-left-radius: 0px;
+}
+
+.jplist-label {
+    float: left;
+    height: 30px;
+    box-shadow: 0 0 1px var(--background-icon);
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    text-shadow: 1px 1px 1px #127b8e;
+    color: #fff;
+    line-height: 30px;
+    padding: 0 10px;
+    margin: 10px 10px 0 0;
+    background: #127b8e;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, var(--background-icon)), color-stop(100%, var(--background-icon)));
+    background: -webkit-linear-gradient(top, var(--background-icon) 0, var(--background-icon) 100%);
+    background: linear-gradient(to bottom, var(--background-icon) 0, var(--background-icon) 100%)
+}
+
+.jplist-clear {
+    color: #666;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    line-height: 27px;
+    padding: 0 4px;
+    background: #fff;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #dbdbdb;
+    border-left: 0;
+    border-radius: 0 3px 3px 0;
+    text-shadow: 1px 1px 1px #fff
+}
+
+.jplist-clear:hover {
+    color: #444
+}
+
+.jplist-selected {
+    color: #CA3F1A
+}
+
+.jplist-box {
+    float: left;
+    height: 30px;
+    margin: 10px 10px 0 0
+}
+
+.jplist-drop-down {
+    float: left;
+    height: 30px;
+    box-shadow: 0 0 1px var(--background-icon);
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid var(--background-icon);
+    border-radius: 3px;
+    text-shadow: 1px 1px 1px var(--background-icon);
+    color: #fff;
+    width: 150px;
+    background: var(--background-icon);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, var(--background-icon)), color-stop(100%, var(--background-icon)));
+    background: -webkit-linear-gradient(top, var(--background-icon) 0, var(--background-icon) 100%);
+    background: linear-gradient(to bottom, var(--background-icon) 0, var(--background-icon) 100%);
+    margin: 10px 10px 0 0;
+    position: relative
+}
+
+.jplist-drop-down .jplist-dd-panel {
+    float: left;
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    text-indent: 10px;
+    cursor: pointer
+}
+
+.jplist-drop-down .jplist-dd-panel:after {
+    content: '\25BC';
+    color: #fff;
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    z-index: 1000
+}
+
+.jplist-drop-down ul {
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid var(--background-icon);
+    border-radius: 0 0 3px 3px;
+    position: relative;
+    top: 0;
+    z-index: 1000;
+    width: 148px;
+    display: none;
+    overflow: hidden;
+    background: var(--background-icon);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 3px 6px var(--background-icon)
+}
+
+.jplist-drop-down ul li {
+    width: 100%;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    text-indent: 10px;
+    cursor: pointer
+}
+
+.jplist-drop-down ul li:hover {
+    background-color: #fff;
+    color: #127b8e;
+}
+
+.jplist-drop-down:hover .jplist-dd-panel {
+    color: #fff
+}
+
+.jplist-drop-down:hover .jplist-dd-panel:after {
+    color: #fff
+}
+
+.jplist-select {
+    height: 30px;
+    box-shadow: 0 0 1px #fff;
+    background: #fff;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    text-shadow: 1px 1px 1px #fff;
+    color: #27252a;
+    float: left;
+    margin: 10px 10px 0 0;
+    padding: 5px;
+    text-shadow: none
+}
+
+.jplist-ios-button {
+    display: none
+}
+
+@media only screen and (max-width:600px) {
+    .jplist-ios-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+        font-size: 15px;
+        line-height: 30px;
+        float: left;
+        height: 30px;
+        box-shadow: 0 0 1px #fff;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 1px solid #dbdbdb;
+        border-radius: 3px;
+        text-shadow: 1px 1px 1px #fff;
+        color: #27252a;
+        background: #fff;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(100%, #efefef));
+        background: -webkit-linear-gradient(top, #fff 0, #efefef 100%);
+        background: linear-gradient(to bottom, #fff 0, #efefef 100%)
+    }
+    .jplist-ios-button:hover {
+        background: #f2f2f2;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fafafa), color-stop(100%, #ededed));
+        background: -webkit-linear-gradient(top, #fafafa 0, #ededed 100%);
+        background: linear-gradient(to bottom, #fafafa 0, #ededed 100%)
+    }
+    .jplist-ios-show {
+        display: block
+    }
+    .jplist-panel {
+        margin: 20px 0 20px 0;
+    }
+    .text-filter-box {
+        width: 100%;
+    }
+    .jplist-panel input[type=text] {
+        width: 100%;
+    }
+}

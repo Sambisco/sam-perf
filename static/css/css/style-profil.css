@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.profil-content {
+    display: flex;
+    box-shadow: 0 0 8px rgb(223, 223, 223);
+    border-radius: 10px;
+    background: #005f9e;
+}
+
+.profil-content .profil-content1 {
+    background: #005f9e;
+    border: #005f9e solid 1px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    color: #fff;
+    width: 45%;
+}
+
+.profil-content .profil-content1 .upload {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    border-bottom: solid #fff 2px;
+}
+
+.profil-content .profil-content1 .upload img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: solid 4px #005f9e;
+}
+
+.profil-content .profil-content1 .user-details-register .input-group {
+    margin-top: 10px;
+    border-bottom: solid #fff 2px;
+    color: #fff;
+    padding-bottom: 10px;
+    width: 100%;
+    
+}
+.profil-content .profil-content1 .user-details-register .input-group .label-details{
+    color: #fff;
+}
+.profil-content .profil-content1 .user-details-register .input-group .input-box {
+    font-size: 14px;
+}
+
+.profil-content .profil-content2 {
+    background: #fff;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 14px;
+    border: solid #005f9e 2px;
+    width: 100%;
+}
+
+.profil-content .profil-content2 .user-details-register .input-group {
+    margin-top: 10px;
+    color: #005f9e;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.profil-content .profil-content2 .user-details-register .input-group:nth-child(1) {
+    border-bottom: #005f9e solid 2px;
+}
+
+.profil-content .profil-content2 .user-details-register .input-group:nth-child(2) {
+    border-bottom: #005f9e solid 2px;
+}
+
+.profil-content .profil-content2 .user-details-register .input-group:nth-child(3) {
+    border-bottom: #005f9e solid 2px;
+}
+
+.profil-content .profil-content2 .user-details-register .input-group:nth-child(4) {
+    border-bottom: #005f9e solid 2px;
+}
+
+.profil-content .profil-content2 .user-details-register .input-group:nth-child(5) {
+    border-bottom: #005f9e solid 2px;
+}
+
+.profil-content .profil-content2 .user-details-register .input-group:nth-child(6) {
+    border-bottom: #005f9e solid 2px;
+}
+
+.profil-content .profil-content2 .user-details-register .input-group:nth-child(7) {
+    border-bottom: #005f9e solid 2px;
+}
+
+.profil-content .profil-content2 .user-details-register .input-group .input-box {
+    font-size: 14px;
+}
+
+@media screen and (max-width:860px) {
+    .profil-content {
+        grid-template-columns: 100%;
+    }
+    .profil-content1 {
+        border-top-right-radius: 10px;
+    }
+    .profil-content2 {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+}

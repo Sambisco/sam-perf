@@ -1,0 +1,141 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<!------MAIN-CONTENT-------->
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1>Pointage jour</h1>
+		</div>
+		<div class="baniere-right">
+
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-user"></i></div>
+		<div class="main-sous-content">
+
+			<div class="scanner-face">
+				<div class="scanner-face1" style="padding-top: 40px;">
+					<div id="videoContainer-face">
+						<video id="video-face" autoplay muted width="640" height="540"></video>
+						<audio id="myAudio2">
+							<source src="{{ url_for('static', filename='img/codeQR/beep.mp3') }}"
+								type="audio/mpeg">
+						</audio>
+						<canvas id="overlay-face" width="640" height="540"></canvas>
+						<div id="scannerLine-face"></div>
+						<div id="focus-box-face">
+							<div class="scan">
+								<div class="face no-face">
+									<div class="dots"></div>
+								</div>
+								<h3>Reconnaissance faciale...</h3>
+								<div id="progressbar-container-face">
+									<div id="progressbar-face"></div>
+									<span id="progress-percent-face">0%</span>
+								</div>
+								<div id="status">Chargement des modèles...</div>
+								<div id="result"></div>
+							</div>
+						</div> <!-- ton carré CSS ici -->
+
+					</div>
+
+					<form id="insertpointage" style="display: none;">
+						<input type="text" id="resultsInput-face" readonly
+							placeholder="Matricule détecté ici" />
+						<button type="submit">Valider le pointage</button>
+					</form>
+					<div class="getresult-face"></div>
+				</div>
+				<div class="scann-face2">
+					<div class="content-list content-list1">
+
+					</div>
+					<!----------------PAGINATION----------->
+					<div class="pagination">
+						<div class="showingInfo" id="showingInfo1"></div>
+						<div class="showingPage" id="pagination1"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<!------MODAL AJOUT-------->
+
+<!------FIN MODAL AJOUT-------->
+
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+		setInterval(fetchdata, 3000);
+		fetchdata()
+
+		function fetchdata() {
+			var id = $("#id_reference").val()
+			$.ajax({
+				url: "../controller/pointage/fetch_pointage",
+				type: "POST",
+				data: {
+					id_pointage_scan: id,
+				},
+				success: function(response) {
+					$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						var div1 = `<div class="parent box result well">
+					 <div class="card">
+					    <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[a].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].prenom} ${gp_data[a].nom}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[a].matricule}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-chalkboard-teacher"></i><span>${gp_data[a].poste_occupe}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar"></i><span>${gp_data[a].date}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-clock"></i><span>${gp_data[a].heure_debut}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-clock fa-rotate-270"></i><span>${gp_data[a].heure_fin}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						    <ul class="navigation_list">
+					               
+				            </ul>
+						</div>
+					</div>
+				  </div>`;
+						$('.content-list1').append(div1);
+					}
+										updateSectionItems(0);
+
+				},
+			})
+		}
+		
+	</script>

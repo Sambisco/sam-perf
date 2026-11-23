@@ -1,0 +1,37 @@
+<li>
+	<a href="../page/reference?id={{id_m}}">
+		<i class="fas fa-fw fa-tachometer-alt"></i>
+		<span class="link-name">Tableau de bord</span>
+	</a>
+	<ul class="sub-menu blank">
+		<li><a class="link-name" href="#">Tableau de bord</a></li>
+	</ul>
+</li>
+<li style="display: none;">
+	<a href="../page/budget?id={{id_m}}">
+		<i class="fa fa-fw fa-coins"></i>
+		<span class="link-name">Budget</span>
+	</a>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">Budget</a></li>
+	</ul>
+</li>
+
+<li>
+	<a href="{{ url_for('page', page_name='dashboard', id=id_m, add=1) }}">
+		<i class="fas fa-fw fa-users"></i>
+		<span class="link-name">R. humaines</span>
+	</a>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">R. humaines</a></li>
+	</ul>
+</li>
+<li>
+	<a href="{{ url_for('gstock', page_name='dashboard', id=id_m, add_g=1) }}">
+		<i class="fas fa-fw fa-database"></i>
+		<span class="link-name">G. Matiere</span>
+	</a>
+	<ul class="sub-menu">
+		<li><a class="link-name" href="#">G. Matiere</a></li>
+	</ul>
+</li>

@@ -1,0 +1,221 @@
+@page {
+	size: A4 landscape;
+	width: 29.7cm;
+	height: 21cm;
+	margin: 2cm;
+}
+
+body {
+	font-family: Verdana,
+		Geneva,
+		Tahoma,
+		sans-serif;
+	font-size: 12pt;
+}
+
+.page-break {
+	display: block;
+	page-break-after: always;
+	height: 1px;
+	margin: 0;
+	border: none;
+}
+
+#footer {
+	position: fixed;
+	bottom: -1.5cm;
+	border-top: 1px solid #ccc;
+	font-size: 10px;
+	color: gray;
+	text-align: center;
+	padding-top: 5px;
+	background: white;
+	width: 100%;
+}
+
+#footer div:nth-child(2) {
+	font-weight: 600;
+}
+
+.header {
+	display: flex;
+	gap: 10px;
+	width: 100%;
+	border-bottom: solid 1px #444;
+	padding-bottom: 5px;
+}
+
+.header img {
+	width: 50px;
+	height: 50px;
+}
+
+.header1,
+.header2 {
+	width: 50%;
+}
+
+.header1 {
+	font-size: 9pt;
+	text-transform: uppercase;
+}
+
+.header2 {
+	font-size: 9pt;
+	text-align: right;
+}
+
+.sous-header {
+	display: flex;
+	width: 100%;
+	font-size: 10pt;
+	gap: 100px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: #444 solid 1px;
+}
+
+.sous-header1,
+.sous-header2 {
+	width: 50%;
+}
+
+.sous-header1 div:nth-child(1) {
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.table {
+	margin-top: 10px;
+	border-collapse: collapse;
+	border: solid 1px lightgray;
+}
+
+.table_product .header1 td,
+.table_product .header2 td {
+	height: 20px;
+	font-size: 8.5pt;
+	text-align: center;
+	font-weight: 600;
+	border: solid 1px lightgray;
+}
+
+.table_product .header3 td {
+	height: 20px;
+	font-size: 8.5pt;
+	text-align: center;
+	border: solid 1px lightgray;
+}
+
+.table_product .header1 td:nth-child(1) {
+	border-top: solid 1px #fff;
+	border-left: solid 1px #fff;
+	border-right: solid 1px #fff;
+	;
+}
+
+.table_product .header1 td:nth-child(2) {
+	border-top: solid 1px #fff;
+}
+
+.table_product .header1 td:nth-child(5) {
+	border-top: solid 1px #fff;
+	border-right: solid 1px #fff;
+}
+
+.table_product .header1 td:nth-child(3),
+.table_product .header1 td:nth-child(4) {
+	background: lightgray;
+}
+
+.table_product .header2 td:nth-child(1) {
+	width: 3cm;
+}
+
+.table_product .header2 td:nth-child(2) {
+	width: 11%;
+}
+
+.table_product .header2 td:nth-child(3) {
+	width: 25%;
+}
+
+.table_product .header2 td:nth-child(4) {
+	width: 10%;
+}
+
+.table_product .header2 td:nth-child(5) {
+	width: 10%;
+}
+
+.table_product .header2 td:nth-child(6) {
+	width: 12%;
+}
+.table_product .header2 td:nth-child(7) {
+	width: 12%;
+}
+.table_product .header2 td:nth-child(8) {
+	width: 200px;
+}
+.table_product tbody tr td{
+	border: solid 1px lightgray;
+	height: 20px;
+}
+.table_product tbody tr:nth-child(odd) {
+	background: #fff;
+	text-align: center;
+	font-size: 9pt;
+}
+
+.table_product tbody tr:nth-child(even) {
+	background: lightgray;
+	text-align: center;
+	font-size: 9pt;
+}
+
+.table_product tfoot{
+	font-size: 9pt;
+	text-align: center;
+	border: solid 1px lightgray;
+}
+.table_product tfoot td{
+	border: solid 1px lightgray;
+	height: 20px;
+}
+
+.table_product tfoot td:nth-child(1) {
+	border-left: solid 1px #fff;
+	border-bottom: solid 1px #fff;
+}
+.table_product tfoot td:nth-child(3) {
+background: lightgray;
+}
+.table_product tfoot td:nth-child(5) {
+	background: lightgray;
+}
+.table_product tfoot td:nth-child(6) {
+	border-right: solid 1px #fff;
+	border-bottom: solid 1px #fff;
+}
+.certification{
+	display: flex;
+	width: 100%;
+	font-size: 9pt;
+}
+.certification1{
+	padding-top: 10px;
+	width: 50%;
+	border: solid 1px lightgray;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 130px;
+}
+.certification1 div:nth-child(1){
+	font-weight: 600;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.certification1 div:nth-child(3) {
+	font-weight: 600;
+	text-align: center;
+}

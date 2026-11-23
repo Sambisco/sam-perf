@@ -1,0 +1,1130 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header_gstock.html' %}
+
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1>Fournisseur</h1>
+		</div>
+		<div class="baniere-right">
+			<div class="content-navigation">
+				<ul class="navigation">
+					<li class="active_nav active_nav_click" id="btn-modal-ajouter-g">
+						<a href="#">
+							<span class="icon"><i class="fas fa-fw fa-plus"></i></span>
+							<span class="text">Ajouter</span>
+						</a>
+					</li>
+					<li class="active_nav_click" id="btn-modal-importer"
+						style="display: none;">
+						<a href="#">
+							<span class="icon"><i class="fas fa-file-import"></i></span>
+							<span class="text">Importer</span>
+						</a>
+					</li>
+					<li class="active_nav_click" id="infocomplete" style="display: none;">
+						<a href="#">
+							<span class="icon"><i class="fas fa-file-export"></i></span>
+							<span class="text">Exporter</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-user"></i></div>
+		<div class="main-sous-content">
+
+			<div class="content-list content-list1">
+
+			</div>
+			<!----------------PAGINATION----------->
+			<div class="pagination">
+				<div class="showingInfo" id="showingInfo1"></div>
+				<div class="showingPage" id="pagination1"></div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<!------MODAL AJOUT-------->
+<form id="insertForm">
+	<div class="petit close-modal" id="ajouter-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">AJOUTER fournisseur</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img src="{{ url_for('static', filename='img/image/image.jpg') }}" alt
+								id="imgPreview">
+							<div class="round">
+								<input type="file" name="photo" id="photo" class="file-upload">
+								<i class="fa fa-camera"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="id_reference" id="get_id_reference">
+						<input type="hidden" name="insert_id" id>
+
+						<div class="nextstep nextstep-active">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Fournisseur</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text" class="text-input etablissement input-required1"
+											name="fournisseur" id
+											placeholder="Fournisseur">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Adresse</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-map-marker fa-icon"></i></span>
+										<input type="text" class="text-input etablissement input-required1"
+											name="adresse_f" id
+											placeholder="Adresse">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Telephone</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-phone fa-rotate-90 fa-icon"></i></span>
+										<input type="text" class="text-input input-required1"
+											name="telephone_f" id
+											placeholder="Telephone"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Email</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-envelope fa-icon"></i></span>
+										<input type="text" class="text-input input-required1" name="email_f"
+											id
+											placeholder="Email"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">NINEA</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input input-required1" name="ninea_f"
+											id
+											placeholder="NINEA"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nom du contact</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text" class="text-input input-required1"
+											name="nom_contact_f" id
+											placeholder="Nom du contact"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="footer-modal">
+							<button type="submit" class="footer-button-register"
+								id="insertdata">Enregister</button>
+							<button type="button"
+								class="footer-button-close close-modal">Fermer</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!------FIN MODAL AJOUT-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+	<div class="petit close-modal" id="modifier-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">MODIFIER fournisseur</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img src="{{ url_for('static', filename='img/image/image.jpg') }}" alt
+								id="update_imgPreview">
+							<div class="round">
+								<input type="file" name="photo" id="update_photo" class="file-upload">
+								<i class="fa fa-camera"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="edit_id" id="edit_id">
+
+						<div class="nextstep nextstep-active">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Fournisseur</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text"
+											class="text-input etablissement input-required-update"
+											name="fournisseur" id="fournisseur"
+											placeholder="Fournisseur">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Adresse</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-map-marker fa-icon"></i></span>
+										<input type="text"
+											class="text-input etablissement input-required-update"
+											name="adresse_f" id="adresse_f"
+											placeholder="Adresse">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Telephone</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-phone fa-rotate-90 fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update"
+											name="telephone_f" id="telephone_f"
+											placeholder="Telephone"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Email</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-envelope fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update"
+											name="email_f" id="email_f"
+											placeholder="Email"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">NINEA</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update"
+											name="ninea_f" id="ninea_f"
+											placeholder="NINEA"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nom du contact</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update"
+											name="nom_contact_f" id="nom_contact_f"
+											placeholder="Nom du contact"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="footer-modal">
+							<button type="submit" class="footer-button-register"
+								id="updatetdata">Modifier</button>
+							<button type="button"
+								class="footer-button-close close-modal">Fermer</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!------FIN MODAL MODIFIER-------->
+
+<!------MODAL SUPPRIMER-------->
+<div class="petit close-modal" id="supprimer-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">SUPPRIMER fournisseur</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="container-form">
+					<form id="deleteForm">
+						<input type="hidden" name="delete_id" id="delete_id">
+
+						<div class="user-details-login">
+							<div class="input-group">
+								<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-trash"></i> </span>
+									<input type="text" class="text-input" name id="nom_del" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="deletedata">Supprimer</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!------FIN MODAL SUPPRIMER-------->
+<!------MODAL INFO-------->
+
+<!------FIN MODAL INFO-------->
+<!------MODAL IMPORTER-------->
+<div class="moyen close-modal" id="importer-modal">
+	<div class="modal-panel-moyen">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">Importer Matière</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+
+			<div class="corps-modal">
+				<div class="upload-wrapper">
+					<form id="importForm" enctype="multipart/form-data">
+						<input type="file" class="file-input" name="file-import" id="fileupload"
+							hidden>
+						<div class="form-importer">
+							<i class="fas fa-cloud-upload-alt"></i>
+							<p>Télécharger un fichier Excel <span id="message_show"
+									style="color:red; display:none;">(requis *)</span></p>
+						</div>
+					</form>
+					<section class="progress-area"></section>
+					<section class="uploaded-area"></section>
+					<form id="saveImport">
+						<div class="user-details-register">
+							<div class="input-group">
+								<label class="label-details">Categorie</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-home fa-icon"></i></span>
+									<select name="id_categorie_article"
+										class="js-searchBox input-required11">
+										<?php
+										echo $categorie;
+										?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div style="overflow: auto; height:500px;">
+							<input type="hidden" name="id_reference" id="get_id_reference_import">
+
+							<table id="tblItems" class="mytab1">
+								<thead>
+									<tr>
+										<th>Designation</th>
+										<th>Nbre unités</th>
+										<th>Nature unités</th>
+									</tr>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="importdata">Enregistrer</button>
+					<button type="button" class="footer-button-close close-modal"
+						id="vider_import">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL IMPORTER-------->
+<!--------MODAL INFO GENERAL------->
+<div class="grand close-modal" id="infocomplet-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">Information complete Categorie</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<div class="input-box">
+							<button type="submit" class="footer-button-export"
+								id="Exportdata">Exporter</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_employe">
+
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--------FIN MODAL INFO GENERAL------->
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+$('document').ready(function() {
+			fetchdata()
+		})
+		function fetchdata() {
+			var id = $("#id_reference").val()
+			$.ajax({
+				url: "../controller_g/fournisseur/fetch_fournisseur",
+				type: "POST",
+				data: {
+					id: id
+				},
+				success: function(response) {
+					$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						var div1 = `<div class="parent box result well">
+					 <div class="card">
+					  <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[a].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].fournisseur}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-user"></i><span>${gp_data[a].nom_contact_f}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-map-marker"></i><span>${gp_data[a].adresse_f}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-phone fa-rotate-90"></i><span>${gp_data[a].telephone_f}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-envelope"></i><span>${gp_data[a].email_f}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[a].ninea_f}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						    <ul class="navigation_list">
+					               <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].id_fournisseur}" id="updatebtn" data-id="${gp_data[a].id_fournisseur}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+					               		<span class="text">Modifier</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+				            </ul>
+						</div>
+					</div>
+				  </div>`;
+						$('.content-list1').append(div1);
+
+					}
+					updateSectionItems(0);
+				},
+			})
+		}
+		
+		$("#btn-modal-ajouter-g").click(function() {
+			$("#get_id_reference").val($("#id_reference").val());
+			$("#ajouter-modal").fadeIn();
+		});
+		$("#btn-modal-importer").click(function() {
+			$("#get_id_reference_import").val($("#id_reference").val());
+			$("#importer-modal").fadeIn();
+		});
+		$("#infocomplete").click(function() {
+			$("#infocomplet-modal").fadeIn();
+		});
+		$('.fab-button').on('click', function() {
+			$(".fab-show").show(600);
+			$(".fab-hide").show();
+			$(".fab-button").hide();
+		})
+		$('.fab-hide').on('click', function() {
+			$(".fab-button").show();
+
+			$(".fab-show").hide(600);
+			$(".fab-hide").hide();
+		})
+
+		$(document).on('click', '.toggle-btn', function(e) {
+			var id = $(this).data('id');
+			$("#nav_" + id).toggleClass("active");
+			$("#toggle-btn-close_" + id).toggleClass("fa-times");
+		})
+		$(document).on('click', '.fab-button', function(e) {
+			var id = $(this).data('id');
+			$("#fab-show_" + id).toggle("slow");
+			$("#fas_" + id).toggleClass("fa-times");
+			$("#fab-show_" + id).attr(('style', 'display:block'))
+		})
+
+		$('.js-searchBox').select2({
+			width: '100%'
+		});
+
+		
+		//PHOTO
+		$(document).on("change", "#photo", function(e) {
+    const file = this.files[0];
+    if (!file) return;
+
+    // --- Compression + redimensionnement 800px ---
+    compressImage(file, 800, 800, 0.9).then(finalBlob => {
+
+        const sizeKB = Math.round(finalBlob.size / 1024);
+        console.log("✔ Taille finale : " + sizeKB + " Ko");
+
+        // Remplacer le fichier dans l’input (optionnel)
+        const dt = new DataTransfer();
+        dt.items.add(new File([finalBlob], "photo_compressed.jpg", { type: "image/jpeg" }));
+        document.getElementById("photo").files = dt.files;
+
+        // Aperçu version compressée
+        $('#imgPreview').attr('src', URL.createObjectURL(finalBlob));
+    });
+});
+				// ==========================================================
+// 🔹 Aperçu + COMPRESSER (garde ton updateForm intact)
+// ==========================================================
+$(document).on("change", "#update_photo", function(e) {
+    const file = this.files[0];
+    if (!file) return;
+
+    // --- Compression + redimensionnement 800px ---
+    compressImage(file, 800, 800, 0.9).then(finalBlob => {
+
+        const sizeKB = Math.round(finalBlob.size / 1024);
+        console.log("✔ Taille finale : " + sizeKB + " Ko");
+
+        // Remplacer le fichier dans l’input (optionnel)
+        const dt = new DataTransfer();
+        dt.items.add(new File([finalBlob], "photo_compressed.jpg", { type: "image/jpeg" }));
+        document.getElementById("update_photo").files = dt.files;
+
+        // Aperçu version compressée
+        $('#update_imgPreview').attr('src', URL.createObjectURL(finalBlob));
+    });
+});
+
+// ==========================================================
+// 🔹 Fonction de compression
+// ==========================================================
+function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.9) {
+    return new Promise(function(resolve, reject) {
+        const img = new Image();
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        img.onload = function() {
+            const canvas = document.createElement("canvas");
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = Math.round(height * maxWidth / width);
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = Math.round(width * maxHeight / height);
+                    height = maxHeight;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(function(blob) {
+                resolve(blob);
+            }, "image/jpeg", quality);
+        };
+
+        img.onerror = function(err) {
+            reject(err);
+        };
+    });
+}
+		$(document).ready(function(e) {
+			//INSERTION
+			$("#insertForm").on('submit', function(e) {
+				e.preventDefault();
+				$('.input-box').removeClass('error');
+    $('.error-msg').hide();
+
+    if (!validateForm()) {
+        return;
+    }
+
+				$.ajax({
+					type: 'POST',
+					url: '../controller_g/fournisseur/save',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+            if (response.status === 'true') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Existe',
+                    text: response.message,
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else if (response.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Enregistré',
+                    text: response.message,
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(function () {
+                    fetchdata();
+                    $("#ajouter-modal").fadeOut();
+                    $("#insertForm")[0].reset();
+                    $("#imgPreview").attr("src", "{{ url_for('static', filename='img/image/image.jpg') }}");
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: response.message || "Une erreur inconnue est survenue.",
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: 'Une erreur est survenue pendant l\'envoi de la requête.',
+                confirmButtonColor: '#127b8e',
+                showConfirmButton: true
+            });
+        }
+				});
+				
+				$(this).closest('form').find("input[type=text]").val("");
+			});
+			//UPDATE
+			$("#updateForm").on('submit', function(e) {
+				e.preventDefault();
+				  $('.input-box').removeClass('error');
+    $('.error-msg').hide();
+
+    if (!validateForm_update()) {
+      return;
+    }
+				$.ajax({
+					type: 'POST',
+					url: '../controller_g/fournisseur/save',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response)
+					}
+				});
+				$("#modifier-modal").fadeOut();
+				Swal.fire({
+					icon: 'success',
+					title: 'Modifié',
+					text: "Modification effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+					fetchtb_employe();
+				});
+			});
+			// SUPPRIMER
+			$("#deleteForm").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller_g/fournisseur/save',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response)
+					}
+				});
+				$("#supprimer-modal").fadeOut();
+				Swal.fire({
+					icon: 'error',
+					title: 'Supprimé',
+					text: "Suppression effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+					fetchtb_employe();
+				});
+			});
+			//IMPORTER FICHIER
+			$("#saveImport").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller_g/import_export/import_matiere',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response)
+					}
+				});
+				$("#importer-modal").fadeOut();
+				Swal.fire({
+					icon: 'success',
+					title: 'Importé',
+					text: "Importation effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+					fetchtb_employe();
+					$("#tblItems tr.body_caption_top").remove();
+					$(".progress-area").html("");
+					$(".uploaded-area").html("");
+				});
+			});
+		})
+		$(document).on("click", "#togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#show-eye").toggleClass('fa-eye');
+			$("#show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+		});
+		$(document).on("click", "#update_togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#update_password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#update_show-eye").toggleClass('fa-eye');
+			$("#update_show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+		});
+		$(document).on("keyup", ".etablissement", function(event) {
+			var textBox = event.target;
+			var start = textBox.selectionStart;
+			var end = textBox.selectionEnd;
+
+			// Capitalize the first letter of each word after a space
+			textBox.value = textBox.value.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
+				return match.toUpperCase();
+			});
+
+			textBox.setSelectionRange(start, end);
+		});
+
+
+		// SHOW UPDATE
+		$(document).on('click', '#updatebtn', function(e) {
+			e.preventDefault();
+			var id_fournisseur = $(this).data('id');
+			$.ajax({
+				url: '../controller_g/fournisseur/fetch_fournisseur',
+				type: "post",
+				data: {
+					id_fournisseur: id_fournisseur
+				},
+				dataType: 'json',
+				success: function(data) {
+					$("#edit_id").val(data[0].id_fournisseur);
+					$("#fournisseur").val(data[0].fournisseur);
+					$("#adresse_f").val(data[0].adresse_f);
+					$("#telephone_f").val(data[0].telephone_f);
+					$("#email_f").val(data[0].email_f);
+					$("#ninea_f").val(data[0].ninea_f);
+					$("#nom_contact_f").val(data[0].nom_contact_f);
+					$("#update_imgPreview").attr("src", data[0].photo);
+					$("#modifier-modal").fadeIn();
+				}
+			});
+		});
+		//SHOW DELETE
+		$(document).on('click', '#deletebtn', function(e) {
+			e.preventDefault();
+			var id_fournisseur = $(this).data('id');
+			$.ajax({
+				url: '../controller_g/fournisseur/fetch_fournisseur',
+				type: "post",
+				data: {
+					id_fournisseur: id_fournisseur
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data.logo)
+					$("#delete_id").val(data.id_matiere);
+					$("#nom_del").val(data.fournisseur);
+					$("#supprimer-modal").fadeIn();
+				}
+			});
+		});
+		//SHOW DELETE
+
+		//SHOW INFO
+		$(document).on('click', '#infobtn', function(e) {
+			e.preventDefault();
+			var id_employe = $(this).data('id');
+			$.ajax({
+				url: '../controller/employe/fetch_employe',
+				type: "post",
+				data: {
+					id_employe: id_employe
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data.logo)
+					$(".info1").html(data.prenom);
+					$(".info2").html(data.nom);
+					$(".info3").html(data.matricule);
+					$(".info4").html(data.date_n2);
+					$(".info5").html(data.lieu_n);
+					$(".info6").html(data.telephone_e);
+					$(".info7").html(data.adresse_e);
+					$(".info8").html(data.cin_e);
+					$(".info9").html(data.email_e);
+					$(".info10").html(data.nom_pere);
+					$(".info11").html(data.nom_mere);
+					$(".info12").html(data.genre);
+					$(".info13").html(data.nationalite);
+					$("#info14").attr("src", data.photo);
+					$("#info-modal").fadeIn();
+				}
+			});
+		});
+		$(document).ready(function() {
+			$('.form-importer').on("click", function() {
+				$("#fileupload").click();
+			});
+			$('#fileupload').on("change", function() {
+				var validExts = new Array(".xlsx", ".xls", ".csv");
+				var fileExt = $('#fileupload').val();
+				fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+				if (validExts.indexOf(fileExt) < 0) {
+					$('#message_show').show().delay(5000).hide(0);
+					return false;
+				} else {
+					$("#importForm").submit()
+					return true;
+				}
+			});
+
+			// File upload via Ajax
+			$("#importForm").on('submit', function(e) {
+				e.preventDefault();
+				var fileName = $('#fileupload').val().replace(/C:\\fakepath\\/i, '');
+				if (fileName.length >= 12) {
+					var splitName = fileName.split(".");
+					fileName = splitName[0].substring(0, 12) + "... ." + splitName[1];
+				}
+				// get start time
+				var startTime = new Date().getTime();
+				var xhr = $.ajax({
+					xhr: function() {
+						var xhr = new XMLHttpRequest();
+						xhr.upload.addEventListener("progress", function(e) {
+							if (e.lengthComputable) {
+								var fileLoaded = Math.floor((e.loaded / e.total) * 100);
+								var fileTotal = Math.floor(e.total / 100);
+								var fileSize;
+								(fileTotal > 1024) ? fileSize = fileTotal + " KB":
+									fileSize = (e.loaded / (1024 * 1024)).toFixed(2) +
+									" MB";
+								var progressHTML = `
+                        <li class="row">
+                            <i class="fas fa-file-excel"></i>
+                            <div class="content">
+                                <div class="details">
+                                    <span class="name">${fileName} * téléchargement</span>
+                                    <span class="percent">${fileLoaded}%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width:${fileLoaded}%"></div>
+                                </div>
+                            </div>
+                        </li>
+                        `;
+								$(".progress-area").html(progressHTML);
+								$(".uploaded-area").html("");
+
+								if (e.loaded == e.total) {
+
+									$(".progress-area").html("");
+									var uploadedHTML = `<li class="row">
+                            <div class="content">
+                                <i class="fas fa-file-excel"></i>
+                                <div class="details">
+                                    <span class="name">${fileName} * télécharger</span>
+                                    <span class="size">${fileSize}</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-check"></i>
+                        </li>
+                        <div class="compteur"></div>
+                        `;
+									$(".uploaded-area").html(uploadedHTML);
+
+								}
+							}
+						}, false);
+						return xhr;
+					},
+					type: 'POST',
+					url: '../controller_g/import_export/upload/upload_gstock',
+					data: new FormData(this),
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function(response) {
+						// get response on successful uploading
+						console.log(response);
+					}
+				});
+
+				// remove value form input button
+			});
+		});
+
+		var ExcelToJSON = function() {
+			this.parseExcel = function(file) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					var data = e.target.result;
+					var workbook = XLSX.read(data, {
+						type: 'binary',
+						cellText: false,
+						cellDates: true
+
+					});
+					workbook.SheetNames.forEach(function(sheetName) {
+						var XL_row_object = XLSX.utils.sheet_to_json(workbook.Sheets[
+							sheetName], {
+							header: 1,
+							raw: false,
+							dateNF: 'dd"/"mm"/"yyyy',
+						});
+						var productList = JSON.parse(JSON.stringify(XL_row_object));
+						var rows = $('#tblItems tbody');
+						// console.log(productList)
+						for (i = 0; i < productList.length; i++) {
+							var columns = Object.values(productList[i])
+
+							if (columns[0] == null) {
+								columns[0] = "";
+							} else {
+								columns[0];
+							}
+							if (columns[1] == null) {
+								columns[1] = "";
+							} else {
+								columns[1];
+							}
+							if (columns[2] == null) {
+								columns[2] = "";
+							} else {
+								columns[2];
+							}
+							rows.append(`
+                        <tr class="body_caption_top">
+                            <td><input type="text" class="text-import" name="designation[]" value="${columns[0]}"></td>
+                            <td><input type="text" class="text-import" name="nbre_unite[]" value="${columns[1]}"></td>
+							<td><input type="text" class="text-import" name="nature_unite[]" value="${columns[2]}"></td>
+                        </tr>
+                    `);
+							$('#fileupload').val("")
+						}
+
+					})
+				};
+				reader.onerror = function(ex) {
+					console.log(ex);
+				};
+
+				reader.readAsBinaryString(file);
+			};
+		};
+
+		function handleFileSelect(evt) {
+			var files = evt.target.files; // FileList object
+			var xl2json = new ExcelToJSON();
+			xl2json.parseExcel(files[0]);
+		}
+
+		document.getElementById('fileupload').addEventListener('change', handleFileSelect, false);
+
+		$("#vider_import").on("click", function() {
+			$("#tblItems tr.body_caption_top").remove();
+			$(".progress-area").html("");
+			$(".uploaded-area").html("");
+
+		})
+function validateForm() {
+    let valid = true;
+    $('.input-required1').each(function() {
+      const $input = $(this);
+      const $inputBox = $input.closest('.input-box');
+      if ($input.val().trim() === '') {
+        $input.addClass('error');
+        $inputBox.addClass('error');
+
+        let $msg = $input.siblings('.error-msg');
+        if ($msg.length === 0) {
+          $input.after('<div class="error-msg"></div>');
+          $msg = $input.siblings('.error-msg');
+        }
+        $msg.show();
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  $(document).on('input change', '.input-required1', function() {
+    const $input = $(this);
+    const $inputBox = $input.closest('.input-box');
+    if ($input.val().trim() !== '') {
+      $input.removeClass('error');
+      $inputBox.removeClass('error');
+      $input.siblings('.error-msg').hide();
+    }
+  });
+
+ function validateForm_update() {
+    let valid = true;
+    $('.input-required-update').each(function() {
+      const $input = $(this);
+      const $inputBox = $input.closest('.input-box');
+      if ($input.val().trim() === '') {
+        $input.addClass('error');
+        $inputBox.addClass('error');
+
+        let $msg = $input.siblings('.error-msg');
+        if ($msg.length === 0) {
+          $input.after('<div class="error-msg"></div>');
+          $msg = $input.siblings('.error-msg');
+        }
+        $msg.show();
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  $(document).on('input change', '.input-required-update', function() {
+    const $input = $(this);
+    const $inputBox = $input.closest('.input-box');
+    if ($input.val().trim() !== '') {
+      $input.removeClass('error');
+      $inputBox.removeClass('error');
+      $input.siblings('.error-msg').hide();
+    }
+  });
+		$('#Exportdata').click(function() {
+			let table = $("#example1").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			TableToExcel.convert(table[0], {
+				name: `Matière.xlsx`,
+				sheet: {
+					name: 'Matière'
+				}
+			});
+		});
+	</script>

@@ -1,0 +1,2707 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header_gstock.html' %}
+
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+<input type="hidden" id="date_reference" value="{{ current_year }}">
+<input type="hidden" id="current_mois">
+<!------MAIN-CONTENT-------->
+<div class="main-content">
+	<div class="main-sous-content">
+		<div class="baniere-top">
+			<div class="overlay"></div>
+
+			<!-- Zone gauche plus large -->
+			<div class="baniere-left">
+				<h1>Bienvenue au Service GM</h1>
+				<p>Gérez efficacement vos entrées, sorties et inventaires...</p>
+
+				<div class="content-top_slider">
+					<button type="button" class="button_slide pre-btn_slider"><i
+							class="fas fa-angle-left"></i></button>
+					<div class="top_slider">
+						{% for date_row in range(current_year, 2023, -1) %}
+						<div class="slide years years_{{ date_row }}"
+							style="padding:5px;"
+							id="{{ date_row }}" data-id="{{ date_row }}">
+							{{ date_row }}
+						</div>
+						{% endfor %}
+					</div>
+					<div type="button" class="button_slide nxt-btn_slider"><i
+							class="fas fa-angle-right"></i></div>
+
+				</div>
+			</div>
+
+			<!-- Zone droite (cercle + cartes 3D) -->
+			<div class="baniere-right">
+				<div class="baniere-right-circle">
+					<div class="outer-circle">
+						<div class="center-circle" id="currentYear">{{current_year}}</div>
+						<div class="months-container">
+							<div class="month" data-id="00" style="font-size: 15pt;">A</div>
+							<div class="month" data-id="01">Jan</div>
+							<div class="month" data-id="02">Fév</div>
+							<div class="month" data-id="03">Mar</div>
+							<div class="month" data-id="04">Avr</div>
+							<div class="month" data-id="05">Mai</div>
+							<div class="month" data-id="06">Juin</div>
+							<div class="month" data-id="07">Juil</div>
+							<div class="month" data-id="08">Août</div>
+							<div class="month" data-id="09">Sep</div>
+							<div class="month" data-id="10">Oct</div>
+							<div class="month" data-id="11">Nov</div>
+							<div class="month" data-id="12">Déc</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="baniere-right-cards">
+					<div class="grid">
+						<!-- Card 1 -->
+						<div class="card" data-variant="violet"
+							data-progress="82">
+							<div class="card-head">
+								<div class="icon-wrap" aria-hidden="true">
+									<!-- Users icon -->
+									<i class="fa fa-sort-numeric-down"></i>
+								</div>
+								<div>
+									<div class="title">Entrée</div>
+									<div class="subtitle">Montant <span class="ann_mens_f">annuelle</span></div>
+								</div>
+							</div>
+
+							<div class="big-number" id="montant_entree"></div>
+
+							<div class="progress" aria-hidden="true">
+								<div class="bar" data-width="75%"
+									style="width:0%;"></div>
+							</div>
+
+						</div>
+
+						<!-- Card 2 -->
+						<div class="card" data-variant="blue"
+							data-progress="56">
+							<div class="card-head">
+								<div class="icon-wrap">
+									<!-- Plane / travel icon -->
+									<i class="fas fa-sort-numeric-up"></i>
+								</div>
+								<div>
+									<div class="title">Sortie</div>
+									<div class="subtitle">Quantité <span class="ann_mens_f">annuelle</span></div>
+								</div>
+							</div>
+
+							<div class="big-number" id="quantite_annuel"></div>
+
+							<div class="progress">
+								<div class="bar" data-width="75%"
+									style="width:0%;"></div>
+							</div>
+
+						</div>
+
+						<!-- Card 3 -->
+						<div class="card" data-variant="orange"
+							data-progress="28">
+							<div class="card-head">
+								<div class="icon-wrap">
+									<!-- Money / revenue -->
+									<i class="fas fa-sort-numeric-down"></i>
+								</div>
+								<div>
+									<div class="title">Récéption carburant</div>
+									<div class="subtitle">Litre <span class="ann_mens_m">annuel</span></div>
+								</div>
+							</div>
+
+							<div class="big-number" id="reception_annuel_litre"></div>
+
+							<div class="progress">
+								<div class="bar" data-width="75%"
+									style="width:0%;"></div>
+							</div>
+
+						</div>
+
+						<!-- Card 4 -->
+						<div class="card" data-variant="green"
+							data-progress="94">
+							<div class="card-head">
+								<div class="icon-wrap">
+									<!-- Check / task -->
+									<i class="fas fa-sort-numeric-up"></i>
+								</div>
+								<div>
+									<div class="title">Dotation carburant</div>
+									<div class="subtitle">Litre <span class="ann_mens_m">annuel</span></div>
+								</div>
+							</div>
+
+							<div class="big-number" id="dotation_annuel_litre"></div>
+
+							<div class="progress">
+								<div class="bar" data-width="75%"
+									style="width:0%;"></div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-------2 EME SECTION DASBOARD----->
+		<div class="section-clipath">
+			<div class="circle"><i class="fas fa-tachometer-alt"></i></div>
+			<div class="container-clipath">
+				<div class="clipath">
+					<div class="icon-clipath">
+						<i class="fas fa-chart-pie"></i>
+					</div>
+					<p>Visualisez vos indicateurs de performance, suivi GM et
+						activité en un
+						coup d’œil grâce à ce tableau de bord dynamique.</p>
+				</div>
+
+				<div class="grid">
+					<!-- 8 cards -->
+					<div class="card" data-variant="violet" data-progress="82">
+						<div class="card-head">
+							<div class="icon-wrap"><i
+									class="fas fa-database"></i></div>
+							<div><div class="title">Matiere</div><div
+									class="subtitle">Nombre enregistré</div></div>
+						</div>
+						<div class="big-number" id="matiere"></div>
+						<div class="progress">
+							<div class="bar" data-width="75%"
+								style="width:0%;"></div>
+						</div>
+					</div>
+
+					<div class="card" data-variant="blue" data-progress="56">
+						<div class="card-head">
+							<div class="icon-wrap"><i
+									class="fas fa-cubes"></i></div>
+							<div><div class="title">Stock</div><div
+									class="subtitle">Quantité restante</div></div>
+						</div>
+						<div class="big-number" id="stock"></div>
+						<div class="progress">
+							<div class="bar" data-width="75%"
+								style="width:0%;"></div>
+						</div>
+					</div>
+
+					<div class="card" data-variant="orange" data-progress="28">
+						<div class="card-head">
+							<div class="icon-wrap"><i
+									class="fas fa-file-import"></i></div>
+							<div><div class="title">Entree</div><div
+									class="subtitle">Enregistrement <span class="ann_mens_m">annuel</span></div></div>
+						</div>
+						<div class="big-number" id="entree"></div>
+						<div class="progress">
+							<div class="bar" data-width="75%"
+								style="width:0%;"></div>
+						</div>
+					</div>
+
+					<div class="card" data-variant="green" data-progress="94">
+						<div class="card-head">
+							<div class="icon-wrap"><i
+									class="fas fa-file-export"></i></div>
+							<div><div class="title">Sortie</div><div
+									class="subtitle">Enregistrement <span class="ann_mens_m">annuel</span></div></div>
+						</div>
+						<div class="big-number" id="sortie"></div>
+						<div class="progress">
+							<div class="bar" data-width="75%"
+								style="width:0%;"></div>
+						</div>
+
+					</div>
+
+					<div class="card" data-variant="blue" data-progress="75">
+						<div class="card-head">
+							<div class="icon-wrap"><i
+									class="fas fa-gas-pump"></i></div>
+							<div><div class="title">Caburant</div><div
+									class="subtitle">Litres restants</div></div>
+						</div>
+						<div class="big-number" id="carburant"></div>
+						<div class="progress">
+							<div class="bar" data-width="75%"
+								style="width:0%;"></div>
+						</div>
+
+					</div>
+
+					<div class="card" data-variant="green" data-progress="60">
+						<div class="card-head">
+							<div class="icon-wrap"><i
+									class="fas fa-gas-pump" style="transform: rotate(-35deg);"></i></div>
+							<div><div class="title">Reception</div><div
+									class="subtitle">Enregistrement <span class="ann_mens_m">annuel</span></div></div>
+						</div>
+						<div class="big-number" id="reception"></div>
+						<div class="progress">
+							<div class="bar" data-width="75%"
+								style="width:0%;"></div>
+						</div>
+
+					</div>
+
+					<div class="card" data-variant="violet" data-progress="40">
+						<div class="card-head">
+							<div class="icon-wrap"><i
+									class="fas fa-gas-pump" style="transform: rotate(35deg);"></i></div>
+							<div><div class="title">Dotation</div><div
+									class="subtitle">Enregistrement <span class="ann_mens_m">annuel</span></div></div>
+						</div>
+						<div class="big-number" id="dotation"></div>
+						<div class="progress">
+							<div class="bar" data-width="75%"
+								style="width:0%;"></div>
+						</div>
+
+					</div>
+
+					<div class="card" data-variant="orange" data-progress="90">
+						<div class="card-head">
+							<div class="icon-wrap"><i
+									class="fas fa-file-contract"></i></div>
+							<div><div class="title">Affectation</div><div
+									class="subtitle">Enregistrement <span class="ann_mens_m">annuel</span></div></div>
+						</div>
+						<div class="big-number" id="affectation"></div>
+						<div class="progress">
+							<div class="bar" data-width="75%"
+								style="width:0%;"></div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-------3 EME SECTION DASBOARD----->
+		<div class="bar-container">
+			<div class="circle"><i class="fas fa-chart-line"></i></div>
+
+			<!-- Section gauche : cartes -->
+			<div class="left-section">
+				<div class="swiper mySwiper">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau1">Tableau</div>
+										<div id="download1">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique1">
+									<canvas id="barChart1"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau2">Tableau</div>
+										<div id="download2">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique2">
+									<canvas id="barChart2"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau3">Tableau</div>
+										<div id="download3">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique3">
+									<canvas id="barChart3"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau4">Tableau</div>
+										<div id="download4">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique4">
+									<canvas id="barChart4"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau5">Tableau</div>
+										<div id="download5">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique5">
+									<canvas id="barChart5"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau6">Tableau</div>
+										<div id="download6">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique6">
+									<canvas id="barChart6"></canvas>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="card">
+								<div class="card-menu">
+									<i class="fas fa-ellipsis-v"></i>
+									<div class="submenu">
+										<div id="tableau7">Tableau</div>
+										<div id="download7">Télécharger</div>
+									</div>
+								</div>
+								<div class="div-graphique" id="div-graphique7">
+									<canvas id="barChart7"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
+
+			<!-- Section droite : clipath -->
+			<div class="right-section clipath">
+
+				<ul class="bar-container-menu bar-container-active">
+					<div class="bar-container-toggle bar-container-active">G</div>
+
+					<li style="--i:0;" class="bar-container-active" id="bar"><a href="#"><i
+								class="fa fa-chart-bar"></i></a></li>
+					<li style="--i:1;" id="line"><a href="#"><i
+								class="fa fa-chart-line"></i></a></li>
+					<li style="--i:2;" id="pie"><a href="#"><i
+								class="fa fa-chart-pie"></i></a></li>
+					<li style="--i:3;" id="doughnut"><a href="#"><i
+								class="fa fa-ring"></i></a></li>
+
+					<div class="indicator"></div>
+				</ul>
+				<p>Visualisez vos différents diagrammes <br> ainsi que vos tableaux.</p>
+			</div>
+		</div>
+
+		<div class="main-table">
+			<div class="title">
+				<h2>Equipe de TakTyl</h2>
+			</div>
+			<div class="user_table">
+				<table class="table-admin">
+					<thead>
+						<tr>
+							<td>Prenom</td>
+							<td>Nom</td>
+							<td>Email</td>
+							<td>Statut</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Samba</td>
+							<td>Ndao</td>
+							<td>ndaosambandao90@gmail.com</td>
+							<td><a href="#" class="btn">Details</a></td>
+						</tr>
+						<tr>
+							<td>Dié</td>
+							<td>Sene</td>
+							<td>diesenedie@gmail.com</td>
+							<td><a href="#" class="btn">Details</a></td>
+						</tr>
+						<tr>
+							<td>Keba</td>
+							<td>Diarra</td>
+							<td>kebadiarra@gmail.com</td>
+							<td><a href="#" class="btn">Details</a></td>
+						</tr>
+						<tr>
+							<td>Souhinbou</td>
+							<td>Kande</td>
+							<td>Souhinboukande@gmail.com</td>
+							<td><a href="#" class="btn">Details</a></td>
+						</tr>
+						<tr>
+							<td>Souhinbou</td>
+							<td>Kande</td>
+							<td>Souhinboukande@gmail.com</td>
+							<td><a href="#" class="btn">Details</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau1-modal---------->
+<div class="grand close-modal" id="tableau1-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Date du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								placeholder="Cotisation amicale" id="date_du1">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Date au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								id="date_au1">
+
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau1">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf1">PDF</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_tableauScroll">
+					<table id="example1" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th class="no-export">Photo</th>
+								<th>Numero</th>
+								<th>Date</th>
+								<th>Nature des Matières</th>
+								<th>Nombre unités</th>
+								<th>Nature des unités</th>
+								<th>Prix unitaire</th>
+								<th>Montant</th>
+							</tr>
+						</thead>
+
+						<tbody>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Total</th>
+								<th class="no-export"></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau2-modal---------->
+<div class="grand close-modal" id="tableau2-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Date du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du2" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Date au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au2" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau2">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf2">PDF</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_tableauScroll">
+					<table id="example2" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<tr>
+									<th>#</th>
+									<th class="no-export">Photo</th>
+									<th>Numero</th>
+									<th>Date</th>
+									<th>Prenom</th>
+									<th>Nom</th>
+									<th>Matricule</th>
+									<th>Poste occupe</th>
+									<th>Nature des Matières</th>
+									<th>Nombre unité</th>
+									<th>Nature des unités</th>
+								</tr>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Total</th>
+								<th class="no-export"></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th> </th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau3-modal---------->
+<div class="grand close-modal" id="tableau3-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Date du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du3" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Date au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au3" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau3">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf3">PDF</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_tableauScroll">
+					<table id="example3" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th class="no-export">Photo</th>
+								<th>Numero</th>
+								<th>Date</th>
+								<th>Prenom</th>
+								<th>Nom</th>
+								<th>Matricule</th>
+								<th>Poste occupe</th>
+								<th>Nature des Matières</th>
+								<th>Nombre unité</th>
+								<th>Nature des unités</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Total</th>
+								<th class="no-export"></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th> </th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau4-modal---------->
+<div class="grand close-modal" id="tableau4-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Date du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du4" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Date au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au4" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau4">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf4">PDF</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_tableauScroll">
+					<table id="example4" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th class="no-export">Photo</th>
+								<th>Numero</th>
+								<th>Date</th>
+								<th>Prenom</th>
+								<th>Nom</th>
+								<th>Matricule</th>
+								<th>Poste occupe</th>
+								<th>carburant</th>
+								<th>Periode du</th>
+								<th>Periode au</th>
+								<th>Motif</th>
+								<th>Lieu</th>
+								<th>Vehicule</th>
+								<th>Plaque d'immatriculation</th>
+								<th>N° carte</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Total</th>
+								<th class="no-export"></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th> </th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau5-modal---------->
+<div class="grand close-modal" id="tableau5-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Date du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du5" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Date au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au5" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau5">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf5">PDF</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_tableauScroll">
+					<table id="example5" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th class="no-export">Photo</th>
+								<th>Numero</th>
+								<th>Date</th>
+								<th>Fournisseur</th>
+								<th>Telephone</th>
+								<th>N° Facture </th>
+								<th>N° Bon de livraison</th>
+								<th>Carburant (Gasoil) </th>
+								<th>Carburant (Super)</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Total</th>
+								<th class="no-export"></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th> </th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------tableau6-modal---------->
+<div class="grand close-modal" id="tableau6-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Date du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du6" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Date au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au6" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau6">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf6">PDF</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_tableauScroll">
+					<table id="example6" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th class="no-export">Photo</th>
+								<th>designation</th>
+								<th>Nature des Matières</th>
+								<th>Prix unitaire</th>
+								<th>Quantité entrée</th>
+								<th>Quantité sortie</th>
+								<th>Quantité finale</th>
+								<th>Valeur quantité finale</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Total</th>
+								<th class="no-export"></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="grand close-modal" id="tableau7-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<label class="label-details">Date du <span
+								class="required-required">*</span></label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="month" class="text-input contrat9 input-required1"
+								name="amicale"
+								placeholder="Cotisation amicale" id="date_du7" required
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">Date au</label>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+							<input type="month" class="text-input contrat10 input-required1"
+								name="tabaski"
+								id="date_au7" placeholder="Retenue tabaski"
+								onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="label-details">&nbsp;</label>
+						<div class="input-box" style="display: flex;gap:5px;">
+							<button type="submit" class="footer-button-export"
+								id="Exporttableau7">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf7">PDF</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_tableauScroll">
+					<table id="example7" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+								<tr>
+									<th>#</th>
+									<th class="no-export">Photo</th>
+									<th>Numero</th>
+									<th>Date</th>
+									<th>Nom complet</th>
+									<th>Téléphone</th>
+									<th>Nature des Matières</th>
+									<th>Nombre unité</th>
+									<th>Nature des unités</th>
+								</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Total</th>
+								<th class="no-export"></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th> </th>
+								<th></th>
+								<th></th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+		
+		
+// =======================
+// 🔥 SLIDER YEARS
+// =======================
+$('.top_slider div:first-of-type').addClass("changeColor");
+
+$(document).on('click', '.slide', function (e) {
+    e.preventDefault();
+    var years = $(this).data('id');
+
+    $(".slide").removeClass("changeColor");
+    $(".years_" + years).addClass("changeColor");
+});
+
+// =======================
+// 🔥 TYPE GRAPHIQUE
+// =======================
+let typeGraphique = "bar";
+
+$(document).on("click", "#bar", () => updateType("bar"));
+$(document).on("click", "#line", () => updateType("line"));
+$(document).on("click", "#pie", () => updateType("pie"));
+$(document).on("click", "#doughnut", () => updateType("doughnut"));
+
+function updateType(type) {
+    typeGraphique = type;
+    chargerDonnees();
+}
+
+// =======================
+// 🔥 CHANGEMENT DATE / MOIS
+// =======================
+$(document).on('click', '.years', function () {
+    const date = $(this).data('id');
+
+    $('#date_reference').val(date);
+    $("#currentYear").text(date);
+
+    chargerDonnees();
+});
+
+$(document).on('input', '#date_reference', chargerDonnees);
+$(document).on('input', '#current_mois', chargerDonnees);
+
+$(function () {
+    chargerDonnees();
+});
+
+// =======================
+// 🔥 COULEURS
+// =======================
+function generateColors(length) {
+    return Array.from({ length }, (_, i) =>
+        `hsl(${(i * 360 / length)}, 65%, 55%)`
+    );
+}
+
+function hexToRgba(hex, alpha = 0.3) {
+    let r = parseInt(hex.slice(1, 3), 16);
+    let g = parseInt(hex.slice(3, 5), 16);
+    let b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r},${g},${b},${alpha})`;
+}
+
+// =======================
+// 🔥 DATASET FACTORY
+// =======================
+function createDataset(label, data, color) {
+
+    if (typeGraphique === "line") {
+        return {
+            label,
+            data,
+            borderColor: color,
+            backgroundColor: hexToRgba(color),
+            fill: true
+        };
+    }
+
+    if (typeGraphique === "pie" || typeGraphique === "doughnut") {
+        return {
+            label,
+            data,
+            backgroundColor: generateColors(data.length),
+            borderColor: "#fff",
+            borderWidth: 1
+        };
+    }
+
+    return {
+        label,
+        data,
+        backgroundColor: color
+    };
+}
+
+// =======================
+// 🔥 CHART INSTANCES (IMPORTANT VPS)
+// =======================
+let chartInstances = [];
+
+// =======================
+// 🔥 DESTROY CHARTS
+// =======================
+function destroyCharts() {
+    chartInstances.forEach(c => c.destroy());
+    chartInstances = [];
+}
+
+// =======================
+// 🔥 CHARGER DONNÉES
+// =======================
+function chargerDonnees() {
+
+    const id = $('#id_reference').val();
+    const date = $('#date_reference').val();
+    const current_mois = $("#current_mois").val();
+
+    // ================= KPI =================
+    $.ajax({
+        url: "../controller_g/dashboard/donnee",
+        method: "POST",
+        data: { id, date, current_mois },
+        dataType: "JSON",
+        success: function (data) {
+
+            $("#montant_entree").html(data.montant_entree);
+            $("#quantite_annuel").html(data.quantite_annuel);
+            $("#reception_annuel_litre").html(data.reception_annuel_litre);
+            $("#dotation_annuel_litre").html(data.dotation_annuel_litre);
+            $("#matiere").html(data.matiere);
+            $("#categorie").html(data.categorie);
+            $("#stock").html(data.stock);
+            $("#carburant").html(data.stock_carburant);
+            $("#reception").html(data.reception_carbur);
+            $("#entree").html(data.entree);
+            $("#sortie").html(data.sortie);
+            $("#affectation").html(data.affectation);
+            $("#dotation").html(data.dotation);
+        }
+    });
+
+    // ================= RESET CANVAS =================
+    for (let i = 1; i <= 7; i++) {
+        $("#div-graphique" + i).html(`<canvas id="barChart${i}"></canvas>`);
+    }
+
+    destroyCharts();
+
+    // ================= STATISTIQUES =================
+    $.ajax({
+        url: "../controller_g/dashboard/statistique",
+        method: "POST",
+        data: { id, date, current_mois },
+        dataType: "JSON",
+        success: function (data) {
+
+            const entree = data[0];
+            const sortie_interne = data[1];
+            const affect = data[2];
+            const dotation = data[3];
+            const recep = data[4];
+            const livre = data[5];
+            const sortie_externe = data[6];
+
+            const s = (arr, key) => arr.map(v => v[key]);
+
+            renderAllCharts(
+                s(entree, "date_entree"),
+                s(entree, "total_entree"),
+                s(entree, "quantite_entree"),
+
+                s(sortie_interne, "date_sortie_interne"),
+                s(sortie_interne, "total_sortie_interne"),
+
+                s(sortie_externe, "date_sortie_externe"),
+                s(sortie_externe, "total_sortie_externe"),
+
+                s(affect, "date_affectation"),
+                s(affect, "total_affectation"),
+
+                s(dotation, "date_dotation"),
+                s(dotation, "carburant"),
+
+                s(recep, "date_reception"),
+                s(recep, "recept_carburant"),
+
+                s(livre, "mois"),
+                s(livre, "quantite_entree"),
+                s(livre, "total_sortie"),
+
+                date
+            );
+        }
+    });
+}
+
+// =======================
+// 🔥 RENDER ALL CHARTS
+// =======================
+function renderAllCharts(
+    date_entree, total_entree, qte_entree,
+    date_sortie_interne, total_sortie_interne,
+    date_sortie_externe, total_sortie_externe,
+    date_affect, total_affect,
+    date_dotation, carburant,
+    date_reception, carburant_recept,
+    mois, livre_entree, livre_sortie,
+    date
+) {
+
+    const chartConfigs = [
+
+        {
+            canvas: "barChart1",
+            title: `Entrées ${date}`,
+            labels: date_entree,
+            datasets: [
+                createDataset("Total entrée", total_entree, "#0d6e80"),
+                createDataset("Quantité entrée", qte_entree, "#123d8e")
+            ]
+        },
+
+        {
+            canvas: "barChart2",
+            title: `Sorties internes ${date}`,
+            labels: date_sortie_interne,
+            datasets: [
+                createDataset("Sortie", total_sortie_interne, "#808000")
+            ]
+        },
+
+        {
+            canvas: "barChart3",
+            title: `Affectations ${date}`,
+            labels: date_affect,
+            datasets: [
+                createDataset("Affectation", total_affect, "#800000")
+            ]
+        },
+
+        {
+            canvas: "barChart4",
+            title: `Dotation ${date}`,
+            labels: date_dotation,
+            datasets: [
+                createDataset("Carburant", carburant, "#ff0000")
+            ]
+        },
+
+        {
+            canvas: "barChart5",
+            title: `Réception ${date}`,
+            labels: date_reception,
+            datasets: [
+                createDataset("Réception", carburant_recept, "#008000")
+            ]
+        },
+
+        {
+            canvas: "barChart6",
+            title: `Grand Livre ${date}`,
+            labels: mois,
+            datasets: [
+                createDataset("Entrée", livre_entree, "#0d6e80"),
+                createDataset("Sortie", livre_sortie, "#de2525")
+            ]
+        },
+
+        {
+            canvas: "barChart7",
+            title: `Sorties externes ${date}`,
+            labels: date_sortie_externe,
+            datasets: [
+                createDataset("Sortie", total_sortie_externe, "#808000")
+            ]
+        }
+    ];
+
+    chartConfigs.forEach(cfg => {
+
+        const chart = new Chart(document.getElementById(cfg.canvas), {
+            type: typeGraphique,
+            data: {
+                labels: cfg.labels,
+                datasets: cfg.datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+                    title: {
+                        display: true,
+                        text: cfg.title,
+                        font: {
+                            size: 16,
+                            family: "Poppins"
+                        }
+                    }
+                },
+
+                // ✅ FIX IMPORTANT: NO STACKED (plus de superposition)
+                scales: (typeGraphique === "bar" || typeGraphique === "line") ? {
+                    x: {
+                        stacked: false,
+                        grid: { display: false }
+                    },
+                    y: {
+                        stacked: false,
+                        grid: { color: "rgba(0,0,0,0.05)" }
+                    }
+                } : {}
+            }
+        });
+
+        chartInstances.push(chart);
+    });
+}
+
+	</script>
+
+<script>
+		//----------------TABLEAU
+		$(document).ready(function() {
+            //----------TABLEAU1
+			function loadTable1() {
+                 var id = $('#id_reference').val();
+                 var date = $('#date_reference').val();
+                 var date_du1 = $('#date_du1').val();
+                 var date_au1 = $('#date_au1').val();
+         
+                 // Détruire DataTable existante
+                 if ($.fn.DataTable.isDataTable('#example1')) {
+                     $("#example1").DataTable().destroy();
+                 }
+				 $.ajax({
+				url: "../controller_g/dashboard/tableau",
+				method: "POST",
+				data: {
+					tableau1: id,
+					date: date,
+					date_du1: date_du1,
+					date_au1: date_au1
+				},
+				//dataType: "JSON",
+				success: function(response) {
+					console.log(response)
+					$('#example1 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						$('#example1 tbody').append(`
+			                <tr>
+				               <td>${gp_data[a].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[a].image}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[a].numero}</td>
+				               <td style="text-align:center;">${gp_data[a].date_entree}</td>
+				               <td style="text-align:center;">${gp_data[a].designation}</td>
+				               <td style="text-align:center;">${gp_data[a].quantite}</td>
+				               <td style="text-align:center;">${gp_data[a].nature_unite}</td>
+				               <td style="text-align:center;">${gp_data[a].prix_unitaire}</td>
+				               <td style="text-align:center;">${gp_data[a].total_entree}</td>
+				                </tr>
+						`);
+					}
+					$("#example1").DataTable({
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+						footerCallback: function(tfoot, data, start, end, display) {
+							var api = this.api();
+							$(api.column(5).footer()).html(
+								api.column(5, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+							$(api.column(7).footer()).html(
+								api.column(7, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+							$(api.column(8).footer()).html(
+								api.column(8, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+						}
+					});
+				}
+			})
+
+		}
+		loadTable1();
+
+    // Recharger à chaque changement de date
+    $('#date_du1, #date_au1').on('input', loadTable1);
+
+	//------------TABLEAU 2
+			
+	function loadTable2(){
+	        var id = $('#id_reference').val();
+			var date =  $('#date_reference').val();
+			var date_du2 = $('#date_du2').val();
+			var date_au2 = $('#date_au2').val();
+			// Détruire DataTable existante
+
+            if ($.fn.DataTable.isDataTable('#example2')) {
+               $("#example2").DataTable().destroy();
+            }
+			$.ajax({
+				url: "../controller_g/dashboard/tableau",
+				method: "POST",
+				data: {
+					tableau2: id,
+					date: date,
+					date_du2: date_du2,
+					date_au2: date_au2
+				},
+				//dataType: "JSON",
+				success: function(response) {
+					console.log(response)
+					$('#example2 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						$('#example2 tbody').append(`
+			                <tr>
+				               <td>${gp_data[a].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[a].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[a].numero}</td>
+				               <td style="text-align:center;">${gp_data[a].date_sortie}</td>
+							   <td style="text-align:center;">${gp_data[a].prenom}</td>
+							   <td style="text-align:center;">${gp_data[a].nom}</td>
+							   <td style="text-align:center;">${gp_data[a].matricule}</td>
+							    <td style="text-align:center;">${gp_data[a].poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[a].designation}</td>
+				               <td style="text-align:center;">${gp_data[a].quantite}</td>
+				               <td style="text-align:center;">${gp_data[a].nature_unite}</td>
+				              
+				                </tr>
+						`);
+					}
+					$("#example2").DataTable({
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+						footerCallback: function(tfoot, data, start, end, display) {
+							var api = this.api();
+							$(api.column(9).footer()).html(
+								api.column(9, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+
+						}
+
+					});
+
+				}
+			})
+	}
+
+	loadTable2();
+
+    // Recharger à chaque changement de date
+    $('#date_du2, #date_au2').on('input', loadTable2);
+
+	//------------TABLEAU 3
+			function loadTable3() {
+                var id = $('#id_reference').val();
+			    var date =  $('#date_reference').val();
+			    var date_du3 = $('#date_du3').val();
+			    var date_au3 = $('#date_au3').val();
+
+			    if ($.fn.DataTable.isDataTable('#example3')) {
+                     $("#example3").DataTable().destroy();
+                }
+                $.ajax({
+				url: "../controller_g/dashboard/tableau",
+				method: "POST",
+				data: {
+					tableau3: id,
+					date: date,
+					date_du3: date_du3,
+					date_au3: date_au3
+				},
+				//dataType: "JSON",
+				success: function(response) {
+					console.log(response)
+					$('#example3 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						$('#example3 tbody').append(`
+			                <tr>
+				               <td>${gp_data[a].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[a].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[a].numero}</td>
+				               <td style="text-align:center;">${gp_data[a].date_affectation}</td>
+							   <td style="text-align:center;">${gp_data[a].prenom}</td>
+							   <td style="text-align:center;">${gp_data[a].nom}</td>
+							   <td style="text-align:center;">${gp_data[a].matricule}</td>
+							    <td style="text-align:center;">${gp_data[a].poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[a].designation}</td>
+				               <td style="text-align:center;">${gp_data[a].quantite}</td>
+				               <td style="text-align:center;">${gp_data[a].nature_unite}</td>
+				              
+				                </tr>
+						`);
+					}
+					$("#example3").DataTable({
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+						footerCallback: function(tfoot, data, start, end, display) {
+							var api = this.api();
+							$(api.column(9).footer()).html(
+								api.column(9, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+
+						}
+
+					});
+
+				}
+			})
+		}
+
+			loadTable3();
+			$('#date_du3, #date_au3').on('input', loadTable3);
+
+		//-----------TABLEAU 4
+
+		function loadTable4() {
+         
+			 if ($.fn.DataTable.isDataTable('#example4')) {
+                     $("#example4").DataTable().destroy();
+            }
+			var id = $('#id_reference').val();
+			var date =  $('#date_reference').val();
+			var date_du4 = $('#date_du4').val();
+			var date_au4 = $('#date_au4').val();
+			$.ajax({
+				url: "../controller_g/dashboard/tableau",
+				method: "POST",
+				data: {
+					tableau4: id,
+					date: date,
+					date_du4: date_du4,
+					date_au4: date_au4
+				},
+				//dataType: "JSON",
+				success: function(response) {
+					console.log(response)
+					$('#example4 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						$('#example4 tbody').append(`
+			                <tr>
+				               <td>${gp_data[a].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[a].photo}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[a].numero}</td>
+				               <td style="text-align:center;">${gp_data[a].date_dotation}</td>
+				               <td style="text-align:center;">${gp_data[a].prenom}</td>
+				               <td style="text-align:center;">${gp_data[a].nom}</td>
+				               <td style="text-align:center;">${gp_data[a].matricule}</td>
+				               <td style="text-align:center;">${gp_data[a].poste_occupe}</td>
+				               <td style="text-align:center;">${gp_data[a].carburant} ${gp_data[a].ca_dotation}</td>
+				               <td style="text-align:center;">${gp_data[a].periode_du}</td>
+				               <td style="text-align:center;">${gp_data[a].periode_au}</td>
+				               <td style="text-align:center;">${gp_data[a].motif}</td>
+				               <td style="text-align:center;">${gp_data[a].lieu}</td>
+				               <td style="text-align:center;">${gp_data[a].vehicule}</td>
+				               <td style="text-align:center;">${gp_data[a].immatriculation}</td>
+				               <td style="text-align:center;">${gp_data[a].numero_carte}</td>
+				              
+				            </tr>
+						`);
+					}
+					$("#example4").DataTable({
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+						footerCallback: function(tfoot, data, start, end, display) {
+							var api = this.api();
+							$(api.column(8).footer()).html(
+								api.column(8, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+						}
+					});
+
+				}
+			})
+		}
+
+		
+			loadTable4();
+			$('#date_du4, #date_au4').on('input', loadTable4);
+
+	
+		//--------TABEAU5
+
+		function loadTable5() {
+			var id = $('#id_reference').val();
+			var date =  $('#date_reference').val();
+			var date_du5 = $('#date_du5').val();
+			var date_au5 = $('#date_au5').val();
+
+			// Détruire DataTable existante
+            if ($.fn.DataTable.isDataTable('#example5')) {
+                $("#example5").DataTable().destroy();
+            }
+
+			$.ajax({
+				url: "../controller_g/dashboard/tableau",
+				method: "POST",
+				data: {
+					tableau5: id,
+					date: date,
+					date_du5: date_du5,
+					date_au5: date_au5
+				},
+				//dataType: "JSON",
+				success: function(response) {
+					console.log(response)
+					$('#example5 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						$('#example5 tbody').append(`
+			                <tr>
+				               <td>${gp_data[a].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[a].photo}" alt="" width="30" height="30">
+				               </td>
+				              <td style="text-align:center;">${gp_data[a].numero}</td>
+				              <td style="text-align:center;">${gp_data[a].date_reception}</td>
+				              <td style="text-align:center;">${gp_data[a].fournisseur}</td>
+				              <td style="text-align:center;">${gp_data[a].telephone_f}</td>
+				              <td style="text-align:center;">${gp_data[a].numero_facture}</td>
+				              <td style="text-align:center;">${gp_data[a].numero_bon}</td>
+				              <td style="text-align:center;">${gp_data[a].carburant_gasoil}</td>
+				              <td style="text-align:center;">${gp_data[a].carburant_super}</td>
+				            </tr>
+						`);
+					}
+					$("#example5").DataTable({
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+						footerCallback: function(tfoot, data, start, end, display) {
+							var api = this.api();
+							$(api.column(8).footer()).html(
+								api.column(8, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+							$(api.column(9).footer()).html(
+								api.column(9, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+						}
+					});
+
+
+				}
+			})
+		}
+
+		loadTable5();
+		$('#date_du5, #date_au5').on('input', loadTable5);
+        
+			//--------TABEAU6
+
+		function loadTable6() {
+			var id = $('#id_reference').val();
+			var date =  $('#date_reference').val();
+			var date_du6 = $('#date_du6').val() || null;  // null si vide;
+			var date_au6 = $('#date_au6').val() || null;  // null si vide;
+
+			// Détruire DataTable existante
+            if ($.fn.DataTable.isDataTable('#example6')) {
+                $("#example6").DataTable().destroy();
+            }
+
+			$.ajax({
+				url: "../controller_g/dashboard/tableau",
+				method: "POST",
+				data: {
+					tableau6: id,
+					date: date,
+					date_du6: date_du6,
+					date_au6: date_au6
+				},
+				//dataType: "JSON",
+				success: function(response) {
+					console.log(response)
+					$('#example6 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						$('#example6 tbody').append(`
+			                <tr>
+				               <td>${gp_data[a].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[a].image}" alt="" width="30" height="30">
+				               </td>
+				              <td style="text-align:center;">${gp_data[a].designation}</td>
+				              <td style="text-align:center;">${gp_data[a].nature_unite}</td>
+				              <td style="text-align:center;">${gp_data[a].prix_unitaire}</td>
+				              <td style="text-align:center;">${gp_data[a].quantite_entree}</td>
+				              <td style="text-align:center;">${gp_data[a].quantite_sortie_totale}</td>
+							  <td style="text-align:center;">${gp_data[a].stock_restant}</td>
+							  <td style="text-align:center;">${gp_data[a].montant_total}</td>
+				            </tr>
+						`);
+					}
+					$("#example6").DataTable({
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+						footerCallback: function(tfoot, data, start, end, display) {
+							var api = this.api();
+							$(api.column(4).footer()).html(
+								api.column(4, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+							$(api.column(5).footer()).html(
+								api.column(5, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+							$(api.column(6).footer()).html(
+								api.column(6, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+							$(api.column(7).footer()).html(
+								api.column(7, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+							$(api.column(8).footer()).html(
+								api.column(8, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+						}
+					});
+
+
+				}
+			})
+		}
+
+		loadTable6();
+		$('#date_du6, #date_au6').on('input', loadTable6);
+
+        // TABLEAU 7
+		function loadTable7(){
+	        var id = $('#id_reference').val();
+			var date =  $('#date_reference').val();
+			var date_du7 = $('#date_du7').val();
+			var date_au7 = $('#date_au7').val();
+			// Détruire DataTable existante
+
+            if ($.fn.DataTable.isDataTable('#example7')) {
+               $("#example7").DataTable().destroy();
+            }
+			$.ajax({
+				url: "../controller_g/dashboard/tableau",
+				method: "POST",
+				data: {
+					tableau7: id,
+					date: date,
+					date_du7: date_du7,
+					date_au7: date_au7
+				},
+				//dataType: "JSON",
+				success: function(response) {
+					console.log(response)
+					$('#example7 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						$('#example7 tbody').append(`
+			                <tr>
+				               <td>${gp_data[a].count}</td>
+				               <td class="no-export">
+				               <img src="${gp_data[a].image}" alt="" width="30" height="30">
+				               </td>
+				               <td style="text-align:center;">${gp_data[a].numero}</td>
+				               <td style="text-align:center;">${gp_data[a].date_sortie}</td>
+							   <td style="text-align:center;">${gp_data[a].nom_complet_externe}</td>
+							   <td style="text-align:center;">${gp_data[a].telephone_externe}</td>
+				               <td style="text-align:center;">${gp_data[a].designation}</td>
+				               <td style="text-align:center;">${gp_data[a].quantite}</td>
+				               <td style="text-align:center;">${gp_data[a].nature_unite}</td>
+				              
+				                </tr>
+						`);
+					}
+					$("#example7").DataTable({
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+						footerCallback: function(tfoot, data, start, end, display) {
+							var api = this.api();
+							$(api.column(7).footer()).html(
+								api.column(7, {
+									page: 'current'
+								}).data().reduce(function(a, b) {
+									var intVal = function(i) {
+										return typeof i === 'string' ?
+											i.replace(/\,/g, '.').replace(/[^\d.-]/g, '') * 1 :
+											typeof i === 'number' ?
+											i : 0;
+									};
+									return intVal(a) + intVal(b);
+
+								}, 0).toLocaleString("fi-FI", {
+									minimumFractionDigits: 0,
+									maximumFractionDigits: 0
+								})
+							);
+
+						}
+
+					});
+
+				}
+			})
+	}
+
+	loadTable7();
+
+    // Recharger à chaque changement de date
+    $('#date_du7, #date_au7').on('input', loadTable7);
+    })
+				
+		
+		//DATE 6
+		$(document).ready(function() {
+			
+			
+			$('#download1').on('click', function(e) {
+				domtoimage.toBlob(document.getElementById('div-graphique1')).then(function(blob) {
+					window.saveAs(blob, 'Entree.png')
+				})
+			})
+
+			$( '#download2').on('click', function(e) {
+				domtoimage.toBlob(document.getElementById('div-graphique2')).then(function(blob) {
+					window.saveAs(blob, 'Sortie interne.png')
+				})
+			})
+
+			$('#download3').on('click', function(e) {
+				domtoimage.toBlob(document.getElementById('div-graphique3')).then(function(blob) {
+					window.saveAs(blob, 'Affectation.png')
+				})
+			})
+			$('#download4').on('click', function(e) {
+				domtoimage.toBlob(document.getElementById('div-graphique4')).then(function(blob) {
+					window.saveAs(blob, 'Dotation.png')
+				})
+			})
+			
+			$('#download5').on('click', function(e) {
+				domtoimage.toBlob(document.getElementById('div-graphique5')).then(function(blob) {
+					window.saveAs(blob, 'reception_carburant.png')
+				})
+			})
+			$('#download6').on('click', function(e) {
+				domtoimage.toBlob(document.getElementById('div-graphique6')).then(function(blob) {
+					window.saveAs(blob, 'Grand livre.png')
+				})
+			})
+			$('#download7').on('click', function(e) {
+				domtoimage.toBlob(document.getElementById('div-graphique7')).then(function(blob) {
+					window.saveAs(blob, 'Sortie externe.png')
+				})
+			})
+			$('#ExportdataPdf1').click(function() {
+				let table = $("#example1").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				const doc = new jsPDF('l', 'mm')
+				doc.autoTable({
+					html: table[0],
+					styles: {
+						overflow: 'linebreak',
+						fontSize: 8,
+						halign: 'center'
+					},
+					showFoot: 'lastPage', // <-- le footer ne s'affiche que sur la dernière page
+				})
+				doc.save('Entree')
+			})
+			$('#Exporttableau1').click(function() {
+				let table = $("#example1").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				TableToExcel.convert(table[0], {
+					name: `Entree.xlsx`,
+					sheet: {
+						name: 'Entree'
+					}
+				});
+			});
+			$('#ExportdataPdf2').click(function() {
+				let table = $("#example2").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				const doc = new jsPDF('l', 'mm')
+				doc.autoTable({
+					html: table[0],
+					styles: {
+						overflow: 'linebreak',
+						fontSize: 8,
+						halign: 'center'
+					},
+					showFoot: 'lastPage', // <-- le footer ne s'affiche que sur la dernière page
+				})
+				doc.save('Sortie interne')
+			})
+			$('#Exporttableau2').click(function() {
+				let table = $("#example2").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				TableToExcel.convert(table[0], {
+					name: `Sortie externe.xlsx`,
+					sheet: {
+						name: 'Sortie externe'
+					}
+				});
+			});
+			$('#ExportdataPdf3').click(function() {
+				let table = $("#example3").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				const doc = new jsPDF('l', 'mm')
+				doc.autoTable({
+					html: table[0],
+					styles: {
+						overflow: 'linebreak',
+						fontSize: 8,
+						halign: 'center'
+					},
+					showFoot: 'lastPage', // <-- le footer ne s'affiche que sur la dernière page
+				})
+				doc.save('Affectation')
+			})
+			$('#Exporttableau3').click(function() {
+				let table = $("#example3").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				TableToExcel.convert(table[0], {
+					name: `Affectation.xlsx`,
+					sheet: {
+						name: 'Affectation'
+					}
+				});
+			});
+			$('#ExportdataPdf4').click(function() {
+				let table = $("#example4").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				const doc = new jsPDF('l', 'mm')
+				doc.autoTable({
+					html: table[0],
+					styles: {
+						overflow: 'linebreak',
+						fontSize: 8,
+						halign: 'center'
+					},
+					showFoot: 'lastPage', // <-- le footer ne s'affiche que sur la dernière page
+				})
+				doc.save('Dotation')
+			})
+			$('#Exporttableau4').click(function() {
+				let table = $("#example4").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				TableToExcel.convert(table[0], {
+					name: `Dotation.xlsx`,
+					sheet: {
+						name: 'Dotation'
+					}
+				});
+			});
+		
+			$('#ExportdataPdf5').click(function() {
+				let table = $("#example5").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				const doc = new jsPDF('l', 'mm')
+				doc.autoTable({
+					html: table[0],
+					styles: {
+						overflow: 'linebreak',
+						fontSize: 8,
+						halign: 'center'
+					},
+					showFoot: 'lastPage', // <-- le footer ne s'affiche que sur la dernière page
+				})
+				doc.save('reception_carburant')
+			})
+			$('#Exporttableau5').click(function() {
+				let table = $("#example5").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				TableToExcel.convert(table[0], {
+					name: `reception_carburant.xlsx`,
+					sheet: {
+						name: 'reception_carburant'
+					}
+				});
+			});
+			$('#ExportdataPdf6').click(function() {
+				let table = $("#example6").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				const doc = new jsPDF('l', 'mm')
+				doc.autoTable({
+					html: table[0],
+					styles: {
+						overflow: 'linebreak',
+						fontSize: 8,
+						halign: 'center'
+					},
+					showFoot: 'lastPage', // <-- le footer ne s'affiche que sur la dernière page
+				})
+				doc.save('Grand livre')
+			})
+			$('#Exporttableau6').click(function() {
+				let table = $("#example6").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				TableToExcel.convert(table[0], {
+					name: `Grand livre.xlsx`,
+					sheet: {
+						name: 'Grand livre'
+					}
+				});
+			});
+
+			$('#ExportdataPdf7').click(function() {
+				let table = $("#example7").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				const doc = new jsPDF('l', 'mm')
+				doc.autoTable({
+					html: table[0],
+					styles: {
+						overflow: 'linebreak',
+						fontSize: 8,
+						halign: 'center'
+					},
+					showFoot: 'lastPage', // <-- le footer ne s'affiche que sur la dernière page
+				})
+				doc.save('Sortie externe')
+			})
+			$('#Exporttableau7').click(function() {
+				let table = $("#example7").clone();
+				console.log(table);
+				table.find(".no-export").each(function() {
+					$(this).remove();
+				});
+				TableToExcel.convert(table[0], {
+					name: `Sortie externe.xlsx`,
+					sheet: {
+						name: 'Sortie externe'
+					}
+				});
+			});
+		})
+	</script>
+<script>
+$(function() {
+    const $months = $('.month');
+    const $container = $('.months-container');
+    const radius = 100;
+    const now = new Date();
+    const currentMonth = now.getMonth();
+
+    $months.each(function(i){
+        const angle = (i / $months.length) * (2 * Math.PI) - Math.PI/2;
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+
+        $(this).css({
+            left: `calc(50% + ${x}px - ${$(this).width()/2}px)`,
+            top: `calc(50% + ${y}px - ${$(this).height()/2}px)`
+        });
+
+        // mois courant
+       //if(i === currentMonth){
+       //    $(this).addClass('current');
+       //}
+         	$(this).filter(':first-of-type').addClass('current');
+
+        // clic sur un mois
+        $(this).click(function(){
+			
+            $months.removeClass('current');
+            $(this).addClass('current');
+            console.log("Mois choisi:", $(this).text(), i+1);
+
+			var mois_current = $(this).data('id');
+			 if(mois_current=="00"){
+                $("#current_mois").val("");
+				$(".ann_mens_m").html("annuel")
+				$(".ann_mens_f").html("annuelle")
+			 }else{
+			    $("#current_mois").val(mois_current);
+				$(".ann_mens_m").html("mensuel")
+				$(".ann_mens_f").html("mensuelle")
+			 }
+			                 chargerDonnees();
+
+        });
+
+        // hover pour stopper la rotation
+        $(this).hover(
+            () => $container.css('animation-play-state', 'paused'),
+            () => $container.css('animation-play-state', 'running')
+        );
+    });
+
+    $('#currentYear').text(now.getFullYear());
+});
+
+
+// card-progressbar
+$('.card').each(function() {
+  const $card = $(this);
+  const $bar = $card.find('.bar');
+  const width = $bar.data('width') || $bar.width(); // optionnel
+
+  // animation fluide de la largeur
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      $bar.css('width', $bar.attr('data-width') || $bar.width() + '%');
+    }, 120 + (Math.random() * 240));
+  });
+});
+
+</script>

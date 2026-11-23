@@ -1,0 +1,1098 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header_gstock.html' %}
+
+<!------MAIN-CONTENT-------->
+
+<style>
+		.dating::-webkit-datetime-edit-month-field,
+		.dating::-webkit-datetime-edit-day-field,
+		.dating::-webkit-datetime-edit-text {
+			display: none;
+		}
+	</style>
+
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<!------MAIN-CONTENT-------->
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1 class="get-title-page gstock-title-ex-2">Sortie externe</h1>
+		</div>
+		<div class="baniere-right">
+			<div class="content-navigation">
+				<ul class="navigation">
+					<li class="active_nav active_nav_click section-btn" id="service"
+						data-index="0">
+						<a href="#">
+							<span class="icon"><i class="fas fa-file-export"></i></span>
+							<span class="text">Sortie</span>
+						</a>
+					</li>
+					<li class="active_nav_click section-btn" id="employe" data-index="1">
+						<a href="#">
+							<span class="icon"><i class="fas fa-database"></i></span>
+							<span class="text">Matiére</span>
+						</a>
+					</li>
+					<li class="active_nav_click section-btn" id="pverbal" data-index="2" style="display: none;">
+						<a href="#">
+							<span class="icon"><i class="fas fa-users"></i></span>
+							<span class="text">Employé</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-database"></i></div>
+		<!---------SOUS CONTAINT 1----------->
+		<div class="main-sous-content">
+			<div class="main-sous-content-div active-main-sous-content">
+				<div class="content-list content-list1">
+
+				</div>
+				<!----------------PAGINATION----------->
+				<div class="pagination">
+					<div class="showingInfo" id="showingInfo1"></div>
+					<div class="showingPage" id="pagination1"></div>
+				</div>
+			</div>
+			<!---------FIN SOUS CONTAINT 1----------->
+
+			<!---------SOUS CONTAINT 2----------->
+			<div class="main-sous-content-div">
+				<div class="content-global content-global2">
+					<div class="content-list content-list2">
+
+					</div>
+					<div class="pagination">
+						<div class="showingInfo" id="showingInfo2"></div>
+						<div class="showingPage" id="pagination2"></div>
+					</div>
+				</div>
+			</div>
+			<!---------FIN SOUS CONTAINT 2----------->
+			<!---------SOUS CONTAINT 3----------->
+			<div class="main-sous-content-div">
+
+				<div class="content-list content-list3">
+
+				</div>
+				<!----------------PAGINATION----------->
+				<div class="pagination">
+					<div class="showingInfo" id="showingInfo3"></div>
+					<div class="showingPage" id="pagination3"></div>
+				</div>
+			</div>
+			<!---------FIN SOUS CONTAINT 3----------->
+		</div>
+	</div>
+</div>
+<!------MODAL AJOUT INSCRIPTION-------->
+<form id="insertForm">
+	<!----------TABLE AJOUT PANIER---------->
+	<div class="tour-panier">
+		<div class="panier">
+			<div class="group-panier">
+				<div class="title-panier">
+					<span>Panier</span>
+					<div class="btn-close-panier">
+						<i class="fa fa-times-circle"></i>
+					</div>
+				</div>
+				<div class="date-panier">
+
+					
+					<div class="input-group">
+						
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-user  fa-icon"></i></span>
+							<input type="text" class="text-input contrat9 etablissement"
+								name="nom_complet_externe"
+								id="nom_complet_externe" placeholder="Nom complet" >
+						</div>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-phone fa-rotate-90  fa-icon"></i></span>
+							<input type="text" class="text-input contrat9 input-required1"
+								name="telephone_externe"
+								id="telephone_externe" placeholder="Téléphone" >
+						</div>
+						<div class="input-box">
+							<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+							<input type="date" class="text-input contrat9 input-required1"
+								name="date_sortie"
+								id="date_sortie" value="{{ current_date }}">
+						</div>
+					</div>
+				</div>
+
+				<input type="text" name="id_reference" id="id_reference"
+					value="{{ request.args.get('id', '') }}" hidden>
+				<input type="text" name="id_sortie_externe" id="id_sortie" hidden>
+				<input type="hidden" name="insert_id_externe">
+				<div class="footer-modal"
+					style="text-align:right;margin-top:0px;margin-right:5px;">
+					<button type="button" style="margin-top:0px;margin-bottom:0px;"
+						class="footer-button-register btn-next-progress btn-next-progress1"
+						id="inscriptdata">Observation</button>
+				</div>
+				<div class="nextstep nextstep-active">
+					<div class="header-panier">
+						<div>Image</div>
+						<div>Designation</div>
+						<div>Quantité</div>
+						<div>&nbsp;</div>
+					</div>
+					<div class="hide-item-panier">
+						le panier est vide
+					</div>
+					<div class="item-panier">
+						<!----------ProgressBar--------->
+						<!---------Form----------------->
+					</div>
+					<div class="foot-panier">
+						<div class="foot-panier-total">
+							<span>Total</span>
+							<span id="total">0</span>
+							<input type="hidden" name="sum_unite" id="sum_unite">
+						</div>
+					</div>
+				</div>
+				<div class="nextstep">
+					<div class="header-panier">
+						<div>Image</div>
+						<div>Designation</div>
+						<div>Observation</div>
+						<div>&nbsp;</div>
+					</div>
+					<div class="hide-item-panier">
+						le panier est vide
+					</div>
+					<div class="item-panier-observe">
+						<!----------ProgressBar--------->
+						<!---------Form----------------->
+					</div>
+
+				</div>
+
+			</div>
+			<div class="footer-enreg">
+				<button type="submit" class="button-enreg">Enregister</button>
+				<button type="button" class="footer-button-close button-enreg"
+					id="annuler_pannier">Annuler</button>
+			</div>
+		</div>
+	</div>
+
+	<!------beep-------->
+</form>
+
+<!------FIN MODAL AJOUT INSCRIPTION-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+
+</form>
+
+<!------FIN MODAL MODIFIER-------->
+
+<!------MODAL SUPPRIMER-------->
+<form id="deleteForm">
+	<div class="petit close-modal" id="supprimer-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">SUPPRIMER sortie</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="del-profil_imgPreview">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="text" name="delete_id_externe" id="delete_id" hidden>
+
+						<h1 class="card-title" id="del-title-name"></h1>
+						<div class="nextstep nextstep-active">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-trash"></i> </span>
+										<input type="text" class="text-input" name id="nom_del" readonly>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="footer-modal">
+							<button type="submit" class="footer-button-register"
+								id="deletedata">Supprimer</button>
+							<button type="button"
+								class="footer-button-close close-modal">Fermer</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL SUPPRIMER-------->
+<!------MODAL INFO-------->
+
+<!------FIN MODAL INFO-------->
+
+<!--------FIN MODAL INFO GENERAL------->
+<!--------MODAL INFO INDEMNITE------->
+
+<!--------FIN MODAL INFO INDEMNITE------->
+<div id="shareOverlay"></div>
+
+<div id="sharePopup" role="dialog" aria-modal="true"
+	aria-labelledby="sharePopupTitle">
+	<div class="close-btn" aria-label="Fermer"><i class="fas fa-times"></i></div>
+	<div class="title" id="sharePopupTitle">Partager</div>
+	<div class="share-buttons">
+		<div class="share-btn" id="fbShare" title="Facebook" role="button"
+			tabindex="0" aria-label="Partager sur Facebook">
+			<i class="fab fa-facebook-f"></i>
+		</div>
+
+		<div class="share-btn" id="twShare" title="Twitter" role="button"
+			tabindex="0" aria-label="Partager sur Twitter">
+			<i class="fab fa-twitter"></i>
+		</div>
+
+		<div class="share-btn" id="waShare" title="WhatsApp" role="button"
+			tabindex="0" aria-label="Partager sur WhatsApp">
+			<i class="fab fa-whatsapp"></i>
+		</div>
+
+		<div class="share-btn" id="emailShare" title="Email" role="button"
+			tabindex="0" aria-label="Partager par Email">
+			<i class="fas fa-envelope"></i>
+		</div>
+
+		<div class="share-btn" id="copyLinkBtn" title="Copier le lien" role="button"
+			tabindex="0" aria-label="Copier le lien">
+			<i class="fas fa-link"></i>
+		</div>
+	</div>
+
+	<div id="shareMessage"
+		style="text-align:center; margin-top:8px; color:green; display:none;"></div>
+</div>
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+		$('document').ready(function() {
+			fetchdata();
+		})
+		$(document).ready(function() {
+    // On cache toutes les étapes sauf la première
+   $('#inscriptdata').on('click', function() {
+    $('.nextstep').toggle(); // affiche le nextstep caché, masque l'autre
+    if ($(this).text() === 'Panier') {
+        $(this).text('Observation');
+    } else {
+        $(this).text('Panier');
+    }
+});
+
+});
+
+		function fetchdata() {
+			var id = $("#id_reference").val()
+			$.ajax({
+				url: "../controller_g/sortie/fetch_sortie",
+				type: "POST",
+				data: {
+					id_sortie_externe: id
+				},
+				success: function(response) {
+					console.log(response)
+					$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						var div1 = `<div class="parent box result well">
+					 <div class="card">
+					     <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	${gp_data[a].matricule}
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].nom_complet_externe}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-phone fa-rotate-90"></i><span>${gp_data[a].telephone_externe}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar"></i><span>${gp_data[a].date_sortie}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[a].numero}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+							<ul class="navigation_list">
+					           <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="updatebtn" data-id="${gp_data[a].id_sortie_externe}">
+					           	<a href="#">
+					           		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+					           		<span class="text">Modifier</span>
+									<span class="lampe"></span>
+					           	</a>
+					           </li>
+							   <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="deletebtn" data-id="${gp_data[a].id_sortie_externe}">
+					           	<a href="#">
+					           		<span class="icon"><i class="fas fa-fw fa-trash"></i></span>
+					           		<span class="text">Supprimer</span>
+									<span class="lampe"></span>
+					           	</a>
+					           </li>
+					           <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="printbtn" data-id="${gp_data[a].id_sortie_externe}">
+					           	<a href="#">
+					           		<span class="icon"><i class="fas fa-print"></i></span>
+					           		<span class="text">Imprimer</span>
+									<span class="lampe"></span>
+					           	</a>
+					           </li>
+							   <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count} btnShare" data-id="${gp_data[a].id_sortie_externe}">
+					           	<a href="#">
+					           		<span class="icon"><i class="fas fa-share-alt"></i></span>
+					           		<span class="text">Partager</span>
+									<span class="lampe"></span>
+					           	</a>
+					           </li>
+				           </ul>
+						</div>
+					</div>
+				  </div>`;
+						$('.content-list1').append(div1);
+					}
+					
+					updateSectionItems(0);
+
+				},
+			})
+			$.ajax({
+				url: "../controller_g/matiere/fetch_matiere",
+				type: "POST",
+				data: {
+					id: id
+				},
+				success: function(response) {
+					$('.content-list2').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var b = 0; b < gp_data.length; b++) {
+						var item = gp_data[b];
+                        var id_raw = item.id_matiere_raw;
+						var div2 = `<div class="parent box result well  matiere-item" id="prepend_row_${id_raw}">
+					                    <div class="card">
+					                      <div class="content-date-box">
+                                                <div class="overlay">
+					                                <div class="date-box">
+						                            	<img src="${item.image}" alt="" id="img-product_${id_raw}">
+						                            </div>
+							                    </div>
+						                    </div>
+						                    <div class="content-box">
+						                      <h1 class="card-title" id="name-product_${id_raw}">${item.designation}</h1>
+						                      <div class="card-content">
+						                      	<div class="card-content-info">
+						                      		<i class="fa fa-list-alt"></i><span>${item.categorie_article}</span>
+						                      	</div>
+						                      	<div class="card-content-info">
+						                      		<i class="fa fa-file-contract"></i><span>${item.nature_unite}</span>
+						                      	</div>
+						                      	<div class="card-content-info">
+						                      		<i class="fa fa-sort-numeric-down"></i><span id="nb_unite_${id_raw}">${item.nbre_unite}</span>
+						                      	</div>
+												<div class="card-content-info">
+						                      		<div class="col-list-card-ord">
+					                                  <h2 style="display:none;" id="nb_unite2_${id_raw}">${item.nbre_unite}</h2>
+					                                  <div class="stock-add">
+					                                  	<button class="button1 buton-minus" id="buton-minus_${id_raw}" data-id="${item.id_matiere}" disabled="disabled">
+														<i class="fa fa-minus"></i>
+														</button>
+					                                  	<input type="text" class="text-input-add" id="text-input-add_${id_raw}" data-id="${item.id_matiere}" value="0">
+					                                  	<button class="button2 buton-plus" id="buton-plus_${id_raw}" data-id="${item.id_matiere}">
+														<i class="fa fa-plus"></i></button>
+					                                  </div>
+					                                  <div class="msg_quantite" id="msg_quantite_${id_raw}">Quantité requise *</div>
+					                                  <div class="msg_quantite" id="msg_stock_${id_raw}">le stock est inférieur a 0 *</div>
+													<div class="message-quantity-restant" id="message-quantity-restant_${id_raw}">
+			                                        </div>
+												</div>
+						                      	</div>
+						                      </div>
+						                    </div>
+											<div class="content-navigation_list">
+											    <div class="button-add-product">
+											    	<span class="switch switch1">
+							                            <input type="checkbox" class="check-add" id="check-add_${id_raw}" data-id="${item.id_matiere}">
+									                    <label for></label>
+											    	</span>
+											    </div>
+											</div>
+					                    </div>
+				                    </div>`;
+						$('.content-list2').append(div2);
+					}
+										updateSectionItems(1);
+
+				},
+			})
+
+		}
+
+$(document).on("keyup", ".etablissement", function(event) {
+			var textBox = event.target;
+			var start = textBox.selectionStart;
+			var end = textBox.selectionEnd;
+
+			// Capitalize the first letter of each word after a space
+			textBox.value = textBox.value.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
+				return match.toUpperCase();
+			});
+
+			textBox.setSelectionRange(start, end);
+		});
+		$(document).on('change', '.check_agent', function(e) {
+			e.preventDefault();
+			var id_article = $(this).data('id');
+			var id_article_dom = $(this).attr('id').replace('add_agent_', ''); // suffixe DOM lisible
+			    
+			$('.check_agent').not(this).prop('checked', false);
+
+            if ($(this).is(':checked')) {
+				$("#id_contrat").val(id_article);
+				
+			} else {
+				$("#id_contrat").val("");
+				
+			}
+		})
+
+         function vider_tout(){
+           $(".hide-item-panier").show();
+			$(".item-panier").html("");
+			$(".item-panier-observe").html("");
+			$("#id_sortie").val("");
+			$("#id_contrat").val("");
+			$('.shopping').attr("value", 0);
+			$("#sum_unite").val("");
+			$("#total").text(0);
+			$(".text-input-add").val(0)
+			$('.check-add').prop('checked', false);
+			$('.check_agent').prop('checked', false);
+			$('.button1').prop('disabled', true);
+			updateSectionItems(0);
+// Déclencher automatiquement le bouton "Matière"
+            $('.section-btn[data-index="0"]').trigger('click');
+			var date = (new Date()).toISOString().split('T')[0];
+			$("#date_sortie").val(date);
+			$("#nom_complet_externe").val("")
+			$("#telephone_externe").val("")
+			$(".tour-panier").hide(1000)
+			fetchdata()
+		 }
+		$(document).on('click', '#annuler_pannier', function(e) {
+			vider_tout()
+		})
+$(document).off('change', '.check-add').on('change', '.check-add', function(e) {
+			var id_article = $(this).data('id'); // ID crypté pour backend
+            var id_article_dom = $(this).attr('id').replace('check-add_', ''); // ID lisible pour DOM
+			var $checks = $(this);
+			var totalAmount = 0;
+			var image = $('[id="img-product_' + id_article_dom + '"]').attr('src');
+			var nameproduct = $('[id="name-product_' + id_article_dom + '"]').text();
+			var nb_unite = parseInt($('[id="nb_unite_' + id_article_dom + '"]').text()) || 0;
+			var input = parseInt($('[id="text-input-add_' + id_article_dom + '"]').val()) || 0;
+			if (input < 1) {
+				 $('[id="msg_quantite_' + id_article_dom + '"]').show().delay(5000).hide(0);
+				   $checks.prop('checked', false);
+                   return;
+			} else if (nb_unite < 0) {
+				 $('[id="msg_stock_' + id_article_dom + '"]').show().delay(5000).hide(0);
+				   $checks.prop('checked', false);
+                   return;
+			} 
+	if ($checks.is(':checked')) {
+
+					var div1 = `
+		 <div class="div-panier div-panier-count" id="div-panier_${id_article_dom}"  data-id="${id_article}">
+		 <div class="div-list-img"><img src='${image}' class="panier-img" /><input type="hidden" name="id_matiere[]" id="" value="${id_article}"></div>
+		 <div class="div-list-panier-name">${nameproduct}</div>
+		<div class="tot div-list-panier-qty">
+		<span class="tot_${id_article_dom}" id="add_qte_bn_unite_${id_article_dom}">${input}</span> 
+		<input type="hidden" name="quantite[]" id="add_quantite_${id_article_dom}" value="${input}">
+		<input type="hidden" name="nb_unite[]" id="add_nb_unite_${id_article_dom}" value="${nb_unite}">
+		</div>
+		<div class="remove-trash"><i class="fas fa-trash trash" data-id="${id_article}" id="trash_${id_article_dom}"></i></div>
+		</div>`;
+					var div2 = `
+		 <div class="div-panier" id="div-panier2_${id_article_dom}"  data-id="${id_article}">
+		 <div class="div-list-img"><img src='${image}' class="panier-img" /><input type="hidden" name="id_matiere[]" id="" value="${id_article}"></div>
+		 <div class="div-list-panier-name">${nameproduct}</div>
+		<div class="div-list-panier-qty">
+		<input type="text" class="observe" style="" name="observation[]" id="observation_${id_article_dom}">
+		</div>
+		<div class="remove-trash"><i class="fas fa-trash trash" data-id="${id_article}" id="trash_${id_article_dom}"></i></div>
+		</div>`;
+
+		 prependElementById_add(id_article_dom);
+
+					     // Vérifier si déjà ajouté
+        if ($('[id="div-panier_' + id_article + '"]').length) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Matière déjà ajoutée !!!',
+                text: 'Vous ne pouvez pas ajouter la matière 2 fois de suite !',
+                confirmButtonColor: '#127b8e',
+            });
+        } else {
+            $(".hide-item-panier").hide();
+            $(".item-panier").append(div1);
+            $(".item-panier-observe").append(div2);
+
+            var compte = $(".div-panier-count").length;
+            $('.shopping').attr("value", compte).animate({ zoom: 1.8 }, 1000);
+            setTimeout(function() {
+                $('.shopping').attr("value", compte).animate({ zoom: 1 }, 'slow');
+            }, 300);
+        }
+
+	} else {
+					 // Annuler
+        $('[id="div-panier_' + id_article_dom + '"]').remove();
+        $('[id="div-panier2_' + id_article_dom + '"]').remove();
+
+                  var compte = $(".div-panier-count").length;
+
+        $('.shopping').attr("value", compte);
+        if (compte < 1) {
+            $(".hide-item-panier").show();
+        }
+	}
+			calc_total()
+		})
+
+		$(document).on('click', '.trash', function(e) {
+			 var id_article = $(this).data('id');           // crypté pour backend
+    var id_article_dom = $(this).attr('id').replace('trash_', ''); // suffixe lisible pour DOM
+
+    // Supprimer les divs du panier
+    $('#div-panier_' + id_article_dom).remove();
+    $('#div-panier2_' + id_article_dom).remove();
+    var $checks = $('[id="check-add_' + id_article_dom + '"]');
+
+    // Réinitialiser le bouton
+
+    // Décocher la checkbox
+    $checks.prop('checked', false);
+
+    // Mise à jour du compteur
+                  var compte = $(".div-panier-count").length;
+
+    $('.shopping').attr("value", compte);
+    if (compte < 1) {
+        $(".hide-item-panier").show();
+    }
+
+    calc_total();
+		})
+
+		
+
+		$(document).on('click', '.buton-minus', function(e) {
+			var id_article = $(this).data('id');
+			var id_article_dom = $(this).attr('id').replace('buton-minus_', ''); // suffixe DOM lisible
+
+			var input = $("#text-input-add_" + id_article_dom).val();
+			input--;
+
+			$("#text-input-add_" + id_article_dom).val(input);
+			var nb_unite = $("#nb_unite_" + id_article_dom).text();
+			nb_unite++;
+			$("#nb_unite_" + id_article_dom).text(nb_unite);
+			$("#add_quantite_" + id_article_dom).val(input)
+			$("#add_qte_bn_unite_" + id_article_dom).html(input)
+			$("#add_nb_unite_" + id_article_dom).val(nb_unite)
+
+			if ($("#text-input-add_" + id_article_dom).val() < 1) {
+				$('#buton-minus_' + id_article_dom).attr('disabled', 'disabled')
+			} else if (input < 1) {
+				$('#buton-minus_' + id_article_dom).attr('disabled', 'disabled')
+			}
+			calc_total();
+		})
+		$(document).on('click', '.buton-plus', function(e) {
+			var id_article = $(this).data('id');
+			var id_article_dom = $(this).attr('id').replace('buton-plus_', ''); // suffixe DOM lisible
+
+			var input = $("#text-input-add_" + id_article_dom).val()|| 0;
+			var nb_unite = $("#nb_unite_" + id_article_dom).text()|| 0;
+			if (nb_unite < 1) {
+				$('#msg_stock_' + id_article_dom).show().delay(5000).hide(0);
+			} else {
+				input++;
+				$("#text-input-add_" + id_article_dom).val(input);
+
+				nb_unite--;
+				$("#nb_unite_" + id_article_dom).text(nb_unite);
+				$('#buton-minus_' + id_article_dom).prop('disabled', false);
+				$("#add_quantite_" + id_article_dom).val(input)
+				$("#add_qte_bn_unite_" + id_article_dom).html(input)
+				$("#add_nb_unite_" + id_article_dom).val(nb_unite)
+			}
+			calc_total();
+		})
+
+		$(document).on('input', '.text-input-add', function(e) {
+			var id_article = $(this).data('id');
+            var id_article_dom = $(this).attr('id').replace('button-add-product_', ''); // ID lisible pour DOM
+
+			var input = $("#text-input-add_" + id_article_dom).val() || 0;
+			var nb_unite2 = $("#nb_unite2_" + id_article_dom).text() || 0;
+			var val2 = 0;
+			var curVal = parseInt(input);
+			//if empty input, then we calcalte this as zero value
+			var curVal = (isNaN(curVal) ? 0 : curVal);
+			//summ
+			nb_unite2 = nb_unite2 - curVal;
+			$("#add_nb_unite_" + id_article_dom).val(nb_unite2)
+			$("#nb_unite_" + id_article_dom).text(nb_unite2)
+			$("#add_quantite_" + id_article_dom).val(input)
+			$("#add_qte_bn_unite_" + id_article_dom).html(input);
+			if (input == "") {
+				$("#add_quantite_" + id_article_dom).val(0)
+				$("#add_qte_bn_unite_" + id_article_dom).html(0);
+			}
+			calc_total()
+		})
+
+		function calc_total() {
+			var sum = 0;
+			$(".tot").each(function() {
+				sum += parseFloat($(this).text().replace(/\s+/g, ''));
+			});
+			sumString = Number(sum).toLocaleString('fi-FI')
+			$('#total').html(sumString);
+			$('#sum_unite').val(sum)
+		}
+	</script>
+<script>
+		
+		$(document).on("click", ".active_nav_click_list", function (e) {
+			e.preventDefault();
+			var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+			console.log("ID chiffré cliqué:", encryptedId);
+
+			// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+			var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+			$(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+			$(this).addClass("active_nav_list");
+
+			// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+		});
+		$(document).on('click', '#printbtn', function(e) {
+			var id = $(this).data('id');
+			var id_ref = $("#id_reference").val()
+			window.open(`../pdf/sortie_externe?pdf=${id}&id_ref=${id_ref}`, '_blank');
+		})
+		$("#infocomplete").click(function() {
+			fetchtb_contrat()
+			$("#infocomplet-modal").fadeIn();
+		});
+		$("#infoindemnite").click(function() {
+			$("#indemnite-modal").fadeIn();
+		});
+		$("#infopersonnel").click(function() {
+			fetchtb_personnel()
+			$("#personnel-modal").fadeIn();
+		});
+		$('.fab-button').on('click', function() {
+			$(".fab-show").show(600);
+			$(".fab-hide").show();
+			$(".fab-button").hide();
+		})
+		$('.fab-hide').on('click', function() {
+			$(".fab-button").show();
+
+			$(".fab-show").hide(600);
+			$(".fab-hide").hide();
+		})
+		$(document).on('click', '.toggle-btn', function(e) {
+			var id = $(this).data('id');
+			$("#nav_" + id).toggleClass("active");
+			$("#toggle-btn-close_" + id).toggleClass("fa-times");
+		})
+		$(document).on('click', '.fab-button1', function(e) {
+			var id = $(this).data('id');
+			$("#fab-show1_" + id).toggle("slow");
+			$("#fas1_" + id).toggleClass("fa-times");
+			$("#fab-show1_" + id).attr(('style', 'display:block'))
+		})
+		$(document).on('click', '.partager', function(e) {
+			var id = $(this).data('id');
+			$("#li-partager_" + id).toggle("slow");
+		})
+		$('.js-searchBox').select2({
+			width: '100%'
+		});
+
+		//PHOTO
+
+		$(document).ready(function(e) {
+			//INSERTION
+			$("#insertForm").on('submit', function(e) {
+				e.preventDefault();
+				var compte = $(".div-panier-count").length;
+				if (compte < 1) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Panier vide',
+						text: "Veillez remplir le panier!.",
+						confirmButtonColor: '#127b8e',
+						showConfirmButton: false,
+						timer: 2000
+					}).then(function() {
+
+					});
+				} else {
+					if ($("#nom_complet_externe").val() == "") {
+						Swal.fire({
+							icon: 'error',
+							title: 'Nom complet ',
+							text: "Veillez renseigner un nom",
+							confirmButtonColor: '#127b8e',
+							showConfirmButton: false,
+							timer: 2000
+						})
+					} else {
+						$.ajax({
+							type: 'POST',
+							url: '../controller_g/sortie/save',
+							data: new FormData(this),
+							//dataType: 'json',
+							contentType: false,
+							cache: false,
+							processData: false,
+							success: function(response) {
+								console.log(response)
+								if (response === 'true') {
+									Swal.fire({
+										icon: 'success',
+										title: 'Existe',
+										text: "L'affectation a déja été creer.",
+										confirmButtonColor: '#127b8e',
+										showConfirmButton: false,
+										timer: 2000
+									})
+
+								} else {
+									Swal.fire({
+										icon: 'success',
+										title: 'Enregistré',
+										text: "Enregistrement effectué avec succés.",
+										confirmButtonColor: '#127b8e',
+										showConfirmButton: false,
+										timer: 2000
+									}).then(function() {
+
+									});
+									vider_tout();
+								}
+							}
+						});
+					}
+				}
+			});
+			//UPDATE
+
+			// SUPPRIMER
+			$("#deleteForm").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller_g/sortie/save',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response);
+
+					}
+				});
+				$("#supprimer-modal").fadeOut();
+
+				Swal.fire({
+					icon: 'error',
+					title: 'Supprimé',
+					text: "Suppression effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+				});
+
+			});
+			// INSERT LETTER
+
+
+			//UPDATE LETTER
+
+		});
+
+		// SHOW UPDATE
+		$(document).on('click', '#updatebtn', function(e) {
+
+			e.preventDefault();
+			$(".tour-panier").show('slow');
+			var id_sortie_ext = $(this).data('id');
+			$.ajax({
+				url: '../controller_g/sortie/fetch_sortie',
+				type: "post",
+				data: {
+					id_sortie_ext: id_sortie_ext
+				},
+				//dataType: 'json',
+				success: function(response) {
+					console.log(response)
+					var gp_data = response;
+
+					$(".hide-item-panier").hide();
+					$(".item-panier").html("");
+					$(".item-panier-observe").html("");
+
+            $(".text-input-add").val(0)
+					for (var i = 0; i < gp_data.length; i++) {
+						 var item = gp_data[i];
+                         var id_raw = item.id_matiere_raw;
+						$("#id_sortie").val(item.id_sortie_externe);
+						$("#date_sortie").val(item.date_sortie)
+						$("#nom_complet_externe").val(item.nom_complet_externe)
+						$("#telephone_externe").val(item.telephone_externe)
+						var div1 = `
+		 <div class="div-panier div-panier-count" id="div-panier_${id_raw}"  data-id="${item.id_matiere}">
+		 <div class="div-list-img"><img src='${item.image}' class="panier-img" /><input type="hidden" name="id_matiere[]" id="" value="${item.id_matiere}"></div>
+		 <div class="div-list-panier-name">${item.designation}</div>
+		<div class="div-list-panier-qty">
+		<span class="tot tot_${id_raw}" id="add_qte_bn_unite_${id_raw}">${item.quantite}</span> 
+		<input type="hidden" name="quantite[]" id="add_quantite_${id_raw}" value="${item.quantite}">
+		<input type="hidden" name="nb_unite[]" id="add_nb_unite_${id_raw}" value="${item.nbre_unite}">
+		<input type="checkbox" hidden checked="checked" name="check_row" id="check_row_${id_raw}">
+		</div>
+		<div class="remove-trash"><i class="fas fa-trash trash" data-id="${item.id_matiere}" id="trash_${id_raw}"></i></div>
+		</div>
+		`;
+						var div2 = `
+		 <div class="div-panier" id="div-panier2_${id_raw}"  data-id="${item.id_matiere}">
+		 <div class="div-list-img"><img src='${item.image}' class="panier-img" /><input type="hidden" name="id_matiere[]" id="" value="${item.id_matiere}"></div>
+		 <div class="div-list-panier-name">${item.designation}</div>
+		<div class="div-list-panier-qty">
+		<input type="text" class="observe" style="" name="observation[]" id="observation_${id_raw}" value="${item.observation}">
+		</div>
+		<div class="remove-trash"><i class="fas fa-trash trash" data-id="${item.id_matiere}" id="trash_${id_raw}"></i></div>
+		</div>
+		`;
+						$(".item-panier").append(div1);
+						$(".item-panier-observe").append(div2);
+
+						$('#buton-minus_' + id_raw).prop('disabled', false);
+						
+									  prependElementById(id_raw); // Déplacer dans le DOM
+
+
+                   $('[id="check-add_' + id_raw + '"]').prop('checked', true);
+
+                   
+
+					}
+
+					 
+// Déclencher automatiquement le bouton "Matière"
+$('.section-btn[data-index="1"]').trigger('click');
+
+					calc_total();
+					var compte = $('.div-panier-count').length;
+					$('.shopping').attr("value", compte).animate({
+						'zoom': 1.8
+					}, 1000);
+					setTimeout(function() {
+						$('.shopping').attr("value", compte).animate({
+							'zoom': 1
+						}, 'slow');
+
+					}, 300);
+				}
+
+			});
+
+		});
+		//SHOW DELETE
+		$(document).on('click', '#deletebtn', function(e) {
+
+			e.preventDefault();
+
+			var id_sortie_ext = $(this).data('id');
+			$.ajax({
+				url: '../controller_g/sortie/fetch_sortie',
+				type: "post",
+				data: {
+					id_sortie_ext: id_sortie_ext
+				},
+				//dataType: 'json',
+				success: function(response) {
+					var gp_data = response;
+					for (var i = 0; i < gp_data.length; i++) {
+						$("#delete_id").val(gp_data[i].id_sortie_externe);
+						$("#del-title-name").html(gp_data[i].nom_complet_externe)
+						$("#nom_del").val(gp_data[i].numero);
+					}
+					$("#supprimer-modal").fadeIn();
+
+				}
+
+			});
+
+		});
+$(function() {
+	function removeAccents(str) {
+  const accentsMap = new Map([
+    ['À','A'], ['Á','A'], ['Â','A'], ['Ã','A'], ['Ä','A'], ['Å','A'],
+    ['Æ','AE'], ['Ç','C'], ['È','E'], ['É','E'], ['Ê','E'], ['Ë','E'],
+    ['Ì','I'], ['Í','I'], ['Î','I'], ['Ï','I'], ['Ð','D'], ['Ñ','N'],
+    ['Ò','O'], ['Ó','O'], ['Ô','O'], ['Õ','O'], ['Ö','O'], ['Ø','O'],
+    ['Ù','U'], ['Ú','U'], ['Û','U'], ['Ü','U'], ['Ý','Y'], ['Þ','TH'],
+    ['ß','ss'], ['à','a'], ['á','a'], ['â','a'], ['ã','a'], ['ä','a'], ['å','a'],
+    ['æ','ae'], ['ç','c'], ['è','e'], ['é','e'], ['ê','e'], ['ë','e'],
+    ['ì','i'], ['í','i'], ['î','i'], ['ï','i'], ['ð','d'], ['ñ','n'],
+    ['ò','o'], ['ó','o'], ['ô','o'], ['õ','o'], ['ö','o'], ['ø','o'],
+    ['ù','u'], ['ú','u'], ['û','u'], ['ü','u'], ['ý','y'], ['þ','th'], ['ÿ','y']
+  ]);
+
+  return str.split('').map(char => accentsMap.get(char) || char).join('');
+}
+
+  const $overlay = $('#shareOverlay');
+  const $popup = $('#sharePopup');
+  let urlToShare = ""; // sera mis à jour au clic d’un bouton
+  const shareText = "Cliquez sur le lien pour télécharger le bon de sortie définitive de l'existant : \r\n"; // texte partagé
+
+  // --- OUVERTURE / FERMETURE POPUP ---
+  function openPopup(link) {
+    urlToShare = link; 
+    console.log("Lien stocké :", urlToShare);
+    $overlay.fadeIn(150);
+    $popup.fadeIn(150);
+  }
+
+  function closePopup() {
+    $popup.fadeOut(150);
+    $overlay.fadeOut(150);
+  }
+
+  // --- CLIC SUR UN BOUTON DE PARTAGE ---
+  $(document).on('click', '.btnShare', function(e) {
+    e.preventDefault();
+    const id = $(this).data('id');
+	var id_ref = $("#id_reference").val()
+    const link = window.location.origin + `/pdf/sortie_externe?pdf=${id}&id_ref=${id_ref}`;
+    openPopup(link); 
+  });
+
+  // --- ACTIONS DE PARTAGE ---
+
+  // Facebook
+  $('#fbShare').on('click', function() {
+    const fbUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(urlToShare);
+    window.open(fbUrl, 'fbShareWindow', 'width=600,height=400');
+    closePopup();
+  });
+
+  // Twitter
+  $('#twShare').on('click', function() {
+    const twUrl = 'https://twitter.com/intent/tweet?url=' 
+                  + encodeURIComponent(urlToShare) 
+                  + '&text=' + encodeURIComponent(shareText);
+    window.open(twUrl, 'twShareWindow', 'width=600,height=400');
+    closePopup();
+  });
+
+  // WhatsApp
+  $('#waShare').on('click', function() {
+    const waUrl = 'https://api.whatsapp.com/send?text=' 
+                  + encodeURIComponent(shareText + " " + urlToShare);
+    window.open(waUrl, 'waShareWindow', 'width=600,height=600');
+    closePopup();
+  });
+
+  // Email
+$('#emailShare').on('click', function() {
+  const destinataire = "destinataire@example.com"; // <-- obligatoire
+  const subject = encodeURIComponent(removeAccents("Bon de sortie definitive existante"));
+  const body = encodeURIComponent(
+    removeAccents(shareText + urlToShare)
+  );
+
+  window.location.href = `mailto:${destinataire}?subject=${subject}&body=${body}`;
+  closePopup();
+});
+
+
+  // Copier le lien
+  async function copyLink() {
+    const $msg = $("#shareMessage");
+    try {
+      await navigator.clipboard.writeText(urlToShare);
+      $msg.text("Lien copié dans le presse-papier ✅").fadeIn();
+      setTimeout(() => { $msg.fadeOut(); closePopup(); }, 2000);
+    } catch {
+      $msg.text("Erreur lors de la copie ❌").fadeIn();
+      setTimeout(() => { $msg.fadeOut(); closePopup(); }, 2000);
+    }
+  }
+
+  $('#copyLinkBtn').on('click', copyLink);
+
+  // --- ACCESSIBILITÉ CLAVIER ---
+  $('.share-btn').on('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      $(this).click();
+    }
+  });
+
+  // --- FERMETURE POPUP ---
+  $overlay.on('click', closePopup);
+  $popup.find('.close-btn').on('click', closePopup);
+});
+		//SHOW INFO
+		//SHOW INSCRIPTION
+		
+	</script>

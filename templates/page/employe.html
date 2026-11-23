@@ -1,0 +1,1916 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<!------MAIN-CONTENT-------->
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1>Recruitement</h1>
+		</div>
+		<div class="baniere-right">
+			<div class="content-navigation">
+				<ul class="navigation">
+					<li class="active_nav active_nav_click" id="btn-modal-ajouter">
+						<a href="#">
+							<span class="icon"><i class="fas fa-fw fa-plus"></i></span>
+							<span class="text">Ajouter</span>
+						</a>
+					</li>
+					<li class="active_nav_click" id="btn-modal-importer">
+						<a href="#">
+							<span class="icon"><i class="fas fa-file-import"></i></span>
+							<span class="text">Importer</span>
+						</a>
+					</li>
+					<li class="active_nav_click" id="infocomplete">
+						<a href="#">
+							<span class="icon"><i class="fas fa-file-export"></i></span>
+							<span class="text">Exporter</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-question-circle"></i></div>
+		<div class="main-sous-content">
+
+			<div class="content-list content-list1">
+
+			</div>
+			<!----------------PAGINATION----------->
+			<div class="pagination">
+				<div class="showingInfo" id="showingInfo1"></div>
+				<div class="showingPage" id="pagination1"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!------MODAL AJOUT-------->
+<form id="insertForm">
+	<div class="petit close-modal" id="ajouter-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">AJOUTER Recruitement</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt id="imgPreview">
+							<div class="round">
+								<input type="file" name="photo" id="photo"
+									class="file-upload vider_champ">
+								<i class="fa fa-camera"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="corps-modal">
+					<input type="hidden" name="id_reference" id="get_id_reference">
+					<input type="hidden" name="insert_id" id>
+					<div class="container-form">
+
+						<div class="progressbarcontrat" aria-label="Progression du formulaire">
+							<div class="progress-line"></div>
+							<div class="progress-line" id="progress-line"></div>
+							<div class="progress-step progress-step-active"
+								data-title="Recruitement"></div>
+							<div class="progress-step" data-title="Recruitement"></div>
+						</div>
+						<div class="nextstep nextstep-active">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Prenom</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text" class="text-input etablissement input-required1"
+											name="prenom" id placeholder="Prenom">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nom</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text" class="text-input input-required1" name="nom" id
+											placeholder="Nom"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date de naissance <span
+											style="color:red;font-size:13px;"
+											id="display_div_add"></span></label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i> </span>
+										<input type="date" class="text-input input-required1" name="date_n"
+											id="date_n_add" value="{{ current_date }}">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Lieu de naissance</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-map-marker fa-icon"></i></span>
+										<input type="text" class="text-input input-required1" name="lieu_n" id
+											placeholder="Lieu de naissance"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Adresse</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-map-marker fa-icon"></i></span>
+										<input type="text" class="text-input input-required1" name="adresse_e"
+											id
+											required="required" placeholder="Adresse">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Telephone</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-phone fa-rotate-90 fa-icon"></i></span>
+										<input type="text" class="text-input input-required1"
+											name="telephone_e" id
+											placeholder="Telephone">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Email</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-envelope fa-icon"></i></span>
+										<input type="text" class="text-input input-required1" name="email_e"
+											placeholder="Email">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Genre</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-restroom fa-icon"></i></span>
+										<select name="genre" class="js-searchBox input-required1"
+											required="required">
+											<option value>Selectionnez</option>
+											<option value="Masculin">Masculin</option>
+											<option value="Feminin">Feminin</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Demande d'emploi</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-chalkboard-teacher fa-icon"></i></span>
+										<input type="text" class="text-input etablissement input-required1"
+											name="poste"
+											placeholder="Demande d'emploi">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Curriculum vitae</label>
+									<div class="input-box">
+
+										<input type="file" class="text-file etablissement vider_champ"
+											name="cv">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="nextstep">
+							<div class="user-details-login" style="margin-top:40px">
+								<textarea name="commission" id="commission" cols="30"
+									rows="10"></textarea>
+							</div>
+
+						</div>
+						<div class="footer-modal">
+							<button type="button" class="footer-button-register"
+								id="btn-prev-progress">Précédent</button>
+							<button type="button" class="footer-button-register"
+								id="btn-next-progress">Suivant</button>
+							<button type="submit" class="footer-button-register" id="submit-btn"
+								style="display:none;">Enregistrer</button>
+							<button type="button"
+								class="footer-button-close close-modal">Fermer</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL AJOUT-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+
+	<div class="petit close-modal" id="modifier-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">MODIFIER recruitement</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt id="update_imgPreview">
+							<div class="round">
+								<input type="file" name="photo" id="update_photo"
+									class="file-upload vider_champ">
+								<i class="fa fa-camera"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="edit_id" id="edit_id">
+						<input type="hidden" name="matricule" id="edit_matricule">
+						<div class="progressbarcontrat">
+							<div class="progress-line-update" id="progress-line-update"></div>
+							<div class="progress-step-update progress-step-active-update"
+								data-title="Recruitement">
+							</div>
+							<div class="progress-step-update" data-title="Synthese entretien"></div>
+						</div>
+						<div class="nextstep-update nextstep-active-update">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Prenom</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text"
+											class="text-input etablissement input-required-update"
+											name="prenom" id="prenom" required="required" placeholder="Prenom">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nom</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update" name="nom"
+											id="nom"
+											required="required" placeholder="Nom"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date de naissance <span
+											style="color:red;font-size:13px;"
+											id="display_div_update"></span></label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i> </span>
+										<input type="date"
+											class="text-input date_n_update input-required-update"
+											name="date_n" id="date_n" value="{{ current_date }}"
+											required="required">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Lieu de naissance</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-map-marker fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update"
+											name="lieu_n"
+											id="lieu_n" required="required" placeholder="Lieu de naissance"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Adresse</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-phone fa-rotate-90 fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update"
+											name="adresse_e"
+											id="adresse_e" required="required" placeholder="Adresse">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Telephone</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-phone fa-rotate-90 fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update"
+											name="telephone_e"
+											id="telephone_e" required="required" placeholder="Telephone">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Email</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-envelope fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update"
+											name="email_e"
+											id="email_e" placeholder="Email">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Genre</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-restroom fa-icon"></i></span>
+										<select name="genre" id="genre"
+											class="js-searchBox input-required-update"
+											required="required">
+											<option value>Selectionnez</option>
+											<option value="Masculin">Masculin</option>
+											<option value="Feminin">Feminin</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Demande d'emploi</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-chalkboard-teacher fa-icon"></i></span>
+										<input type="text"
+											class="text-input etablissement input-required-update"
+											name="poste" id="poste" placeholder="Demande d'emploi">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Curriculum vitae</label>
+									<div class="input-box">
+										<input type="file" class="text-file etablissement vider_champ"
+											name="cv"
+											placeholder="Nom de la mère">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="nextstep-update">
+							<div class="user-details-register" style="margin-top:40px">
+								<textarea name="commission" id="edit_commission" cols="30"
+									rows="10"></textarea>
+							</div>
+						</div>
+						<div class="footer-modal">
+							<button type="button" class="footer-button-register"
+								id="btn-prev-progress-update">Précedent</button>
+							<button type="button" class="footer-button-register"
+								id="btn-next-progress-update">Suivant</button>
+							<button type="submit" class="footer-button-register"
+								id="submit-btn-update">Modifier</button>
+							<button type="button"
+								class="footer-button-close close-modal">Fermer</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL MODIFIER-------->
+
+<!------MODAL SUPPRIMER-------->
+<div class="petit close-modal" id="supprimer-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">SUPPRIMER Recruitement</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="container-form">
+					<form id="deleteForm">
+						<input type="hidden" name="delete_id" id="delete_id">
+						<div class="upload">
+							<img src="../img/image/image-profil.png" alt id="delete_imgPreview">
+						</div>
+						<div class="user-details-login">
+							<div class="input-group">
+								<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-trash"></i> </span>
+									<input type="text" class="text-input" name id="nom_del" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="deletedata">Supprimer</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!------FIN MODAL SUPPRIMER-------->
+<!------MODAL INFO-------->
+
+<!------FIN MODAL INFO-------->
+<!------MODAL IMPORTER-------->
+<div class="grand close-modal" id="importer-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Importer Recruitement</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="upload-wrapper">
+					<form id="importForm" enctype="multipart/form-data">
+						<input type="file" class="file-input" name="file-import" id="fileupload"
+							hidden>
+						<div class="form-importer">
+							<i class="fas fa-cloud-upload-alt"></i>
+							<p>Télécharger un fichier Excel <span id="message_show"
+									style="color:red; display:none;">(requis *)</span></p>
+						</div>
+					</form>
+					<section class="progress-area"></section>
+					<section class="uploaded-area"></section>
+					<form id="saveImport">
+						<div style="overflow: auto; height:400px;">
+							<input type="hidden" name="id_reference" id="get_id_reference_import"
+								value="{{ request.args.get('id', '') }}">
+
+							<table id="tblItems" class="mytab1">
+								<thead>
+									<tr>
+										<th>Prenom</th>
+										<th>Nom</th>
+										<th>Date de naissance</th>
+										<th>Lieu de naissance</th>
+										<th>Adresse</th>
+										<th>Telephone</th>
+										<th>Email</th>
+										<th>Genre</th>
+										<th>Demande d'emploi</th>
+									</tr>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="importdata">Enregistrer</button>
+					<button type="button" class="footer-button-close close-modal"
+						id="vider_import">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL IMPORTER-------->
+<!--------MODAL INFO GENERAL------->
+<div class="grand close-modal" id="infocomplet-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Exporter Recruitement</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<div class="input-box" style="display: flex;gap:5px;margin-top: 15px">
+							<button type="submit" class="footer-button-export"
+								id="Exportdata">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf">PDF</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_employe">
+					<table id="table_recrutement" class="stripe hover mytab"
+						style="width:100%;" data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th class="no-export">Photo</th>
+								<th style="min-width:200px;">Prenom</th>
+								<th style="min-width:150px;">Nom</th>
+								<th style="min-width:200px;">Date de naissance</th>
+								<th style="min-width:200px;">Lieu de naissance</th>
+								<th style="min-width:150px;">Telephone</th>
+								<th style="min-width:200px;">Email</th>
+								<th style="min-width:200px;">Genre</th>
+								<th style="min-width:200px;">Demande d'emploi</th>
+								<th style="min-width:200px;">En activité</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+
+					</table>
+
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--------FIN MODAL INFO GENERAL------->
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+		$('document').ready(function() {
+			fetchdata()
+		})
+
+		function fetchdata() {
+			var id = $("#id_reference").val()
+			$.ajax({
+				url: "../controller/employe/fetch_employe",
+				type: "POST",
+				data: {
+					id: id
+				},
+				success: function(response) {
+					$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						var div1 = `<div class="parent box result well">
+					<div class="card">
+						<div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[a].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].prenom} ${gp_data[a].nom}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-calendar"></i><span>${decodeUTF8(gp_data[a].date_n2)}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-map-marker"></i><span>${gp_data[a].adresse_e}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-phone fa-rotate-90"></i><span>${gp_data[a].telephone_e}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-envelope"></i><span>${gp_data[a].email_e}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-chalkboard-teacher"></i><span>${gp_data[a].poste}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+							<ul class="navigation_list">
+					           <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="updatebtn" data-id="${gp_data[a].id_employe}">
+					           	<a href="#">
+					           		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+					           		<span class="text">Modifier</span>
+									<span class="lampe"></span>
+					           	</a>
+					           </li>
+					           <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="cv" data-id="${gp_data[a].id_employe}">
+					           	<a href="#">
+					           		<span class="icon"><i class="fas fa-file"></i></span>
+					           		<span class="text">C V</span>
+									<span class="lampe"></span>
+					           	</a>
+					           </li>
+				           </ul>
+						</div>
+					</div>
+				  </div>`;
+						$('.content-list1').append(div1);
+					}
+					updateSectionItems(0);
+				},
+				error: function (xhr, status, error) {
+					console.error("Erreur AJAX: ", error);
+					alert(error)
+					// Gérer l'erreur ici si besoin
+				}
+			})
+
+			$("#table_recrutement").dataTable().fnDestroy()
+          
+			$.ajax({
+				url: "../controller/employe/fetch_employe",
+				type: "POST",
+				data: {
+					activite: id // Assure-toi que 'id' est défini ici et est chiffré
+				},
+				success: function (response) {
+					console.log("Réponse AJAX reçue:", response);
+					$('#table_recrutement tbody').html(""); // vide tableau
+
+					var gp_data = response;
+					for (var b = 0; b < gp_data.length; b++) {
+						$('#table_recrutement tbody').append(`
+                            <tr>
+                                <td class="no-export">
+                                    <img src="${gp_data[b].photo}" alt="" width="30" height="30">
+                                </td>
+                                <td style="text-align:center;">${gp_data[b].prenom}</td>
+                                <td style="text-align:center;">${gp_data[b].nom}</td>
+                                <td style="text-align:center;">${gp_data[b].date_n2}</td>
+                                <td style="text-align:center;">${gp_data[b].lieu_n}</td>
+                                <td style="text-align:center;">${gp_data[b].telephone_e}</td>
+                                <td style="text-align:center;">${gp_data[b].email_e}</td>
+                                <td style="text-align:center;">${gp_data[b].genre}</td>
+                                <td style="text-align:center;">${gp_data[b].poste}</td>
+                                <td style="text-align:center;">${gp_data[b].activite}</td>
+                            </tr>
+                       `);
+					}
+
+					$("#table_recrutement").DataTable({
+						destroy: true,  // Important pour réinitialiser la table à chaque appel AJAX
+						scrollX: true,
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5'],
+						language: {
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							}
+						}
+					});
+				},
+				error: function (xhr, status, error) {
+					console.error("Erreur AJAX:", error);
+					console.error("Status:", status);
+					console.error("Response Text:", xhr.responseText);
+					alert("Erreur AJAX : " + error + "\nVoir console pour détails.");
+				}
+			});
+
+		}
+
+
+		$("#btn-modal-ajouter").click(function() {
+			$("#get_id_reference").val($("#id_reference").val());
+			$("#ajouter-modal").fadeIn();
+		});
+		$("#btn-modal-importer").click(function() {
+			$("#get_id_reference_import").val($("#id_reference").val());
+			$("#importer-modal").fadeIn();
+		});
+		$("#infocomplete").click(function() {
+			$("#infocomplet-modal").fadeIn();
+		});
+		$('.fab-button').on('click', function() {
+			$(".fab-show").show(600);
+			$(".fab-hide").show();
+			$(".fab-button").hide();
+		})
+		$('.fab-hide').on('click', function() {
+			$(".fab-button").show();
+
+			$(".fab-show").hide(600);
+			$(".fab-hide").hide();
+		})
+		 $(document).on("click", ".active_nav_click_list", function (e) {
+				e.preventDefault();
+				var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+				console.log("ID chiffré cliqué:", encryptedId);
+
+				// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+				var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+				$(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+				$(this).addClass("active_nav_list");
+
+				// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+			});
+		$(document).on('click', '#cv', function(e) {
+			var id = $(this).data('id');
+			window.open(`../pdf/curriculum?pdf=${id}`, '_blank');
+		})
+		$(document).on('click', '.toggle-btn', function(e) {
+			var id = $(this).data('id');
+			$("#nav_" + id).toggleClass("active");
+			$("#toggle-btn-close_" + id).toggleClass("fa-times");
+		})
+		$(document).on('click', '.fab-button', function(e) {
+			var id = $(this).data('id');
+			$("#fab-show_" + id).toggle("slow");
+			$("#fas_" + id).toggleClass("fa-times");
+			$("#fab-show_" + id).attr(('style', 'display:block'))
+		})
+
+		$('.js-searchBox').select2({
+			width: '100%'
+		});
+
+		//PHOTO
+
+$(document).on("change", "#photo", function(e) {
+    const file = this.files[0];
+    if (!file) return;
+
+    // --- Compression + redimensionnement 800px ---
+    compressImage(file, 800, 800, 0.9).then(finalBlob => {
+
+        const sizeKB = Math.round(finalBlob.size / 1024);
+        console.log("✔ Taille finale : " + sizeKB + " Ko");
+
+        // Remplacer le fichier dans l’input (optionnel)
+        const dt = new DataTransfer();
+        dt.items.add(new File([finalBlob], "photo_compressed.jpg", { type: "image/jpeg" }));
+        document.getElementById("photo").files = dt.files;
+
+        // Aperçu version compressée
+        $('#imgPreview').attr('src', URL.createObjectURL(finalBlob));
+    });
+});
+				// ==========================================================
+// 🔹 Aperçu + COMPRESSER (garde ton updateForm intact)
+// ==========================================================
+$(document).on("change", "#update_photo", function(e) {
+    const file = this.files[0];
+    if (!file) return;
+
+    // --- Compression + redimensionnement 800px ---
+    compressImage(file, 800, 800, 0.9).then(finalBlob => {
+
+        const sizeKB = Math.round(finalBlob.size / 1024);
+        console.log("✔ Taille finale : " + sizeKB + " Ko");
+
+        // Remplacer le fichier dans l’input (optionnel)
+        const dt = new DataTransfer();
+        dt.items.add(new File([finalBlob], "photo_compressed.jpg", { type: "image/jpeg" }));
+        document.getElementById("update_photo").files = dt.files;
+
+        // Aperçu version compressée
+        $('#update_imgPreview').attr('src', URL.createObjectURL(finalBlob));
+    });
+});
+
+// ==========================================================
+// 🔹 Fonction de compression
+// ==========================================================
+function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.9) {
+    return new Promise(function(resolve, reject) {
+        const img = new Image();
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        img.onload = function() {
+            const canvas = document.createElement("canvas");
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = Math.round(height * maxWidth / width);
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = Math.round(width * maxHeight / height);
+                    height = maxHeight;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(function(blob) {
+                resolve(blob);
+            }, "image/jpeg", quality);
+        };
+
+        img.onerror = function(err) {
+            reject(err);
+        };
+    });
+}
+		$(document).ready(function(e) {
+			//INSERTION
+			$(document).ready(function () {
+				$('#insertForm').on('submit', function (e) {
+					e.preventDefault();
+
+					const multiStep = window.myFormMultiStep;
+
+					// Validation étape actuelle
+					if (!multiStep.validateCurrentStep()) return;
+
+					// Validation âge
+					const dateNaissance = new Date($('#date_n_add').val());
+					const today = new Date();
+					const age = Math.floor((today - dateNaissance) / (365.25 * 24 * 60 * 60 * 1000));
+
+					if (age < 15) {
+						Swal.fire({
+							icon: 'error',
+							title: 'Problème d\'âge',
+							text: "L'âge ne doit pas être inférieur à 15 ans.",
+							confirmButtonColor: '#127b8e',
+							showConfirmButton: false,
+							timer: 3000
+						});
+						return;
+					}
+
+					$.ajax({
+						type: 'POST',
+						url: '../controller/employe/save',
+						data: new FormData(this),
+						contentType: false,
+						cache: false,
+						processData: false,
+						success: function (response) {
+							if (response.status === 'success') {
+								Swal.fire({
+									icon: 'success',
+									title: 'Enregistré',
+									text: response.message,
+									confirmButtonColor: '#127b8e',
+									showConfirmButton: false,
+									timer: 2000
+								}).then(() => {
+									multiStep.resetForm();
+									$("#ajouter-modal").fadeOut();
+									fetchdata(); // recharge la liste
+								});
+							} else {
+								Swal.fire({
+									icon: 'error',
+									title: 'Erreur',
+									text: response.message,
+									confirmButtonColor: '#127b8e',
+									showConfirmButton: false,
+									timer: 3000
+								});
+							}
+						},
+						error: function (xhr, status, error) {
+							console.error("AJAX Error:", status, error);
+							Swal.fire({
+								icon: 'error',
+								title: 'Erreur Serveur',
+								text: 'Une erreur est survenue.',
+								confirmButtonColor: '#127b8e',
+								showConfirmButton: false,
+								timer: 3000
+							});
+						}
+					});
+				});
+			});
+
+
+			//UPDATE
+			$("#updateForm").on('submit', function(e) {
+				e.preventDefault();
+
+				const multiStep = window.myFormMultiStep_update;
+
+				// Validation étape actuelle
+				if (!multiStep.validateCurrentStep()) return;
+
+				var date_n1 = new Date($('.date_n_update').val());
+				var date_n2 = new Date();
+				var years = Math.floor((date_n2 - date_n1) / (365.25 * 24 * 60 * 60 * 1000));
+				if (years < 15) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Probléme d\'age',
+						text: "L'age ne doit pas etre moins de 15 ans.",
+						confirmButtonColor: '#127b8e',
+						showConfirmButton: false,
+						timer: 3000
+					}).then(function() {
+						fetchdata();
+					});
+				} else {
+					$.ajax({
+						type: 'POST',
+						url: '../controller/employe/save',
+						data: new FormData(this),
+						//dataType: 'json',
+						contentType: false,
+						cache: false,
+						processData: false,
+
+						success: function(response) {
+							console.log(response)
+						}
+					});
+
+					Swal.fire({
+						icon: 'success',
+						title: 'Modifié',
+						text: "Modification effectuée avec succés.",
+						confirmButtonColor: '#127b8e',
+						showConfirmButton: false,
+						timer: 2000
+					}).then(function() {
+                        multiStep.resetForm();
+						$("#modifier-modal").fadeOut();
+						fetchdata();
+					});
+				}
+				$(this).find('input:text, input:password, input:file, textarea').val('');
+				$(this).find('select').val(null).trigger('change');
+			});
+			// SUPPRIMER
+			$("#deleteForm").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller/employe/save',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response)
+					}
+				});
+				$("#supprimer-modal").fadeOut();
+				Swal.fire({
+					icon: 'error',
+					title: 'Supprimé',
+					text: "Suppression effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+					fetchtb_employe();
+				});
+			});
+			//IMPORTER FICHIER
+			$("#saveImport").on('submit', function (e) {
+				e.preventDefault();
+
+				// Clear previous errors before sending
+				$("div[id^='display_div_']").text("");
+
+				$.ajax({
+					type: 'POST',
+					url: '../controller/import_export/import_employe',
+					data: new FormData(this),
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function (response) {
+						console.log(response);
+
+						if (response.errors) {
+							// Afficher les erreurs ligne par ligne dans les divs correspondantes
+							$.each(response.errors, function (index, message) {
+								$("#display_div_" + index).text(message).css("color", "red");
+							});
+						}
+
+						// Affiche un message général
+						if (response.message) {
+							Swal.fire({
+								icon: response.errors ? 'warning' : 'success',
+								title: response.errors ? 'Import partiel' : 'Importé',
+								text: response.message,
+								confirmButtonColor: '#127b8e',
+								timer: 2000,
+								showConfirmButton: false
+							}).then(function () {
+									fetchdata();
+									$("#tblItems tr.body_caption_top").remove();
+									$(".progress-area").html("");
+									$(".uploaded-area").html("");
+									$("#importer-modal").fadeOut();
+							});
+						}
+					},
+
+					error: function (xhr) {
+						Swal.fire({
+							icon: 'error',
+							title: 'Erreur',
+							text: 'Erreur lors de l’import. Veuillez réessayer.',
+							confirmButtonColor: '#d33',
+							timer: 2000,
+							showConfirmButton: false
+						});
+						console.error(xhr.responseText);
+					}
+				});
+			});
+
+		})
+		$(document).on("click", "#togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#show-eye").toggleClass('fa-eye');
+			$("#show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+		});
+		$(document).on("click", "#update_togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#update_password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#update_show-eye").toggleClass('fa-eye');
+			$("#update_show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+		});
+		$(document).on("keyup", ".etablissement", function(event) {
+			var textBox = event.target;
+			var start = textBox.selectionStart;
+			var end = textBox.selectionEnd;
+
+			// Capitalize the first letter of each word after a space
+			textBox.value = textBox.value.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
+				return match.toUpperCase();
+			});
+
+			textBox.setSelectionRange(start, end);
+		});
+
+
+		// SHOW UPDATE
+		$(document).on('click', '#updatebtn', function(e) {
+			e.preventDefault();
+			var id_employe = $(this).data('id');
+			$.ajax({
+				url: '../controller/employe/fetch_employe',
+				type: "post",
+				data: {
+					id_employe: id_employe
+				},
+				dataType: 'json',
+				success: function(data) {
+					alert
+					console.log(data)
+					$("#edit_id").val(data[0].id_employe);
+					$("#edit_matricule").val(data[0].matricule_photo)
+					$("#prenom").val(data[0].prenom);
+					$("#nom").val(data[0].nom);
+					$("#date_n").val(data[0].date_n);
+					$("#lieu_n").val(data[0].lieu_n);
+					$("#telephone_e").val(data[0].telephone_e);
+					$("#adresse_e").val(data[0].adresse_e);
+					$("#email_e").val(data[0].email_e);
+					$("#genre").val(data[0].genre).trigger("change");
+					$("#poste").val(data[0].poste);
+					tinymce.get('edit_commission').setContent(data[0].commission)
+					$("#update_imgPreview").attr("src", data[0].photo);
+					$("#modifier-modal").fadeIn();
+				}
+			});
+		});
+		//SHOW DELETE
+		$(document).on('click', '#deletebtn', function(e) {
+			e.preventDefault();
+			var id_employe = $(this).data('id');
+			$.ajax({
+				url: '../controller/employe/fetch_employe',
+				type: "post",
+				data: {
+					id_employe: id_employe
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data.logo)
+					$("#delete_id").val(data.id_employe);
+					$("#delete_imgPreview").attr("src", data.photo);
+					$("#nom_del").val(data.prenom + " " + data.nom);
+					$("#supprimer-modal").fadeIn();
+				}
+			});
+		});
+		//SHOW DELETE
+
+		//SHOW INFO
+		$(document).on('click', '#infobtn', function(e) {
+			e.preventDefault();
+			var id_employe = $(this).data('id');
+			$.ajax({
+				url: '../controller/employe/fetch_employe',
+				type: "post",
+				data: {
+					id_employe: id_employe
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data.logo)
+					$("#up_title-name").html(data.prenom + " " + data.nom);
+					$("#up_title-matricule").html(data.matricule);
+					$("#up_profil_imgPreview").attr("src", data.photo);
+					$("#info-modal").fadeIn();
+				}
+			});
+		});
+		$(document).ready(function() {
+			$('.form-importer').on("click", function() {
+				$("#fileupload").click();
+			});
+			$('#fileupload').on("change", function() {
+				var validExts = new Array(".xlsx", ".xls", ".csv");
+				var fileExt = $('#fileupload').val();
+				fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+				if (validExts.indexOf(fileExt) < 0) {
+					$('#message_show').show().delay(5000).hide(0);
+					return false;
+				} else {
+					$("#importForm").submit()
+					return true;
+				}
+			});
+
+			// File upload via Ajax
+			$("#importForm").on('submit', function(e) {
+				e.preventDefault();
+				var fileName = $('#fileupload').val().replace(/C:\\fakepath\\/i, '');
+				if (fileName.length >= 12) {
+					var splitName = fileName.split(".");
+					fileName = splitName[0].substring(0, 12) + "... ." + splitName[1];
+				}
+				// get start time
+				var startTime = new Date().getTime();
+				var xhr = $.ajax({
+					xhr: function() {
+						var xhr = new XMLHttpRequest();
+						xhr.upload.addEventListener("progress", function(e) {
+							if (e.lengthComputable) {
+								var fileLoaded = Math.floor((e.loaded / e.total) * 100);
+								var fileTotal = Math.floor(e.total / 100);
+								var fileSize;
+								(fileTotal > 1024) ? fileSize = fileTotal + " KB":
+									fileSize = (e.loaded / (1024 * 1024)).toFixed(2) +
+									" MB";
+								var progressHTML = `
+                        <li class="row">
+                            <i class="fas fa-file-excel"></i>
+                            <div class="content">
+                                <div class="details">
+                                    <span class="name">${fileName} * téléchargement</span>
+                                    <span class="percent">${fileLoaded}%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width:${fileLoaded}%"></div>
+                                </div>
+                            </div>
+                        </li>
+                        `;
+								$(".progress-area").html(progressHTML);
+								$(".uploaded-area").html("");
+
+								if (e.loaded == e.total) {
+
+									$(".progress-area").html("");
+									var uploadedHTML = `<li class="row">
+                            <div class="content">
+                                <i class="fas fa-file-excel"></i>
+                                <div class="details">
+                                    <span class="name">${fileName} * télécharger</span>
+                                    <span class="size">${fileSize}</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-check"></i>
+                        </li>
+                        <div class="compteur"></div>
+                        `;
+									$(".uploaded-area").html(uploadedHTML);
+
+								}
+							}
+						}, false);
+						return xhr;
+					},
+					type: 'POST',
+					url: '../controller/import_export/upload/upload_employe',
+					data: new FormData(this),
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function(response) {
+						// get response on successful uploading
+						console.log(response);
+					}
+				});
+
+				// remove value form input button
+			});
+		});
+
+		var ExcelToJSON = function() {
+			this.parseExcel = function(file) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					var data = e.target.result;
+					var workbook = XLSX.read(data, {
+						type: 'binary',
+						cellText: false,
+						cellDates: true
+
+					});
+					workbook.SheetNames.forEach(function(sheetName) {
+						var XL_row_object = XLSX.utils.sheet_to_json(workbook.Sheets[
+							sheetName], {
+							header: 1,
+							raw: false,
+							dateNF: 'dd"/"mm"/"yyyy',
+						});
+						var productList = JSON.parse(JSON.stringify(XL_row_object));
+						var rows = $('#tblItems tbody');
+						// console.log(productList)
+						var count = 0;
+						for (i = 0; i < productList.length; i++) {
+							count++;
+							var columns = Object.values(productList[i])
+
+							if (columns[0] == null) {
+								columns[0] = "";
+							} else {
+								columns[0];
+							}
+							if (columns[1] == null) {
+								columns[1] = "";
+							} else {
+								columns[1];
+							}
+							if (columns[2] == null) {
+								columns[2] = "";
+							} else {
+								columns[2];
+							}
+							if (columns[3] == null) {
+								columns[3] = "";
+							} else {
+								columns[3];
+							}
+							var date_n1 = new Date(columns[2].split("/").reverse().join("-"));
+							var date_n2 = new Date();
+							var years = Math.floor((date_n2 - date_n1) / (365.25 * 24 * 60 * 60 * 1000));
+							if (years < 15) {
+								var get_years = "";
+								var erreur = "Agé moins de 15 ans";
+								$("#importdata").attr('disabled', 'disabled');
+								let c = getComputedStyle(document.getElementById("importdata"), null)
+									.getPropertyValue('--disabled-form');
+								$("#importdata").css({
+									background: c
+								});
+
+							} else if (years < -1) {
+
+							} else {
+								var erreur = ""
+								var get_years = years
+							}
+							if (columns[4] == null) {
+								columns[4] = "";
+							} else {
+								columns[4];
+							}
+							if (columns[5] == null) {
+								columns[5] = "";
+							} else {
+								columns[5];
+							}
+							if (columns[6] == null) {
+								columns[6] = "";
+							} else {
+								columns[6];
+							}
+							if (columns[7] == null) {
+								columns[7] = "";
+							} else {
+								columns[7];
+							}
+							if (columns[7] == "f" || columns[7] == "F" || columns[7] == "feminin" ||
+								columns[7] == "Feminin" || columns[7] == "féminin" || columns[7] ==
+								"Féminin") {
+								columns[7] = "Feminin";
+							} else if (columns[7] == "m" || columns[7] == "M" || columns[7] == "masculin" ||
+								columns[7] == "Masculin") {
+								columns[7] = "Masculin";
+							}
+							if (columns[8] == null) {
+								columns[8] = "";
+							} else {
+								columns[8];
+							}
+							rows.append(`
+                        <tr class="body_caption_top">
+                            <td><input type="text" class="text-import" name="prenom[]" value="${columns[0]}"></td>
+                            <td><input type="text" class="text-import" name="nom[]" value="${columns[1]}"></td>
+                            <td><div style="color:red;font-size:13px;" id="display_div_${count}">${erreur}</div><input type="date" class="text-import date_naissance_row" id="date_naissance_row_${count}" data-id="${count}" name="date_n[]" value="${columns[2].split("/").reverse().join("-")}"><input type="hidden" name="" class="get_years" id="get_years_${count}" value="${get_years}"></td>
+                            <td><input type="text" class="text-import" name="lieu_n[]" value="${columns[3]}"></td>
+							<td><input type="text" class="text-import" name="adresse_e[]" value="${columns[4]}"></td>
+                            <td><input type="text" class="text-import" name="telephone_e[]" value="${columns[5]}"></td>
+							<td><input type="text" class="text-import" name="email_e[]" value="${columns[6]}"></td>
+							<td><input type="text" class="text-import" name="genre[]" value="${columns[7]}"></td>
+							<td><input type="text" class="text-import" name="poste[]" value="${columns[8]}"></td>
+                        </tr>
+                    `);
+							$('#fileupload').val("")
+
+						}
+
+					})
+				};
+				reader.onerror = function(ex) {
+					console.log(ex);
+				};
+
+				reader.readAsBinaryString(file);
+			};
+		};
+		$(document).on('change', '.date_naissance_row', function(e) {
+			var id = $(this).data('id');
+			var date_naissance_row = $("#date_naissance_row_" + id).val();
+			var date_n1 = new Date(date_naissance_row);
+			var date_n2 = new Date();
+			var years = Math.floor((date_n2 - date_n1) / (365.25 * 24 * 60 * 60 * 1000));
+			if (years > 15 && years <= 60) {
+				$('#get_years_' + id).val(years)
+				$("#display_div_" + id).html("")
+				get_years()
+			} else {
+				$('#get_years_' + id).val("")
+				$("#display_div_" + id).html("Agé moins de 15 ans")
+				get_years()
+			}
+		})
+		$(document).on('change', '#date_n_add', function(e) {
+			var id = $(this).data('id');
+			var date_naissance_row = $("#date_n_add").val();
+			var date_n1 = new Date(date_naissance_row);
+			var date_n2 = new Date();
+			var years = Math.floor((date_n2 - date_n1) / (365.25 * 24 * 60 * 60 * 1000));
+			if (years > 15 && years <= 60) {
+				$("#display_div_add").html("")
+				get_years()
+			} else {
+				$("#display_div_add").html("(Agé moins de 15 ans)")
+				get_years()
+			}
+		})
+		$(document).on('change', '.date_n_update', function(e) {
+			var id = $(this).data('id');
+			var date_naissance_row = $(".date_n_update").val();
+			var date_n1 = new Date(date_naissance_row);
+			var date_n2 = new Date();
+			var years = Math.floor((date_n2 - date_n1) / (365.25 * 24 * 60 * 60 * 1000));
+			if (years > 15 && years <= 60) {
+				$("#display_div_update").html("")
+				get_years()
+			} else {
+				$("#display_div_update").html("(Agé moins de 15 ans)")
+				get_years()
+			}
+		})
+
+		function get_years() {
+			var can = false;
+			$('.get_years').each(function() {
+				if ($(this).val() === '') {
+					can = true;
+				}
+			});
+			if (can) {
+				$('#importdata').attr('disabled', 'disabled')
+				let c = getComputedStyle(document.getElementById("importdata"), null).getPropertyValue(
+					'--disabled-form');
+
+				$("#importdata").css({
+					background: c
+				});
+				$("#importdata").on('mouseenter', function() {
+					$("#importdata").css({
+						background: c
+					})
+				})
+				$("#importdata").mouseout(function() {
+					$("#importdata").css({
+						background: c
+					})
+				})
+			} else {
+				$('#importdata').removeAttr('disabled')
+				let c = getComputedStyle(document.getElementById("importdata"), null).getPropertyValue('--background-icon',
+					'--background-hover');
+				$("#importdata").css({
+					background: c
+				})
+				let d = getComputedStyle(document.getElementById("importdata"), null).getPropertyValue('--background-hover');
+
+				$("#importdata").mouseover(function() {
+					$("#importdata").css({
+						background: d
+					})
+				})
+				$("#importdata").mouseout(function() {
+					$("#importdata").css({
+						background: c
+					})
+				})
+			}
+		}
+
+		function handleFileSelect(evt) {
+			var files = evt.target.files; // FileList object
+			var xl2json = new ExcelToJSON();
+			xl2json.parseExcel(files[0]);
+		}
+
+		document.getElementById('fileupload').addEventListener('change', handleFileSelect, false);
+
+		$("#vider_import").on("click", function() {
+			$("#tblItems tr.body_caption_top").remove();
+			$(".progress-area").html("");
+			$(".uploaded-area").html("");
+
+		})
+		tinymce.init({
+			selector: 'textarea#commission,#edit_commission',
+			language: "fr_FR",
+			height: 300,
+			statusbar: false,
+			promotion: false,
+			editable_root: true,
+			editable_class: 'editable',
+			init_instance_callback: "insert_contents",
+			toolbar_sticky: true,
+			plugins: [
+				'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+				'searchreplace', 'wordcount', 'visualblocks', 'fullscreen', 'insertdatetime', 'media',
+				'table', 'emoticons', 'template', 'footnotes', 'pagebreak'
+			],
+			toolbar: "alignleft aligncenter alignright alignjustify  alignnone fullscreen | anchor | blockquote blocks | backcolor | bold | copy | cut | fontfamily fontsize forecolor h1 h2 h3 h4 h5 h6 hr indent | italic | language | lineheight | newdocument | outdent | paste pastetext | print | redo | remove removeformat | selectall | strikethrough | styles | subscript superscript underline | undo | visualaid | a11ycheck advtablerownumbering typopgraphy anchor restoredraft casechange charmap checklist code codesample addcomment showcomments ltr rtl editimage fliph flipv imageoptions rotateleft rotateright emoticons export footnotes footnotesupdate formatpainter help image insertdatetime link openlink unlink bullist numlist media mergetags mergetags_list nonbreaking pagebreak pageembed permanentpen preview quickimage quicklink quicktable cancel save searchreplace spellcheckdialog spellchecker | table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader | tableofcontents tableofcontentsupdate | template typography | insertfile | visualblocks visualchars | wordcount|pagebreak",
+			menu: {
+				favs: {
+					title: 'menu',
+					items: ' searchreplace | emoticons'
+				}
+			},
+			theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+			menubar: 'favs file edit view insert format tools table',
+			templates: [{
+				title: "Advanced Template template example",
+				description: 'This template has additional markup that is shown in the "preview" of the template, but is not inserted in to TinyMCE.',
+				content: "<body>" +
+					'<p style="color: red; font-weight:bold;">This appears in the template preview, but will not be inserted in to TinyMCE.</p>' +
+					'<div class="mceTmpl">' +
+					"<p>This is the actual template content that will be inserted.</p>" +
+					"<ul>" +
+					"<li>And can include nested elements</li>" +
+					"<li>So your templates can still include your complex HTML</li>" +
+					"</ul>" +
+					"</div>" +
+					"</body>"
+			}],
+			content_style: `
+        body {
+          background: #fff;
+        }
+
+        /* Disable the blue "focus" border for the editable region */
+        .editable-section:focus-visible {
+          outline: none !important;
+        }
+
+        .header,
+        .footer {
+          font-size: 0.8rem;
+          color: #ddd;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 0 1rem 0;
+        }
+
+        .header .right-text {
+          text-align: right;
+        }
+
+        .footer {
+          padding:2rem 0 0 0;
+          text-align: center;
+        }
+
+        /* Apply page-like styling */
+        @media (min-width: 840px) {
+          html {
+            background: #eceef4;
+            min-height: 100%;
+            padding: 0.5rem;
+          }
+
+          body {
+            background-color: #fff;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+            box-sizing: border-box;
+            margin: 1rem auto 0;
+            max-width: 920px;
+            min-height: calc(100vh - 1rem);
+            padding: 2rem 6rem 2rem 6rem;
+          }
+        }
+      `,
+			image_title: true,
+			// enable automatic uploads of images represented by blob or data URIs
+			automatic_uploads: true,
+			// add custom filepicker only to Image dialog
+			file_picker_types: 'image',
+			file_picker_callback: function(cb, value, meta) {
+				var input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
+
+				input.onchange = function() {
+					var file = this.files[0];
+					var reader = new FileReader();
+
+					reader.onload = function() {
+						var id = 'blobid' + (new Date()).getTime();
+						var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						var base64 = reader.result.split(',')[1];
+						var blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
+
+						// call the callback and populate the Title field with the file name
+						cb(blobInfo.blobUri(), {
+							title: file.name
+						});
+					};
+					reader.readAsDataURL(file);
+				};
+
+				input.click();
+			}
+		});
+		//SHOW INFO
+
+		// SLIDER FORM NEXT ADD
+		$(document).ready(function () {
+				window.myFormMultiStep = (function () {
+					const $form = $('#insertForm');
+					const $steps = $form.find('.nextstep');
+					const $progressSteps = $('.progress-step');
+					const $progressLine = $('.progress-line');
+					const totalSteps = $steps.length;
+					let currentStep = 0;
+
+					function updateButtons() {
+						$('#btn-prev-progress').toggle(currentStep !== 0);
+						$('#btn-next-progress').toggle(currentStep < totalSteps - 1);
+						$('#submit-btn').toggle(currentStep === totalSteps - 1);
+					}
+
+					function updateProgress() {
+						$progressSteps.each(function (index) {
+							$(this).toggleClass('progress-step-active', index <= currentStep);
+						});
+						const progressPercent = totalSteps > 1 ? (currentStep / (totalSteps - 1)) * 100 : 100;
+						$progressLine.css('width', progressPercent + '%');
+					}
+
+					function validateStep(step) {
+						let valid = true;
+						const $inputs = $steps.eq(step).find('.input-required1');
+						const validatedGroups = new Set();
+
+						$inputs.each(function () {
+							const $input = $(this);
+							let isEmpty = false;
+
+							if ($input.is('input[type="text"], input[type="email"], input[type="date"], textarea')) {
+								isEmpty = !$input.val().trim();
+							} else if ($input.is('select')) {
+								isEmpty = !$input.val();
+							} else if ($input.is(':checkbox') || $input.is(':radio')) {
+								const name = $input.attr('name');
+								if (validatedGroups.has(name)) return;
+								isEmpty = !$(`input[name="${name}"]:checked`).length;
+								validatedGroups.add(name);
+							}
+
+							const $inputBox = $input.closest('.input-box');
+
+							if (isEmpty) {
+								$input.addClass('error');
+								$inputBox.addClass('error');
+								let $errorMsg = $input.siblings('.error-msg');
+								if ($errorMsg.length === 0) {
+									$input.after('<div class="error-msg" style="color:red; font-size:12px;"></div>');
+								} else {
+									$errorMsg.show();
+								}
+								valid = false;
+							} else {
+								$input.removeClass('error');
+								$inputBox.removeClass('error');
+								$input.siblings('.error-msg').hide();
+							}
+						});
+						return valid;
+					}
+
+					// Initialisation
+					$steps.hide().eq(currentStep).show();
+					updateButtons();
+					updateProgress();
+
+					$('#btn-next-progress').click(function () {
+						if (validateStep(currentStep)) {
+							if (currentStep < totalSteps - 1) {
+								currentStep++;
+								$steps.hide().eq(currentStep).show();
+								updateButtons();
+								updateProgress();
+							}
+						}
+					});
+
+					$('#btn-prev-progress').click(function () {
+						if (currentStep > 0) {
+							currentStep--;
+							$steps.hide().eq(currentStep).show();
+							updateButtons();
+							updateProgress();
+						}
+					});
+
+					$form.on('input change', '.input-required1', function () {
+						const $input = $(this);
+						const $inputBox = $input.closest('.input-box');
+						let isValid = true;
+
+						if ($input.is('input[type="text"], input[type="email"], input[type="date"], textarea')) {
+							isValid = $input.val().trim() !== '';
+						} else if ($input.is('select')) {
+							isValid = $input.val() !== '';
+						} else if ($input.is(':checkbox') || $input.is(':radio')) {
+							const name = $input.attr('name');
+							isValid = $(`input[name="${name}"]:checked`).length > 0;
+						}
+
+						if (isValid) {
+							$input.removeClass('error');
+							$inputBox.removeClass('error');
+							$input.siblings('.error-msg').hide();
+						}
+					});
+
+					return {
+						getCurrentStep: () => currentStep,
+						validateCurrentStep: () => validateStep(currentStep),
+						resetForm: () => {
+							currentStep = 0;
+							$steps.hide().eq(currentStep).show();
+							updateButtons();
+							updateProgress();
+							$form[0].reset();
+							$form.find('select').val('').trigger('change');
+							$("#imgPreview").attr("src", "{{ url_for('static', filename='img/image/image-profil.png') }}");
+						}
+					};
+				})();
+				window.myFormMultiStep_update = (function () {
+				const $form = $('#updateForm');
+				const $steps = $form.find('.nextstep-update');
+				const $progressSteps = $('.progress-step-update');
+				const $progressLine = $('.progress-line-update');
+				const totalSteps = $steps.length;
+				let currentStep = 0;
+
+				function updateButtons() {
+					$('#btn-prev-progress-update').toggle(currentStep !== 0);
+					$('#btn-next-progress-update').toggle(currentStep < totalSteps - 1);
+					$('#submit-btn-update').toggle(currentStep === totalSteps - 1);
+				}
+
+				function updateProgress() {
+					$progressSteps.each(function (index) {
+						$(this).toggleClass('progress-step-active-update', index <= currentStep);
+					});
+					const progressPercent = totalSteps > 1 ? (currentStep / (totalSteps - 1)) * 100 : 100;
+					$progressLine.css('width', progressPercent + '%');
+				}
+
+				function validateStep(step) {
+					let valid = true;
+					const $inputs = $steps.eq(step).find('.input-required-update');
+					const validatedGroups = new Set();
+
+					$inputs.each(function () {
+						const $input = $(this);
+						let isEmpty = false;
+
+						if ($input.is('input[type="text"], input[type="email"], input[type="date"], textarea')) {
+							isEmpty = !$input.val().trim();
+						} else if ($input.is('select')) {
+							isEmpty = !$input.val();
+						} else if ($input.is(':checkbox') || $input.is(':radio')) {
+							const name = $input.attr('name');
+							if (validatedGroups.has(name)) return;
+							isEmpty = !$(`input[name="${name}"]:checked`).length;
+							validatedGroups.add(name);
+						}
+
+						const $inputBox = $input.closest('.input-box');
+
+						if (isEmpty) {
+							$input.addClass('error');
+							$inputBox.addClass('error');
+							let $errorMsg = $input.siblings('.error-msg');
+							if ($errorMsg.length === 0) {
+								$input.after('<div class="error-msg" style="color:red; font-size:12px;"></div>');
+							} else {
+								$errorMsg.show();
+							}
+							valid = false;
+						} else {
+							$input.removeClass('error');
+							$inputBox.removeClass('error');
+							$input.siblings('.error-msg').hide();
+						}
+					});
+					return valid;
+				}
+
+				// Initialisation
+				$steps.hide().eq(currentStep).show();
+				updateButtons();
+				updateProgress();
+
+				$('#btn-next-progress-update').click(function () {
+					if (validateStep(currentStep)) {
+						if (currentStep < totalSteps - 1) {
+							currentStep++;
+							$steps.hide().eq(currentStep).show();
+							updateButtons();
+							updateProgress();
+						}
+					}
+				});
+
+				$('#btn-prev-progress-update').click(function () {
+					if (currentStep > 0) {
+						currentStep--;
+						$steps.hide().eq(currentStep).show();
+						updateButtons();
+						updateProgress();
+					}
+				});
+
+				$form.on('input change', '.input-required-update', function () {
+					const $input = $(this);
+					const $inputBox = $input.closest('.input-box');
+					let isValid = true;
+
+					if ($input.is('input[type="text"], input[type="email"], input[type="date"], textarea')) {
+						isValid = $input.val().trim() !== '';
+					} else if ($input.is('select')) {
+						isValid = $input.val() !== '';
+					} else if ($input.is(':checkbox') || $input.is(':radio')) {
+						const name = $input.attr('name');
+						isValid = $(`input[name="${name}"]:checked`).length > 0;
+					}
+
+					if (isValid) {
+						$input.removeClass('error');
+						$inputBox.removeClass('error');
+						$input.siblings('.error-msg').hide();
+					}
+				});
+
+				return {
+					getCurrentStep: () => currentStep,
+					validateCurrentStep: () => validateStep(currentStep),
+					resetForm: () => {
+						currentStep = 0;
+						$steps.hide().eq(currentStep).show();
+						updateButtons();
+						updateProgress();
+						$form[0].reset();
+						$form.find('select').val('').trigger('change');
+						$("#update_imgPreview").attr("src", "{{ url_for('static', filename='img/image/image-profil.png') }}");
+					}
+				};
+			})();
+			});
+
+
+		// SLIDER FORM NEXT UPDATE
+		
+		$('#ExportdataPdf').click(function() {
+			// PDF export using jsPDF's core html support
+			let table = $("#example").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			const doc = new jsPDF('l', 'mm')
+			doc.autoTable({
+				html: table[0],
+				styles: {
+					overflow: 'linebreak',
+					fontSize: 8
+				},
+			})
+			doc.save('Recruitement')
+		})
+
+		$('#Exportdata').click(function() {
+			let table = $("#example").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			TableToExcel.convert(table[0], {
+				name: `Recruitement.xlsx`,
+				sheet: {
+					name: 'Recruitement'
+				}
+			});
+		});
+
+		var tabs = document.querySelectorAll(".tab_btn");
+		var all_content_tab = document.querySelectorAll(".content_tab");
+
+		tabs.forEach((tab, index) => {
+			tab.addEventListener("click", (e) => {
+				tabs.forEach(tab => {
+					tab.classList.remove('active_tab')
+				})
+				tab.classList.add('active_tab');
+				all_content_tab.forEach(content_tab => {
+					content_tab.classList.remove('active_tab')
+				})
+				all_content_tab[index].classList.add('active_tab');
+			})
+		})
+	</script>

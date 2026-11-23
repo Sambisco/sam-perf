@@ -1,0 +1,1504 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+<input type="hidden" id="date_reference" value="{{ date_dashboard }}">
+
+<!------MAIN-CONTENT-------->
+
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1 class="get-title-page page-title-12">Salaire</h1>
+			<div class="content-top_slider">
+				<button type="button" class="button_slide pre-btn_slider"><i
+						class="fas fa-angle-left"></i></button>
+				<div class="top_slider">
+					{% for date_row in range(current_year, 2023, -1) %}
+					<div class="slide years years_{{ date_row }}" style="padding:5px;"
+						id="{{ date_row }}" data-id="{{ date_row }}">
+						{{ date_row }}
+					</div>
+					{% endfor %}
+				</div>
+				<div type="button" class="button_slide nxt-btn_slider"><i
+						class="fas fa-angle-right"></i></div>
+			</div>
+		</div>
+		<div class="baniere-right">
+			<div class="content-navigation">
+				<ul class="navigation">
+					<li class="active_nav active_nav_click" id="btn-modal-ajouter">
+						<a href="#">
+							<span class="icon"><i class="fas fa-fw fa-plus"></i></span>
+							<span class="text">Ajouter</span>
+						</a>
+					</li>
+					<li class="active_nav_click section-btn" id="service" data-index="0">
+						<a href="#">
+							<span class="icon"><i class="fas fa-money-bill"></i></span>
+							<span class="text">Salaire</span>
+						</a>
+					</li>
+					<li class="active_nav_click section-btn" id="employe" data-index="1">
+						<a href="#">
+							<span class="icon"><i class="fas fa-users"></i></span>
+							<span class="text">Employe</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-file-contract"></i></div>
+		<!---------SOUS CONTAINT 1----------->
+		<div class="main-sous-content">
+			<div class="main-sous-content-div active-main-sous-content">
+
+				<div class="content-list content-list1">
+
+				</div>
+				<!----------------PAGINATION----------->
+				<div class="pagination">
+					<div class="showingInfo" id="showingInfo1"></div>
+					<div class="showingPage" id="pagination1"></div>
+				</div>
+
+			</div>
+			<!---------FIN SOUS CONTAINT 1----------->
+
+			<!---------SOUS CONTAINT 2----------->
+			<div class="main-sous-content-div">
+
+				<div class="content-list content-list2">
+
+				</div>
+				<div class="pagination">
+					<div class="showingInfo" id="showingInfo2"></div>
+					<div class="showingPage" id="pagination2"></div>
+				</div>
+			</div>
+			<!---------FIN SOUS CONTAINT 2----------->
+		</div>
+	</div>
+</div>
+
+<!------MODAL AJOUT-------->
+<form id="insertForm">
+	<div class="petit close-modal" id="ajouter-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">AJOUTER Salaire</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload1">
+						<div class="upload1">
+							<div class="fa fa-plus"></div>
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="id_reference"
+							value="{{ request.args.get('id', '') }}">
+						<input type="hidden" name="insert_id" id>
+
+						<div class="nextstep nextstep-active">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Periode de paie</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="month" class="text-input  input-required1"
+											name="date_du"
+											id="add_date_du"
+											placeholder="Nom departement"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date de paie</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input input-required1"
+											name="date_paiement"
+											id="add_date_paiement" placeholder="Batiment"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Mode de paiement</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-credit-card fa-icon"></i></span>
+										<select name="mode_paie" class="js-searchBox input-required1"
+											id="edit_id_charge">
+											<option value>Choisissez</option>
+											<option value="espèce">Espèce</option>
+											<option value="chèque">Chèque</option>
+											<option value="virement">Virement</option>
+										</select>
+									</div>
+								</div>
+								<div class="chargement">
+									<div class="chargement">Téléchargement</div>
+									<div class="chargementçpourcentage">0%</div>
+								</div>
+								<div class="salaire_progressbar" style="margin-bottom: 10px;">
+									<div class="spinnerprogressbar"></div>
+								</div>
+								<table style="display: none;">
+									<thead style="color: black; background-color: black;">
+										<tr>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody id="append">
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="footer-modal">
+							<button type="submit" class="footer-button-register"
+								id="submit-btn">Enregister</button>
+							<button type="button"
+								class="footer-button-close close-modal">Fermer</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL AJOUT-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+	<div class="petit close-modal" id="modifier-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">MODIFIER Salaire</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload1">
+						<div class="upload1">
+							<div class="fa fa-edit"></div>
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="edit_id" id="edit_id">
+						<input type="hidden" name="id_reference"
+							value="{{ request.args.get('id', '') }}">
+
+						<div class="nextstep-active-update">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Periode de paie</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="month" class="text-input input-required-update"
+											name="date_du" id="date_du"
+											placeholder="Nom departement"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date de paie</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input input-required-update"
+											name="date_paiement"
+											id="date_paiement"
+											placeholder="Batiment"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Mode de paiement</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-credit-card fa-icon"></i></span>
+										<select name="mode_paie_edit"
+											class="js-searchBox input-required-update"
+											id="mode_paie">
+											<option value>Choisissez</option>
+											<option value="espèce">Espèce</option>
+											<option value="chèque">Chèque</option>
+											<option value="virement">Virement</option>
+										</select>
+									</div>
+								</div>
+								<div class="chargement">
+									<div class="chargement">Téléchargement</div>
+									<div class="chargementçpourcentage">0%</div>
+								</div>
+								<div class="salaire_progressbar" style="margin-bottom: 10px;">
+									<div class="spinnerprogressbar"></div>
+								</div>
+								<table style="display: none;">
+									<tr>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+									</tr>
+									<tbody id="edit_append">
+
+									</tbody>
+								</table>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="btn-next-progress2">Modifier</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL MODIFIER-------->
+<!------MODAL SUPPRIMER-------->
+<form id="deleteForm">
+	<div class="petit close-modal" id="supprimer-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">SUPPRIMER Salaire</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload1">
+						<div class="upload1">
+							<div class="fa fa-trash"></div>
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="text" name="delete_id" id="delete_id" hidden>
+
+						<div class="nextstep-active-update">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-trash"></i> </span>
+										<input type="text" class="text-input" name id="nom_del" readonly>
+										<input type="text" name="id_reference"
+											value="{{ request.args.get('id', '') }}" hidden>
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="deletedata">Supprimer</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<form id="deleteForm_employe">
+	<div class="petit close-modal" id="supprimer-modal-employe">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">SUPPRIMER salaire</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="del_profil_imgPreview">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="delete_id2" id="delete_id2">
+
+						<h1 class="card-title" id="del-title-name"></h1>
+						<div class="nextstep-active-update">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-trash"></i> </span>
+										<input type="text" class="text-input" name id="nom_del2" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="deletedata">Supprimer</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL SUPPRIMER-------->
+<!------MODAL EMAIL-------->
+<div class="petit close-modal" id="email-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">email Salaire</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="container-form">
+					<form id="emailForm">
+						<input type="hidden" name="email_id" id="email_id">
+
+						<div class="user-details-login">
+							<div class="input-group">
+								<label class="label-details">Email salaire</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-trash"></i> </span>
+									<input type="text" class="text-input" name="email_env" id="email_env"
+										readonly>
+									<input type="hidden" name="id_reference" id="email_id_reference">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="emaildata">Envoyer</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!------FIN MODAL EMAIL-------->
+<div id="shareOverlay"></div>
+
+<div id="sharePopup" role="dialog" aria-modal="true"
+	aria-labelledby="sharePopupTitle">
+	<div class="close-btn" aria-label="Fermer"><i class="fas fa-times"></i></div>
+	<div class="title" id="sharePopupTitle">Partager</div>
+	<div class="share-buttons">
+		<div class="share-btn" id="fbShare" title="Facebook" role="button"
+			tabindex="0" aria-label="Partager sur Facebook">
+			<i class="fab fa-facebook-f"></i>
+		</div>
+		<div class="share-btn" id="twShare" title="Twitter" role="button"
+			tabindex="0" aria-label="Partager sur Twitter">
+			<i class="fab fa-twitter"></i>
+		</div>
+		<div class="share-btn" id="waShare" title="WhatsApp" role="button"
+			tabindex="0" aria-label="Partager sur WhatsApp">
+			<i class="fab fa-whatsapp"></i>
+		</div>
+		<div class="share-btn" id="emailShare" title="Email" role="button"
+			tabindex="0" aria-label="Partager par Email">
+			<i class="fas fa-envelope"></i>
+		</div>
+		<div class="share-btn" id="copyLinkBtn" title="Copier le lien" role="button"
+			tabindex="0" aria-label="Copier le lien">
+			<i class="fas fa-link"></i>
+		</div>
+	</div>
+	<div id="shareMessage"
+		style="text-align:center; margin-top:8px; color:green; display:none;"></div>
+</div>
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+var divs = $('.top_slider div');
+var ordered = divs.sort(function(a, b) {
+	return $(b).attr('id') - $(a).attr('id');
+});
+$('.top_slider div:first-of-type').addClass("changeColor");
+//empty the main div and re-append the ordered divs
+$('.top_slider').empty().append(ordered)
+
+$(document).on('click', '.slide', function(e) {
+	e.preventDefault();
+	var years = $(this).data('id');
+	$(".fetch_annee").html(years);
+	$(".slide").removeClass("changeColor")
+	$(".years_" + years).addClass("changeColor")
+})
+
+$(document).on('click', '.years', function() {
+    const date = $(this).data('id');
+    $('#date_reference').val(date)
+    fetchdata()
+}); 
+
+$(document).on('input', '#date_reference', fetchdata);
+
+
+$(function() { fetchdata(); });
+
+function fetchdata() {
+	var id = $("#id_reference").val();
+	var date = $("#date_reference").val()
+	$.ajax({
+		url: "../controller/salaire/fetch_salaire",
+		type: "POST",
+		data: {
+			id: id,
+			date: date
+		},
+		success: function(response) {
+			$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var a = 0; a < gp_data.length; a++) {
+				var div1 = `<div class="parent box result well">
+					<div class="card">
+						<div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">${gp_data[a].annee}</div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].periode}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-calendar"></i><span>${gp_data[a].date_paiement}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-credit-card"></i><span>${gp_data[a].mode_paie}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						    <ul class="navigation_list">
+					               <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="updatebtn" data-id="${gp_data[a].date_du_add}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+					               		<span class="text">Modifier</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+						    	    <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="deletebtn" data-id="${gp_data[a].date_du_add}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-trash"></i></span>
+					               		<span class="text">Supprimer</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+						    	    <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="printbtn" data-id="${gp_data[a].date_du_add}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-print"></i></span>
+					               		<span class="text">Imprimer</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+						    	   <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="fichebtn" data-id="${gp_data[a].date_du_add}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-file"></i></span>
+					               		<span class="text">F. Paie</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+				            </ul>
+						</div>
+					</div>
+				  </div>`;
+				$('.content-list1').append(div1);
+			}
+			updateSectionItems(0);
+		},
+	})
+
+	$.ajax({
+		url: "../controller/salaire/fetch_salaire",
+		type: "POST",
+		data: {
+			id: id,
+			employe_date: date
+		},
+		success: function(response) {
+			$('.content-list2').html(""); //insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var b = 0; b < gp_data.length; b++) {
+				var div2 = `<div class="parent box result well">
+					  <div class="card">
+					    <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[b].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[b].prenom} ${gp_data[b].nom}</h1>
+							<div class="card-content">
+							    <div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[b].matricule}</span>
+								</div>
+							    <div class="card-content-info">
+									<i class="fa fa-chalkboard-teacher"></i><span>${gp_data[b].poste_occupe}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-phone fa-rotate-90"></i><span>${gp_data[b].telephone_e}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar-check"></i><span>${gp_data[b].periode}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar"></i><span>${gp_data[b].date_paiement}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-credit-card"></i><span>${gp_data[b].mode_paie}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						    <ul class="navigation_list">
+					               <li class="active_nav_list active_nav_click_list2 active_nav_click_list2_${gp_data[b].count}" id="deletebtn2" data-id="${gp_data[b].id_salaire}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-trash"></i></span>
+					               		<span class="text">Supprimer</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+						    	   <li class="active_nav_click_list2 active_nav_click_list2_${gp_data[b].count}" id="printbtn2" data-id="${gp_data[b].id_salaire}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-print"></i></span>
+					               		<span class="text">imprimer</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+						    	   <li class="active_nav_click_list2 active_nav_click_list2_${gp_data[b].count}" id="fichebtn2" data-id="${gp_data[b].id_salaire}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-file"></i></span>
+					               		<span class="text">F. Paie</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+						    	   <li class="active_nav_click_list2 active_nav_click_list2_${gp_data[b].count} btnShare" id="" data-id="${gp_data[b].id_salaire}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-share-alt"></i></span>
+					               		<span class="text">Partager</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+				            </ul>
+						</div>
+					   </div>
+				      </div>`;
+				$('.content-list2').append(div2);
+			}
+			updateSectionItems(1);
+		}
+	})
+}
+
+
+$("#btn-modal-ajouter").click(function(e) {
+
+	$("#ajouter-modal").fadeIn();
+});
+$(document).on("change", "#add_date_du", function(e) {
+	e.preventDefault();
+	if ($("#add_date_du").val() == "") {
+		$("#append").html("");
+		$(".spinnerprogressbar").css("width", 0 + 'px');
+		$(".chargementçpourcentage").html(Math.round(0) + "%");
+		;
+	} else {
+		var id_reference = $("#id_reference").val();
+		var date_du = $("#add_date_du").val();
+		$.ajax({
+			url: '../controller/salaire/fetch_calcul',
+			type: "POST",
+			data: {
+				id_reference: id_reference,
+				date_du: date_du
+			},
+			dataType: 'json',
+			success: function(response) {
+    console.log(response);
+    $("#append").html("");  // vider le tbody
+
+    if (!response.length) {
+        $("#append").html('<tr><td colspan="8" style="text-align:center;">Aucune donnée</td></tr>');
+        return;
+    }
+          var gp_data =response;
+    for (var b = 0; b < gp_data.length; b++) {
+        $('#append').append(`
+            <tr>
+               <td style=""><input type="text"  name="id_contrat" value="${gp_data[b].id_contrat}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].matricule}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].prenom}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].nom}"></td>
+			   <td style="display:none"><input type="text" name="s_nature" value="${gp_data[b].nature}"></td>
+               <td style="display:none"><input type="date" name="s_date_embauche" value="${gp_data[b].date_embauche}"></td>
+               <td style="display:none"><input type="date" name="s_date_sorti" value="${gp_data[b].date_sorti}"></td>
+               <td style="display:none"><input type="text" name="s_categorie" value="${gp_data[b].categorie}"></td>
+               <td style="display:none"><input type="text" name="s_poste_occupe" value="${gp_data[b].poste_occupe}"></td>
+			   <td style="display:none"><input type="text" name="s_situation_matr" value="${gp_data[b].situation_matr}"></td>
+               <td style="display:none"><input type="text" name="s_conjoint" value="${gp_data[b].conjoint}"></td>
+               <td style="display:none"><input type="text" name="s_enfant" value="${gp_data[b].enfant}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].nbr_jours}"></td>
+			   <td><input type="text" name="" value="${gp_data[b].total_heure_mois}"></td>
+               <td><input type="text" name="" value="${gp_data[b].heure_pointage}"></td>
+               <td><input type="text" name="salaire_base" value="${gp_data[b].salaire}"></td>
+               <td><input type="text" name="ind_fonction" value="${gp_data[b].fonction}"></td>
+               <td><input type="text" name="ind_sujetion" value="${gp_data[b].sujetion}"></td>
+			   <td><input type="text" name="ind_responsabilite" value="${gp_data[b].responsabilite}"></td>
+               <td><input type="text" name="ind_sursalaire" value="${gp_data[b].sursalaire}"></td>
+               <td><input type="text" name="ind_logement" value="${gp_data[b].logement}"></td>
+               <td><input type="text" name="salaire_brute" value="${gp_data[b].salaire_brute}"></td>
+               <td><input type="text" name="s_nb_trimf" value="${gp_data[b].nb_trimf}"></td>
+               <td><input type="text" name="sum_trimf" value="${gp_data[b].sum_trimf}"></td>
+               <td><input type="text" name="s_nb_irpp" value="${gp_data[b].nb_irpp}"></td>
+               <td><input type="text" name="sum_irpp" value="${gp_data[b].sum_irpp}"></td>
+			   <td><input type="text" name="ind_transport" value="${gp_data[b].transport}"></td>
+			   <td><input type="text" name="ind_telephone_in" value="${gp_data[b].telephone_in}"></td>
+			   <td><input type="text" name="ind_autre_indemnite" value="${gp_data[b].autre_indemnite}"></td>
+			   <td><input type="text" name="iprg_employe" value="${gp_data[b].iprg_employe}"></td>
+			   <td><input type="text" name="irprg_patronale" value="${gp_data[b].irprg_patronale}"></td>
+			   <td><input type="text" name="irpc_employe" value="${gp_data[b].irpc_employe}"></td>
+			   <td><input type="text" name="irpc_patronale" value="${gp_data[b].irpc_patronale}"></td>
+			   <td><input type="text" name="css_accident_travail" value="${gp_data[b].css_accident_travail}"></td>
+			   <td><input type="text" name="css_allocation_familiale" value="${gp_data[b].css_allocation_familiale}"></td>
+			   <td><input type="text" name="total_retenue_employe" value="${gp_data[b].total_retenue_employe}"></td>
+			   <td><input type="text" name="total_retenue_patronale" value="${gp_data[b].total_retenue_patronale}"></td>
+			   <td><input type="text" name="s_amicale" value="${gp_data[b].amicale}"></td>
+			   <td><input type="text" name="s_tabaski" value="${gp_data[b].tabaski}"></td>
+			   <td><input type="text" name="s_aute_cotisation" value="${gp_data[b].aute_cotisation}"></td>
+			   <td><input type="text" name="retenue_cotisation" value="${gp_data[b].retenue_cotisation}"></td>
+			   <td><input type="text" name="cfce" value="${gp_data[b].cfce}"></td>
+			   <td><input type="text" name="total_prime" value="${gp_data[b].total_prime}"></td>
+			   <td><input type="text" name="salaire_net" value="${gp_data[b].salaire_net}"></td>
+            </tr>
+        `);
+    }
+
+    // Progress bar
+    var count = $("#append > tr").length;
+    var total_count = 100 / count;
+    var size = 0;
+    var interval = setInterval(function() {
+        size = size + total_count;
+        $(".spinnerprogressbar").css("width", size + '%');
+        $(".chargementçpourcentage").html(Math.round(size) + "%");
+        if (size >= 100) {
+            clearInterval(interval);
+        }
+    }, 100);
+}
+,
+            error: function (xhr, status, error) {
+                console.error("Erreur AJAX :", xhr.responseText);
+                alert("Erreur AJAX : " + error);
+            }
+		});
+	}
+});
+
+$(document).on("change", "#date_du", function(e) {
+	e.preventDefault();
+	if ($("#date_du").val() == "") {
+		$("#edit_append").html("");
+		$(".spinnerprogressbar").css("width", 0 + 'px');
+		$(".chargementçpourcentage").html(Math.round(0) + "%");
+		
+	} else {
+		var id_reference = $("#id_reference").val();
+		var date_du = $("#date_du").val();
+		$.ajax({
+			url: '../controller/salaire/fetch_calcul',
+			type: "POST",
+			data: {
+				id_reference: id_reference,
+				date_du: date_du
+			},
+			//dataType: 'json',
+			success: function(response) {
+				console.log(response)
+						$("#edit_append").html("");
+
+				 var gp_data =response;
+    for (var b = 0; b < gp_data.length; b++) {
+        $('#edit_append').append(`
+            <tr>
+               <td style="display:none"><input type="text" name="id_contrat" value="${gp_data[b].id_contrat}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].matricule}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].prenom}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].nom}"></td>
+			   <td style="display:none"><input type="text" name="s_nature" value="${gp_data[b].nature}"></td>
+               <td style="display:none"><input type="date" name="s_date_embauche" value="${gp_data[b].date_embauche}"></td>
+               <td style="display:none"><input type="date" name="s_date_sorti" value="${gp_data[b].date_sorti}"></td>
+               <td style="display:none"><input type="text" name="s_categorie" value="${gp_data[b].categorie}"></td>
+               <td style="display:none"><input type="text" name="s_poste_occupe" value="${gp_data[b].poste_occupe}"></td>
+			   <td style="display:none"><input type="text" name="s_situation_matr" value="${gp_data[b].situation_matr}"></td>
+               <td style="display:none"><input type="text" name="s_conjoint" value="${gp_data[b].conjoint}"></td>
+               <td style="display:none"><input type="text" name="s_enfant" value="${gp_data[b].enfant}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].nbr_jours}"></td>
+			   <td><input type="text" name="" value="${gp_data[b].total_heure_mois}"></td>
+               <td><input type="text" name="" value="${gp_data[b].heure_pointage}"></td>
+               <td><input type="text" name="salaire_base" value="${gp_data[b].salaire}"></td>
+               <td><input type="text" name="ind_fonction" value="${gp_data[b].fonction}"></td>
+               <td><input type="text" name="ind_sujetion" value="${gp_data[b].sujetion}"></td>
+			   <td><input type="text" name="ind_responsabilite" value="${gp_data[b].responsabilite}"></td>
+               <td><input type="text" name="ind_sursalaire" value="${gp_data[b].sursalaire}"></td>
+               <td><input type="text" name="ind_logement" value="${gp_data[b].logement}"></td>
+               <td><input type="text" name="salaire_brute" value="${gp_data[b].salaire_brute}"></td>
+               <td><input type="text" name="s_nb_trimf" value="${gp_data[b].nb_trimf}"></td>
+               <td><input type="text" name="sum_trimf" value="${gp_data[b].sum_trimf}"></td>
+               <td><input type="text" name="s_nb_irpp" value="${gp_data[b].nb_irpp}"></td>
+               <td><input type="text" name="sum_irpp" value="${gp_data[b].sum_irpp}"></td>
+			   <td><input type="text" name="ind_transport" value="${gp_data[b].transport}"></td>
+			   <td><input type="text" name="ind_telephone_in" value="${gp_data[b].telephone_in}"></td>
+			   <td><input type="text" name="ind_autre_indemnite" value="${gp_data[b].autre_indemnite}"></td>
+			   <td><input type="text" name="iprg_employe" value="${gp_data[b].iprg_employe}"></td>
+			   <td><input type="text" name="irprg_patronale" value="${gp_data[b].irprg_patronale}"></td>
+			   <td><input type="text" name="irpc_employe" value="${gp_data[b].irpc_employe}"></td>
+			   <td><input type="text" name="irpc_patronale" value="${gp_data[b].irpc_patronale}"></td>
+			   <td><input type="text" name="css_accident_travail" value="${gp_data[b].css_accident_travail}"></td>
+			   <td><input type="text" name="css_allocation_familiale" value="${gp_data[b].css_allocation_familiale}"></td>
+			   <td><input type="text" name="total_retenue_employe" value="${gp_data[b].total_retenue_employe}"></td>
+			   <td><input type="text" name="total_retenue_patronale" value="${gp_data[b].total_retenue_patronale}"></td>
+			   <td><input type="text" name="s_amicale" value="${gp_data[b].amicale}"></td>
+			   <td><input type="text" name="s_tabaski" value="${gp_data[b].tabaski}"></td>
+			   <td><input type="text" name="s_aute_cotisation" value="${gp_data[b].aute_cotisation}"></td>
+			   <td><input type="text" name="retenue_cotisation" value="${gp_data[b].retenue_cotisation}"></td>
+			   <td><input type="text" name="cfce" value="${gp_data[b].cfce}"></td>
+			   <td><input type="text" name="total_prime" value="${gp_data[b].total_prime}"></td>
+			   <td><input type="text" name="salaire_net" value="${gp_data[b].salaire_net}"></td>
+            </tr>
+        `);
+    }
+
+				var count = $("#edit_append > tr").length
+				var total_count = 100 / count;
+					var size = 0;
+					var interval = setInterval(function() {
+						size = size + total_count;
+						$(".spinnerprogressbar").css("width", size + '%');
+						$(".chargementçpourcentage").html(Math.round(size) + "%");
+						if (size >= 100) {
+							clearInterval(interval)
+						}
+					}, 100)
+			}
+		});
+	}
+});
+  $(document).on("click", ".active_nav_click_list", function (e) {
+            e.preventDefault();
+			var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+			console.log("ID chiffré cliqué:", encryptedId);
+
+			// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+			var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+			$(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+			$(this).addClass("active_nav_list");
+
+			// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+		});
+		  $(document).on("click", ".active_nav_click_list2", function (e) {
+            e.preventDefault();
+			var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+			console.log("ID chiffré cliqué:", encryptedId);
+
+			// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+			var simpleId = $(this).attr('class').match(/active_nav_click_list2_(\d+)/)[1];
+			$(".active_nav_click_list2_" + simpleId).removeClass("active_nav_list");
+			$(this).addClass("active_nav_list");
+
+			// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+		});
+$(document).on('click', '#printbtn', function(e) {
+	var id = $(this).data('id');
+	window.open(`../pdf/bulletin?pdf=${id}`, '_blank');
+})
+$(document).on('click', '#printbtn2', function(e) {
+	var id = $(this).data('id');
+	window.open(`../pdf/bulletin2?pdf=${id}`, '_blank');
+})
+$(document).on('click', '#fichebtn', function(e) {
+	var id = $(this).data('id');
+	window.open(`../pdf/fiche_paie?pdf=${id}`, '_blank');
+})
+$(document).on('click', '#fichebtn2', function(e) {
+	var id = $(this).data('id');
+	window.open(`../pdf/fiche_paie_employe?pdf=${id}`, '_blank');
+})
+$(document).on('click', '.shared-nav', function(e) {
+	var id = $(this).data('id');
+	var link = "../pdf/download?pdf=" + id
+	navigator.share({
+		text: 'Cliquez sur le lien pour télécharger le bulletin de salaire !', // Text to be shared
+		url: link, // URL to be shared
+		files: [] // An array of File objects to be shared
+	})
+})
+
+$('.js-searchBox').select2({
+	width: '100%'
+});
+//PHOTO
+
+$(document).ready(function(e) {
+	//INSERTION
+$("#insertForm").on('submit', function(e) {
+    e.preventDefault();
+
+    $('.input-box').removeClass('error');
+    $('.error-msg').hide();
+
+    if (!validateForm()) return;
+
+    let lignes = [];
+
+    $("#append tr").each(function () {
+        let ligne = {};
+
+        $(this).find('input').each(function () {
+            if (this.name) {
+                ligne[this.name] = $(this).val();
+            }
+        });
+
+        if (Object.keys(ligne).length > 0) {
+            lignes.push(ligne);
+        }
+    });
+
+    let payload = {
+        insert_id: $("input[name='insert_id']").val(),
+        date_du: $("#add_date_du").val(),
+        date_paiement: $("#add_date_paiement").val(),
+        mode_paie: $("select[name='mode_paie']").val(),
+        lignes: lignes
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "../controller/salaire/save",
+        data: JSON.stringify(payload),
+        contentType: "application/json",
+        dataType: "json",
+
+        success: function (response) {
+            if (response.status === "success") {
+                Swal.fire({
+                    icon: "success",
+                    title: "Enregistré",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => fetchdata());
+            } else {
+                Swal.fire("Erreur", response.error || "Erreur inconnue", "error");
+            }
+        },
+
+        error: function (xhr) {
+            console.log(xhr.responseText);
+            Swal.fire("Erreur serveur", "Communication impossible", "error");
+        }
+    });
+	// Tu peux laisser les resets ici seulement si tu veux tout réinitialiser même en cas d'échec
+	$("#ajouter-modal").fadeOut();
+	$("#add_date_du").val("");
+	$("#add_date_paiement").val("");
+	$("#edit_id_charge").val("").trigger('change');
+	$('.btn-next-progress1').prop('disabled', true);
+	$(".spinnerprogressbar").css("width", '0px');
+	$(".chargementçpourcentage").html("0%");
+	$("#append").html("");
+	$(".slide").removeClass("changeColor");
+	$('.top_slider div:first-of-type').addClass("changeColor");
+});
+
+	//UPDATE
+	$("#updateForm").on('submit', function(e) {
+		e.preventDefault();
+	 $('.input-box').removeClass('error');
+    $('.error-msg').hide();
+
+    if (!validateForm_update()) {
+      return;
+    }
+	let lignes = [];
+
+    $("#edit_append tr").each(function () {
+        let ligne = {};
+
+        $(this).find('input').each(function () {
+            if (this.name) {
+                ligne[this.name] = $(this).val();
+            }
+        });
+
+        if (Object.keys(ligne).length > 0) {
+            lignes.push(ligne);
+        }
+    });
+
+    let payload = {
+        edit_id: $("input[name='edit_id']").val(),
+        date_du: $("#date_du").val(),
+        date_paiement: $("#date_paiement").val(),
+        mode_paie: $("select[name='mode_paie_edit']").val(),
+        lignes: lignes
+    };
+
+		$.ajax({
+        type: "POST",
+        url: "../controller/salaire/save",
+        data: JSON.stringify(payload),
+        contentType: "application/json",
+        dataType: "json",
+
+        success: function (response) {
+            if (response.status === "updated") {
+                Swal.fire({
+                   icon: 'success',
+			title: 'Modifié',
+			text: "Modification effectuée avec succés.",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => fetchdata());
+            } else {
+                Swal.fire("Erreur", response.error || "Erreur inconnue", "error");
+            }
+        },
+
+        error: function (xhr) {
+            console.log(xhr.responseText);
+            Swal.fire("Erreur serveur", "Communication impossible", "error");
+        }
+    });
+		$("#modifier-modal").fadeOut();
+		
+		$(".spinnerprogressbar").css("width", 0 + 'px');
+		$(".chargementçpourcentage").html(Math.round(0) + "%");
+		$("#edit_append").html("");
+		$(".slide").removeClass("changeColor")
+		$('.top_slider div:first-of-type').addClass("changeColor");
+	});
+	// SUPPRIMER
+	$("#deleteForm").on('submit', function(e) {
+    e.preventDefault();
+
+    let payload = {
+        delete_id: $("input[name='delete_id']").val(),
+        id_reference: $("input[name='id_reference']").val()
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '../controller/salaire/save',
+        data: JSON.stringify(payload),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+        }
+    });
+
+    $("#supprimer-modal").fadeOut();
+
+    Swal.fire({
+        icon: 'error',
+        title: 'Supprimé',
+        text: "Suppression effectuée avec succès.",
+        timer: 2000,
+        showConfirmButton: false
+    }).then(function() {
+        fetchdata();
+    });
+});
+
+	$("#deleteForm_employe").on('submit', function(e) {
+    e.preventDefault();
+
+    let payload = {
+        delete_id2: $("input[name='delete_id2']").val()
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '../controller/salaire/save',
+        data: JSON.stringify(payload),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+        }
+    });
+
+    $("#supprimer-modal-employe").fadeOut();
+
+    Swal.fire({
+        icon: 'error',
+        title: 'Supprimé',
+        text: "Suppression effectuée avec succès.",
+        timer: 2000,
+        showConfirmButton: false
+    }).then(function() {
+        fetchdata();
+    });
+});
+
+});
+$("#emailForm").on('submit', function(e) {
+	e.preventDefault();
+	$.ajax({
+		type: 'POST',
+		url: '../pdf/email',
+		data: new FormData(this),
+		dataType: 'json',
+		contentType: false,
+		cache: false,
+		processData: false,
+
+		success: function(response) {
+			console.log(response)
+			alert(response)
+		}
+	});
+	$("#email-modal").fadeOut();
+	Swal.fire({
+		icon: 'success',
+		title: 'Envoyer',
+		text: "Email envoyé avec succés.",
+		confirmButtonColor: '#127b8e',
+		showConfirmButton: false,
+		timer: 2000
+	}).then(function() {
+		fetchdata();
+	});
+});
+$(document).on("click", "#togglePassword", function(e) {
+	// toggle the type attribute
+	var password = $('#password');
+	if (password.attr("type") === "password") {
+		password.attr("type", "text");
+	} else {
+		password.attr("type", "password");
+	}
+	$("#show-eye").toggleClass('fa-eye');
+	$("#show-eye").toggleClass('fa-eye-slash');
+	// toggle the eye icon
+
+});
+$(document).on("click", "#update_togglePassword", function(e) {
+	// toggle the type attribute
+	var password = $('#update_password');
+	if (password.attr("type") === "password") {
+		password.attr("type", "text");
+	} else {
+		password.attr("type", "password");
+	}
+	$("#update_show-eye").toggleClass('fa-eye');
+	$("#update_show-eye").toggleClass('fa-eye-slash');
+	// toggle the eye icon
+
+});
+
+
+// SHOW UPDATE
+$(document).on('click', '#updatebtn', function(e) {
+	$("#edit_append").html("");
+	$(".spinnerprogressbar").css("width", 0 + 'px');
+	$(".chargementçpourcentage").html(Math.round(0) + "%");
+	e.preventDefault();
+	var id_s = $("#id_reference").val();
+	var id_salaire = $(this).data('id');
+	$.ajax({
+		url: '../controller/salaire/fetch_salaire',
+		type: "POST",
+		data: {
+			id_salaire: id_salaire,
+			id_s: id_s
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data)
+			$("#edit_id").val(data.date_du);
+			$("#edit_id_reference").val(data.id_reference)
+			$("#date_du").val(data.date_du);
+			$("#date_paiement").val(data.date_paiement);
+			$("#mode_paie").val(data.mode_paie).trigger("change");
+
+			var id_reference = data.id_reference;
+			var date_du = data.date_du;
+			$.ajax({
+				url: '../controller/salaire/fetch_calcul',
+				type: "POST",
+				data: {
+					id_reference: id_reference,
+					date_du: date_du
+				},
+				//dataType: 'json',
+				success: function(response) {
+					console.log(response)
+					 var gp_data =response;
+    for (var b = 0; b < gp_data.length; b++) {
+        $('#edit_append').append(`
+            <tr>
+               <td style="display:none"><input type="text" name="id_contrat" value="${gp_data[b].id_contrat}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].matricule}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].prenom}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].nom}"></td>
+			   <td style="display:none"><input type="text" name="s_nature" value="${gp_data[b].nature}"></td>
+               <td style="display:none"><input type="date" name="s_date_embauche" value="${gp_data[b].date_embauche}"></td>
+               <td style="display:none"><input type="date" name="s_date_sorti" value="${gp_data[b].date_sorti}"></td>
+               <td style="display:none"><input type="text" name="s_categorie" value="${gp_data[b].categorie}"></td>
+               <td style="display:none"><input type="text" name="s_poste_occupe" value="${gp_data[b].poste_occupe}"></td>
+			   <td style="display:none"><input type="text" name="s_situation_matr" value="${gp_data[b].situation_matr}"></td>
+               <td style="display:none"><input type="text" name="s_conjoint" value="${gp_data[b].conjoint}"></td>
+               <td style="display:none"><input type="text" name="s_enfant" value="${gp_data[b].enfant}"></td>
+               <td style="display:none"><input type="text" name="" value="${gp_data[b].nbr_jours}"></td>
+			   <td><input type="text" name="" value="${gp_data[b].total_heure_mois}"></td>
+               <td><input type="text" name="" value="${gp_data[b].heure_pointage}"></td>
+               <td><input type="text" name="salaire_base" value="${gp_data[b].salaire}"></td>
+               <td><input type="text" name="ind_fonction" value="${gp_data[b].fonction}"></td>
+               <td><input type="text" name="ind_sujetion" value="${gp_data[b].sujetion}"></td>
+			   <td><input type="text" name="ind_responsabilite" value="${gp_data[b].responsabilite}"></td>
+               <td><input type="text" name="ind_sursalaire" value="${gp_data[b].sursalaire}"></td>
+               <td><input type="text" name="ind_logement" value="${gp_data[b].logement}"></td>
+               <td><input type="text" name="salaire_brute" value="${gp_data[b].salaire_brute}"></td>
+               <td><input type="text" name="s_nb_trimf" value="${gp_data[b].nb_trimf}"></td>
+               <td><input type="text" name="sum_trimf" value="${gp_data[b].sum_trimf}"></td>
+               <td><input type="text" name="s_nb_irpp" value="${gp_data[b].nb_irpp}"></td>
+               <td><input type="text" name="sum_irpp" value="${gp_data[b].sum_irpp}"></td>
+			   <td><input type="text" name="ind_transport" value="${gp_data[b].transport}"></td>
+			   <td><input type="text" name="ind_telephone_in" value="${gp_data[b].telephone_in}"></td>
+			   <td><input type="text" name="ind_autre_indemnite" value="${gp_data[b].autre_indemnite}"></td>
+			   <td><input type="text" name="iprg_employe" value="${gp_data[b].iprg_employe}"></td>
+			   <td><input type="text" name="irprg_patronale" value="${gp_data[b].irprg_patronale}"></td>
+			   <td><input type="text" name="irpc_employe" value="${gp_data[b].irpc_employe}"></td>
+			   <td><input type="text" name="irpc_patronale" value="${gp_data[b].irpc_patronale}"></td>
+			   <td><input type="text" name="css_accident_travail" value="${gp_data[b].css_accident_travail}"></td>
+			   <td><input type="text" name="css_allocation_familiale" value="${gp_data[b].css_allocation_familiale}"></td>
+			   <td><input type="text" name="total_retenue_employe" value="${gp_data[b].total_retenue_employe}"></td>
+			   <td><input type="text" name="total_retenue_patronale" value="${gp_data[b].total_retenue_patronale}"></td>
+			   <td><input type="text" name="s_amicale" value="${gp_data[b].amicale}"></td>
+			   <td><input type="text" name="s_tabaski" value="${gp_data[b].tabaski}"></td>
+			   <td><input type="text" name="s_aute_cotisation" value="${gp_data[b].aute_cotisation}"></td>
+			   <td><input type="text" name="retenue_cotisation" value="${gp_data[b].retenue_cotisation}"></td>
+			   <td><input type="text" name="cfce" value="${gp_data[b].cfce}"></td>
+			   <td><input type="text" name="total_prime" value="${gp_data[b].total_prime}"></td>
+			   <td><input type="text" name="salaire_net" value="${gp_data[b].salaire_net}"></td>
+            </tr>
+        `);
+    }
+					var count = $("#edit_append > tr").length
+					var total_count = 100 / count;
+						var size = 0;
+						var interval = setInterval(function() {
+							size = size + total_count;
+							$(".spinnerprogressbar").css("width", size + '%');
+							$(".chargementçpourcentage").html(Math.round(size) +
+								"%");
+							if (size >= 100) {
+								clearInterval(interval)
+							}
+						}, 100)
+					
+				}
+			});
+			$("#modifier-modal").fadeIn();
+		}
+
+	});
+
+});
+//SHOW DELETE
+$(document).on('click', '#deletebtn', function(e) {
+	e.preventDefault();
+	var id_s = $("#id_reference").val();
+	var id_salaire = $(this).data('id');
+	$.ajax({
+		url: '../controller/salaire/fetch_salaire',
+		type: "POST",
+		data: {
+			id_salaire: id_salaire,
+			id_s: id_s
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data.logo)
+			$("#delete_id").val(data.date_du);
+			$("#nom_del").val(data.date_del);
+			$("#supprimer-modal").fadeIn();
+		}
+	});
+});
+
+$(document).on('click', '#deletebtn2', function(e) {
+	e.preventDefault();
+	var id_salaire = $(this).data('id');
+	$.ajax({
+		url: '../controller/salaire/fetch_salaire',
+		type: "post",
+		data: {
+			id_salaire_employe: id_salaire
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data)
+			$("#delete_id2").val(data.id_salaire);
+			$("#del-title-name").html(data.prenom + " " + data.nom);
+			$("#del_title-matricule").html(data.matricule);
+			$("#nom_del2").val(data.date_del);
+			$(".profil_imgPreview").attr("src", data.photo);
+			$("#supprimer-modal-employe").fadeIn();
+		}
+	});
+
+});
+$(document).on('click', '#emailbtn', function(e) {
+	e.preventDefault();
+
+	var id_s = $("#id_reference").val();
+	var id_salaire = $(this).data('id');
+	$.ajax({
+		url: '../controller/salaire/fetch_salaire',
+		type: "POST",
+		data: {
+			id_salaire: id_salaire,
+			id_s: id_s
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data.logo)
+			$("#email_id").val(data.num);
+			$("#email_id_reference").val(data.id_reference)
+			$("#email_env").val(data.email);
+			$("#email-modal").fadeIn();
+		}
+	});
+});
+  function validateForm() {
+    let valid = true;
+    $('.input-required1').each(function() {
+      const $input = $(this);
+      const $inputBox = $input.closest('.input-box');
+      if ($input.val().trim() === '') {
+        $input.addClass('error');
+        $inputBox.addClass('error');
+
+        let $msg = $input.siblings('.error-msg');
+        if ($msg.length === 0) {
+          $input.after('<div class="error-msg"></div>');
+          $msg = $input.siblings('.error-msg');
+        }
+        $msg.show();
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  $(document).on('input change', '.input-required1', function() {
+    const $input = $(this);
+    const $inputBox = $input.closest('.input-box');
+    if ($input.val().trim() !== '') {
+      $input.removeClass('error');
+      $inputBox.removeClass('error');
+      $input.siblings('.error-msg').hide();
+    }
+  });
+
+ function validateForm_update() {
+    let valid = true;
+    $('.input-required-update').each(function() {
+      const $input = $(this);
+      const $inputBox = $input.closest('.input-box');
+      if ($input.val().trim() === '') {
+        $input.addClass('error');
+        $inputBox.addClass('error');
+
+        let $msg = $input.siblings('.error-msg');
+        if ($msg.length === 0) {
+          $input.after('<div class="error-msg"></div>');
+          $msg = $input.siblings('.error-msg');
+        }
+        $msg.show();
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  $(document).on('input change', '.input-required-update', function() {
+    const $input = $(this);
+    const $inputBox = $input.closest('.input-box');
+    if ($input.val().trim() !== '') {
+      $input.removeClass('error');
+      $inputBox.removeClass('error');
+      $input.siblings('.error-msg').hide();
+    }
+  });
+		
+
+		$(function() {
+	function removeAccents(str) {
+  const accentsMap = new Map([
+    ['À','A'], ['Á','A'], ['Â','A'], ['Ã','A'], ['Ä','A'], ['Å','A'],
+    ['Æ','AE'], ['Ç','C'], ['È','E'], ['É','E'], ['Ê','E'], ['Ë','E'],
+    ['Ì','I'], ['Í','I'], ['Î','I'], ['Ï','I'], ['Ð','D'], ['Ñ','N'],
+    ['Ò','O'], ['Ó','O'], ['Ô','O'], ['Õ','O'], ['Ö','O'], ['Ø','O'],
+    ['Ù','U'], ['Ú','U'], ['Û','U'], ['Ü','U'], ['Ý','Y'], ['Þ','TH'],
+    ['ß','ss'], ['à','a'], ['á','a'], ['â','a'], ['ã','a'], ['ä','a'], ['å','a'],
+    ['æ','ae'], ['ç','c'], ['è','e'], ['é','e'], ['ê','e'], ['ë','e'],
+    ['ì','i'], ['í','i'], ['î','i'], ['ï','i'], ['ð','d'], ['ñ','n'],
+    ['ò','o'], ['ó','o'], ['ô','o'], ['õ','o'], ['ö','o'], ['ø','o'],
+    ['ù','u'], ['ú','u'], ['û','u'], ['ü','u'], ['ý','y'], ['þ','th'], ['ÿ','y']
+  ]);
+
+  return str.split('').map(char => accentsMap.get(char) || char).join('');
+}
+
+  const $overlay = $('#shareOverlay');
+  const $popup = $('#sharePopup');
+  let urlToShare = ""; // sera mis à jour au clic d’un bouton
+  const shareText = "Cliquez sur le lien pour télécharger le bulletin de salaire et le fiche de paie : \r\n"; // texte partagé
+
+  // --- OUVERTURE / FERMETURE POPUP ---
+  function openPopup(link) {
+    urlToShare = link; 
+    console.log("Lien stocké :", urlToShare);
+    $overlay.fadeIn(150);
+    $popup.fadeIn(150);
+  }
+
+  function closePopup() {
+    $popup.fadeOut(150);
+    $overlay.fadeOut(150);
+  }
+
+  // --- CLIC SUR UN BOUTON DE PARTAGE ---
+  $(document).on('click', '.btnShare', function(e) {
+    e.preventDefault();
+    const id = $(this).data('id');  
+    const link = window.location.origin + "/pdf/bulletin_fiche_paie?pdf=" + id;
+    openPopup(link); 
+  });
+
+  // --- ACTIONS DE PARTAGE ---
+
+  // Facebook
+  $('#fbShare').on('click', function() {
+    const fbUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(urlToShare);
+    window.open(fbUrl, 'fbShareWindow', 'width=600,height=400');
+    closePopup();
+  });
+
+  // Twitter
+  $('#twShare').on('click', function() {
+    const twUrl = 'https://twitter.com/intent/tweet?url=' 
+                  + encodeURIComponent(urlToShare) 
+                  + '&text=' + encodeURIComponent(shareText);
+    window.open(twUrl, 'twShareWindow', 'width=600,height=400');
+    closePopup();
+  });
+
+  // WhatsApp
+  $('#waShare').on('click', function() {
+    const waUrl = 'https://api.whatsapp.com/send?text=' 
+                  + encodeURIComponent(shareText + " " + urlToShare);
+    window.open(waUrl, 'waShareWindow', 'width=600,height=600');
+    closePopup();
+  });
+
+  // Email
+$('#emailShare').on('click', function() {
+  const destinataire = "destinataire@example.com"; // <-- obligatoire
+  const subject = encodeURIComponent(removeAccents("bulletin de salaire"));
+  const body = encodeURIComponent(
+    removeAccents(shareText + urlToShare)
+  );
+
+  window.location.href = `mailto:${destinataire}?subject=${subject}&body=${body}`;
+  closePopup();
+});
+
+
+  // Copier le lien
+  async function copyLink() {
+    const $msg = $("#shareMessage");
+    try {
+      await navigator.clipboard.writeText(urlToShare);
+      $msg.text("Lien copié dans le presse-papier ✅").fadeIn();
+      setTimeout(() => { $msg.fadeOut(); closePopup(); }, 2000);
+    } catch {
+      $msg.text("Erreur lors de la copie ❌").fadeIn();
+      setTimeout(() => { $msg.fadeOut(); closePopup(); }, 2000);
+    }
+  }
+
+  $('#copyLinkBtn').on('click', copyLink);
+
+  // --- ACCESSIBILITÉ CLAVIER ---
+  $('.share-btn').on('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      $(this).click();
+    }
+  });
+
+  // --- FERMETURE POPUP ---
+  $overlay.on('click', closePopup);
+  $popup.find('.close-btn').on('click', closePopup);
+});
+//SHOW INFO
+</script>

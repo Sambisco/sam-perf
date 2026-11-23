@@ -1,0 +1,1100 @@
+{% include 'employe/header.html' %}
+{% include 'include/script.html' %}
+
+<input type="text" id="id_reference" value="{{id_contrat}}" hidden>
+<input type="text" id="id_matricule" value="{{matricule}}" hidden>
+<div class="main-employe-dashboard">
+	<div class="content-navigation naviagtion-employe">
+
+		<ul class="navigation">
+			<li class="active_nav active_nav_click" id="btn-modal-ajouter">
+				<a href="#">
+					<span class="icon"><i class="fas fa-fw fa-plus"></i></span>
+					<span class="text">Ajouter</span>
+				</a>
+			</li>
+		</ul>
+
+	</div>
+	<div class="content">
+		<div class="left">
+			<div class="sous-left">
+				<div class="date-box">
+					<form id="insert_photo">
+						<input type="text" name="insert_photo_profil" hidden>
+						<input type="text" name="id_employe" value="{{id_employe}}" hidden>
+						<input type="text" name="matricule" value="{{matricule}}" hidden>
+						<div class="upload">
+							<img src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt
+								id="photo_profil">
+							<div class="round">
+								<input type="file" name="photo" id="update_photo" class="file-upload">
+								<i class="fa fa-camera"></i>
+							</div>
+						</div>
+						<input type="submit" value="value" id="save_photo" hidden>
+					</form>
+					<div class="title">
+						<div class="sous-title">
+							<h3 id="nom_employe"></h3>
+							<h4 id="matricule"></h4>
+							<h5 id="poste_occupe"></h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="reference">
+				<div class="grand-ref">
+					<div class="ref1">
+						<div class="sous-ref1">
+							<div class="profil1">PROFIL</div>
+							<div class="profil1-line"></div>
+						</div>
+						<div class="sous-ref2">
+							<div>Date et lieu de Naissance</div>
+							<div>Naissance</div>
+						</div>
+						<div class="sous-ref3">
+							<div><i class="fa fa-calendar"></i><span id="date_n"></span></div>
+							<div><i class="fa fa-map-marker"></i><span id="lieu_n"></span></div>
+						</div>
+						<div class="sous-ref2">
+							<div>Informations</div>
+							<div>Adresse et téléphone</div>
+						</div>
+						<div class="sous-ref3">
+							<div><i class="fa fa-map-marker"></i><span id="adresse_e"></span></div>
+							<div><i class="fa fa-phone fa-rotate-90"></i><span
+									id="telephone_e"></span></div>
+						</div>
+						<div class="sous-ref2">
+							<div>Parents</div>
+							<div>Pére et mére</div>
+						</div>
+						<div class="sous-ref3">
+							<div><i class="fa fa-male"></i><span id="nom_pere"></span></div>
+							<div><i class="fa fa-female"></i><span id="nom_mere"></span></div>
+						</div>
+					</div>
+					<ddiv class="separateur"></ddiv>
+					<div class="ref1 ref1-right">
+						<div class="sous-ref1">
+							<div class="profil1">CONTRAT</div>
+							<div class="profil1-line"></div>
+						</div>
+						<div class="sous-ref2">
+							<div>Nature du contrat</div>
+							<div>Signature</div>
+						</div>
+						<div class="sous-ref3">
+							<div><i class="fa fa-file-contract"></i><span id="nature"></span></div>
+						</div>
+						<div class="sous-ref2">
+							<div>Date d'embauche</div>
+							<div>Début</div>
+						</div>
+						<div class="sous-ref3">
+							<div><i class="fa fa-calendar-check"></i><span
+									id="date_embauche"></span></div>
+						</div>
+						<div class="sous-ref2">
+							<div>Date fin de contrat </div>
+							<div>Sortie</div>
+						</div>
+						<div class="sous-ref3">
+							<div><i class="fa fa-calendar-times"></i><span
+									id="date_sorti"></span></div>
+						</div>
+						<div class="sous-ref2">
+							<div>Compte à rebours</div>
+							<div>Durée</div>
+						</div>
+						<div class="sous-ref3">
+							<div><i class="fa fa-hourglass-half"></i><span
+									id="nombre_annee"></span></div>
+						</div>
+					</div>
+				</div>
+				<div class="qr-code"><img src alt id="qr-code"></div>
+			</div>
+		</div>
+		<div class="right">
+			<div class="content-right">
+				<section class="timeline_about card_tab_pane">
+					<div class="tabs">
+						<ul>
+							<li class="timeline tab_btn active_tab">
+								<i class="ri-eye-fill ri"></i>
+								<span>Demande absence</span>
+							</li>
+							<li class="about tab_btn">
+								<i class="ri-user-3-fill ri"></i>
+								<span>Salaire</span>
+							</li>
+							<li class="about tab_btn">
+								<i class="ri-user-3-fill ri"></i>
+								<span>Galerie</span>
+							</li>
+						</ul>
+					</div>
+					<div class="contact_Info content_tab active_tab">
+						<div class="content-list content-list1">
+
+						</div>
+						<!----------------PAGINATION----------->
+						<div class="pagination">
+							<div class="showingInfo" id="showingInfo1"></div>
+							<div class="showingPage" id="pagination1"></div>
+						</div>
+					</div>
+					<div class="contact_Info content_tab">
+						<div class="content-list content-list2">
+
+						</div>
+						<!----------------PAGINATION----------->
+						<div class="pagination">
+							<div class="showingInfo" id="showingInfo2"></div>
+							<div class="showingPage" id="pagination2"></div>
+						</div>
+					</div>
+					<div class="contact_Info content_tab">
+						<div class="content-list content-list3">
+
+						</div>
+						<!----------------PAGINATION----------->
+						<div class="pagination">
+							<div class="showingInfo" id="showingInfo3"></div>
+							<div class="showingPage" id="pagination3"></div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+<form id="insertForm">
+	<div class="petit close-modal" id="ajouter-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">Demande d'absence</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload1">
+						<div class="upload1">
+							<div class="fa fa-plus"></div>
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="id_contrat" value="{{id_contrat}}">
+						<input type="hidden" name="insert_id">
+
+						<div class="nextstep nextstep-active">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Période du</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input vider" name="periode_du"
+											id="date_debut"
+											placeholder="Region" required="required">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Période au</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i> </span>
+										<input type="date" class="text-input vider" name="periode_au"
+											id="date_fin"
+											placeholder="Telephone" required="required">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nombre de jour</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input vider" name="nbr_jour"
+											id="nbr_jour"
+											placeholder="Nombre de jour"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Supérieur hiérarchique</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-graduation-cap fa-icon"></i></span>
+										<input type="text" class="text-input vider"
+											name="superieur_hierarchique"
+											placeholder="Supérieur hiérarchique"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Fonction supérieur</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-chalkboard-teacher fa-icon"></i></span>
+										<input type="text" class="text-input vider" name="fonction_superieur"
+											placeholder="Fonction supérieur" required="required"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Motif de la demande </label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-signature fa-icon"></i></span>
+										<input type="text" class="text-input vider" name="motif"
+											placeholder="Motif de la demande" required="required"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Imputable sur les normaux</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-ring fa-icon"></i></span>
+										<select name="Imputable_sur_les_normaux"
+											class="js-searchBox edit_contrat13 input-required-update1 vider"
+											id="id_imputable_sur" required="required">
+											<option value>Selectionnez</option>
+											<option value="Oui">Oui</option>
+											<option value="Non">Non</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group fetch-input" style="display:none;">
+									<label class="label-details">Precisez</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-signature fa-icon"></i></span>
+										<input type="text" class="text-input vider" name="precision_employe"
+											placeholder="Precisez"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="insertdata">Enregister</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!---------------UPDATE--------------->
+<form id="updateForm">
+	<div class="petit close-modal" id="modifier-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">Demande d'absence</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload1">
+						<div class="upload1">
+							<div class="fa fa-edit"></div>
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="edit_id_emp" id="edit_id">
+
+						<div class="nextstep nextstep-active">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Période du</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input " name="periode_du"
+											id="edit_periode_du"
+											placeholder="Region" required="required">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Période au</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i> </span>
+										<input type="date" class="text-input" name="periode_au"
+											id="edit_periode_au"
+											placeholder="Telephone" required="required">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nombre de jour</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="nbr_jour"
+											id="edit_nbr_jour"
+											placeholder="Nombre de jour"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Supérieur hiérarchique</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-graduation-cap fa-icon"></i></span>
+										<input type="text" class="text-input" name="superieur_hierarchique"
+											id="superieur_hierarchique" placeholder="Supérieur hiérarchique"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Fonction supérieur</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-chalkboard-teacher fa-icon"></i></span>
+										<input type="text" class="text-input" name="fonction_superieur"
+											id="fonction_superieur" placeholder="Fonction supérieur"
+											required="required"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Motif de la demande </label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-signature fa-icon"></i></span>
+										<input type="text" class="text-input" name="motif" id="motif"
+											placeholder="Motif de la demande" required="required"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Imputable sur les normaux</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-ring fa-icon"></i></span>
+										<select name="Imputable_sur_les_normaux"
+											class="js-searchBox edit_contrat13 input-required-update1"
+											id="id_imputable_sur2" required="required">
+											<option value>Selectionnez</option>
+											<option value="Oui">Oui</option>
+											<option value="Non">Non</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group fetch-input2" style="display:none;">
+									<label class="label-details">Precisez</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-signature fa-icon"></i></span>
+										<input type="text" class="text-input" name="precision_employe"
+											id="precision_employe" placeholder="Precisez"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="updatedata">Modifier</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</form>
+<form id="updateForm_profil">
+	<div class="petit close-modal" id="updateForm_profil-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">Mettre photo de profil</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="up_profil_imgPreview-photo">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+
+						<h1 class="card-title" id="del-title-name"></h1>
+						<div class="nextstep-active-update">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Voulez-vous vraiment mettre comme profil
+										?</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-edit"></i> </span>
+										<input type="text" class="text-input" name="id_employe"
+											value="{{id_employe}}" readonly hidden>
+										<input type="text" class="text-input" name="photo_update_profil"
+											id="nom_update-profil" readonly>
+
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="deletedata">Mettre profil</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</form>
+<form id="deleteForm">
+	<div class="petit close-modal" id="supprimer-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">SUPPRIMER photo</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="del_profil_imgPreview">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+
+						<h1 class="card-title" id="del-title-name"></h1>
+						<div class="nextstep-active-update">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-trash"></i> </span>
+										<input type="text" class="text-input" name="matricule"
+											value="{{matricule}}" readonly hidden>
+										<input type="text" class="text-input" name="photo_delete" id="nom_del"
+											readonly>
+
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="deletedata">Supprimer</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</form>
+
+{% include 'employe/footer.html' %}
+<script>
+
+			$(document).ready(function(e) {
+				fetchdata();
+			})
+
+			function fetchdata() {
+			var id = $("#id_reference").val()
+			$.ajax({
+				url: "../controller/employe/fetch_portail",
+				type: "POST",
+				data: {
+					id_contrat: id
+				},
+				success: function(data) {
+					 console.log("Réponse reçue :", data);
+					$("#photo_profil").attr("src", data.photo);
+					$("#img-profil-user").attr("src", data.photo);
+					$("#logo_entreprise").attr("src", data.logo);
+					$("#logo-name").html(data.entreprise)
+					$("#nom_employe").html(data.prenom+" "+data.nom)
+					$("#matricule").html(data.matricule)
+					$("#poste_occupe").html(data.poste_occupe)
+					$("#date_n").html(data.date_n)
+					$("#lieu_n").html(data.lieu_n)
+					$("#adresse_e").html(data.adresse_e)
+					$("#telephone_e").html(data.telephone_e)
+					$("#nom_pere").html(data.nom_pere)
+					$("#nom_mere").html(data.nom_mere)
+					$("#nature").html(data.nature)
+					$("#date_embauche").html(data.date_embauche)
+					$("#date_sorti").html(data.date_sorti)
+					$("#nombre_annee").html(data.nombre_annee)
+					$("#qr-code").attr("src", data.photo_qr);
+				}
+			})
+            $.ajax({
+		        url: "../controller/employe/fetch_portail",
+		         type: "POST",
+		         data: {
+		         	id_demande_absence: id
+		         },
+		         success: function(response) {
+		         	$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+		         	var gp_data = response;
+		         	for (var a = 0; a < gp_data.length; a++) {
+		         		var div1 = `<div class="parent box result well">
+		         			 <div class="card">
+								<div class="content-date-box">
+                                    <div class="overlay">
+                                        <div class="date-box">${gp_data[a].nbr_jour}</div>
+                                    </div>
+                                </div>
+		         				<div class="content-box">
+		         					<div class="card-content">
+		         						<div class="card-content-info">
+		         							<i class="fa fa-calendar-check"></i><span>${gp_data[a].periode_du}</span>
+		         						</div>
+		         						<div class="card-content-info">
+		         							<i class="fa fa-calendar-times"></i><span>${gp_data[a].periode_au}</span>
+		         						</div>
+		         						<div class="card-content-info">
+		         							<i class="fa fa-file-contract"></i><span>${gp_data[a].motif}</span>
+		         						</div>
+		         						<div class="card-content-info">
+		         							<i class="fa fa-hourglass-half"></i><span>${gp_data[a].avis_rh}</span>
+		         						</div>
+		         					</div>
+		         				</div>
+								<div class="content-navigation_list">
+		         					<ul class="navigation_list">
+		         			           <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="updatebtn" data-id="${gp_data[a].id_demande_absence}">
+		         			           	<a href="#">
+		         			           		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+		         			           		<span class="text">Modifier</span>
+		         							<span class="lampe"></span>
+		         			           	</a>
+		         			           </li>
+		         			           <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="printbtn" data-id="${gp_data[a].id_demande_absence}">
+		         			           	<a href="#">
+		         			           		<span class="icon"><i class="fas fa-file"></i></span>
+		         			           		<span class="text">Imprimer</span>
+		         							<span class="lampe"></span>
+		         			           	</a>
+		         			           </li>
+		         		           </ul>
+								</div>
+		         			</div>
+		         		  </div>`;
+		         		$('.content-list1').append(div1);
+		         	}
+		         	updateSectionItems(0);
+		         },
+	})
+
+	        $.ajax({
+		        url: "../controller/employe/fetch_portail",
+		         type: "POST",
+		         data: {
+		         	id_salaire: id
+		         },
+		         success: function(response) {
+		         	$('.content-list2').html(""); //insérer le texte de test.php dans votre div
+		         	var gp_data = response;
+		         	for (var b = 0; b < gp_data.length; b++) {
+		         		var div2 = `<div class="parent box result well">
+		         			 <div class="card">
+								<div class="content-date-box">
+                                    <div class="overlay">
+                                        <div class="date-box">${gp_data[b].annee}</div>
+                                    </div>
+                                </div>
+						        <div class="content-box">
+						        	<div class="card-content">
+						        		<div class="card-content-info">
+						        			<i class="fa fa-calendar"></i><span>${gp_data[b].periode}</span>
+						        		</div>
+										<div class="card-content-info">
+						        			<i class="fa fa-calendar"></i><span>${gp_data[b].date_paiement}</span>
+						        		</div>
+						        		<div class="card-content-info">
+						        			<i class="fa fa-credit-card"></i><span>${gp_data[b].mode_paie}</span>
+						        		</div>
+						        	</div>
+						        </div>
+								<div class="content-navigation_list">
+		         					<ul class="navigation_list">
+		         			            <li class="active_nav_list active_nav_click_list2 active_nav_click_list2_${gp_data[b].count}" id="printbtn2" data-id="${gp_data[b].id_salaire}">
+					           	           <a href="#">
+					           	           	<span class="icon"><i class="fas fa-fw fa-print"></i></span>
+					           	           	<span class="text">Bulletin</span>
+								           	<span class="lampe"></span>
+					           	           </a>
+					                    </li>
+							            <li class="active_nav_click_list2 active_nav_click_list2_${gp_data[b].count}" id="fichebtn2" data-id="${gp_data[b].id_salaire}">
+					                    	<a href="#">
+					                    		<span class="icon"><i class="fas fa-fw fa-file"></i></span>
+					                    		<span class="text">F. Paie</span>
+								         	<span class="lampe"></span>
+					                    	</a>
+					                    </li>
+		         		           </ul>
+								</div>
+		         			</div>
+		         		  </div>`;
+		         		$('.content-list2').append(div2);
+		         	}
+		         	updateSectionItems(1);
+		         },
+	})
+
+	 $.ajax({
+		        url: "../controller/employe/fetch_portail",
+		         type: "POST",
+		         data: {
+		         	id_galerie: id
+		         },
+		         success: function(response) {
+		         	$('.content-list3').html(""); //insérer le texte de test.php dans votre div
+		         	var gp_data = response;
+		         	for (var b = 0; b < gp_data.length; b++) {
+    var emp = gp_data[b];
+    for (var i = 0; i < emp.images.length; i++) {
+        var img = emp.images[i];
+
+        var div2 = `
+        <div class="parent box result well">
+            <div class="card">
+				<div class="content-date-box">
+                <div class="overlay">
+                   
+                </div>
+                </div>
+                <div class="content-box">
+                    <img src="${img.url}" alt="${img.filename}">
+                </div>
+				<div class="content-navigation_list">
+                    <ul class="navigation_list">
+                        <li class="active_nav_list active_nav_click_list3 active_nav_click_list3_${i+1}" id="edit_photo" data-id="${img.filename}">
+                            <a href="#">
+                                <span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+                                <span class="text">Modifier</span>
+                                <span class="lampe"></span>
+                            </a>
+                        </li>
+                        <li class="active_nav_click_list3 active_nav_click_list3_${i+1}" id="delete_photo" data-id="${img.filename}">
+                            <a href="#">
+                                <span class="icon"><i class="fas fa-fw fa-trash"></i></span>
+                                <span class="text">Supprimer</span>
+                                <span class="lampe"></span>
+                            </a>
+                        </li>
+                    </ul>
+				</div>
+            </div>
+        </div>`;
+        $('.content-list3').append(div2);
+    }
+}
+
+		         	updateSectionItems(2);
+		         },
+	})
+
+}
+
+		$(document).on("click", ".active_nav_click_list", function (e) {
+            e.preventDefault();
+			var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+			console.log("ID chiffré cliqué:", encryptedId);
+
+			// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+			var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+			$(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+			$(this).addClass("active_nav_list");
+
+			// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+		});
+
+		$(document).on("click", ".active_nav_click_list2", function (e) {
+            e.preventDefault();
+			var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+			console.log("ID chiffré cliqué:", encryptedId);
+
+			// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+			var simpleId = $(this).attr('class').match(/active_nav_click_list2_(\d+)/)[1];
+			$(".active_nav_click_list2_" + simpleId).removeClass("active_nav_list");
+			$(this).addClass("active_nav_list");
+
+			// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+		});
+
+		$(document).on("click", ".active_nav_click_list3", function (e) {
+    e.preventDefault();
+
+    var encryptedId = $(this).data('id'); 
+    console.log("ID chiffré cliqué:", encryptedId);
+
+    // Correction : on cherche "active_nav_click_list3_"
+    var match = $(this).attr('class').match(/active_nav_click_list3_(\d+)/);
+    if (match) {
+        var simpleId = match[1];
+        $(".active_nav_click_list3_" + simpleId).removeClass("active_nav_list");
+        $(this).addClass("active_nav_list");
+    } else {
+        console.warn("⚠️ Aucune correspondance trouvée pour la classe:", $(this).attr('class'));
+    }
+
+    // Ici tu peux utiliser encryptedId pour ton AJAX
+});
+
+		 $(document).on('click', '#printbtn', function(e) {
+        	var id = $(this).data('id');
+        	window.open(`../pdf/document_demande?pdf=${id}`, '_blank');
+        })
+        $(document).on('click', '#printbtn2', function(e) {
+        	var id = $(this).data('id');
+        	window.open(`../pdf/bulletin2?pdf=${id}`, '_blank');
+        })
+        $(document).on('click', '#fichebtn2', function(e) {
+        	var id = $(this).data('id');
+        	window.open(`../pdf/fiche_paie_employe?pdf=${id}`, '_blank');
+        })
+		$("#btn-modal-ajouter").click(function() {
+	$("#ajouter-modal").fadeIn();
+});
+$('.js-searchBox').select2({
+	width: '100%'
+});
+$('#id_imputable_sur2').select2({
+	width: '100%'
+});
+$(document).on('change', '#id_imputable_sur', function(e) {
+	var id_imputable_sur = $(this).val();
+	if (id_imputable_sur == "Non") {
+		$(".fetch-input").show()
+	} else {
+		$(".fetch-input").hide()
+	}
+})
+$(document).on('change', '#id_imputable_sur2', function(e) {
+	var id_imputable_sur = $(this).val();
+	if (id_imputable_sur == "Non") {
+		$(".fetch-input2").show()
+	} else {
+		$(".fetch-input2").hide()
+	}
+})
+
+$(document).ready(function(e) {
+	//INSERTION
+	$("#insertForm").on('submit', function(e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '../controller/demande_absence/save',
+			data: new FormData(this),
+			dataType: 'json',
+			contentType: false,
+			cache: false,
+			processData: false,
+			success: function(response) {
+				console.log(response)
+			}
+		});
+		$("#ajouter-modal").fadeOut();
+		Swal.fire({
+			icon: 'success',
+			title: 'Enregistré',
+			text: "Enregistrement effectué avec succés.",
+			confirmButtonColor: '#127b8e',
+			showConfirmButton: false,
+			timer: 2000
+		}).then(function() {
+			fetchdata()
+		});
+		$(".vider").val("").trigger('change');
+	});
+
+	$("#insert_photo").on('submit', function(e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '../controller/employe/save',
+			data: new FormData(this),
+			//dataType: 'json',
+			contentType: false,
+			cache: false,
+			processData: false,
+			success: function(response) {
+				console.log(response)
+			}
+		});
+		$("#ajouter-modal").fadeOut();
+		Swal.fire({
+			icon: 'success',
+			title: 'Enregistré',
+			text: "Enregistrement effectué avec succés.",
+			confirmButtonColor: '#127b8e',
+			showConfirmButton: false,
+			timer: 2000
+		}).then(function() {
+			fetchdata()
+		});
+	});
+})
+// MODIFIER
+//UPDATE
+$("#updateForm").on('submit', function(e) {
+	e.preventDefault();
+	$.ajax({
+		type: 'POST',
+		url: '../controller/demande_absence/save',
+		data: new FormData(this),
+		dataType: 'json',
+		contentType: false,
+		cache: false,
+		processData: false,
+
+		success: function(response) {
+			console.log(response)
+		}
+	});
+	$("#modifier-modal").fadeOut();
+	Swal.fire({
+		icon: 'success',
+		title: 'Modifié',
+		text: "Modification effectuée avec succés.",
+		confirmButtonColor: '#127b8e',
+		showConfirmButton: false,
+		timer: 2000
+	}).then(function() {
+		fetchdata()
+	});
+});
+$("#deleteForm").on('submit', function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        type: 'POST',
+        url: '../controller/employe/save',
+        data: new FormData(this),
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(response) {
+            console.log(response);
+
+            if (response.status === "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Supprimé',
+                    text: response.message,
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(function() {
+                    $("#supprimer-modal").fadeOut();
+                    fetchdata(); // recharge la galerie
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: response.message || "La suppression a échoué",
+                    confirmButtonColor: '#127b8e'
+                });
+            }
+        },
+        error: function(xhr) {
+            console.log("Erreur AJAX:", xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: "Erreur serveur AJAX",
+                confirmButtonColor: '#127b8e'
+            });
+        }
+    });
+});
+$("#updateForm_profil").on('submit', function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        type: 'POST',
+        url: '../controller/employe/save',
+        data: new FormData(this),
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(response) {
+            console.log(response);
+
+            if (response.status === "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Supprimé',
+                    text: response.message,
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(function() {
+                   	$("#updateForm_profil-modal").fadeOut();;
+                    fetchdata(); // recharge la galerie
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: response.message || "La suppression a échoué",
+                    confirmButtonColor: '#127b8e'
+                });
+            }
+        },
+        error: function(xhr) {
+            console.log("Erreur AJAX:", xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: "Erreur serveur AJAX",
+                confirmButtonColor: '#127b8e'
+            });
+        }
+    });
+});
+
+$(document).on('click', '#updatebtn', function(e) {
+	var id_demande_absence = $(this).data('id');
+	$.ajax({
+		url: '../controller/demande_absence/fetch_demande_absence',
+		type: "post",
+		data: {
+			id_demande_absence: id_demande_absence
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data.logo)
+			$("#edit_id").val(data.id_demande_absence);
+			$("#edit_periode_du").val(data.periode_du);
+			$("#edit_periode_au").val(data.periode_au);
+			$("#edit_nbr_jour").val(data.nbr_jour)
+			$("#superieur_hierarchique").val(data.superieur_hierarchique);
+			$("#fonction_superieur").val(data.fonction_superieur);
+			$("#motif").val(data.motif);
+			$("#id_imputable_sur2").val(data.Imputable_sur_les_normaux).trigger("change");
+			$("#precision_employe").val(data.precision_employe)
+			$("#edit_date").val(data.date_v)
+			$("#modifier-modal").fadeIn();
+		}
+
+	});
+});
+$(document).on("change", "#update_photo",async  function(e) {
+	var file = this.files[0];
+        if (file) {
+            try {
+                // Compresser l'image
+                const compressedBlob = await compressImage(file, 800, 800, 0.9);
+                const compressedFile = new File([compressedBlob], file.name, { type: "image/jpeg" });
+
+                // Remplacer le fichier original dans le formulaire
+                const form = $("#insert_photo")[0];
+                const dataTransfer = new DataTransfer(); // crée un nouveau FileList
+                dataTransfer.items.add(compressedFile);
+                form.querySelector("#update_photo").files = dataTransfer.files;
+
+                // Déclenche le submit
+                $("#save_photo").click();
+            } catch (err) {
+                console.error("Erreur compression :", err);
+            }
+        }
+})
+function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.9) {
+    return new Promise(function(resolve, reject) {
+        const img = new Image();
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        img.onload = function() {
+            const canvas = document.createElement("canvas");
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = Math.round(height * maxWidth / width);
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = Math.round(width * maxHeight / height);
+                    height = maxHeight;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(function(blob) {
+                resolve(blob);
+            }, "image/jpeg", quality);
+        };
+
+        img.onerror = function(err) {
+            reject(err);
+        };
+    });
+}
+$(document).on('click', '#delete_photo', function(e) {
+
+	e.preventDefault()
+	var image = $(this).data('id');
+	var matricule= $("#id_matricule").val();
+	$("#nom_del").val(image);
+	$("#del_profil_imgPreview").attr("src", `/static/img/img_employe/${matricule}/${image}`)
+	$("#supprimer-modal").fadeIn();
+ 
+});
+
+$(document).on('click', '#edit_photo', function(e) {
+
+	e.preventDefault()
+	var image = $(this).data('id');
+	var matricule= $("#id_matricule").val();
+	$("#nom_update-profil").val(image);
+	$("#up_profil_imgPreview-photo").attr("src", `/static/img/img_employe/${matricule}/${image}`)
+	$("#updateForm_profil-modal").fadeIn();
+ 
+});
+</script>

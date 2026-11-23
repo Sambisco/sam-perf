@@ -1,0 +1,835 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Profile</title>
+		{% include 'include/css.html' %}
+		{% include 'include/script.html' %}
+		<!-- ===== ===== Custom Css ===== ===== -->
+		<link rel="stylesheet"
+			href="{{ url_for('static', filename='css/css/style_employe.css') }}">
+		<link rel="stylesheet"
+			href="{{ url_for('static', filename='css/css/responsive_employe.css') }}">
+		<!-- ===== ===== Remix Font Icons Cdn ===== ===== -->
+		<link rel="icon" type="image/png" href="static/img/image/image.jpg"
+			id="favicon">
+	</head>
+
+	<body>
+
+		<!-- ===== ===== Body Main-Background ===== ===== -->
+		<span class="main_bg"></span>
+		<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+		<!-- ===== ===== Main-Container ===== ===== -->
+		<div class="container">
+			<button type="button" class="header-button-search icons-switcher"
+				style="display: none;"><i
+					class="fas fa-palette"></i></button>
+			<div class="color-box"
+				style="display: block; opacity: 0; pointer-events: auto;">
+				<div class="color-switchers">
+					<button class="btn-switcher principal active-color" id="principal"
+						data-color="#005f9e"></button>
+					<button class="btn-switcher green-switcher" id="green-switcher"
+						data-color="#04640e"></button>
+					<button class="btn-switcher orange-switcher" id="orange-switcher"
+						data-color="#955d02"></button>
+					<button class="btn-switcher purple-switcher" id="purple-switcher"
+						data-color="#8e44ad"></button>
+					<button class="btn-switcher red-switcher" id="red-switcher"
+						data-color="#650205"></button>
+				</div>
+			</div>
+			<!-- ===== ===== Header/Navbar ===== ===== -->
+			<header>
+				<div class="brandLogo">
+					<figure>
+						<img src alt="logo" width="40px" height="40px" id="logo">
+					</figure>
+					<span id="entreprise"></span>
+				</div>
+			</header>
+
+			<!-- ===== ===== User Main-Profile ===== ===== -->
+			<section class="userProfile card">
+				<div class="profile">
+					<figure><img src alt="profile" width="250px" height="250px" id="photo">
+					</figure>
+				</div>
+			</section>
+
+			<!-- ===== ===== Work & Skills Section ===== ===== -->
+			<section class="work_skills card">
+
+				<!-- ===== ===== Work Contaienr ===== ===== -->
+				<div class="work">
+					<h1 class="heading">Profil</h1>
+					<div class="primary">
+						<h1>Date et lieu de Naissance</h1>
+						<span>Naissance</span>
+						<p id="date_naissance"></p>
+					</div>
+
+					<div class="secondary">
+						<h1>Informations</h1>
+						<span>Adresse et téléphone</span>
+						<p id="adresse_e_telephone_e"></p>
+					</div>
+					<div class="secondary">
+						<h1>Parents</h1>
+						<span>Pére et mére</span>
+						<p id="nom_pere_nom_mere"></p>
+					</div>
+				</div>
+
+				<!-- ===== ===== Skills Contaienr ===== ===== -->
+				<div class="skills" style="display: none;">
+					<h1 class="heading">Skills</h1>
+					<ul>
+						<li style="--i:0">Android</li>
+						<li style="--i:1">Web-Design</li>
+						<li style="--i:2">UI/UX</li>
+						<li style="--i:3">Video Editing</li>
+					</ul>
+				</div>
+			</section>
+
+			<!-- ===== ===== User Details Sections ===== ===== -->
+			<section class="userDetails card">
+				<div class="userName">
+					<h1 class="name" id="nom_employe"></h1>
+					<div class="map">
+						<i class="ri-map-pin-fill ri"></i>
+						<span></span>
+					</div>
+					<p id="poste_occupe"></p>
+				</div>
+
+				<div class="rank">
+					<h1 class="heading" id="matricule"></h1>
+					<h1 class="heading">Contrat</h1>
+					<span id="Contrat"></span>
+					<div class="rating">
+						<i class="ri-star-fill rate"></i>
+						<i class="ri-star-fill rate"></i>
+						<i class="ri-star-fill rate"></i>
+						<i class="ri-star-fill rate"></i>
+						<i class="ri-star-fill rate underrate"></i>
+					</div>
+				</div>
+
+				<div class="btns">
+					<ul>
+						<li class="sendMsg">
+							<i class="ri-chat-4-fill ri"></i>
+							<a href="#" id="nationalite"></a>
+						</li>
+
+						<li class="sendMsg active">
+							<i class="ri-check-fill ri"></i>
+							<a href="#" id="cin_e"></a>
+						</li>
+
+						<li class="sendMsg">
+							<a href="#" id="email_e"></a>
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			<!-- ===== ===== Timeline & About Sections ===== ===== -->
+			<section class="timeline_about card">
+				<div class="tabs">
+					<ul>
+						<li class="timeline tab_btn active_tab">
+							<i class="ri-eye-fill ri"></i>
+							<span>Contrat</span>
+						</li>
+						<li class="about tab_btn">
+							<i class="ri-user-3-fill ri"></i>
+							<span>Indémnité</span>
+						</li>
+						<li class="about tab_btn">
+							<i class="ri-user-3-fill ri"></i>
+							<span>Affectation</span>
+						</li>
+						<li class="about tab_btn">
+							<i class="ri-user-3-fill ri"></i>
+							<span>Conge annuel</span>
+						</li>
+						<li class="about tab_btn" id="conge_maternite">
+							<i class="ri-user-3-fill ri"></i>
+							<span>Conge maternite</span>
+						</li>
+						<li class="about tab_btn">
+							<i class="ri-user-3-fill ri"></i>
+							<span>Pointage</span>
+						</li>
+						<li class="about tab_btn">
+							<i class="ri-user-3-fill ri"></i>
+							<span>Salaire</span>
+						</li>
+					</ul>
+				</div>
+
+				<div class="contact_Info content_tab active_tab">
+					<h1 class="heading space_heading">Information contrat</h1>
+					<ul>
+						<li class="phone">
+							<h1 class="label">Catégorie:</h1>
+							<span class="info" id="categorie"></span>
+						</li>
+						<li class="phone">
+							<h1 class="label">Date d'embauche:</h1>
+							<span
+								class="info" id="date_embauche"></span>
+						</li>
+						<li class="address">
+							<h1 class="label">Date fin de contrat:</h1>
+							<span
+								class="info" id="date_sorti"></span>
+						</li>
+
+						<li class="email">
+							<h1 class="label">Situation matrimoniale:</h1>
+							<span class="info" id="situation_matr"></span>
+						</li>
+
+						<li class="site">
+							<h1 class="label">Genre:</h1>
+							<span class="info" id="genre"></span>
+						</li>
+					</ul>
+					<div class="basic_info">
+						<h1 class="heading">Information de base</h1>
+						<ul>
+							<li class="birthday">
+								<h1 class="label">Salaire de base:</h1>
+								<span
+									class="info" id="salaire"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">Conjoint(e):</h1>
+								<span class="info" id="conjoint"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">Enfant:</h1>
+								<span class="info" id="enfant"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">TRIMF:</h1>
+								<span class="info" id="nb_trimf"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">IRPP:</h1>
+								<span class="info" id="nb_irpp"></span>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="contact_Info content_tab">
+					<h1 class="heading space_heading">Information indémnité</h1>
+					<ul>
+						<li class="phone">
+							<h1 class="label">Date d'effet:</h1>
+							<span class="info">JJ/MM/AAAA</span>
+						</li>
+					</ul>
+					<div class="basic_info">
+						<h1 class="heading">Information de base</h1>
+						<ul>
+							<li class="birthday">
+								<h1 class="label">Sursalaire:</h1>
+								<span
+									class="info" id="sursalaire"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">Fonction:</h1>
+								<span
+									class="info" id="fonction"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">Sujetion:</h1>
+								<span
+									class="info" id="sujetion"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">Responsabilite:</h1>
+								<span
+									class="info" id="responsabilite"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">Logement:</h1>
+								<span
+									class="info" id="logement"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">Transport:</h1>
+								<span
+									class="info" id="transport"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">Téléphone:</h1>
+								<span
+									class="info" id="telephone_in"></span>
+							</li>
+							<li class="sex">
+								<h1 class="label">Téléphone:</h1>
+								<span
+									class="info" id="autre_indemnite"></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="contact_Info content_tab">
+					<h1 class="heading space_heading">Information Affectation</h1>
+
+					<table id="example1" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Date d'affectation</th>
+								<th>Region</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="contact_Info content_tab">
+					<h1 class="heading space_heading">Information Conge annuel</h1>
+
+					<table id="example2" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Date debut</th>
+								<th>Date fin</th>
+								<th>Jours</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="contact_Info content_tab">
+					<h1 class="heading space_heading">Information Conge maternite</h1>
+
+					<table id="example3" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>N° Decision</th>
+								<th>Date decision</th>
+								<th>Date suspension</th>
+								<th>Date debut</th>
+								<th>Date fin</th>
+								<th>Date reprise</th>
+								<th>Medcin</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="contact_Info content_tab">
+					<h1 class="heading space_heading">Information Pointage</h1>
+
+					<table id="example4" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Date</th>
+								<th>Heure d'entrée</th>
+								<th>Heure de sortie</th>
+								<th>Pointage</th>
+								<th>justification</th>
+								<th>Imputable sur les normaux</th>
+							</tr>
+						</thead>
+						<tbody>
+														
+						</tbody>
+
+					</table>
+				</div>
+				<div class="contact_Info content_tab">
+					<h1 class="heading space_heading">Information Salaire</h1>
+
+					<table id="example5" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Periode paie</th>
+								<th>Date paie</th>
+								<th>Mode paie</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+		<script>
+			var tabs = document.querySelectorAll(".tab_btn");
+			var all_content_tab = document.querySelectorAll(".content_tab");
+
+			tabs.forEach((tab, index) => {
+				tab.addEventListener("click", (e) => {
+					tabs.forEach(tab => {
+						tab.classList.remove('active_tab')
+					})
+					tab.classList.add('active_tab');
+					all_content_tab.forEach(content_tab => {
+						content_tab.classList.remove('active_tab')
+					})
+					all_content_tab[index].classList.add('active_tab');
+				})
+			})
+			$('document').ready(function() {
+			fetchdata()
+		})
+		function fetchdata(){
+			var id = $("#id_reference").val();
+
+
+			$.ajax({
+				url: "../controller/employe/fetch_show_employe",
+				type: "post",
+				data: {
+					id_employe: id
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data)
+					 $('link[rel*="icon"]').remove();
+                    $('<link/>', {
+                        id: 'favicon',
+                        rel: 'icon',
+                        type: 'image/png',
+                        href: data[0].logo + "?v=" + Date.now() // cache-bust
+                    }).appendTo('head');
+					$('#logo').attr("src",data[0].logo); 
+					$("#entreprise").html(data[0].entreprise)
+					$("#photo").attr("src",data[0].photo)
+					$("#date_naissance").html(data[0].date_n2 + "<br>" + data[0].lieu_n)
+					$("#adresse_e_telephone_e").html(data[0].adresse_e + "<br>" + data[0].telephone_e)
+					$("#nom_pere_nom_mere").html(data[0].nom_pere + "<br>" + data[0].nom_mere)
+					$("#nom_employe").html(data[0].prenom + " " + data[0].nom)
+					$("#poste_occupe").html(data[0].poste_occupe)
+					$("#matricule").html(data[0].matricule)
+					$("#Contrat").html(data[0].nature)
+					$("#nationalite").html(data[0].nationalite)
+					$("#cin_e").html("C.I.N :"+data[0].cin_e)
+					$("#email_e").html(data[0].email_e)
+
+					if(data[0].genre == "Feminin"){
+                       $("#conge_maternite").show()
+					}else{
+                       $("#conge_maternite").hide()
+					}
+					$("#categorie").html(data[0].categorie)
+					$("#date_embauche").html(data[0].date_embauche)
+					$("#date_sorti").html(data[0].date_sorti)
+					$("#situation_matr").html(data[0].situation_matr)
+					$("#genre").html(data[0].genre)
+					$("#salaire").html(data[0].salaire)
+					$("#conjoint").html(data[0].conjoint)
+					$("#enfant").html(data[0].enfant)
+					$("#nb_trimf").html(data[0].nb_trimf)
+					$("#nb_irpp").html(data[0].nb_irpp)
+					$("#sursalaire").html(data[0].sursalaire)
+					$("#fonction").html(data[0].fonction)
+					$("#sujetion").html(data[0].sujetion)
+					$("#responsabilite").html(data[0].responsabilite)
+					$("#logement").html(data[0].logement)
+					$("#transport").html(data[0].transport)
+					$("#telephone_in").html(data[0].telephone_in)
+					$("#autre_indemnite").html(data[0].autre_indemnite)
+				},
+				error: function (xhr, status, error) {
+					console.error("Erreur AJAX:", error);
+					console.error("Status:", status);
+					console.error("Response Text:", xhr.responseText);
+					alert("Erreur AJAX : " + error + "\nVoir console pour détails.");
+				}
+			});
+
+			$("#example1").dataTable().fnDestroy()
+
+			$.ajax({
+				url: "../controller/employe/fetch_show_employe",
+				type: "POST",
+				data: {
+					id_affectation: id
+				},
+				success: function(response) {
+					$('#example1 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var b = 0; b < gp_data.length; b++) {
+						$('#example1 tbody').append(`
+			                  <tr>
+			                      <td style="text-align:center;">${gp_data[b].count}</td>
+			                      <td style="text-align:center;">${gp_data[b].date_affectation}</td>
+			                      <td style="text-align:center;">${gp_data[b].region}</td>
+			                  </tr>
+						`);
+					}
+					$("#example1").DataTable({
+						scrollX: true,
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+
+					});
+
+				}
+			})
+
+			$("#example2").dataTable().fnDestroy()
+
+			$.ajax({
+				url: "../controller/employe/fetch_show_employe",
+				type: "POST",
+				data: {
+					id_conge_annuel: id
+				},
+				success: function(response) {
+					$('#example2 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var b = 0; b < gp_data.length; b++) {
+						$('#example2 tbody').append(`
+			                  <tr>
+			                      <td style="text-align:center;">${gp_data[b].count}</td>
+			                      <td style="text-align:center;">${gp_data[b].date_fin}</td>
+			                      <td style="text-align:center;">${gp_data[b].date_fin}</td>
+								  <td style="text-align:center;">${gp_data[b].nbr_conge}</td>
+			                  </tr>
+						`);
+					}
+					$("#example2").DataTable({
+						scrollX: true,
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+
+					});
+
+				}
+			})
+
+			$("#example3").dataTable().fnDestroy()
+
+			$.ajax({
+				url: "../controller/employe/fetch_show_employe",
+				type: "POST",
+				data: {
+					id_conge_maternite: id
+				},
+				success: function(response) {
+					$('#example3 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var b = 0; b < gp_data.length; b++) {
+						$('#example3 tbody').append(`
+			                  <tr>
+			                      <td style="text-align:center;">${gp_data[b].count}</td>
+			                      <td style="text-align:center;">${gp_data[b].numero_decision}</td>
+			                      <td style="text-align:center;">${gp_data[b].date_decision}</td>
+								  <td style="text-align:center;">${gp_data[b].date_suspension}</td>
+								  <td style="text-align:center;">${gp_data[b].date_debut}</td>
+								  <td style="text-align:center;">${gp_data[b].date_fin}</td>
+								  <td style="text-align:center;">${gp_data[b].date_reprise}</td>
+								  <td style="text-align:center;">${gp_data[b].docteur}</td>
+			                  </tr>
+						`);
+					}
+					$("#example3").DataTable({
+						scrollX: true,
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+
+					});
+
+				}
+			})
+
+			$("#example4").dataTable().fnDestroy()
+
+			$.ajax({
+				url: "../controller/employe/fetch_show_employe",
+				type: "POST",
+				data: {
+					id_absence_pointage: id
+				},
+				success: function(response) {
+					$('#example4 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var b = 0; b < gp_data.length; b++) {
+						$('#example4 tbody').append(`
+			                  <tr>
+			                      <td style="text-align:center;">${gp_data[b].count}</td>
+			                      <td style="text-align:center;">${gp_data[b].date}</td>
+			                      <td style="text-align:center;">${gp_data[b].heure_debut}</td>
+								  <td style="text-align:center;">${gp_data[b].heure_fin}</td>
+								  <td style="text-align:center;">${gp_data[b].pointe}</td>
+								  <td style="text-align:center;">${gp_data[b].justification}</td>
+								  <td style="text-align:center;">${gp_data[b].Imputable_sur_les_normaux}</td>
+			                  </tr>
+						`);
+					}
+					$("#example4").DataTable({
+						scrollX: true,
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+
+					});
+
+				}
+			})
+
+			$("#example5").dataTable().fnDestroy()
+
+			$.ajax({
+				url: "../controller/employe/fetch_show_employe",
+				type: "POST",
+				data: {
+					id_salaire: id
+				},
+				success: function(response) {
+					$('#example5 tbody').html("");
+					//insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var b = 0; b < gp_data.length; b++) {
+						$('#example5 tbody').append(`
+			                  <tr>
+			                      <td style="text-align:center;">${gp_data[b].count}</td>
+			                      <td style="text-align:center;">${gp_data[b].date_du}</td>
+			                      <td style="text-align:center;">${gp_data[b].date_paiement}</td>
+								  <td style="text-align:center;">${gp_data[b].mode_paie}</td>
+			                  </tr>
+						`);
+					}
+					$("#example5").DataTable({
+						scrollX: true,
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+
+					});
+
+				}
+			})
+		}
+			
+				
+		</script>
+	</body>
+
+</html>

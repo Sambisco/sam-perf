@@ -1,0 +1,835 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<!------MAIN-CONTENT-------->
+
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1>Pointage jour</h1>
+		</div>
+		<div class="baniere-right">
+			<div class="content-navigation">
+				<ul class="navigation">
+					<li class="active_nav active_nav_click"
+						id="btn-modal-importer">
+						<a href="#">
+							<span class="icon"><i
+									class="fas fa-fw fa-video"></i></span>
+							<span class="text">Pointage</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-qrcode"></i></div>
+		<div class="main-sous-content">
+
+			<div class="content-list content-list1">
+
+			</div>
+			<!----------------PAGINATION----------->
+			<div class="pagination">
+				<div class="showingInfo" id="showingInfo1"></div>
+				<div class="showingPage" id="pagination1"></div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<!------MODAL AJOUT-------->
+<div class="petit close-modal" id="ajouter-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">AJOUTER pointage</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="container-form">
+					<form id="insertForm">
+						<div class="user-details-login">
+							<div class="input-group">
+								<label class="label-details">Date de pointage</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-calendar fa-icon"></i> </span>
+									<input type="date" class="text-input" name="date" id
+										value="<?php echo date("Y-m-d"); ?>" required="required">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="insertdata">Enregister</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!------FIN MODAL AJOUT-------->
+<!------MODAL MODIFIER-------->
+<div class="petit close-modal" id="modifier-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">MODIFIER EMPLOYE</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="container-form">
+					<form id="updateForm">
+						<input type="hidden" name="edit_id" id="edit_id">
+
+						<div class="upload">
+							<img src="../img/image/image-profil.png" alt id="update_imgPreview">
+							<div class="round">
+								<input type="file" name="photo" id="update_photo" class="file-upload">
+								<i class="fa fa-camera"></i>
+							</div>
+						</div>
+						<div class="user-details-register">
+							<div class="input-group">
+								<label class="label-details">Prenom</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+									<input type="text" class="text-input etablissement" name="prenom"
+										id="prenom"
+										required="required" placeholder="Prenom">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Nom</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+									<input type="text" class="text-input" name="nom" id="nom"
+										required="required"
+										placeholder="Nom"
+										onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Date de naissance</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-calendar fa-icon"></i> </span>
+									<input type="date" class="text-input" name="date_n" id="date_n"
+										required="required"
+										value="<?php echo date("Y-m-d"); ?>">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Lieu de naissance</label>
+								<div class="input-box">
+									<span class="span-left"><i
+											class="fa fa-map-marker fa-icon"></i></span>
+									<input type="text" class="text-input" name="lieu_n" id="lieu_n"
+										required="required"
+										placeholder="Lieu de naissance"
+										onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+								</div>
+							</div>
+
+							<div class="input-group">
+								<label class="label-details">Telephone</label>
+								<div class="input-box">
+									<span class="span-left"><i
+											class="fa fa-phone fa-rotate-90 fa-icon"></i></span>
+									<input type="text" class="text-input" name="telephone_e"
+										id="telephone_e"
+										required="required" placeholder="Telephone">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Adresse</label>
+								<div class="input-box">
+									<span class="span-left"><i
+											class="fa fa-map-marker fa-icon"></i></span>
+									<input type="text" class="text-input" name="adresse_e" id="adresse_e"
+										required="required" placeholder="Adresse"
+										onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">N° carte d'identite</label>
+								<div class="input-box">
+									<span class="span-left"><i
+											class="fa fa-sort-numeric-down fa-icon"></i></span>
+									<input type="text" class="text-input" name="cin_e" id="cin_e"
+										required="required"
+										placeholder="N° carte d'identite"
+										onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Nationalité</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-envelope fa-icon"></i></span>
+									<input type="text" class="text-input" name="nationalite"
+										id="nationalite"
+										placeholder="Nationalité"
+										onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Email</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-envelope fa-icon"></i></span>
+									<input type="text" class="text-input" name="email_e" id="email_e"
+										placeholder="Email">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Nom du père</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+									<input type="text" class="text-input etablissement" name="nom_pere"
+										id="nom_pere"
+										placeholder="Nom du père">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Nom de la mère</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+									<input type="text" class="text-input etablissement" name="nom_mere"
+										id="nom_mere"
+										placeholder="Nom de la mère">
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Genre</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-home fa-icon"></i></span>
+									<select name="genre" id="genre" class="js-searchBox"
+										required="required">
+										<option value>Selectionnez</option>
+										<option value="M">Masculin</option>
+										<option value="F">Feminin</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="updatetdata">Modifier</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!------FIN MODAL MODIFIER-------->
+
+<!------MODAL SUPPRIMER-------->
+<div class="petit close-modal" id="supprimer-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">SUPPRIMER EMPLOYE</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="container-form">
+					<form id="deleteForm">
+						<input type="hidden" name="delete_id" id="delete_id">
+						<div class="upload">
+							<img src="../img/image/image-profil.png" alt id="delete_imgPreview">
+
+						</div>
+						<div class="user-details-login">
+							<div class="input-group">
+								<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-trash"></i> </span>
+									<input type="text" class="text-input" name id="nom_del" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="deletedata">Supprimer</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!------FIN MODAL SUPPRIMER-------->
+<!------MODAL INFO-------->
+<div class="petit close-modal" id="info-modal">
+	<div class="modal-panel-petit">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">INFO EMPLOYE</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="profil-content">
+					<div class="profil-content1 ">
+						<div class="upload">
+							<img src="../img/image/image-profil.png" alt id="info14">
+						</div>
+						<div class="user-details-register">
+							<div class="input-group">
+								<label class="label-details">Prenom</label>
+								<div class="input-box">
+									<div class="info1"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Nom</label>
+								<div class="input-box">
+									<div class="info2"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Matricule</label>
+								<div class="input-box">
+									<div class="info3"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Date de naissance</label>
+								<div class="input-box">
+									<div class="info4"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Lieu de naissance</label>
+								<div class="input-box">
+									<div class="info5"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="profil-content2">
+						<div class="user-details-register">
+							<div class="input-group">
+								<label class="label-details">Telephone</label>
+								<div class="input-box">
+									<div class="info6"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Adresse</label>
+								<div class="input-box">
+									<div class="info7"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">N° carte d'identite</label>
+								<div class="input-box">
+									<div class="info8"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Email</label>
+								<div class="input-box">
+									<div class="info9"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Nom du père</label>
+								<div class="input-box">
+									<div class="info10"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Nom de la mère</label>
+								<div class="input-box">
+									<div class="info11"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Genre</label>
+								<div class="input-box">
+									<div class="info12"></div>
+								</div>
+							</div>
+							<div class="input-group">
+								<label class="label-details">Nationalité</label>
+								<div class="input-box">
+									<div class="info13"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="footer-modal">
+				<button type="submit" class="footer-button-register" id="deletedata"
+					style="display:none">Supprimer</button>
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!------FIN MODAL INFO-------->
+<!------MODAL IMPORTER-------->
+<div class="moyen close-modal" id="importer-modal">
+	<div class="modal-panel-moyen">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Pointage</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+
+			<div class="corps-modal">
+				<div class="upload-wrapper">
+					<form id="heure_entree">
+						<input type="hidden" name="id_pointage" id="id_pointage">
+						<button type="submit" id="button" hidden>SAVE</button>
+					</form>
+					<audio id="myAudio2">
+						<source src="{{ url_for('static', filename='img/codeQR/beep.mp3') }}"
+							type="audio/mpeg">
+					</audio>
+				</div>
+
+				<div class="content-instascan">
+					<video id="video_entree" class="video_scan"></video>
+					<div class="cadreur_video">
+						<div class="button-video">
+							<i class="fa fa-camera" id="camera-front-entree"></i>
+							<input autocomplete="off" checked id="checked-camera-front-entree"
+								name="options"
+								type="radio" value="1" hidden />
+							<i class="fa fa-light fa-camera-retro" id="camera-back-entree"></i>
+							<input autocomplete="off" name="options" id="checked-camera-back-entree"
+								type="radio"
+								value="2" hidden />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button" style="display:none" class="footer-button-register"
+					id="importdata">Enregistrer</button>
+				<button type="button" class="footer-button-close close-modal"
+					id="vider_import">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!------FIN MODAL IMPORTER-------->
+<!--------MODAL INFO GENERAL------->
+<div class="moyen close-modal" id="infocomplet-modal">
+	<div class="modal-panel-moyen">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">Heure de sortie</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="upload-wrapper">
+					<form id="updateForm" enctype="multipart/form-data">
+						<input type="hidden" class="file-input" id="filePointage1">
+					</form>
+					<audio id>
+						<source src="{{ url_for('static', filename='img/codeQR/beep.mp3') }}"
+							type="audio/ogg">
+					</audio>
+				</div>
+
+				<div class="content-instascan">
+					<video id="video_entree1" class="video_scan"></video>
+					<div class="cadreur_video">
+						<div class="button-video">
+							<i class="fa fa-camera" id="camera-front-sortie"></i>
+							<input autocomplete="off" checked id="checked-camera-front-sortie"
+								name="options1"
+								type="radio" value="1" hidden />
+							<i class="fa fa-light fa-camera-retro" id="camera-back-sortie"></i>
+							<input autocomplete="off" name="options1"
+								id="checked-camera-back-sortie" type="radio"
+								value="2" hidden />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button" style="display:none" class="footer-button-register"
+					id="updatdata">Exporter</button>
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--------FIN MODAL INFO GENERAL------->
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+		setInterval(fetchdata, 1000);
+		fetchdata()
+
+		function fetchdata() {
+			var id = $("#id_reference").val()
+			$.ajax({
+				url: "../controller/pointage/fetch_pointage",
+				type: "POST",
+				data: {
+					id_pointage: id,
+				},
+				success: function(response) {
+					$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						var div1 = `<div class="parent box result well">
+					 <div class="card">
+					    <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[a].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].prenom} ${gp_data[a].nom}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[a].matricule}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-chalkboard-teacher"></i><span>${gp_data[a].poste_occupe}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar"></i><span>${gp_data[a].date}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-clock"></i><span>${gp_data[a].heure_debut}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-clock fa-rotate-270"></i><span>${gp_data[a].heure_fin}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						    <ul class="navigation_list">
+					               
+				            </ul>
+						</div>
+					</div>
+				  </div>`;
+						$('.content-list1').append(div1);
+					}
+										updateSectionItems(0);
+
+				},
+			})
+		}
+		
+		let scanner = new Instascan.Scanner({
+			video: document.getElementById('video_entree')
+		});
+		let scanner1 = new Instascan.Scanner({
+			video: document.getElementById('video_entree1')
+		});
+		$("#btn-modal-ajouter").click(function() {
+			$("#ajouter-modal").fadeIn();
+		});
+		$("#btn-modal-importer").click(function() {
+			Instascan.Camera.getCameras().then(function(cameras) {
+
+				if (cameras.length > 0) {
+
+					scanner.start(cameras[0]);
+
+					$('[name="options"]').on('change', function() {
+
+						if ($(this).val() == 1) {
+
+							if (cameras[0] != "") {
+
+								scanner.start(cameras[0]);
+
+							} else {
+
+								alert('Aucune caméra frontale trouvée!');
+
+							}
+
+						} else if ($(this).val() == 2) {
+
+							if (cameras[1] != "") {
+
+								scanner.start(cameras[1]);
+
+							} else {
+
+								alert('Aucune caméra arrière trouvée!');
+
+							}
+
+						}
+
+					});
+
+				} else {
+
+					console.error('Aucune caméra trouvée.');
+
+					alert('Aucune caméra trouvée.');
+
+				}
+
+			}).catch(function(e) {
+
+				console.error(e);
+
+				alert(e);
+
+			});
+			$("#importer-modal").fadeIn();
+		});
+		scanner.addListener('scan', function(c) {
+			$('#id_pointage').val(c);
+			$("#button").submit()
+			playAudio();
+		})
+		scanner1.addListener('scan', function(p) {
+			document.getElementById('filePointage1').value = p;
+			$("#updatdata").click();
+			playAudio();
+		})
+
+		function playAudio() {
+			var x = document.getElementById("myAudio2");
+			x.play();
+		}
+		$('#camera-front-entree').hide();
+
+		$('#camera-front-entree').click(function() {
+			$('#checked-camera-front-entree').click();
+			$('#camera-front-entree').hide();
+			$('#camera-back-entree').show();
+		})
+		$('#camera-back-entree').click(function() {
+			$('#checked-camera-back-entree').click();
+			$('#camera-front-entree').show();
+			$('#camera-back-entree').hide();
+
+		})
+
+
+		$('.close-modal').click(function() {
+			scanner.stop(),
+				scanner1.stop()
+		})
+		$("#infocomplete").click(function() {
+			Instascan.Camera.getCameras().then(function(cameras) {
+
+				if (cameras.length > 0) {
+
+					scanner1.start(cameras[0]);
+
+					$('[name="options1"]').on('change', function() {
+
+						if ($(this).val() == 1) {
+
+							if (cameras[0] != "") {
+
+								scanner1.start(cameras[0]);
+
+							} else {
+
+								alert('Aucune caméra frontale trouvée!');
+
+							}
+
+						} else if ($(this).val() == 2) {
+
+							if (cameras[1] != "") {
+
+								scanner1.start(cameras[1]);
+
+							} else {
+
+								alert('Aucune caméra arrière trouvée!');
+
+							}
+
+						}
+
+					});
+
+				} else {
+
+					console.error('Aucune caméra trouvée.');
+
+					alert('Aucune caméra trouvée.');
+
+				}
+
+			}).catch(function(e) {
+
+				console.error(e);
+
+				alert(e);
+
+			});
+			$("#infocomplet-modal").fadeIn();
+		});
+		$('#camera-front-sortie').hide();
+
+		$('#camera-front-sortie').click(function() {
+			$('#checked-camera-front-sortie').click();
+			$('#camera-front-sortie').hide();
+			$('#camera-back-sortie').show();
+		})
+		$('#camera-back-sortie').click(function() {
+			$('#checked-camera-back-sortie').click();
+			$('#camera-front-sortie').show();
+			$('#camera-back-sortie').hide();
+
+		})
+		$('.fab-button').on('click', function() {
+			$(".fab-show").show(600);
+			$(".fab-hide").show();
+			$(".fab-button").hide();
+		})
+		$('.fab-hide').on('click', function() {
+			$(".fab-button").show();
+
+			$(".fab-show").hide(600);
+			$(".fab-hide").hide();
+		})
+
+		$(document).on('click', '.toggle-btn', function(e) {
+			var id = $(this).data('id');
+			$("#nav_" + id).toggleClass("active");
+			$("#toggle-btn-close_" + id).toggleClass("fa-times");
+		})
+		$(document).on('click', '.fab-button', function(e) {
+			var id = $(this).data('id');
+			$("#fab-show_" + id).toggle("slow");
+			$("#fas_" + id).toggleClass("fa-times");
+			$("#fab-show_" + id).attr(('style', 'display:block'))
+		})
+
+		$(document).ready(function(e) {
+			//INSERTION
+			$("#heure_entree").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller/pointage/save',
+					data: new FormData(this),
+					//dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function(data) {}
+				});
+				Swal.fire({
+					icon: 'success',
+					title: 'Enregistré',
+					text: "Enregistrement effectué avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+				});
+
+			});
+
+			$("#updatdata").on('click', function(e) {
+				e.preventDefault();
+				var filePointage1 = $("#filePointage1").val();
+				$.ajax({
+					type: 'POST',
+					url: '../controller/pointage/update',
+					data: {
+						filePointage1: filePointage1
+					},
+
+					success: function(response) {
+
+						Swal.fire({
+							icon: 'success',
+							title: 'Enregistré',
+							text: "Enregistrement effectué avec succés.",
+							confirmButtonColor: '#127b8e',
+							showConfirmButton: false,
+							timer: 2000
+						}).then(function() {
+							fetchdata();
+							fetchtb_employe();
+						});
+					}
+				});
+				$("#ajouter-modal").fadeOut();
+
+				$(this).closest('form').find("input[type=text]").val("");
+			});
+			//UPDATE
+
+			// SUPPRIMER
+
+			//IMPORTER FICHIER
+
+
+			// SHOW UPDATE
+
+			//SHOW DELETE
+
+			//SHOW DELETE
+
+			//SHOW INFO
+
+			// File upload via Ajax
+
+		});
+
+
+		$('#Exportdata').click(function() {
+			let table = $("#example").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			TableToExcel.convert(table[0], {
+				name: `Employe.xlsx`,
+				sheet: {
+					name: 'Employe'
+				}
+			});
+		});
+	</script>

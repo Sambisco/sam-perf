@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/fontawesome-free/css/all.min.css') }}"
+      crossorigin="anonymous">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/css/style-admin.css') }}">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/css/tab_panel.css') }}">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/css/style-table.css') }}">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/css/style-modal.css') }}">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/css/style-profil.css') }}">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/datatables/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/css/button.css') }}">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='script/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/css/style-button.css') }}">
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/css/style-employe.css') }}">
+
+    <link rel="icon" type="image/png" href="{% if my_logo %}
+                  {{ url_for('static', filename='img/logo/' ~ my_logo) }}
+                {% else %}
+                  {{ url_for('static', filename='img/image/image.jpg') }}
+                {% endif %}?v=2">
+
+  </head>
+
+  <body>
+    <div class="header-portail">
+      <div class="logo-details">
+        <img src="{{ url_for('static', filename='img/image/image.jpg') }}"
+          id="logo_entreprise">
+        <span class="logo-name">
+          <h5 id="logo-name">'Entreprise'</h5>
+        </span>
+      </div>
+      <div class="profile">
+        <div class="avatar-img">
+
+          <img
+            src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+            class="img-profil-user" id="img-profil-user">
+
+        </div>
+      </div>
+    </div>
+
+   <div class="petit close-modal" id="deconnect">
+  <div class="modal-panel-petit" style="margin-top: 100px;">
+    <div class="overlay-inner">
+      <div class="modal-close-content">
+        <div class="modal-close">
+          <span class="title">Ohh No!</span>
+          <div class="btn-close-modal close-modal">
+            <i class="fa fa-times-circle"></i>
+          </div>
+        </div>
+        <div class="container-upload1">
+          <div class="upload1">
+            <div class="fa fa-lock"></div>
+          </div>
+        </div>
+      </div>
+      <div class="corps-modal">
+        <div class="container-form">
+          <div class="nextstep nextstep-active">
+            <div class="user-details-login">
+              <p style="margin-top: 20px;">
+                Sélectionnez "Déconnexion" ci-dessous si vous êtes prêt à
+                mettre fin à votre session en cours ?
+              </p>
+            </div>
+            <div class="footer-modal">
+              <a href="{{ url_for('logout_emp') }}"><button type="button"
+                  class="footer-button-register"
+                  id="btn-deconnect">Déconnexion</button></a>
+              <button type="button"
+                class="footer-button-close close-modal">Fermer</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

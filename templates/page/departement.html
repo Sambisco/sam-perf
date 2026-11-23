@@ -1,0 +1,798 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<!------MAIN-CONTENT-------->
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<!------MAIN-CONTENT-------->
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1>Service</h1>
+		</div>
+		<div class="baniere-right">
+			<div class="content-navigation">
+				<ul class="navigation">
+					<li class="active_nav active_nav_click"
+						id="btn-modal-ajouter">
+						<a href="#">
+							<span class="icon"><i
+									class="fas fa-fw fa-plus"></i></span>
+							<span class="text">Ajouter</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-home"></i></div>
+		<div class="main-sous-content">
+
+			<div class="content-list content-list1">
+
+			</div>
+			<!----------------PAGINATION----------->
+			<div class="pagination">
+				<div class="showingInfo" id="showingInfo1"></div>
+				<div class="showingPage" id="pagination1"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!------MODAL AJOUT-------->
+<form id="insertForm">
+	<div class="petit close-modal" id="ajouter-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+                    <div class="modal-close">
+					<span class="title">AJOUTER service</span>
+                        <div class="btn-close-modal close-modal">
+                            <i class="fa fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="container-upload1">
+                        <div class="upload1">
+                            <div class="fa fa-plus"></div>
+                        </div>
+                    </div>
+                </div>
+				
+				<div class="corps-modal">
+					<input type="hidden" name="id_reference" id="get_id_reference">
+					<input type="hidden" name="insert_id" id>
+					<div class="container-form">
+						
+						<div class="nextstep nextstep-active">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Service</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-home fa-icon"></i></span>
+										<input type="text" class="text-input input-required1"
+											name="nom_departement" id
+											placeholder="Service"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Batiment</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-arrow-up fa-icon"></i></span>
+										<input type="text" class="text-input input-required1" name="batiment"
+											id
+											placeholder="Batiment"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="footer-modal">
+							<button type="submit" class="footer-button-register"
+								id="insertdata">Enregister</button>
+							<button type="button"
+								class="footer-button-close close-modal">Fermer</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!------FIN MODAL AJOUT-------->
+<!------MODAL MODIFIER-------->
+
+<form id="updateForm">
+	<div class="petit close-modal" id="modifier-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+                    <div class="modal-close">
+					<span class="title">modifier service</span>
+                        <div class="btn-close-modal close-modal">
+                            <i class="fa fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="container-upload1">
+                        <div class="upload1">
+                            <div class="fa fa-edit"></div>
+                        </div>
+                    </div>
+                </div>
+				<div class="corps-modal">
+					<input type="hidden" name="edit_id" id="edit_id">
+					<div class="container-form">
+						
+						<div class="nextstep nextstep-active">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Service</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-home fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update"
+											name="nom_departement" id="nom_departement"
+											placeholder="Service"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Batiment</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-arrow-up fa-icon"></i></span>
+										<input type="text" class="text-input input-required-update"
+											name="batiment" id="batiment"
+											placeholder="Batiment"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="footer-modal">
+							<button type="submit" class="footer-button-register"
+								id="updatetdata">Modifier</button>
+							<button type="button"
+								class="footer-button-close close-modal">Fermer</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</form>
+<!------FIN MODAL MODIFIER-------->
+<!------MODAL SUPPRIMER-------->
+
+<form id="deleteForm">
+	<div class="petit close-modal" id="supprimer-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close">
+					<span class="title">supprimer service</span>
+					<div class="btn-close-modal close-modal">
+						<i class="fa fa-times-circle"></i>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<input type="hidden" name="delete_id" id="delete_id">
+					<div class="container-form">
+						<div class="container-upload1">
+							<div class="upload1">
+								<div class="fa fa-trash"></div>
+							</div>
+						</div>
+						<div class="nextstep nextstep-active">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-trash"></i> </span>
+										<input type="text" class="text-input" name id="nom_del" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="deletedata">Supprimer</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</form>
+<!------FIN MODAL SUPPRIMER-------->
+<div class="grand close-modal" id="personnel-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close modal-close-no-3d">
+				<span class="title">Information du PERSONNEL SERVICE</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal corps-modal-padding">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<div class="input-box" style="display: flex;gap:5px;">
+							<span class="span-left"><i class="fa fa-file-export"></i> </span>
+							<input type="text" class="text-input" id="titre_personnel"
+								style="width:250px !important;"
+								placeholder="Titre d'exportation">
+							<button type="submit" class="footer-button-export"
+								id="ExportpersonnelExcel">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportpersonnelPdf">PDF</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_personnel">
+
+					<table id="table_personnel" class="stripe hover mytab" style="width:100%;"
+						data-order='[[0,"desc"]]'>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th class="no-export">Photo</th>
+								<th style="min-width:200px;">Prenom</th>
+								<th style="min-width:100px;">Nom</th>
+								<th style="min-width:100px;">Matricule</th>
+								<th style="min-width:150px;">Date de naissance</th>
+								<th style="min-width:150px;">Lieu de naissance</th>
+								<th style="min-width:150px;">Telephone</th>
+								<th style="min-width:150px;">Categorie</th>
+								<th style="min-width:150px;">Poste Occupé</th>
+								<th style="min-width:150px;">Service</th>
+								<th style="min-width:150px;">Service</th>
+								<th style="min-width:150px;">Heure Début</th>
+								<th style="min-width:150px;">Heure Décente</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+		$('document').ready(function() {
+			fetchdata()
+		})
+
+
+		function fetchdata() {
+			var id = $("#id_reference").val()
+			$.ajax({
+				url: "../controller/departement/fetch_departement",
+				type: "POST",
+				data: {
+					id: id
+				},
+				success: function(response) {
+					$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						var div1 = `<div class="parent box result well">
+					<div class="card">
+						<div class="content-date-box">
+                            <div class="overlay">
+                                <div class="date-box">${gp_data[a].acronym_debut}</div>
+                            </div>
+                        </div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].nom_departement}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-home"></i><span>${gp_data[a].batiment}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						        <ul class="navigation_list">
+					                   <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="updatebtn" data-id="${gp_data[a].id_departement}">
+					                   	<a href="#">
+					                   		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+					                   		<span class="text">Modifier</span>
+						        			<span class="lampe"></span>
+					                   	</a>
+					                   </li>
+						        	    <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="id_personnel" data-id="${gp_data[a].id_departement}">
+					                   	<a href="#">
+					                   		<span class="icon"><i class="fas fa-users"></i></span>
+					                   		<span class="text">Employé</span>
+						        			<span class="lampe"></span>
+					                   	</a>
+					                   </li>
+				                </ul>
+						</div>
+					</div>
+				  </div>`;
+						$('.content-list1').append(div1);
+					}
+					updateSectionItems(0);
+				},
+				error: function (xhr, status, error) {
+					console.error("Erreur AJAX: ", error);
+					alert(error)
+					// Gérer l'erreur ici si besoin
+				}
+			})
+		}
+		$("#btn-modal-ajouter").click(function() {
+			$("#get_id_reference").val($("#id_reference").val());
+			$("#ajouter-modal").fadeIn();
+		});
+		  $(document).on("click", ".active_nav_click_list", function (e) {
+				e.preventDefault();
+				var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+				console.log("ID chiffré cliqué:", encryptedId);
+
+				// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+				var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+				$(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+				$(this).addClass("active_nav_list");
+
+				// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+			});
+
+		$(document).on('click', '.toggle-btn', function(e) {
+			var id = $(this).data('id');
+			$("#nav_" + id).toggleClass("active");
+			$("#toggle-btn-close_" + id).toggleClass("fa-times");
+		})
+		$('.js-searchBox').select2({
+			width: '100%'
+		});
+		//PHOTO
+		$(document).on("change", "#photo", function() {
+			var file = this.files[0];
+			console.log(file);
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#imgPreview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(file);
+			}
+		})
+		$(document).on("change", "#update_photo", function() {
+			var file = this.files[0];
+			console.log(file);
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#update_imgPreview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(file);
+			}
+		})
+		$(document).ready(function(e) {
+			//INSERTION
+			$("#insertForm").on('submit', function(e) {
+				e.preventDefault();
+
+				   $('.input-box').removeClass('error');
+    $('.error-msg').hide();
+
+    if (!validateForm()) {
+      return;
+    }
+
+				$.ajax({
+					type: 'POST',
+					url: '../controller/departement/save',
+					data: new FormData(this),
+					//dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response)
+						if (response.status === 'true') {
+							Swal.fire({
+								icon: 'success',
+								title: 'Existe',
+								text: "Le département a déja été creer.",
+								confirmButtonColor: '#127b8e',
+								showConfirmButton: false,
+								timer: 2000
+							})
+
+						} else if (response.status === 'success') {
+							Swal.fire({
+								icon: 'success',
+								title: 'Enregistré',
+								text: "Enregistrement effectué avec succés.",
+								confirmButtonColor: '#127b8e',
+								showConfirmButton: false,
+								timer: 2000
+							}).then(function() {
+								fetchdata();
+							});
+						} else {
+							// Gestion des erreurs
+							    Swal.fire({
+								icon: 'error',
+								title: 'Erreur',
+								text: response.message || "Une erreur inconnue est survenue.",
+								confirmButtonColor: '#127b8e',
+								showConfirmButton: false,
+								timer: 2000
+							});
+						}
+					}
+				});
+				$("#ajouter-modal").fadeOut();
+
+				$(this).closest('form').find("input[type=text]").val("");
+			});
+			//UPDATE
+			$("#updateForm").on('submit', function(e) {
+				e.preventDefault();
+
+				  $('.input-box').removeClass('error');
+    $('.error-msg').hide();
+
+    if (!validateForm_update()) {
+      return;
+    }
+	
+				$.ajax({
+					type: 'POST',
+					url: '../controller/departement/save',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response)
+					}
+				});
+				$("#modifier-modal").fadeOut();
+				Swal.fire({
+					icon: 'success',
+					title: 'Modifié',
+					text: "Modification effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+				});
+			});
+			// SUPPRIMER
+			$("#deleteForm").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller/departement/save',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response)
+					}
+				});
+				$("#supprimer-modal").fadeOut();
+				Swal.fire({
+					icon: 'error',
+					title: 'Supprimé',
+					text: "Suppression effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+				});
+			});
+		});
+		$(document).on("click", "#togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#show-eye").toggleClass('fa-eye');
+			$("#show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+
+		});
+		$(document).on("click", "#update_togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#update_password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#update_show-eye").toggleClass('fa-eye');
+			$("#update_show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+
+		});
+
+
+		// SHOW UPDATE
+		$(document).on('click', '#updatebtn', function(e) {
+
+			e.preventDefault();
+
+			var id_departement = $(this).data('id');
+			$.ajax({
+				url: '../controller/departement/fetch_departement',
+				type: "post",
+				data: {
+					id_departement: id_departement
+				},
+				dataType: 'json',
+				success: function(data) {
+					if (data.error) {
+						alert("Erreur: " + data.error);
+					} else {
+					$("#edit_id").val(data[0].id_departement);
+					$("#nom_departement").val(data[0].nom_departement);
+					$("#batiment").val(data[0].batiment);
+					$("#modifier-modal").fadeIn();
+					}
+				}
+
+			});
+
+		});
+		//SHOW DELETE
+		$(document).on('click', '#deletebtn', function(e) {
+
+			e.preventDefault();
+
+			var id_departement = $(this).data('id');
+			$.ajax({
+				url: '../controller/departement/fetch_departement',
+				type: "post",
+				data: {
+					id_departement: id_departement
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data.logo)
+					$("#delete_id").val(data.id_departement);
+					$("#nom_del").val(data.nom_departement);
+					$("#supprimer-modal").fadeIn();
+
+				}
+
+			});
+
+		});
+		$(document).on('click', '#id_personnel', function(e) {
+			e.preventDefault();
+			var id_personnel = $(this).data('id')
+			$("#table_personnel").dataTable().fnDestroy()
+			$.ajax({
+				url: "../controller/departement/fetch_departement",
+				type: "POST",
+				data: {
+					id_personnel: id_personnel
+				},
+				success: function(response) {
+					$('#table_personnel tbody').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var b = 0; b < gp_data.length; b++) {
+						$('#table_personnel tbody').append(`
+			           <tr>
+			           	<td>${gp_data[b].count}</td>
+			           	<td class="no-export"><img src="${gp_data[b].photo}" alt="" id="" width="30" height="30"></td>
+			           	<td style="text-align:center;">${gp_data[b].prenom}</td>
+			           	<td style="text-align:center;">${gp_data[b].nom}</td>
+			           	<td style="text-align:center;">${gp_data[b].matricule}</td>
+			           	<td style="text-align:center;">${gp_data[b].date_n2}</td>
+			           	<td style="text-align:center;">${gp_data[b].lieu_n}</td>
+			           	<td style="text-align:center;">${gp_data[b].telephone_e}</td>
+			           	<td style="text-align:center;">${gp_data[b].categorie}</td>
+			           	<td style="text-align:center;">${gp_data[b].poste_occupe}</td>
+			           	<td style="text-align:center;">${gp_data[b].nom_departement}</td>
+			           	<td style="text-align:center;">${gp_data[b].region}</td>
+			           	<td style="text-align:center;">${gp_data[b].heure_debut}</td>
+			           	<td style="text-align:center;">${gp_data[b].heure_decente}</td>
+			           /tr>
+						`);
+					}
+					$("#table_personnel").DataTable({
+						scrollX: true,
+						lengthMenu: [
+							[10, 25, 50, 250, -1],
+							[10, 25, 50, 250, "Tous"]
+						],
+						layout: {
+							topStart: {
+								buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+							}
+						},
+						"language": {
+
+							"sEmptyTable": "Aucune donnée disponible dans le tableau",
+							"sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+							"sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+							"sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+							"sInfoPostFix": "",
+							"sInfoThousands": ",",
+							"sLengthMenu": "Afficher _MENU_ éléments",
+							"sLoadingRecords": "Chargement...",
+							"sProcessing": "Traitement...",
+							"sSearch": "Rechercher :",
+							"sZeroRecords": "Aucun élément correspondant trouvé",
+							"oPaginate": {
+								"sFirst": "Premier",
+								"sLast": "Dernier",
+								"sNext": "Suivant",
+								"sPrevious": "Précédent"
+							},
+							"oAria": {
+								"sSortAscending": ": activer pour trier la colonne par ordre croissant",
+								"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+							},
+							"select": {
+								"rows": {
+									"_": "%d lignes sélectionnées",
+									"0": "Aucune ligne sélectionnée",
+									"1": "1 ligne sélectionnée"
+								}
+							}
+						},
+					});
+				},
+				error: function (xhr, status, error) {
+					alert("Erreur AJAX: " + error);
+				}
+			})
+			$("#personnel-modal").fadeIn();
+		});
+ function validateForm() {
+    let valid = true;
+    $('.input-required1').each(function() {
+      const $input = $(this);
+      const $inputBox = $input.closest('.input-box');
+      if ($input.val().trim() === '') {
+        $input.addClass('error');
+        $inputBox.addClass('error');
+
+        let $msg = $input.siblings('.error-msg');
+        if ($msg.length === 0) {
+          $input.after('<div class="error-msg"></div>');
+          $msg = $input.siblings('.error-msg');
+        }
+        $msg.show();
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  $(document).on('input change', '.input-required1', function() {
+    const $input = $(this);
+    const $inputBox = $input.closest('.input-box');
+    if ($input.val().trim() !== '') {
+      $input.removeClass('error');
+      $inputBox.removeClass('error');
+      $input.siblings('.error-msg').hide();
+    }
+  });
+
+ function validateForm_update() {
+    let valid = true;
+    $('.input-required-update').each(function() {
+      const $input = $(this);
+      const $inputBox = $input.closest('.input-box');
+      if ($input.val().trim() === '') {
+        $input.addClass('error');
+        $inputBox.addClass('error');
+
+        let $msg = $input.siblings('.error-msg');
+        if ($msg.length === 0) {
+          $input.after('<div class="error-msg"></div>');
+          $msg = $input.siblings('.error-msg');
+        }
+        $msg.show();
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  $(document).on('input change', '.input-required-update', function() {
+    const $input = $(this);
+    const $inputBox = $input.closest('.input-box');
+    if ($input.val().trim() !== '') {
+      $input.removeClass('error');
+      $inputBox.removeClass('error');
+      $input.siblings('.error-msg').hide();
+    }
+  });
+		//personnel
+			$('#ExportpersonnelExcel').click(function () {
+				var titre_personnel = $("#titre_personnel").val();
+				let table = $("#table_personnel").clone();
+				console.log(table);
+				table.find(".no-export").each(function () {
+					$(this).remove();
+				});
+				if (titre_personnel == "") {
+					Swal.fire({
+						icon: 'warning',
+						title: 'Champ vide',
+						text: `Veillez remplir le champ vide titre d'exportation`, // Message venant du serveur
+						confirmButtonColor: '#127b8e',
+						showConfirmButton: false,
+						timer: 2000
+					});
+				} else {
+					TableToExcel.convert(table[0], {
+						name: `${titre_personnel}.xlsx`,
+						sheet: {
+							name: titre_personnel
+						}
+					});
+				}
+
+			});
+			$('#ExportpersonnelPdf').click(function () {
+				let table = $("#table_personnel").clone();
+				console.log(table);
+				table.find(".no-export").each(function () {
+					$(this).remove();
+				});
+				const doc = new jsPDF('l', 'mm')
+				var titre_personnel = $("#titre_personnel").val();
+				doc.text(titre_personnel, doc.internal.pageSize.getWidth() / 2, 10, {
+					align: "center"
+				})
+				if (titre_personnel == "") {
+					Swal.fire({
+						icon: 'warning',
+						title: 'Champ vide',
+						text: `Veillez remplir le champ vide titre d'exportation`, // Message venant du serveur
+						confirmButtonColor: '#127b8e',
+						showConfirmButton: false,
+						timer: 2000
+					});
+				} else {
+					doc.autoTable({
+						html: table[0],
+						styles: {
+							overflow: 'linebreak',
+							fontSize: 8,
+							halign: 'center'
+						},
+					})
+					doc.save(`${titre_personnel}`)
+				}
+			})
+		//SHOW INFO
+	</script>

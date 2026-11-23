@@ -1,0 +1,97 @@
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+ * {
+ 	padding: 0;
+ 	margin: 0;
+ 	text-decoration: none;
+ 	box-sizing: border-box;
+ 	font-family: 'Poppins', sans-serif;
+ 	border: none;
+ 	outline: none;
+ }
+
+
+ :root {
+ 	--linear-gradient: linear-gradient(to left, hsl(204, 68%, 40%), #002740);
+ 	--background: #002740;
+ 	--background-icon: #005f9e;
+ 	--border-color: #005f9e;
+ 	--background-button: linear-gradient(135deg, hsl(204, 60%, 62%), #005f9e);
+ 	--background-hover: linear-gradient(-135deg, hsl(204, 57%, 65%), #005f9e);
+ 	--disabled-form: #0e99f5;
+ 	--background-select: #5897fb;
+ 	--theme-dashboad: linear-gradient(135deg, #6dd5fa, #2980b9);
+ 	--theme-icon: #6dd5fa;
+ 	--rgba-theme: rgba(0, 95, 158, 0.5);
+
+ 	--bg: #0f1724;
+ 	--card-bg: rgba(255, 255, 255, 0.04);
+ 	--glass: rgba(255, 255, 255, 0.03);
+ 	--accent1: linear-gradient(135deg, rgba(124, 58, 237, 0.4) 0%, rgba(6, 182, 212, 0.4) 100%);
+ 	--accent2: linear-gradient(135deg, rgba(255, 122, 24, 0.4) 0%, rgba(175, 0, 45, 0.4) 100%);
+ 	--glass-border: rgba(255, 255, 255, 0.06);
+ 	--text: #e6eef8;
+ 	--muted: #9fb0c8;
+ 	--card-bg-2: #fff;
+ 	--bg-2: #f8f9fa;
+ 	--text-2: #1e1e2f;
+ 	--accent1-2: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+ 	--accent2-2: linear-gradient(135deg, #ff7a18 0%, #af002d 100%);
+ 	--glass-2: #f0f0f0;
+ }
+
+ :root.principal {
+ 	--linear-gradient: linear-gradient(to left, hsl(204, 68%, 40%), #002740);
+ 	--background: #002740;
+ 	--background-icon: #005f9e;
+ 	--border-color: #005f9e;
+ 	--background-button: linear-gradient(135deg, hsl(204, 60%, 62%), #005f9e);
+ 	--background-hover: linear-gradient(-135deg, hsl(204, 57%, 65%), #005f9e);
+ 	--disabled-form: #0e99f5;
+ 	--background-select: #5897fb;
+ 	--theme-dashboad: linear-gradient(135deg, #6dd5fa, #2980b9);
+ 	--theme-icon: #6dd5fa;
+ 	--rgba-theme: rgba(0, 95, 158, 0.5);
+ }
+
+ :root.green {
+ 	--linear-gradient: linear-gradient(to left, hsl(126, 46%, 54%), #024308);
+ 	--background: #024308;
+ 	--background-icon: #098115;
+ 	--border-color: #024308;
+ 	--background-button: linear-gradient(135deg, hsl(124, 89%, 86%), #024308);
+ 	--background-hover: linear-gradient(-135deg, hsl(126, 66%, 72%), #024308);
+ 	--disabled-form: #378f40;
+ 	--background-select: #0a8816;
+ 	--theme-dashboad: linear-gradient(135deg, #53d40e, #55fac9);
+ 	--theme-icon: #53d40e;
+ 	--rgba-theme: rgba(2, 67, 8, 0.5);
+ }
+
+ :root.purple {
+ 	--linear-gradient: linear-gradient(to left, hsl(285, 93%, 73%), #46045c);
+ 	--background: #46045c;
+ 	--background-icon: #78069f;
+ 	--border-color: #46045c;
+ 	--background-button: linear-gradient(135deg, hsl(285, 81%, 81%), #46045c);
+ 	--background-hover: linear-gradient(-135deg, hsl(285, 81%, 81%), #46045c);
+ 	--disabled-form: #e290fe;
+ 	--background-select: #46045c;
+ 	--theme-dashboad: linear-gradient(135deg, #c471ed, #8360c3);
+ 	--theme-icon: #c471ed;
+ 	--rgba-theme: rgba(103, 4, 136, 0.5);
+ }
+
+ :root.red {
+ 	--linear-gradient: linear-gradient(to left, hsl(358, 80%, 70%), #93080d);
+ 	--background: #93080d;
+ 	--background-icon: #a00b10;
+ 	--border-color: #93080d;
+ 	--background-button: linear-gradient(135deg, hsl(358, 54%, 73%), #93080d);
+ 	--background-hover: linear-gradient(-135deg, hsl(358, 54%, 73%), #93080d);
+ 	--disabled-form: rgb(237, 113, 117);
+ 	--background-select: #93080d;
+ 	--theme-dashboad: linear-gradient(135deg, #ff6a6a, #c94b4b);
+ 	--theme-icon: #ff6a6a;
+ 	--rgba-theme: rgba(147, 8, 13, 0.5);
+ }

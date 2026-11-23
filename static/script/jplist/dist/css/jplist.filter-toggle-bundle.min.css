@@ -1,0 +1,120 @@
+/**
+* jPList - jQuery Data Grid Controls 0.0.1 - http://jplist.com 
+* Copyright 2015 jPList Software.
+*/
+:root {
+	--linear-gradient: linear-gradient(to left, hsl(204, 68%, 40%), #002740);
+	--background: #002740;
+	--background-icon: #005f9e;
+	--border-color: #005f9e;
+	--background-button: linear-gradient(135deg, hsl(204, 60%, 62%), #005f9e);
+	--background-hover: linear-gradient(-135deg, hsl(204, 57%, 65%), #005f9e);
+	--disabled-form: #0e99f5;
+	--background-select: #5897fb;
+}
+
+:root.principal {
+	--linear-gradient: linear-gradient(to left, hsl(204, 68%, 40%), #002740);
+	--background: #002740;
+	--background-icon: #005f9e;
+	--border-color: #005f9e;
+	--background-button: linear-gradient(135deg, hsl(204, 60%, 62%), #005f9e);
+	--background-hover: linear-gradient(-135deg, hsl(204, 57%, 65%), #005f9e);
+	--disabled-form: #0e99f5;
+	--background-select: #5897fb;
+}
+
+:root.green {
+	--linear-gradient: linear-gradient(to left, hsl(126, 46%, 54%), #024308);
+	--background: #024308;
+	--background-icon: #024308;
+	--border-color: #024308;
+	--background-button: linear-gradient(135deg, hsl(124, 89%, 86%), #024308);
+	--background-hover: linear-gradient(-135deg, hsl(126, 66%, 72%), #024308);
+	--disabled-form: #378f40;
+	--background-select: #0a8816;
+}
+:root.orange {
+	--linear-gradient: linear-gradient(-135deg, hsl(37, 80%, 81%), #452c03);
+	--background: #955d02;
+	--background-icon: #955d02;
+	--border-color: #955d02;
+	--background-button: linear-gradient(135deg, hsl(37, 77%, 65%), #955d02);
+	--background-hover: linear-gradient(-135deg, hsl(37, 77%, 65%), #955d02);
+	--disabled-form: #d7ad68;
+	--background-select: #955d02;
+}
+ :root.purple {
+ 	--linear-gradient: linear-gradient(to left, hsl(285, 93%, 73%), #46045c);
+ 	--background: #46045c;
+ 	--background-icon: #46045c;
+ 	--border-color: #46045c;
+ 	--background-button: linear-gradient(135deg, hsl(285, 81%, 81%), #46045c);
+ 	--background-hover: linear-gradient(-135deg, hsl(285, 81%, 81%), #46045c);
+ 	--disabled-form: #e290fe;
+ 	--background-select: #46045c;
+ }
+.lato {
+	font-family: 'Lato', sans-serif
+}
+
+.jplist-panel .jplist-group {
+	float: left;
+	height: 30px;
+	box-shadow: 0 0 1px #fff;
+	background: #fff;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 1px solid #dbdbdb;
+	border-radius: 3px;
+	text-shadow: 1px 1px 1px #fff;
+	color: #27252a;
+	margin: 10px 10px 0 0;
+	padding: 0 0 0 5px;
+	height: auto
+}
+
+.jplist-panel .jplist-group input,
+.jplist-panel .jplist-group label {
+	height: 28px;
+	line-height: 30px
+}
+
+.jplist-panel .jplist-group ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 0 10px;
+	line-height: 28px
+}
+
+.jplist-panel .jplist-group ul li {
+	float: left;
+	margin-right: 15px;
+	overflow: hidden;
+	height: 28px;
+	line-height: 30px
+}
+
+.radio-filters {
+	float: left;
+	margin: 5px 15px 0 0
+}
+
+.radio-filters input {
+	vertical-align: baseline
+}
+
+.radio-filters label {
+	margin-right: 10px
+}
+
+.radio {
+	float: left
+}
+
+[data-control-type="range-filter"] {
+	cursor: pointer
+}

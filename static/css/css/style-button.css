@@ -1,0 +1,423 @@
+                            @import url("style.css");
+
+                            .bouton-add-div {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                flex-direction: column;
+                                position: fixed;
+                                z-index: 100;
+                                right: 30px;
+                                bottom: 17%;
+                                height: 50px;
+                                width: 50px;
+                                border-radius: 50%;
+                                background: var(--background-icon);
+                            }
+
+                            .bouton-add-div1 {
+                                border-radius: 50%;
+                                z-index: 100;
+                                position: fixed;
+                                right: 30px;
+                                bottom: 17%;
+                                height: 60px;
+                                width: 60px;
+                            }
+
+                            .bouton-add-div1 .nav .nav-content .toggle-btn i {
+                                font-size: 20px;
+                            }
+
+                            .bouton-add-div1 .nav .nav-content .toggle-btn {
+                                background: transparent;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background: var(--background-icon);
+                                height: 50px;
+                                width: 50px;
+                            }
+
+                            .bouton-add-div1 .nav .nav-content .toggle-btn:hover {
+                                background: var(--linear-gradient);
+                            }
+
+                            .bouton-add-div1 .nav .nav-content .span .icon-circular {
+                                height: 45px;
+                                width: 45px;
+                                border-radius: 50%;
+                                font-size: 15px;
+                            }
+
+                            .bouton-add-div1 .nav .nav-content .span1 .tooltip {
+                                font-size: 15px;
+                                position: relative;
+                                top: -13px;
+                            }
+
+                            .bouton-add-div .tooltip-add {
+                                position: relative;
+                                background: #fff;
+                                color: var(--background-icon);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 5px;
+                                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+                                padding: 7px;
+                                font-weight: 600;
+                                font-size: 14px;
+                                transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                                top: -45px;
+                                opacity: 0;
+                                pointer-events: none;
+                                transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                            }
+
+                            .bouton-add-div .tooltip-add::before {
+                                position: absolute;
+                                content: "";
+                                height: 15px;
+                                width: 15px;
+                                background: #fff;
+                                bottom: -9px;
+                                left: 50%;
+                                transform: translateX(-50%) rotate(45deg);
+                            }
+
+                            .toggle-btn1 {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+
+                            .bouton-add-div .boutton-petit-modal {
+                                cursor: pointer;
+                                border: none;
+                                background: transparent;
+                                color: #fff;
+                            }
+
+                            .bouton-add-div:hover {
+                                background: var(--linear-gradient);
+                            }
+
+                            .bouton-add-div i {
+                                font-size: 20px;
+                                top: -15px;
+                                position: relative;
+                                color: #fff;
+                                cursor: pointer;
+                            }
+
+                            .bouton-add-div:hover .tooltip-add {
+                                opacity: 1;
+                                pointer-events: auto;
+                            }
+
+
+                            /*--------DIV NAV BOUTTON------------*/
+
+                            .nav {
+                                position: relative;
+                                z-index: 9;
+                            }
+
+                            .nav .nav-content {
+                                margin-top: 15px;
+                                margin-bottom: 10px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
+
+                            .nav-tooltip .nav-content-tp {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                flex-direction: column;
+                            }
+
+                            .nav-tooltip .nav-content-tp .tooltip {
+                                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+                                padding: 7px;
+                                background: #fff;
+                                color: var(--background-icon);
+                                border-radius: 5px;
+                                position: absolute;
+                                top: -40px;
+                                display: none;
+                            }
+
+                            .nav-tooltip .nav-content-tp .tooltip::before {
+                                position: absolute;
+                                content: "";
+                                height: 15px;
+                                width: 15px;
+                                background: #fff;
+                                bottom: -8px;
+                                left: 50%;
+                                transform: translateX(-50%) rotate(45deg);
+                            }
+
+                            .nav-tooltip .nav-content-tp:hover .tooltip {
+                                display: block;
+                            }
+
+                            .nav-content .toggle-btn {
+                                font-size: 15px;
+                                color: #fff;
+                                z-index: 100;
+                                cursor: pointer;
+                            }
+
+                            .nav-content .toggle-btn {
+                                height: 45px;
+                                width: 45px;
+                                background: var(--background-icon);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 50%;
+                                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+                            }
+
+                            .nav-content .toggle-btn:hover {
+                                background: var(--linear-gradient);
+                            }
+
+                            .nav.active .toggle-btn {
+                                transform: rotate(0deg);
+                            }
+
+                            .nav-content .span a,
+                            .nav-content .span5 a {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                flex-direction: column;
+                                flex-wrap: wrap;
+                            }
+
+                            .nav-content .span,
+                            .nav-content .span5 {
+                                position: absolute;
+                                transition: all 0.6s ease;
+                                opacity: 0;
+                            }
+
+                            .nav.active .nav-content .span {
+                                transform: rotate(calc(var(--i) * (360deg / 4))) translateY(80px);
+                                opacity: 1;
+                            }
+
+                            .nav-content .span a {
+                                text-decoration: none;
+                                transform: rotate(calc(var(--i) * (360deg / -4)));
+                            }
+
+                            .nav.active .nav-content .span5 {
+                                transform: rotate(calc(var(--i) * (360deg / 5))) translateY(80px);
+                                opacity: 1;
+                            }
+
+                            .nav-content .span5 a {
+                                text-decoration: none;
+                                transform: rotate(calc(var(--i) * (360deg / -5)));
+                            }
+
+                            /*-------------SPAN 1---------------*/
+
+                            .nav.active .nav-content .span1 {
+                                transform: rotate(calc(var(--i) * (360deg / 5))) translateY(80px);
+                                opacity: 1;
+                            }
+
+                            .nav-content .span1 a {
+                                text-decoration: none;
+                                transform: rotate(calc(var(--i) * (360deg / -5)));
+                            }
+
+                            .nav-content .span a .tooltip,
+                            .nav-content .span5 a .tooltip {
+                                position: absolute;
+                                background: #fff;
+                                color: var(--background-icon);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 5px;
+                                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+                                top: -35px;
+                                padding: 5px;
+                                font-weight: 600;
+                                font-size: 13px;
+                                transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                                display: none;
+                            }
+
+                            .nav-content .span a .tooltip::before,
+                            .nav-content .span5 a .tooltip::before {
+                                position: absolute;
+                                content: "";
+                                height: 15px;
+                                width: 15px;
+                                background: #fff;
+                                bottom: -9px;
+                                left: 50%;
+                                transform: translateX(-50%) rotate(45deg);
+                            }
+
+                            .nav-content .span a:hover .tooltip,
+                            .nav-content .span5 a:hover .tooltip {
+                                display: block;
+                            }
+
+                            .nav-content .span a .icon-circular,
+                            .nav-content .span5 a .icon-circular {
+                                z-index: 999;
+                                font-size: 15px;
+                                color: #fff;
+                                height: 40px;
+                                width: 40px;
+                                background: var(--background-icon);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 50%;
+                                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+                            }
+
+                            .nav-content .span a .icon-circular:hover,
+                            .nav-content .span5 a .icon-circular:hover {
+                                background: var(--linear-gradient);
+                            }
+
+
+                            /*-------------CALENDRIER--------------*/
+
+                            .content-calendrier {
+                                height: 250px;
+                                width: 250px;
+                                position: fixed;
+                                right: 50px;
+                                z-index: 100;
+                                bottom: 10%;
+                                display: flex;
+                                align-items: end;
+                                justify-content: end;
+                                flex-direction: column;
+                            }
+
+                            .calendrier {
+                                background: #fff;
+                                padding: 10px;
+                                margin-bottom: 10px;
+                                border-radius: 10px;
+                                box-shadow: 0 3px 6px rgb(0, 0, 0, 0.16), 0 3px 6px rgb(0, 0, 0, 0.23);
+                                display: grid;
+                                grid-template-columns: repeat(4, 2fr);
+                                gap: 10px;
+                                overflow: auto;
+                                opacity: 0;
+                            }
+
+                            .showcalendar {
+                                opacity: 1;
+                            }
+
+                            .calendrier .years {
+                                height: 30px;
+                                box-shadow: 0 3px 6px rgb(0, 0, 0, 0.16), 0 3px 6px rgb(0, 0, 0, 0.23);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 14px;
+                                font-weight: 600;
+                                padding-left: 5px;
+                                padding-right: 5px;
+                                border-radius: 5px;
+                            }
+
+                            .calendrier .years:hover {
+                                background: var(--background-hover);
+                                color: #fff;
+                                cursor: pointer;
+                            }
+
+                            .changeColor {
+                                background: var(--theme-dashboad);
+                                color: #fff;
+                            }
+
+                            .bouton-add-div2 {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                flex-direction: column;
+                                z-index: 100;
+                                right: 30px;
+                                bottom: 10%;
+                                height: 50px;
+                                width: 50px;
+                                border-radius: 50%;
+                                background: var(--background-icon);
+                            }
+
+                            .bouton-add-div2 .tooltip-add {
+                                position: relative;
+                                background: #fff;
+                                color: var(--background-icon);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 5px;
+                                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+                                padding: 7px;
+                                font-weight: 600;
+                                font-size: 14px;
+                                transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                                top: -45px;
+                                opacity: 0;
+                                pointer-events: none;
+                                transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                            }
+
+                            .bouton-add-div2 .tooltip-add::before {
+                                position: absolute;
+                                content: "";
+                                height: 15px;
+                                width: 15px;
+                                background: #fff;
+                                bottom: -9px;
+                                left: 50%;
+                                transform: translateX(-50%) rotate(45deg);
+                            }
+
+                            .bouton-add-div2 .boutton-petit-modal {
+                                cursor: pointer;
+                                border: none;
+                                background: transparent;
+                                color: #fff;
+                            }
+
+                            .bouton-add-div2:hover {
+                                background: var(--linear-gradient);
+                            }
+
+                            .bouton-add-div2 i {
+                                font-size: 20px;
+                                top: -15px;
+                                position: relative;
+                                color: #fff;
+                                cursor: pointer;
+                            }
+
+                            .bouton-add-div2:hover .tooltip-add {
+                                opacity: 1;
+                                pointer-events: auto;
+                            }
+
+
+                            /*----------CONTENT SPAN 1---------------*/

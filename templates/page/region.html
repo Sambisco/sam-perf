@@ -1,0 +1,1274 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<!------MAIN-CONTENT-------->
+<div class="main-content">
+    <div class="bloc-header">
+        <div class="overlay">
+
+        </div>
+        <div class="baniere-left">
+            <h1>Antenne Regionale</h1>
+        </div>
+        <div class="baniere-right">
+            <div class="content-navigation">
+                <ul class="navigation">
+                    <li class="active_nav active_nav_click"
+                        id="btn-modal-ajouter">
+                        <a href="#">
+                            <span class="icon"><i
+                                    class="fas fa-fw fa-plus"></i></span>
+                            <span class="text">Ajouter</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="section-content">
+        <div class="circle"><i class="fas fa-building"></i></div>
+
+        <div class="main-sous-content">
+            <div class="content-list content-list1">
+
+            </div>
+            <!----------------PAGINATION----------->
+            <div class="pagination">
+                <div class="showingInfo" id="showingInfo1"></div>
+                <div class="showingPage" id="pagination1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------MODAL AJOUT-------->
+<form id="insertForm">
+    <div class="petit close-modal" id="ajouter-modal">
+        <div class="modal-panel-petit">
+            <div class="overlay-inner">
+                <div class="modal-close-content">
+                    <div class="modal-close">
+                        <span class="title">AJOUTER Antenne Regionale</span>
+                        <div class="btn-close-modal close-modal">
+                            <i class="fa fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="container-upload1">
+                        <div class="upload1">
+                            <div class="fa fa-plus"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="corps-modal">
+                    <input type="hidden" name="id_reference"
+                        id="get_id_reference">
+                    <input type="hidden" name="insert_id" id>
+                    <div class="container-form">
+                        <div class="nextstep nextstep-active">
+                            <div class="user-details-login">
+                                <div class="input-group">
+                                    <label class="label-details">Antenne
+                                        regionale</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-user fa-icon"></i></span>
+                                        <input type="text"
+                                            class="text-input etablissement input-required1"
+                                            name="region" id="region"
+                                            placeholder="Region">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Telephone</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-phone fa-icon"></i>
+                                        </span>
+                                        <input type="text"
+                                            class="text-input input-required1"
+                                            name="telephone" id="telephone"
+                                            placeholder="Telephone">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Email</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-envelope fa-icon"></i></span>
+                                        <input type="text"
+                                            class="text-input input-required1"
+                                            name="email" placeholder="Email">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-modal">
+                            <button type="submit" class="footer-button-register"
+                                id="insertdata">Enregister</button>
+                            <button type="button"
+                                class="footer-button-close close-modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<!------FIN MODAL AJOUT-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+    <div class="petit close-modal" id="modifier-modal">
+        <div class="modal-panel-petit">
+            <div class="overlay-inner">
+                <div class="modal-close-content">
+                    <div class="modal-close">
+                        <span class="title">modifier Antenne Regionale</span>
+                        <div class="btn-close-modal close-modal">
+                            <i class="fa fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="container-upload1">
+                        <div class="upload1">
+                            <div class="fa fa-edit"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="corps-modal">
+                    <input type="text" name="edit_id" id="edit_id" hidden>
+                    <div class="container-form">
+
+                        <div class="nextstep nextstep-active">
+                            <div class="user-details-login">
+                                <div class="input-group">
+                                    <label class="label-details">Antenne
+                                        regionale</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-user fa-icon"></i></span>
+                                        <input type="text"
+                                            class="text-input etablissement input-required-update"
+                                            name="region"
+                                            id="update_region"
+                                            placeholder="Region">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Telephone</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-phone fa-icon"></i>
+                                        </span>
+                                        <input type="text"
+                                            class="text-input input-required-update"
+                                            name="telephone"
+                                            id="update_telephone"
+                                            placeholder="Telephone">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Email</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-envelope fa-icon"></i></span>
+                                        <input type="text"
+                                            class="text-input input-required-update"
+                                            name="email" id="update_email"
+                                            placeholder="Email">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-modal">
+                            <button type="submit" class="footer-button-register"
+                                id="updatetdata">Modifier</button>
+                            <button type="button"
+                                class="footer-button-close close-modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<!------FIN MODAL MODIFIER-------->
+<!------MODAL SUPPRIMER-------->
+
+<form id="deleteForm">
+    <div class="petit close-modal" id="supprimer-modal">
+        <div class="modal-panel-petit">
+            <div class="overlay-inner">
+                <div class="modal-close">
+                    <span class="title">supprimer Antenne Regionale</span>
+                    <div class="btn-close-modal close-modal">
+                        <i class="fa fa-times-circle"></i>
+                    </div>
+                </div>
+                <div class="corps-modal">
+                    <input type="hidden" name="delete_id" id="delete_id">
+                    <div class="container-form">
+                        <div class="container-upload1">
+                            <div class="upload1">
+                                <div class="fa fa-trash"></div>
+                            </div>
+                        </div>
+                        <div class="nextstep nextstep-active">
+                            <div class="user-details-login">
+                                <div class="input-group">
+                                    <label class="label-details">Voulez-vous
+                                        vraiment supprimer ?</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-trash"></i> </span>
+                                        <input type="text" class="text-input"
+                                            name id="nom_del" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-modal">
+                                <button type="submit"
+                                    class="footer-button-register"
+                                    id="deletedata">Supprimer</button>
+                                <button type="button"
+                                    class="footer-button-close close-modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<!------FIN MODAL SUPPRIMER-------->
+<!------MODAL INFO-------->
+<div class="grand close-modal" id="infocomplet-modal">
+    <div class="modal-panel-grand">
+        <div class="overlay-inner">
+            <div class="modal-close modal-close-no-3d">
+                <span class="title">Information ANTENNE REGIONALE</span>
+                <div class="btn-close-modal close-modal">
+                    <i class="fa fa-times-circle"></i>
+                </div>
+            </div>
+            <div class="corps-modal">
+                <section class="timeline_about card_tab_pane">
+                    <div class="tabs">
+                        <ul>
+                            <li class="timeline tab_btn active_tab">
+                                <i class="ri-eye-fill ri"></i>
+                                <span>Personnel</span>
+                            </li>
+                            <li class="about tab_btn">
+                                <i class="ri-user-3-fill ri"></i>
+                                <span>Pointage</span>
+                            </li>
+                            <li class="about tab_btn">
+                                <i class="ri-user-3-fill ri"></i>
+                                <span>Absence</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="contact_Info content_tab active_tab">
+                        <div
+                            class="user-details-register user-details-register-dasboard">
+                            <div class="input-box"
+                                style="display: flex;flex-wrap: wrap;gap:5px;margin-top: 15px">
+                                <span class="span-left"><i
+                                        class="fa fa-file-export"></i> </span>
+                                <input type="text" class="text-input"
+                                    id="titre_personnel"
+                                    style="width:250px !important;"
+                                    placeholder="Titre d'exportation">
+                                <button type="submit"
+                                    class="footer-button-export"
+                                    id="ExportpersonnelExcel">EXCEL</button>
+                                <button type="submit"
+                                    class="footer-button-export"
+                                    id="ExportpersonnelPdf">PDF</button>
+                            </div>
+                        </div>
+                        <table id="table_personnel" class="stripe hover mytab"
+                            style="width:100%;"
+                            data-order='[[0,"desc"]]'>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="no-export">Photo</th>
+                                    <th style="min-width:200px;">Prenom</th>
+                                    <th style="min-width:100px;">Nom</th>
+                                    <th style="min-width:100px;">Matricule</th>
+                                    <th style="min-width:150px;">Date de
+                                        naissance</th>
+                                    <th style="min-width:150px;">Lieu de
+                                        naissance</th>
+                                    <th style="min-width:150px;">Telephone</th>
+                                    <th style="min-width:150px;">Categorie</th>
+                                    <th style="min-width:150px;">Poste
+                                        Occupé</th>
+                                    <th style="min-width:150px;">Service</th>
+                                    <th style="min-width:150px;">Antenne
+                                        Regionale</th>
+                                    <th style="min-width:150px;">Heure
+                                        Début</th>
+                                    <th style="min-width:150px;">Heure
+                                        Décente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="contact_Info content_tab">
+                        <div
+                            class="user-details-register user-details-register-dasboard">
+                            <div class="input-box"
+                                style="display: flex;flex-wrap: wrap;gap:5px;margin-top: 15px">
+                                <span class="span-left"><i
+                                        class="fa fa-file-export"></i> </span>
+                                <input type="text" class="text-input"
+                                    id="titre_pointage"
+                                    style="width:250px !important;"
+                                    placeholder="Titre d'exportation">
+                                <button type="submit"
+                                    class="footer-button-export"
+                                    id="ExportpointageExcel">EXCEL</button>
+                                <button type="submit"
+                                    class="footer-button-export"
+                                    id="ExportpointagePdf">PDF</button>
+                            </div>
+                        </div>
+                        <table id="table_pointage" class="stripe hover mytab"
+                            style="width:100%;"
+                            data-order='[[0,"desc"]]'>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="no-export">Photo</th>
+                                    <th style="min-width:200px;">Prenom</th>
+                                    <th style="min-width:100px;">Nom</th>
+                                    <th style="min-width:100px;">Matricule</th>
+                                    <th style="min-width:200px;">Poste
+                                        occupe</th>
+                                    <th style="min-width:200px;">Date</th>
+                                    <th style="min-width:150px;">Heure
+                                        d'entrée</th>
+                                    <th style="min-width:200px;">Heure de
+                                        sortie</th>
+                                    <th style="min-width:200px;">Antenne
+                                        Regionale</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="contact_Info content_tab">
+                        <div
+                            class="user-details-register user-details-register-dasboard">
+                            <div class="input-box"
+                                style="display: flex;flex-wrap: wrap;gap:5px;margin-top: 15px">
+                                <span class="span-left"><i
+                                        class="fa fa-file-export"></i> </span>
+                                <input type="text" class="text-input"
+                                    id="titre_absence"
+                                    style="width:250px !important;"
+                                    placeholder="Titre d'exportation">
+                                <button type="submit"
+                                    class="footer-button-export"
+                                    id="ExportabsenceExcel">EXCEL</button>
+                                <button type="submit"
+                                    class="footer-button-export"
+                                    id="ExportabsencePdf">PDF</button>
+                            </div>
+                        </div>
+                        <table id="table_absence" class="stripe hover mytab"
+                            style="width:100%;"
+                            data-order='[[0,"desc"]]'>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="no-export">Photo</th>
+                                    <th style="min-width:200px;">Prenom</th>
+                                    <th style="min-width:100px;">Nom</th>
+                                    <th style="min-width:100px;">Matricule</th>
+                                    <th style="min-width:200px;">Poste
+                                        occupe</th>
+                                    <th style="min-width:200px;">Date</th>
+                                    <th
+                                        style="min-width:200px;">justification</th>
+                                    <th style="min-width:200px;">Imputable sur
+                                        les normaux</th>
+                                    <th style="min-width:200px;">Antenne
+                                        Regionale</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+            <div class="footer-modal">
+                <button type="button"
+                    class="footer-button-close close-modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!------FIN MODAL INFO-------->
+
+<!------FIN MODAL INFO-------->
+<!------FOOTER-------->
+{% include 'include/footer.html' %}
+
+<script>
+
+    $('document').ready(function () {
+        fetchdata()
+    })
+
+
+    function fetchdata() {
+        var id = $("#id_reference").val();
+        $.ajax({
+            url: "/controller/region/fetch_region", // ton URL Flask
+            type: "POST",
+            data: {id: id},
+            success: function (response) {
+                console.log(response);
+                $('.content-list1').html(""); // vider le contenu avant d'ajouter
+                // response est un tableau d'objets JSON
+                for (var a = 0; a < response.length; a++) {
+                    var gp = response[a];
+                    var div1 = `
+                  <div class="parent box result well">
+                    <div class="card">
+                        <div class="content-date-box">
+                            <div class="overlay">
+                                <div class="date-box">${gp.acronym_debut}</div>
+                            </div>
+                        </div>
+                        <div class="content-box">
+                            <h1 class="card-title">${gp.region}</h1>
+                            <div class="card-content">
+                                <div class="card-content-info">
+                                    <i class="fa fa-phone fa-rotate-90"></i><span>${gp.telephone}</span>
+                                </div>
+                                <div class="card-content-info">
+                                    <i class="fa fa-envelope"></i><span>${gp.email}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-navigation_list">
+                            <ul class="navigation_list">
+                               <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp.count}" id="updatebtn" data-id="${gp.id_region}">
+                                   <a href="#">
+                                       <span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+                                       <span class="text">Modifier</span>
+                                       <span class="lampe"></span>
+                                   </a>
+                               </li>
+                               <li class="active_nav_click_list active_nav_click_list_${gp.count}" id="infocomplet" data-id="${gp.id_region}">
+                                   <a href="#">
+                                       <span class="icon"><i class="fas fa-users"></i></span>
+                                       <span class="text">Employé</span>
+                                       <span class="lampe"></span>
+                                   </a>
+                               </li>
+                            </ul>
+                        </div>
+                    </div>
+                  </div>
+                `;
+                    $('.content-list1').append(div1);
+                }
+                // Ici tu peux réinitialiser ta pagination si besoin
+               updateSectionItems(0);
+            },
+            error: function (xhr, status, error) {
+                console.error("Erreur AJAX: ", error);
+                alert(error)
+                // Gérer l'erreur ici si besoin
+            }
+        });
+    }
+
+    $("#btn-modal-ajouter").click(function () {
+        $("#get_id_reference").val($("#id_reference").val());
+        $("#ajouter-modal").fadeIn();
+    });
+    $(document).on("click", ".active_nav_click_list", function (e) {
+        e.preventDefault();
+        var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+        console.log("ID chiffré cliqué:", encryptedId);
+
+        // Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+        var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+        $(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+        $(this).addClass("active_nav_list");
+
+        // Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+    });
+
+    $(document).on('click', '.toggle-btn', function (e) {
+        var id = $(this).data('id');
+        $("#nav_" + id).toggleClass("active");
+        $("#toggle-btn-close_" + id).toggleClass("fa-times");
+    })
+    $(document).on('click', '.fab-button', function (e) {
+        var id = $(this).data('id');
+        $("#fab-show_" + id).toggle("slow");
+        $("#fas_" + id).toggleClass("fa-times");
+        $("#fab-show_" + id).attr(('style', 'display:block'))
+    })
+    //PHOTO
+    $(document).on("change", "#photo", function () {
+        var file = this.files[0];
+        console.log(file);
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imgPreview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    })
+    $(document).on("change", "#update_photo", function () {
+        var file = this.files[0];
+        console.log(file);
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#update_imgPreview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    })
+    $(document).on("change", "#photo_cachet", function () {
+        var file = this.files[0];
+        console.log(file);
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imgPreview_cachet').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    })
+    $(document).on("change", "#update_photo_cachet", function () {
+        var file = this.files[0];
+        console.log(file);
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#update_imgPreview_cachet').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    })
+    $(document).on("keyup", ".etablissement", function (event) {
+        var textBox = event.target;
+        var start = textBox.selectionStart;
+        var end = textBox.selectionEnd;
+
+        // Capitalize the first letter of each word after a space
+        textBox.value = textBox.value.toLowerCase().replace(/(?:^|\s)\w/g, function (match) {
+            return match.toUpperCase();
+        });
+
+        textBox.setSelectionRange(start, end);
+    });
+    //INSERTION
+    $(document).ready(function (e) {
+        // Submit form data via Ajax
+      $("#insertForm").on('submit', function (e) {
+    e.preventDefault();
+
+      $('.input-box').removeClass('error');
+    $('.error-msg').hide();
+
+    if (!validateForm()) {
+      return;
+    }
+		
+
+    $.ajax({
+        type: 'POST',
+        url: '../controller/region/save',
+        data: new FormData(this),
+        contentType: false,
+        cache: false,
+        processData: false,
+
+        success: function (response) {
+            console.log(response);
+
+            if (response.status === 'true') {
+                // Si la région existe déjà, afficher un message d'avertissement
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Existe',
+                    text: response.message,  // Message venant du serveur
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else if (response.status === 'success') {
+                // Si l'enregistrement est réussi
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Enregistré',
+                    text: response.message,  // Message venant du serveur
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(function () {
+                    fetchdata();  // Actualiser les données
+                });
+            } else {
+                // Gestion des erreurs
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: response.message || "Une erreur inconnue est survenue.",
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                      timer: 2000
+                });
+            }
+        },
+        error: function (xhr, status, error) {
+            // En cas d'erreur AJAX
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: 'Une erreur est survenue pendant l\'envoi de la requête.',
+                confirmButtonColor: '#127b8e',
+                showConfirmButton: true
+            });
+        }
+    });
+
+    // Fermer la modal et réinitialiser le formulaire
+    $("#ajouter-modal").fadeOut();
+    $(this).closest('form').find("input[type=text]").val("");
+});
+
+        //MODIFIER
+$("#updateForm").on('submit', function (e) {
+    e.preventDefault();
+
+     $('.input-box').removeClass('error');
+    $('.error-msg').hide();
+
+    if (!validateForm_update()) {
+      return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '../controller/region/save',  // Change cette URL si nécessaire
+        data: new FormData(this),
+        dataType: 'json',  // Attendre une réponse au format JSON
+        contentType: false,
+        cache: false,
+        processData: false,
+
+        success: function (response) {
+            console.log(response);
+            if (response.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Modifié',
+                    text: response.message || "Modification effectuée avec succès.",
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(function () {
+                    fetchdata();  // Actualiser les données
+                });
+            } else if (response.status === 'error') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: response.message || "Une erreur est survenue lors de la modification.",
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: true
+                });
+            }
+        },
+        error: function (xhr, status, error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: 'Une erreur est survenue lors de la requête AJAX.',
+                confirmButtonColor: '#127b8e',
+                showConfirmButton: true
+            });
+        }
+    });
+
+    // Fermer la modal et réinitialiser le formulaire
+    $("#modifier-modal").fadeOut();
+    $(this).closest('form').find("input[type=text]").val("");
+});
+        // SUPPRIMER
+        $("#deleteForm").on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '../controller/region/save',
+                data: new FormData(this),
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response)
+                }
+            });
+            $("#supprimer-modal").fadeOut();
+            Swal.fire({
+                icon: 'error',
+                title: 'Supprimé',
+                text: "Suppression effectuée avec succés.",
+                confirmButtonColor: '#127b8e',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(function () {
+                fetchdata();
+            });
+
+        });
+    })
+    //PAGINATION
+
+    // SHOW UPDATE
+    $(document).ready(function () {
+        $(document).on('click', '#updatebtn', function (e) {
+            e.preventDefault();
+            var id_region = $(this).data('id');
+            $.ajax({
+                url: "../controller/region/fetch_region",
+                type: "post",
+                data: {
+                    id_region: id_region
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error) {
+                        alert("Erreur: " + data.error);
+                    } else {
+                        // Affiche les données reçues
+                        // Mets à jour les champs du formulaire
+                        $("#edit_id").val(data[0].id_region);
+                        $("#update_region").val(data[0].region);
+                        $("#update_telephone").val(data[0].telephone);
+                        $("#update_email").val(data[0].email);
+                        // Montre la modal
+                        $("#modifier-modal").fadeIn();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erreur AJAX: ", error);
+                }
+            });
+        });
+    });
+
+    //SHOW DELETE
+    $(document).on('click', '#deletebtn', function (e) {
+        e.preventDefault();
+        var id_region = $(this).data('id');
+        $.ajax({
+            url: "../controller/region/fetch_region",
+            type: "post",
+            data: {
+                id_region: id_region
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data.logo)
+                $("#delete_id").val(data.id_region);
+                $("#nom_del").val(data.region);
+                $("#supprimer-modal").fadeIn();
+            }
+        });
+    });
+    //SHOW INFO
+
+    $(document).on('click', '#infocomplet', function (e) {
+        e.preventDefault();
+        var infocomplet = $(this).data('id')
+        $("#table_personnel").dataTable().fnDestroy()
+        $.ajax({
+            url: "../controller/region/fetch_region",
+            type: "POST",
+            data: {
+                id_personnel: infocomplet
+            },
+            success: function (response) {
+                $('#table_personnel tbody').empty(); // vide le tbody
+
+                var gp_data = response; // JSON déjà parsé
+
+                for (var b = 0; b < gp_data.length; b++) {
+                    console.log(gp_data[b].photo);
+                    $('#table_personnel tbody').append(`
+      <tr>
+        <td>${gp_data[b].count}</td>
+        <td class="no-export"><img src="${gp_data[b].photo}" alt="photo" width="30" height="30"></td>
+        <td style="text-align:center;">${gp_data[b].prenom}</td>
+        <td style="text-align:center;">${gp_data[b].nom}</td>
+        <td style="text-align:center;">${gp_data[b].matricule}</td>
+        <td style="text-align:center;">${decodeUTF8(gp_data[b].date_n2)}</td>
+        <td style="text-align:center;">${gp_data[b].lieu_n}</td>
+        <td style="text-align:center;">${gp_data[b].telephone_e}</td>
+        <td style="text-align:center;">${gp_data[b].categorie}</td>
+        <td style="text-align:center;">${gp_data[b].poste_occupe}</td>
+        <td style="text-align:center;">${gp_data[b].nom_departement}</td>
+        <td style="text-align:center;">${gp_data[b].region}</td>
+        <td style="text-align:center;">${gp_data[b].heure_debut}</td>
+        <td style="text-align:center;">${gp_data[b].heure_decente}</td>
+      </tr>
+    `);
+                }
+
+                $("#table_personnel").DataTable({
+                    scrollX: true,
+                    lengthMenu: [[10, 25, 50, 250, -1], [10, 25, 50, 250, "Tous"]],
+                    buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5'],
+                    language: {
+                        "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                        "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                        "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+                        "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+                        "sLengthMenu": "Afficher _MENU_ éléments",
+                        "sLoadingRecords": "Chargement...",
+                        "sProcessing": "Traitement...",
+                        "sSearch": "Rechercher :",
+                        "sZeroRecords": "Aucun élément correspondant trouvé",
+                        "oPaginate": {
+                            "sFirst": "Premier",
+                            "sLast": "Dernier",
+                            "sNext": "Suivant",
+                            "sPrevious": "Précédent"
+                        }
+                    }
+                });
+            },
+            error: function (xhr, status, error) {
+                alert("Erreur AJAX: " + error);
+            }
+        })
+        $("#table_pointage").dataTable().fnDestroy()
+        $.ajax({
+            url: "../controller/region/fetch_region",
+            type: "POST",
+            data: {
+                id_pointage: infocomplet
+            },
+            success: function (response) {
+                $('#table_pointage tbody').html(""); // Effacer les lignes existantes avant de les remplir
+                var gp_data = response;
+                for (var c = 0; c < gp_data.length; c++) {
+                    $('#table_pointage tbody').append(`
+           <tr>
+           	<td>${gp_data[c].count}</td>
+           	<td class="no-export"><img src="${gp_data[c].photo}" alt="" width="30" height="30"></td>
+           	<td style="text-align:center;">${gp_data[c].prenom}</td>
+           	<td style="text-align:center;">${gp_data[c].nom}</td>
+           	<td style="text-align:center;">${gp_data[c].matricule}</td>
+           	<td style="text-align:center;">${gp_data[c].poste_occupe}</td>
+           	<td style="text-align:center;">${decodeUTF8(gp_data[c].date_pointage)}</td>
+           	<td style="text-align:center;">${gp_data[c].heure_debut}</td>
+           	<td style="text-align:center;">${gp_data[c].heure_fin}</td>
+           	<td style="text-align:center;">${gp_data[c].region}</td>
+           </tr>
+        `);
+                }
+                $("#table_pointage").DataTable({
+                    scrollX: true,
+                    lengthMenu: [
+                        [10, 25, 50, 250, -1],
+                        [10, 25, 50, 250, "Tous"]
+                    ],
+                    layout: {
+                        topStart: {
+                            buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+                        }
+                    },
+                    "language": {
+                        "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                        "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                        "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+                        "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+                        "sInfoPostFix": "",
+                        "sInfoThousands": ",",
+                        "sLengthMenu": "Afficher _MENU_ éléments",
+                        "sLoadingRecords": "Chargement...",
+                        "sProcessing": "Traitement...",
+                        "sSearch": "Rechercher :",
+                        "sZeroRecords": "Aucun élément correspondant trouvé",
+                        "oPaginate": {
+                            "sFirst": "Premier",
+                            "sLast": "Dernier",
+                            "sNext": "Suivant",
+                            "sPrevious": "Précédent"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                            "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                        },
+                        "select": {
+                            "rows": {
+                                "_": "%d lignes sélectionnées",
+                                "0": "Aucune ligne sélectionnée",
+                                "1": "1 ligne sélectionnée"
+                            }
+                        }
+                    },
+                });
+            },
+            error: function (xhr, status, error) {
+                alert("Erreur AJAX: " + error);
+            }
+
+        })
+        $("#table_absence").dataTable().fnDestroy()
+        $.ajax({
+            url: "../controller/region/fetch_region",
+            type: "POST",
+            data: {
+                id_absence: infocomplet
+            },
+            success: function (response) {
+                $('#table_absence tbody').html(""); //insérer le texte de test.php dans votre div
+                var gp_data = response;
+
+                for (var d = 0; d < gp_data.length; d++) {
+
+                    $('#table_absence tbody').append(`
+			           <tr>
+			           	<td>${gp_data[d].count}</td>
+			           	<td class="no-export"><img src="${gp_data[d].photo}" alt="" id="" width="30" height="30"></td>
+			           	<td style="text-align:center;">${gp_data[d].prenom}</td>
+			           	<td style="text-align:center;">${gp_data[d].nom}</td>
+			           	<td style="text-align:center;">${gp_data[d].matricule}</td>
+						<td style="text-align:center;">${gp_data[d].poste_occupe}</td>
+			           	<td style="text-align:center;">${decodeUTF8(gp_data[d].date_absence)}</td>
+			           	<td style="text-align:center;">${gp_data[d].justification}</td>
+			           	<td style="text-align:center;">${gp_data[d].Imputable_sur_les_normaux}</td>
+			           	<td style="text-align:center;">${gp_data[d].region}</td>
+
+			           /tr>
+						`);
+                }
+
+                $("#table_absence").DataTable({
+                    scrollX: true,
+                    lengthMenu: [
+                        [10, 25, 50, 250, -1],
+                        [10, 25, 50, 250, "Tous"]
+                    ],
+                    layout: {
+                        topStart: {
+                            buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+                        }
+                    },
+                    "language": {
+
+                        "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                        "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                        "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+                        "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+                        "sInfoPostFix": "",
+                        "sInfoThousands": ",",
+                        "sLengthMenu": "Afficher _MENU_ éléments",
+                        "sLoadingRecords": "Chargement...",
+                        "sProcessing": "Traitement...",
+                        "sSearch": "Rechercher :",
+                        "sZeroRecords": "Aucun élément correspondant trouvé",
+                        "oPaginate": {
+                            "sFirst": "Premier",
+                            "sLast": "Dernier",
+                            "sNext": "Suivant",
+                            "sPrevious": "Précédent"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                            "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                        },
+                        "select": {
+                            "rows": {
+                                "_": "%d lignes sélectionnées",
+                                "0": "Aucune ligne sélectionnée",
+                                "1": "1 ligne sélectionnée"
+                            }
+                        }
+                    },
+                });
+            },
+            error: function (xhr, status, error) {
+                alert("Erreur AJAX: " + error);
+            }
+        })
+        $("#infocomplet-modal").fadeIn();
+    });
+ function validateForm() {
+    let valid = true;
+    $('.input-required1').each(function() {
+      const $input = $(this);
+      const $inputBox = $input.closest('.input-box');
+      if ($input.val().trim() === '') {
+        $input.addClass('error');
+        $inputBox.addClass('error');
+
+        let $msg = $input.siblings('.error-msg');
+        if ($msg.length === 0) {
+          $input.after('<div class="error-msg"></div>');
+          $msg = $input.siblings('.error-msg');
+        }
+        $msg.show();
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  $(document).on('input change', '.input-required1', function() {
+    const $input = $(this);
+    const $inputBox = $input.closest('.input-box');
+    if ($input.val().trim() !== '') {
+      $input.removeClass('error');
+      $inputBox.removeClass('error');
+      $input.siblings('.error-msg').hide();
+    }
+  });
+
+ function validateForm_update() {
+    let valid = true;
+    $('.input-required-update').each(function() {
+      const $input = $(this);
+      const $inputBox = $input.closest('.input-box');
+      if ($input.val().trim() === '') {
+        $input.addClass('error');
+        $inputBox.addClass('error');
+
+        let $msg = $input.siblings('.error-msg');
+        if ($msg.length === 0) {
+          $input.after('<div class="error-msg"></div>');
+          $msg = $input.siblings('.error-msg');
+        }
+        $msg.show();
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  $(document).on('input change', '.input-required-update', function() {
+    const $input = $(this);
+    const $inputBox = $input.closest('.input-box');
+    if ($input.val().trim() !== '') {
+      $input.removeClass('error');
+      $inputBox.removeClass('error');
+      $input.siblings('.error-msg').hide();
+    }
+  });
+		
+    //personnel
+		$('#ExportpersonnelExcel').click(function() {
+			var titre_personnel = $("#titre_personnel").val();
+			let table = $("#table_personnel").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			if (titre_personnel == "") {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Champ vide',
+					text: `Veillez remplir le champ vide titre d'exportation`, // Message venant du serveur
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				});
+			} else {
+				TableToExcel.convert(table[0], {
+					name: `${titre_personnel}.xlsx`,
+					sheet: {
+						name: titre_personnel
+					}
+				});
+			}
+
+		});
+		$('#ExportpersonnelPdf').click(function() {
+			let table = $("#table_personnel").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			const doc = new jsPDF('l', 'mm')
+			var titre_personnel = $("#titre_personnel").val();
+			doc.text(titre_personnel, doc.internal.pageSize.getWidth() / 2, 10, {
+				align: "center"
+			})
+			if (titre_personnel == "") {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Champ vide',
+					text: `Veillez remplir le champ vide titre d'exportation`, // Message venant du serveur
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				});
+			} else {
+				doc.autoTable({
+					html: table[0],
+					styles: {
+						overflow: 'linebreak',
+						fontSize: 8,
+						halign: 'center'
+					},
+				})
+				doc.save(`${titre_personnel}`)
+			}
+		})
+
+		//pointage
+		$('#ExportpointageExcel').click(function() {
+			var titre_pointage = $("#titre_pointage").val();
+			let table = $("#table_pointage").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			if (titre_pointage == "") {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Champ vide',
+					text: `Veillez remplir le champ vide titre d'exportation`, // Message venant du serveur
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				});
+			} else {
+				TableToExcel.convert(table[0], {
+					name: `${titre_pointage}.xlsx`,
+					sheet: {
+						name: titre_pointage
+					}
+				});
+			}
+
+		});
+
+		$('#ExportpointagePdf').click(function() {
+			let table = $("#table_pointage").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			const doc = new jsPDF('l', 'mm')
+			var titre_pointage = $("#titre_pointage").val();
+			doc.text(titre_pointage, doc.internal.pageSize.getWidth() / 2, 10, {
+				align: "center"
+			})
+			if (titre_pointage == "") {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Champ vide',
+					text: `Veillez remplir le champ vide titre d'exportation`, // Message venant du serveur
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				});
+			} else {
+				doc.autoTable({
+					html: table[0],
+					styles: {
+						overflow: 'linebreak',
+						fontSize: 8,
+						halign: 'center'
+					},
+				})
+				doc.save(`${titre_pointage}`)
+			}
+		})
+
+		//abscence
+		$('#ExportabsenceExcel').click(function() {
+			var titre_absence = $("#titre_absence").val();
+			let table = $("#table_absence").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			if (titre_absence == "") {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Champ vide',
+					text: `Veillez remplir le champ vide titre d'exportation`, // Message venant du serveur
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				});
+			} else {
+				TableToExcel.convert(table[0], {
+					name: `${titre_absence}.xlsx`,
+					sheet: {
+						name: titre_absence
+					}
+				});
+			}
+
+		});
+
+		$('#ExportabsencePdf').click(function() {
+			let table = $("#table_absence").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			const doc = new jsPDF('l', 'mm')
+			var titre_absence = $("#titre_absence").val();
+			doc.text(titre_absence, doc.internal.pageSize.getWidth() / 2, 10, {
+				align: "center"
+			})
+			if (titre_absence == "") {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Champ vide',
+					text: `Veillez remplir le champ vide titre d'exportation`, // Message venant du serveur
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				});
+			} else {
+				doc.autoTable({
+					html: table[0],
+					styles: {
+						overflow: 'linebreak',
+						fontSize: 8,
+						halign: 'center'
+					},
+				})
+				doc.save(`${titre_absence}`)
+			}
+		})
+</script>

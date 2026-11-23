@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam perf</title>
+
+<link
+    id="favicon"
+    rel="icon"
+    type="image/png"
+    href="{% if result_reference.logo %}
+            {{ url_for('static', filename='img/logo/' ~ result_reference.logo) }}?v={{ current_timestamp }}
+         {% else %}
+            {{ url_for('static', filename='img/image/image.jpg') }}?v={{ current_timestamp }}
+         {% endif %}"
+>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome-free/css/all.min.css') }}" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css/style-lettre.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css/style-admin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css/tab_panel.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css/style-table.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css/style-modal.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css/style-profil.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/datatables/jquery.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css/button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='script/select2/dist/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css/style-button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='script/swiper/swiper-bundle.min.css') }}">
+
+
+
+</head>
+
+<body>

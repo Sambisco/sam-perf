@@ -1,0 +1,1754 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+<!------MAIN-CONTENT-------->
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1 class="get-title-page page-title-13">Renumeration conge annuel</h1>
+		</div>
+		<div class="baniere-right">
+			<div class="content-navigation">
+				<ul class="navigation">
+					<li class="active_nav active_nav_click section-btn" id="service"
+						data-index="0">
+						<a href="#">
+							<span class="icon"><i class="fas fa-file"></i></span>
+							<span class="text">Conge&nbsp;A.</span>
+						</a>
+					</li>
+					<li class="active_nav_click section-btn" id="employe" data-index="1">
+						<a href="#">
+							<span class="icon"><i class="fas fa-users"></i></span>
+							<span class="text">Employe</span>
+						</a>
+					</li>
+					<li class="active_nav_click" id="infocomplete" style="display: none;">
+						<a href="#">
+							<span class="icon"><i class="fas fa-file-export"></i></span>
+							<span class="text">Exporter</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-money-bill-wave"></i></div>
+		<!---------SOUS CONTAINT 1----------->
+		<div class="main-sous-content">
+			<div class="main-sous-content-div active-main-sous-content">
+
+				<div class="content-list content-list1">
+
+				</div>
+				<!----------------PAGINATION----------->
+				<div class="pagination">
+					<div class="showingInfo" id="showingInfo1"></div>
+					<div class="showingPage" id="pagination1"></div>
+				</div>
+			</div>
+			<!---------FIN SOUS CONTAINT 1----------->
+
+			<!---------SOUS CONTAINT 2----------->
+			<div class="main-sous-content-div">
+
+				<div class="content-list content-list2">
+
+				</div>
+				<div class="pagination">
+					<div class="showingInfo" id="showingInfo2"></div>
+					<div class="showingPage" id="pagination2"></div>
+				</div>
+			</div>
+			<!---------FIN SOUS CONTAINT 2----------->
+		</div>
+	</div>
+</div>
+
+<!------MODAL AJOUT INSCRIPTION-------->
+<form id="insertForm">
+	<div class="petit close-modal" id="ajouter-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span>AJOUTER</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="ad_profil_imgPreview">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="insert_id" id="insert_id">
+						<input type="hidden" name id="add_id_contrat">
+						<input type="hidden" name="id_conge_annuel" id="add_id_conge_annuel">
+
+						<h1 class="card-title" id="ad-title-name"></h1>
+						<!----------ProgressBar--------->
+
+						<!---------Form----------------->
+						<div class="nextstep nextstep-active">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Periode de paie</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="month" class="text-input vide input-required1"
+											name="date_du" id="add_date_du"
+											placeholder="Nom departement"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date de paie</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input vide input-required1"
+											name="date_paiement" id="add_date_paiement"
+											placeholder="Batiment" value
+											onkeyup=" this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+
+								<div class="input-group">
+									<label class="label-details">Date fin du congé precedent</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input vide input-required1"
+											name="date_conge_precedent" id="date_conge_precedent"
+											placeholder="Nom departement"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date debut du congé actuel</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input vide input-required1"
+											name="date_conge_actuel" id="date_conge_actuel"
+											placeholder="Nom departement"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Mode de paiement</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-credit-card fa-icon"></i></span>
+										<select name="mode_paie" class="js-searchBox vide input-required1"
+											id="edit_id_charge">
+											<option value>Choisissez</option>
+											<option value="espèce">Espèce</option>
+											<option value="chèque">Chèque</option>
+											<option value="virement">Virement</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Formule</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-credit-card fa-icon"></i></span>
+										<select name="formule" id="formule"
+											class="js-searchBox vide input-required1">
+											<option value>Choisissez</option>
+											<option value="Formulemois">Formule /mois</option>
+											<option value="Formule1/12">Formule 1/12 eme</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="user-details-login">
+								<div class="chargement" style="margin-top: 10px;">
+									<div class="chargement">Téléchargement</div>
+									<div class="chargementçpourcentage">0%</div>
+								</div>
+								<div class="salaire_progressbar">
+									<div class="spinnerprogressbar" style="margin-right: 15px;"></div>
+								</div>
+							</div>
+							<table style="display: none;">
+								<tr>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+								</tr>
+								<tbody id="append">
+
+								</tbody>
+							</table>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="submit-btn">Enregister</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL AJOUT INSCRIPTION-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+
+	<div class="petit close-modal" id="modifier-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span>MODIFIER</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="edit_id" id="edit_id">
+						<input type="hidden" name="id_conge_annuel" id="edit_id_conge_annuel">
+						<div class="upload">
+							<img src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="up_profil_imgPreview">
+						</div>
+						<div class="title-name" id="up_title-name"></div>
+						<div class="title-matricule" id="up_title-matricule"></div>
+						<div class="nextstep-update nextstep-active-update">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Periode de paie</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="month" class="text-input" name="date_du" id="date_du"
+											placeholder="Nom departement"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date de paie</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input" name="date_paiement"
+											id="date_paiement"
+											placeholder="Batiment"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+
+								<div class="input-group">
+									<label class="label-details">Date fin du congé precedent</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input" name="date_conge_precedent"
+											id="edit_date_conge_precedent"
+											placeholder="Nom departement"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date debut du congé actuel</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input" name="date_conge_actuel"
+											id="edit_date_conge_actuel"
+											placeholder="Nom departement"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Mode de paiement</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-credit-card fa-icon"></i></span>
+										<select name="mode_paie" class="js-searchBox input-required-update1"
+											id="mode_paie">
+											<option value>Choisissez</option>
+											<option value="espèce">Espèce</option>
+											<option value="chèque">Chèque</option>
+											<option value="virement">Virement</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Formule</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-credit-card fa-icon"></i></span>
+										<select name="formule" class="js-searchBox input-required-update1"
+											id="formule_conge">
+											<option value>Choisissez</option>
+											<option value="Formulemois">Formule / mois</option>
+											<option value="Formule1/12">Formule 1/12 eme</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="chargement" style="margin-top: 10px;">
+								<div class="chargement">Téléchargement</div>
+								<div class="chargementçpourcentage">0%</div>
+							</div>
+							<div class="salaire_progressbar">
+								<div class="spinnerprogressbar"></div>
+							</div>
+							<table style="display: none;">
+								<tr>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+								</tr>
+								<tbody id="edit_append">
+
+								</tbody>
+							</table>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="btn-next-progress2">Modifier</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL MODIFIER-------->
+
+<!------MODAL SUPPRIMER-------->
+<form id="deleteForm">
+	<div class="petit close-modal" id="supprimer-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">SUPPRIMER</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="del_profil_imgPreview">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="delete_id" id="delete_id">
+						<input type="hidden" name="del_id_conge_annuel" id="del_id_conge_annuel">
+
+						<h1 class="card-title" id="del-title-name"></h1>
+						<div class="user-details-login">
+							<div class="input-group">
+								<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+								<div class="input-box">
+									<span class="span-left"><i class="fa fa-trash"></i> </span>
+									<input type="text" class="text-input" name id="nom_del" readonly>
+								</div>
+							</div>
+						</div>
+						<div class="footer-modal">
+							<button type="submit" class="footer-button-register"
+								id="deletedata">Supprimer</button>
+							<button type="button"
+								class="footer-button-close close-modal">Fermer</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL SUPPRIMER-------->
+<!------MODAL INFO-------->
+<form id="saveLetter">
+	<div class="grand close-modal" id="lettre-modal">
+		<div class="modal-panel-grand">
+			<div class="overlay-inner">
+				<div class="modal-close">
+					<span class="title">indemnite</span>
+					<div class="btn-close-modal close-modal">
+						<i class="fa fa-times-circle"></i>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-letter">
+						<input type="hidden" name="id_reference" id="get_id_reference">
+						<input type="hidden" name="id_lettre_indemnite" id="id_lettre_indemnite">
+						<textarea name="corps_text" class="text-input" id="text-input" cols="30"
+							rows="10"></textarea>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register"
+						id="btnsaveLetter">Enregistrer</button>
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!------FIN MODAL INFO-------->
+
+<!--------FIN MODAL INFO GENERAL------->
+<!--------MODAL INFO INDEMNITE------->
+<div class="grand close-modal" id="indemnite-modal">
+	<div class="modal-panel-grand">
+		<div class="overlay-inner">
+			<div class="modal-close">
+				<span class="title">Export</span>
+				<div class="btn-close-modal close-modal">
+					<i class="fa fa-times-circle"></i>
+				</div>
+			</div>
+			<div class="corps-modal">
+				<div class="user-details-register user-details-register-dasboard">
+					<div class="input-group">
+						<div class="input-box">
+							<button type="submit" class="footer-button-export"
+								id="Exportindemnite">EXCEL</button>
+							<button type="submit" class="footer-button-export"
+								id="ExportdataPdf">PDF</button>
+						</div>
+					</div>
+				</div>
+				<div class="tb_indemnite">
+
+				</div>
+			</div>
+			<div class="footer-modal">
+				<button type="button"
+					class="footer-button-close close-modal">Fermer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--------FIN MODAL INFO INDEMNITE------->
+<div id="shareOverlay"></div>
+
+<div id="sharePopup" role="dialog" aria-modal="true"
+	aria-labelledby="sharePopupTitle">
+	<div class="close-btn" aria-label="Fermer"><i class="fas fa-times"></i></div>
+	<div class="title" id="sharePopupTitle">Partager</div>
+	<div class="share-buttons">
+		<div class="share-btn" id="fbShare" title="Facebook" role="button"
+			tabindex="0" aria-label="Partager sur Facebook">
+			<i class="fab fa-facebook-f"></i>
+		</div>
+		<div class="share-btn" id="twShare" title="Twitter" role="button"
+			tabindex="0" aria-label="Partager sur Twitter">
+			<i class="fab fa-twitter"></i>
+		</div>
+		<div class="share-btn" id="waShare" title="WhatsApp" role="button"
+			tabindex="0" aria-label="Partager sur WhatsApp">
+			<i class="fab fa-whatsapp"></i>
+		</div>
+		<div class="share-btn" id="emailShare" title="Email" role="button"
+			tabindex="0" aria-label="Partager par Email">
+			<i class="fas fa-envelope"></i>
+		</div>
+		<div class="share-btn" id="copyLinkBtn" title="Copier le lien" role="button"
+			tabindex="0" aria-label="Copier le lien">
+			<i class="fas fa-link"></i>
+		</div>
+	</div>
+	<div id="shareMessage"
+		style="text-align:center; margin-top:8px; color:green; display:none;"></div>
+</div>
+<!------FOOTER-------->
+
+{% include 'include/footer.html' %}
+
+<script>
+		function fetchdata() {
+			var id = $("#id_reference").val();
+
+			$.ajax({
+				url: "../controller/paie_conge_annuel/fetch_paie_conge_annuel",
+				type: "POST",
+				data: {
+					id: id,
+				},
+				success: function(response) {
+					$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var a = 0; a < gp_data.length; a++) {
+						var div1 = `<div class="parent box result well">
+					  <div class="card">
+					    <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[a].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].prenom} ${gp_data[a].nom}</h1>
+							<div class="card-content">
+							    <div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[a].matricule}</span>
+								</div>
+							    <div class="card-content-info">
+									<i class="fa fa-chalkboard-teacher"></i><span>${gp_data[a].poste_occupe}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-phone fa-rotate-90"></i><span>${gp_data[a].telephone_e}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar-check"></i><span>${gp_data[a].periode}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar"></i><span>${gp_data[a].date_paiement}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-credit-card"></i><span>${gp_data[a].mode_paie}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						       <ul class="navigation_list">
+					                  <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="deletebtn" data-id="${gp_data[a].id_salaire}">
+					                  	<a href="#">
+					                  		<span class="icon"><i class="fas fa-fw fa-trash"></i></span>
+					                  		<span class="text">Supprimer</span>
+						       			<span class="lampe"></span>
+					                  	</a>
+					                  </li>
+						       	   <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="printbtn" data-id="${gp_data[a].id_salaire}">
+					                  	<a href="#">
+					                  		<span class="icon"><i class="fas fa-fw fa-print"></i></span>
+					                  		<span class="text">imprimer</span>
+						       			<span class="lampe"></span>
+					                  	</a>
+					                  </li>
+						       	   <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="fichebtn" data-id="${gp_data[a].id_salaire}">
+					                  	<a href="#">
+					                  		<span class="icon"><i class="fas fa-fw fa-file"></i></span>
+					                  		<span class="text">imprimer</span>
+						       			<span class="lampe"></span>
+					                  	</a>
+					                  </li>
+						       	   <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count} btnShare" id="" data-id="${gp_data[a].id_salaire}">
+					                  	<a href="#">
+					                  		<span class="icon"><i class="fas fa-fw fa-share-alt"></i></span>
+					                  		<span class="text">Partager</span>
+						       			<span class="lampe"></span>
+					                  	</a>
+					                  </li>
+				               </ul>
+						 </div>
+					   </div>
+				      </div>`;
+						$('.content-list1').append(div1);
+					}
+					updateSectionItems(0);
+				}
+			})
+
+			$.ajax({
+				url: "../controller/conge_annuel/fetch_conge_annuel",
+				type: "POST",
+				data: {
+					paie_conge_annuel: id,
+				},
+				success: function(response) {
+					$('.content-list2').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response;
+					for (var b = 0; b < gp_data.length; b++) {
+						var div2 = `<div class="parent box result well">
+					 <div class="card">
+					    <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[b].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[b].prenom} ${gp_data[b].nom}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[b].matricule}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-chalkboard-teacher"></i><span>${gp_data[b].poste_occupe}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar-check"></i><span>${gp_data[b].date_debut}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-calendar-times"></i><span>${gp_data[b].date_fin}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-hourglass-half"></i><span>${gp_data[b].nombre_jours}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						    <ul class="navigation_list">
+					               <li class="active_nav_list" id="servicebtn" data-id="${gp_data[b].id_conge_annuel}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-plus"></i></span>
+					               		<span class="text">Ajouter</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+				            </ul>
+						</div>
+					</div>
+				  </div>`;
+						$('.content-list2').append(div2);
+					}
+					updateSectionItems(1);
+				},
+			})
+		}
+
+	function handleChange() {
+    if ($(this).val() === "") {
+        $("#append").html("");
+        $(".spinnerprogressbar").css("width", '0%');
+        $(".chargementçpourcentage").text("0%");
+        return;
+    }
+
+    var data = {
+        id_conge_annuel: $("#add_id_conge_annuel").val(),
+        date_du: $("#add_date_du").val(),
+        date_conge_actuel: $("#date_conge_actuel").val(),
+        date_conge_precedent: $("#date_conge_precedent").val(),
+        formule: $("#formule").val()
+    };
+
+    $.ajax({
+        url: '../controller/paie_conge_annuel/fetch_calcul_conge_annuel',
+        type: "POST",
+        data: data,
+        dataType: 'json',
+        success: function(response) {
+            $("#append").empty();
+
+            if (!response || Object.keys(response).length === 0) {
+            $("#append").html('<tr><td colspan="8" style="text-align:center;">Aucune donnée</td></tr>');
+            return;
+        }
+
+
+                let gp = response;
+                $('#append').append(`
+                    <tr>
+                       <td style="display: none;"><input type="text" name="id_contrat" id="" value="${gp.id_contrat}"></td>
+		<td style="display: none;"><input type="text" name="" id="" value="${gp.matricule}"></td>
+		<td style="display: block;"><input type="text" name="" id="" value="${gp.prenom} ${gp.nom}"></td>
+		<td style="display: none;"><input type="text" name="s_nature" id="" value="${gp.nature}"></td>
+		<td style="display: none;"><input type="date" name="s_date_embauche" id="" value${gp.date_embauche}"></td>
+		<td style="display: none;"><input type="date" name="s_date_sorti" id="" value="${gp.date_sorti}"></td>
+		<td style="display: none;"><input type="text" name="s_categorie" id="" value="${gp.categorie}"></td>
+		<td style="display: none;"><input type="text" name="s_poste_occupe" id="" value="${gp.poste_occupe}"></td>
+		<td style="display: none;"><input type="text" name="s_situation_matr" id="" value="${gp.situation_matr}"></td>
+		<td style="display: none;"><input type="text" name="s_conjoint" id="" value="${gp.conjoint}"></td>
+		<td style="display: none;"><input type="text" name="s_enfant" id="" value="${gp.enfant}"></td>
+		<td style="display: none;"><input type="text" style="width: 70px;" name="heure" id="" value="${gp.total_heure_mois}"></td>
+		<td style="display: none;"><input type="text" style="width: 70px;" name="heure_pointage" id="" value="${gp.heure_pointage}"></td>
+		<td style="display: none;"><input type="text" style="width: 70px;" name="salaire_base" id="" value="${gp.salaire}"></td>
+		<td style="display: none;"><input type="text" style="width: 70px;" name="ind_fonction" id="" value="${gp.fonction}"></td>
+		<td style="display: none;"><input type="text" style="width: 70px;" name="ind_sujetion" id="" value="${gp.sujetion}"></td>
+		<td style="display: none;"><input type="text" style="width: 70px;" name="ind_responsabilite" id="" value="${gp.responsabilite}"></td>
+		<td style="display: none;"><input type="text" style="width: 70px;" name="ind_sursalaire" id="" value="${gp.sursalaire}"></td>
+		<td style="display: none;"><input type="text" style="width: 70px;" name="ind_logement" id="" value="${gp.logement}"></td>
+		<td><input type="text" style="width: 70px;" name="salaire_brute" value="${gp.salaire_brute}"></td>
+		<td><input type="text" style="width: 70px;" name="nbr_conge" value="${gp.nbr_conge}"></td>
+		<td><input type="text" style="width: 70px;" name="nbr_conge_supplementaire" value="${gp.nbr_conge_supplementaire}"></td>
+		<td><input type="text" style="width: 70px;" name="months" value="${gp.months}"></td>
+		<td><input type="text" style="width: 70px;" name="salaire_brute_annuel" value="${gp.salaire_brute_annuel}"></td>
+		<td><input type="text" style="width: 70px;" name="ind_indemnite_conge" value=""${gp.ind_indemnite_conge}"></td>
+		<td><input type="text" style="width: 70px;" name="ind_indemnite_conge_supplementaire" value="${gp.ind_indemnite_conge_supplementaire}"></td>
+		<td><input type="text" style="width: 70px;" name="s_nb_trimf" id="" value="${gp.nb_trimf}"></td>
+		<td><input type="text" style="width: 70px;" name="sum_trimf" id="" value="${gp.sum_trimf}"></td>
+		<td><input type="text" style="width: 70px;" name="s_nb_irpp" id="" value="${gp.nb_irpp}"></td>
+		<td><input type="text" style="width: 70px;"  name="sum_irpp" id="" value="${gp.sum_irpp}"></td>
+		<td style="display: none;"><input type="text" name="ind_transport" id="" value="${gp.transport}"></td>
+		<td style="display: none;"><input type="text" name="ind_telephone_in" id="" value="${gp.telephone_in}"></td>
+		<td style="display: none;"><input type="text" name="ind_autre_indemnite" id="" value="${gp.autre_indemnite}"></td>
+		<td style="display: none;"><input type="text" name="iprg_employe" id="" value="${gp.iprg_employe}"></td>
+		<td style="display: none;"><input type="text" name="irprg_patronale" id="" value="${gp.irprg_patronale}"></td>
+		<td style="display: none;"><input type="text" name="irpc_employe" id="" value="${gp.irpc_employe}"></td>
+		<td style="display: none;"><input type="text" name="irpc_patronale" id="" value="${gp.irpc_patronale}"></td>
+		<td style="display: none;"><input type="text" name="css_accident_travail" id="" value${gp.css_accident_travail}"></td>
+		<td style="display: none;"><input type="text" name="css_allocation_familiale" id="" value="${gp.css_allocation_familiale}"></td>
+		<td style="display: none;"><input type="text" name="total_retenue_employe" id="" value="${gp.total_retenue_employe}"></td>
+		<td style="display: none;"><input type="text" name="total_retenue_patronale" id="" value="${gp.total_retenue_patronale}"></td>
+		<td style="display: none;"><input type="text" name="s_amicale" id="" value="${gp.amicale}"></td>
+		<td style="display: none;"><input type="text" name="s_tabaski" id="" value="${gp.tabaski}"></td>
+		<td style="display: none;"><input type="text" name="s_aute_cotisation" id="" value="${gp.aute_cotisation}"></td>
+		<td style="display: none;"><input type="text" name="retenue_cotisation" id="" value="${gp.retenue_cotisation}"></td>
+		<td style="display: none;"><input type="text" name="cfce" id="" value="${gp.cfce}"></td>
+		<td style="display: none;"><input type="text" name="total_prime" id="" value="${gp.total_prime}"></td>
+		<td><input type="text" name="salaire_net" id="" value="${gp.salaire_net}"></td>
+		<td style="display: none;"><input type="text" name="date_debut" id="" value="${gp.date_debut}"></td>
+		<td style="display: none;"><input type="text" name="date_fin" id="" value="${gp.date_fin}"></td>
+                    </tr>
+                `);
+
+            // Progress bar animation
+            var count = $("#append > tr").length;
+            if (count === 0) {
+                $(".spinnerprogressbar").css("width", '0%');
+                $(".chargementçpourcentage").text("0%");
+                return;
+            }
+            var total_count = 100 / count;
+            var size = 0;
+            var interval = setInterval(function() {
+                size += total_count;
+                $(".spinnerprogressbar").css("width", size + '%');
+                $(".chargementçpourcentage").text(Math.round(size) + "%");
+                if (size >= 100) {
+                    clearInterval(interval);
+                    $('#btn-next-progress1').removeAttr('disabled');
+                }
+            }, 100);
+        },
+        error: function(xhr) {
+            console.error("Erreur AJAX :", xhr.responseText);
+        }
+    });
+}
+
+$(document).on("change", "#add_date_du, #formule, #date_conge_actuel", handleChange);
+
+		
+		
+		
+		$(document).on('input', '#edit_salaire', function(e) {
+			var options_sn = {
+				lang: "fr",
+				digitsLengthW2F: 3,
+				decimalSeperator: "virgule"
+			}
+			var contrat16 = $('#edit_salaire').val();
+			var sum2 = contrat16.toString().replace(/\,/g, '.');
+			var salaire_lettre = sum2.replace(/\s+/g, '');
+			if ($('#edit_salaire').val() == "") {
+				$("#edit_salaire_lettre").val("")
+			} else {
+				$("#edit_salaire_lettre").val($.spellingNumber(salaire_lettre, options_sn));
+			}
+		})
+		$(document).on('input', '.salaire_lettre', function(e) {
+			var options_sn = {
+				lang: "fr",
+				digitsLengthW2F: 3,
+				decimalSeperator: "virgule"
+			}
+			var contrat16 = $('.salaire_lettre').val();
+			var sum2 = contrat16.toString().replace(/\,/g, '.');
+			var salaire_lettre = sum2.replace(/\s+/g, '');
+			$("#salaire_lettre").val($.spellingNumber(salaire_lettre, options_sn));
+		})
+		$('document').ready(function() {
+			fetchdata();
+
+			$(".hide_date_conge").hide();
+		})
+
+		function fetchletter() {
+			var id = $("#id_reference").val()
+
+			$.ajax({
+				url: "../controller/indemnite/fetch_letter",
+				type: "POST",
+				data: {
+					id: id
+				},
+				dataType: 'json',
+				success: function(data) {
+
+					$("#id_lettre_indemnite").val(data.id_lettre_indemnite)
+					tinymce.get('text-input').setContent(data.corps_text);
+					tinymce.get('document_lettre').setContent(data.corps_text);
+				}
+			})
+		}
+
+		  $(document).on("click", ".active_nav_click_list", function (e) {
+            e.preventDefault();
+			var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+			console.log("ID chiffré cliqué:", encryptedId);
+
+			// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+			var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+			$(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+			$(this).addClass("active_nav_list");
+
+			// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+		});
+		$(document).on('click', '#printbtn', function(e) {
+			var id = $(this).data('id');
+			window.open(`../pdf/bulletin2?pdf=${id}`, '_blank');
+		})
+		$(document).on('click', '#fichebtn', function(e) {
+			var id = $(this).data('id');
+			window.open(`../pdf/fiche_paie_employe?pdf=${id}`, '_blank');
+		})
+		$(document).on('click', '.shared-nav', function(e) {
+			var id = $(this).data('id');
+			var link = "../pdf/download?pdf=" + id
+			navigator.share({
+				text: 'Cliquez sur le lien pour télécharger le bulletin de salaire !', // Text to be shared
+				url: link, // URL to be shared
+				files: [] // An array of File objects to be shared
+			})
+		})
+		$("#btn-modal-lettre").click(function() {
+			$("#get_id_reference").val($("#id_reference").val());
+			fetchletter();
+			$("#lettre-modal").fadeIn();
+		});
+		
+	</script>
+<script>
+		$('#shared-download').on('click', function(e) {
+			var id_carte_link = $("#id_carte_link").val();
+			navigator.share({
+				text: 'Cliquez sur le lien pour télécharger la carte scolaire !', // Text to be shared
+				url: "../pdf/download/carte?carte=" + id_carte_link, // URL to be shared
+				files: [] // An array of File objects to be shared
+			})
+		})
+		$(document).on('click', '.shared-nav', function(e) {
+			var id = $(this).data('id');
+			var link = "../pdf/download?pdf=" + id
+			navigator.share({
+				text: 'Cliquez sur le lien pour télécharger le bulletin de salaire !', // Text to be shared
+				url: link, // URL to be shared
+				files: [] // An array of File objects to be shared
+			})
+		})
+
+		$("#infoindemnite").click(function() {
+			fetchtb_indemnite()
+			$("#indemnite-modal").fadeIn();
+		});
+
+		$('.fab-button').on('click', function() {
+			$(".fab-show").show(600);
+			$(".fab-hide").show();
+			$(".fab-button").hide();
+		})
+		$('.fab-hide').on('click', function() {
+			$(".fab-button").show();
+
+			$(".fab-show").hide(600);
+			$(".fab-hide").hide();
+		})
+		$(document).on('click', '.toggle-btn', function(e) {
+			var id = $(this).data('id');
+			$("#nav_" + id).toggleClass("active");
+			$("#toggle-btn-close_" + id).toggleClass("fa-times");
+		})
+		$(document).on('click', '.fab-button1', function(e) {
+			var id = $(this).data('id');
+			$("#fab-show1_" + id).toggle("slow");
+			$("#fas1_" + id).toggleClass("fa-times");
+			$("#fab-show1_" + id).attr(('style', 'display:block'))
+		})
+		$(document).on('click', '.partager', function(e) {
+			var id = $(this).data('id');
+			$("#li-partager_" + id).toggle("slow");
+		})
+		$('.js-searchBox').select2({
+			width: '100%'
+		});
+
+		//PHOTO
+		$(document).on("change", "#photo", function() {
+			var file = this.files[0];
+			console.log(file);
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#imgPreview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(file);
+			}
+		})
+		$(document).on("change", "#update_photo", function() {
+			var file = this.files[0];
+			console.log(file);
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#update_imgPreview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(file);
+			}
+		})
+		$(document).ready(function(e) {
+			//INSERTION
+			$(document).ready(function() {
+	$("#insertForm").on('submit', function(e) {
+		e.preventDefault();
+
+		$('.input-box').removeClass('error');
+		$('.error-msg').hide();
+
+		if (!validateForm()) {
+			return;
+		}
+
+		$("#ajouter-modal").fadeOut();
+
+		$.ajax({
+			type: 'POST',
+			url: '../controller/paie_conge_annuel/save',  // <-- Mets le bon endpoint ici
+			data: new FormData(this),
+			contentType: false,
+			cache: false,
+			processData: false,
+			success: function(response) {
+				console.log(response);
+
+				if (response.success) {
+					Swal.fire({
+						icon: 'success',
+						title: 'Enregistré',
+						text: "Enregistrement effectué avec succès.",
+						confirmButtonColor: '#127b8e',
+						showConfirmButton: false,
+						timer: 2000
+					}).then(function() {
+						fetchdata();
+					});
+				} else if (response.error) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Erreur',
+						text: response.error,
+						confirmButtonColor: '#127b8e'
+					});
+				}
+
+				$(".vide").val("").trigger('change');
+				$(".spinnerprogressbar").css("width", 0 + 'px');
+				$(".chargementçpourcentage").html("0%");
+				$("#append").html("");
+			},
+			error: function(xhr) {
+				console.error("Erreur AJAX :", xhr.responseText);
+				Swal.fire({
+					icon: 'error',
+					title: 'Erreur AJAX',
+					text: xhr.responseText,
+					confirmButtonColor: '#127b8e'
+				});
+			}
+		});
+	});
+});
+
+			//UPDATE
+			$("#updateForm").on('submit', function(e) {
+				e.preventDefault();
+
+				$.ajax({
+					type: 'POST',
+					url: '../controller/paie_conge_annuel/save',
+					data: new FormData(this),
+					//dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function(response) {
+
+						console.log(response);
+						formStepsNum_update = 0;
+						updateformSteps_update();
+						updateProgressBar_update();
+						fetchdata();
+					}
+				});
+				$("#modifier-modal").fadeOut();
+				Swal.fire({
+					icon: 'success',
+					title: 'Modifié',
+					text: "Modification effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+
+				});
+			});
+			// SUPPRIMER
+			$("#deleteForm").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller/paie_conge_annuel/save',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response);
+
+					},ror: function(xhr) {
+				console.error("Erreur AJAX :", xhr.responseText);
+				Swal.fire({
+					icon: 'error',
+					title: 'Erreur AJAX',
+					text: xhr.responseText,
+					confirmButtonColor: '#127b8e'
+				});
+			}
+				});
+				$("#supprimer-modal").fadeOut();
+
+				Swal.fire({
+					icon: 'error',
+					title: 'Supprimé',
+					text: "Suppression effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+				});
+
+			});
+			// INSERT LETTER
+
+			$("#saveLetter").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller/indemnite/insert_letter',
+					data: new FormData(this),
+					//dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						fetchletter()
+					}
+				});
+				$("#lettre-modal").fadeOut();
+
+				Swal.fire({
+					icon: 'success',
+					title: 'Enregistré',
+					text: "Enregistrement effectué avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+
+					fetchletter();
+				});
+
+			});
+
+			//UPDATE LETTER
+
+		});
+
+		$(document).on("click", "#togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#show-eye").toggleClass('fa-eye');
+			$("#show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+
+		});
+		$(document).on("click", "#update_togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#update_password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#update_show-eye").toggleClass('fa-eye');
+			$("#update_show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+
+		});
+
+
+		// SHOW UPDATE
+		
+		//SHOW DELETE
+		$(document).on('click', '#deletebtn', function(e) {
+
+			e.preventDefault();
+
+			var id_salaire = $(this).data('id');
+
+
+			$.ajax({
+				url: '../controller/paie_conge_annuel/fetch_paie_conge_annuel',
+				type: "post",
+				data: {
+					id_salaire: id_salaire
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data)
+
+					$("#delete_id").val(data.id_salaire);
+					$("#del_id_conge_annuel").val(data.id_num_conge);
+					$("#del-title-name").html(data.prenom + " " + data.nom);
+					$("#del_title-matricule").html(data.matricule);
+					$("#nom_del").val(data.date_del);
+					$(".profil_imgPreview").attr("src", data.photo);
+					$("#supprimer-modal").fadeIn();
+
+				}
+
+			});
+
+		});
+
+		//SHOW INFO
+
+		//SHOW INSCRIPTION
+		$(document).on('click', '#servicebtn', function(e) {
+			$("#append").html("");
+			$(".spinnerprogressbar").css("width", 0 + 'px');
+			$('.btn-next-progress1').prop('disabled', true)
+			$(".btn-next-progress1").css({
+				background: 'rgb(37, 157, 237)'
+			});
+			e.preventDefault();
+			var id_conge_annuel = $(this).data('id');
+
+			$.ajax({
+				url: '../controller/conge_annuel/fetch_conge_annuel',
+				type: "post",
+				data: {
+					id_conge_annuel: id_conge_annuel
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data.id_conge_annuel)
+
+					$("#add_id_contrat").val(data.id_contrat);
+					$("#add_id_conge_annuel").val(data.id_conge_annuel);
+					$("#ad-title-name").html(data.prenom + " " + data.nom);
+
+					$("#ad_title-matricule").html(data.matricule);
+					$("#ad_profil_imgPreview").attr("src", data.photo);
+				}
+			});
+
+
+			$("#ajouter-modal").fadeIn();
+
+		});
+		
+		var node = document.getElementById('border-carte');
+		var btn = document.getElementById('download');
+
+		btn.onclick = function() {
+			domtoimage.toBlob(document.getElementById('border-carte')).then(function(blob) {
+				window.saveAs(blob, 'Carte-scolaire.png')
+			})
+		}
+	</script>
+<script>
+		tinymce.init({
+			selector: 'textarea#text-input',
+			language: "fr_FR",
+			height: 650,
+			statusbar: false,
+			promotion: false,
+			editable_root: true,
+			editable_class: 'editable',
+			init_instance_callback: "insert_contents",
+			toolbar_sticky: true,
+			plugins: [
+				'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+				'searchreplace', 'wordcount', 'visualblocks', 'fullscreen', 'insertdatetime', 'media',
+				'table', 'emoticons', 'template', 'footnotes', 'pagebreak'
+			],
+			toolbar: "alignleft aligncenter alignright alignjustify  alignnone | anchor | blockquote blocks | backcolor | bold | copy | cut | fontfamily fontsize forecolor h1 h2 h3 h4 h5 h6 hr indent | italic | language | lineheight | newdocument | outdent | paste pastetext | redo | remove removeformat | selectall | strikethrough | styles | subscript superscript underline | undo | visualaid | a11ycheck advtablerownumbering typopgraphy anchor restoredraft casechange charmap checklist code codesample addcomment showcomments ltr rtl editimage fliph flipv imageoptions rotateleft rotateright emoticons export footnotes footnotesupdate formatpainter fullscreen help image insertdatetime link openlink unlink bullist numlist media mergetags mergetags_list nonbreaking pagebreak pageembed permanentpen preview quickimage quicklink quicktable cancel save searchreplace spellcheckdialog spellchecker | table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader | tableofcontents tableofcontentsupdate | template typography | insertfile | visualblocks visualchars | wordcount|pagebreak",
+			menu: {
+				favs: {
+					title: 'menu',
+					items: ' searchreplace | emoticons'
+				}
+			},
+			setup: function(e) {
+				e.on('change', function() {
+					tinymce.triggerSave();
+				})
+			},
+			theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+			menubar: 'favs file edit view insert format tools table',
+			templates: [{
+				title: "Advanced Template template example",
+				description: 'This template has additional markup that is shown in the "preview" of the template, but is not inserted in to TinyMCE.',
+				content: "<body>" +
+					'<p style="color: red; font-weight:bold;">This appears in the template preview, but will not be inserted in to TinyMCE.</p>' +
+					'<div class="mceTmpl">' +
+					"<p>This is the actual template content that will be inserted.</p>" +
+					"<ul>" +
+					"<li>And can include nested elements</li>" +
+					"<li>So your templates can still include your complex HTML</li>" +
+					"</ul>" +
+					"</div>" +
+					"</body>"
+			}],
+			content_style: `
+        body {
+          background: #fff;
+        }
+
+        /* Disable the blue "focus" border for the editable region */
+        .editable-section:focus-visible {
+          outline: none !important;
+        }
+
+        .header,
+        .footer {
+          font-size: 0.8rem;
+          color: #ddd;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 0 1rem 0;
+        }
+
+        .header .right-text {
+          text-align: right;
+        }
+
+        .footer {
+          padding:2rem 0 0 0;
+          text-align: center;
+        }
+
+        /* Apply page-like styling */
+        @media (min-width: 840px) {
+          html {
+            background: #eceef4;
+            min-height: 100%;
+            padding: 0.5rem;
+          }
+
+          body {
+            background-color: #fff;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+            box-sizing: border-box;
+            margin: 1rem auto 0;
+            max-width: 920px;
+            min-height: calc(100vh - 1rem);
+            padding: 2rem 6rem 2rem 6rem;
+          }
+        }
+      `,
+			image_title: true,
+			// enable automatic uploads of images represented by blob or data URIs
+			automatic_uploads: true,
+			// add custom filepicker only to Image dialog
+			file_picker_types: 'image',
+			file_picker_callback: function(cb, value, meta) {
+				var input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
+
+				input.onchange = function() {
+					var file = this.files[0];
+					var reader = new FileReader();
+
+					reader.onload = function() {
+						var id = 'blobid' + (new Date()).getTime();
+						var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						var base64 = reader.result.split(',')[1];
+						var blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
+
+						// call the callback and populate the Title field with the file name
+						cb(blobInfo.blobUri(), {
+							title: file.name
+						});
+					};
+					reader.readAsDataURL(file);
+				};
+
+				input.click();
+			}
+		});
+
+		tinymce.init({
+			selector: 'textarea#document_lettre',
+			language: "fr_FR",
+			height: 460,
+			statusbar: false,
+			promotion: false,
+			editable_root: true,
+			editable_class: 'editable',
+			init_instance_callback: "insert_contents",
+			toolbar_sticky: true,
+			plugins: [
+				'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+				'searchreplace', 'wordcount', 'visualblocks', 'fullscreen', 'insertdatetime', 'media',
+				'table', 'emoticons', 'template', 'footnotes', 'pagebreak'
+			],
+			toolbar: "alignleft aligncenter alignright alignjustify  alignnone | anchor | blockquote blocks | backcolor | bold | copy | cut | fontfamily fontsize forecolor h1 h2 h3 h4 h5 h6 hr indent | italic | language | lineheight | newdocument | outdent | paste pastetext | redo | remove removeformat | selectall | strikethrough | styles | subscript superscript underline | undo | visualaid | a11ycheck advtablerownumbering typopgraphy anchor restoredraft casechange charmap checklist code codesample addcomment showcomments ltr rtl editimage fliph flipv imageoptions rotateleft rotateright emoticons export footnotes footnotesupdate formatpainter fullscreen help image insertdatetime link openlink unlink bullist numlist media mergetags mergetags_list nonbreaking pagebreak pageembed permanentpen preview quickimage quicklink quicktable cancel save searchreplace spellcheckdialog spellchecker | table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader | tableofcontents tableofcontentsupdate | template typography | insertfile | visualblocks visualchars | wordcount|pagebreak",
+			menu: {
+				favs: {
+					title: 'menu',
+					items: ' searchreplace | emoticons'
+				}
+			},
+			setup: function(e) {
+				e.on('change', function() {
+					tinymce.triggerSave();
+				})
+			},
+			theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+			menubar: 'favs file edit view insert format tools table',
+			templates: [{
+				title: "Advanced Template template example",
+				description: 'This template has additional markup that is shown in the "preview" of the template, but is not inserted in to TinyMCE.',
+				content: "<body>" +
+					'<p style="color: red; font-weight:bold;">This appears in the template preview, but will not be inserted in to TinyMCE.</p>' +
+					'<div class="mceTmpl">' +
+					"<p>This is the actual template content that will be inserted.</p>" +
+					"<ul>" +
+					"<li>And can include nested elements</li>" +
+					"<li>So your templates can still include your complex HTML</li>" +
+					"</ul>" +
+					"</div>" +
+					"</body>"
+			}],
+			content_style: `
+        body {
+          background: #fff;
+        }
+
+        /* Disable the blue "focus" border for the editable region */
+        .editable-section:focus-visible {
+          outline: none !important;
+        }
+
+        .header,
+        .footer {
+          font-size: 0.8rem;
+          color: #ddd;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 0 1rem 0;
+        }
+
+        .header .right-text {
+          text-align: right;
+        }
+
+        .footer {
+          padding:2rem 0 0 0;
+          text-align: center;
+        }
+
+        /* Apply page-like styling */
+        @media (min-width: 840px) {
+          html {
+            background: #eceef4;
+            min-height: 100%;
+            padding: 0.5rem;
+          }
+
+          body {
+            background-color: #fff;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+            box-sizing: border-box;
+            margin: 1rem auto 0;
+            max-width: 920px;
+            min-height: calc(100vh - 1rem);
+            padding: 2rem 6rem 2rem 6rem;
+          }
+        }
+      `,
+			image_title: true,
+			// enable automatic uploads of images represented by blob or data URIs
+			automatic_uploads: true,
+			// add custom filepicker only to Image dialog
+			file_picker_types: 'image',
+			file_picker_callback: function(cb, value, meta) {
+				var input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
+
+				input.onchange = function() {
+					var file = this.files[0];
+					var reader = new FileReader();
+
+					reader.onload = function() {
+						var id = 'blobid' + (new Date()).getTime();
+						var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						var base64 = reader.result.split(',')[1];
+						var blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
+
+						// call the callback and populate the Title field with the file name
+						cb(blobInfo.blobUri(), {
+							title: file.name
+						});
+					};
+					reader.readAsDataURL(file);
+				};
+
+				input.click();
+			},
+
+		});
+
+		tinymce.init({
+			selector: 'textarea#edit_document_lettre',
+			language: "fr_FR",
+			height: 460,
+			statusbar: false,
+			promotion: false,
+			toolbar_sticky: true,
+			plugins: [
+				'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+				'searchreplace', 'wordcount', 'visualblocks', 'fullscreen', 'insertdatetime', 'media',
+				'table', 'emoticons', 'template', 'footnotes', 'pagebreak'
+			],
+			toolbar: "alignleft aligncenter alignright alignjustify  alignnone | anchor | blockquote blocks | backcolor | bold | copy | cut | fontfamily fontsize forecolor h1 h2 h3 h4 h5 h6 hr indent | italic | language | lineheight | newdocument | outdent | paste pastetext | redo | remove removeformat | selectall | strikethrough | styles | subscript superscript underline | undo | visualaid | a11ycheck advtablerownumbering typopgraphy anchor restoredraft casechange charmap checklist code codesample addcomment showcomments ltr rtl editimage fliph flipv imageoptions rotateleft rotateright emoticons export footnotes footnotesupdate formatpainter fullscreen help image insertdatetime link openlink unlink bullist numlist media mergetags mergetags_list nonbreaking pagebreak pageembed permanentpen preview quickimage quicklink quicktable cancel save searchreplace spellcheckdialog spellchecker | table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader | tableofcontents tableofcontentsupdate | template typography | insertfile | visualblocks visualchars | wordcount|pagebreak",
+			menu: {
+				favs: {
+					title: 'menu',
+					items: ' searchreplace | emoticons'
+				}
+			},
+			theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+			menubar: 'favs file edit view insert format tools table',
+			templates: [{
+				title: "Advanced Template template example",
+				description: 'This template has additional markup that is shown in the "preview" of the template, but is not inserted in to TinyMCE.',
+				content: "<body>" +
+					'<p style="color: red; font-weight:bold;">This appears in the template preview, but will not be inserted in to TinyMCE.</p>' +
+					'<div class="mceTmpl">' +
+					"<p>This is the actual template content that will be inserted.</p>" +
+					"<ul>" +
+					"<li>And can include nested elements</li>" +
+					"<li>So your templates can still include your complex HTML</li>" +
+					"</ul>" +
+					"</div>" +
+					"</body>"
+			}],
+			content_style: `
+        body {
+          background: #fff;
+        }
+
+        /* Disable the blue "focus" border for the editable region */
+        .editable-section:focus-visible {
+          outline: none !important;
+        }
+
+        .header,
+        .footer {
+          font-size: 0.8rem;
+          color: #ddd;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 0 1rem 0;
+        }
+
+        .header .right-text {
+          text-align: right;
+        }
+
+        .footer {
+          padding:2rem 0 0 0;
+          text-align: center;
+        }
+
+        /* Apply page-like styling */
+        @media (min-width: 840px) {
+          html {
+            background: #eceef4;
+            min-height: 100%;
+            padding: 0.5rem;
+          }
+
+          body {
+            background-color: #fff;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+            box-sizing: border-box;
+            margin: 1rem auto 0;
+            max-width: 920px;
+            min-height: calc(100vh - 1rem);
+            padding: 2rem 6rem 2rem 6rem;
+          }
+        }
+      `,
+			image_title: true,
+			// enable automatic uploads of images represented by blob or data URIs
+			automatic_uploads: true,
+			// add custom filepicker only to Image dialog
+			file_picker_types: 'image',
+			file_picker_callback: function(cb, value, meta) {
+				var input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
+
+				input.onchange = function() {
+					var file = this.files[0];
+					var reader = new FileReader();
+
+					reader.onload = function() {
+						var id = 'blobid' + (new Date()).getTime();
+						var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						var base64 = reader.result.split(',')[1];
+						var blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
+
+						// call the callback and populate the Title field with the file name
+						cb(blobInfo.blobUri(), {
+							title: file.name
+						});
+					};
+					reader.readAsDataURL(file);
+				};
+
+				input.click();
+			},
+
+		});
+		// SLIDER FORM NEXT ADD
+	
+		 function validateForm() {
+    let valid = true;
+    $('.input-required1').each(function() {
+      const $input = $(this);
+      const $inputBox = $input.closest('.input-box');
+      if ($input.val().trim() === '') {
+        $input.addClass('error');
+        $inputBox.addClass('error');
+
+        let $msg = $input.siblings('.error-msg');
+        if ($msg.length === 0) {
+          $input.after('<div class="error-msg"></div>');
+          $msg = $input.siblings('.error-msg');
+        }
+        $msg.show();
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  $(document).on('input change', '.input-required1', function() {
+    const $input = $(this);
+    const $inputBox = $input.closest('.input-box');
+    if ($input.val().trim() !== '') {
+      $input.removeClass('error');
+      $inputBox.removeClass('error');
+      $input.siblings('.error-msg').hide();
+    }
+  });
+
+
+		$('#ExportdataPdf').click(function() {
+			let table = $("#example1").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			const doc = new jsPDF('l', 'mm')
+			doc.autoTable({
+				html: table[0],
+				styles: {
+					overflow: 'linebreak',
+					fontSize: 6,
+					halign: 'center'
+				},
+			})
+			doc.save('Salaire')
+
+		})
+		$('#Exportindemnite').click(function() {
+			let table = $("#example1").clone();
+			console.log(table);
+			table.find(".no-export").each(function() {
+				$(this).remove();
+			});
+			TableToExcel.convert(table[0], {
+				name: `Salaire.xlsx`,
+				sheet: {
+					name: 'Salaire'
+				}
+			});
+		});
+
+		
+		$(function() {
+	function removeAccents(str) {
+  const accentsMap = new Map([
+    ['À','A'], ['Á','A'], ['Â','A'], ['Ã','A'], ['Ä','A'], ['Å','A'],
+    ['Æ','AE'], ['Ç','C'], ['È','E'], ['É','E'], ['Ê','E'], ['Ë','E'],
+    ['Ì','I'], ['Í','I'], ['Î','I'], ['Ï','I'], ['Ð','D'], ['Ñ','N'],
+    ['Ò','O'], ['Ó','O'], ['Ô','O'], ['Õ','O'], ['Ö','O'], ['Ø','O'],
+    ['Ù','U'], ['Ú','U'], ['Û','U'], ['Ü','U'], ['Ý','Y'], ['Þ','TH'],
+    ['ß','ss'], ['à','a'], ['á','a'], ['â','a'], ['ã','a'], ['ä','a'], ['å','a'],
+    ['æ','ae'], ['ç','c'], ['è','e'], ['é','e'], ['ê','e'], ['ë','e'],
+    ['ì','i'], ['í','i'], ['î','i'], ['ï','i'], ['ð','d'], ['ñ','n'],
+    ['ò','o'], ['ó','o'], ['ô','o'], ['õ','o'], ['ö','o'], ['ø','o'],
+    ['ù','u'], ['ú','u'], ['û','u'], ['ü','u'], ['ý','y'], ['þ','th'], ['ÿ','y']
+  ]);
+
+  return str.split('').map(char => accentsMap.get(char) || char).join('');
+}
+
+  const $overlay = $('#shareOverlay');
+  const $popup = $('#sharePopup');
+  let urlToShare = ""; // sera mis à jour au clic d’un bouton
+  const shareText = "Cliquez sur le lien pour télécharger le bulletin de salaire et le fiche de paie : \r\n"; // texte partagé
+
+  // --- OUVERTURE / FERMETURE POPUP ---
+  function openPopup(link) {
+    urlToShare = link; 
+    console.log("Lien stocké :", urlToShare);
+    $overlay.fadeIn(150);
+    $popup.fadeIn(150);
+  }
+
+  function closePopup() {
+    $popup.fadeOut(150);
+    $overlay.fadeOut(150);
+  }
+
+  // --- CLIC SUR UN BOUTON DE PARTAGE ---
+  $(document).on('click', '.btnShare', function(e) {
+    e.preventDefault();
+    const id = $(this).data('id');  
+    const link = window.location.origin + "/pdf/bulletin_fiche_paie?pdf=" + id;
+    openPopup(link); 
+  });
+
+  // --- ACTIONS DE PARTAGE ---
+
+  // Facebook
+  $('#fbShare').on('click', function() {
+    const fbUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(urlToShare);
+    window.open(fbUrl, 'fbShareWindow', 'width=600,height=400');
+    closePopup();
+  });
+
+  // Twitter
+  $('#twShare').on('click', function() {
+    const twUrl = 'https://twitter.com/intent/tweet?url=' 
+                  + encodeURIComponent(urlToShare) 
+                  + '&text=' + encodeURIComponent(shareText);
+    window.open(twUrl, 'twShareWindow', 'width=600,height=400');
+    closePopup();
+  });
+
+  // WhatsApp
+  $('#waShare').on('click', function() {
+    const waUrl = 'https://api.whatsapp.com/send?text=' 
+                  + encodeURIComponent(shareText + " " + urlToShare);
+    window.open(waUrl, 'waShareWindow', 'width=600,height=600');
+    closePopup();
+  });
+
+  // Email
+$('#emailShare').on('click', function() {
+  const destinataire = "destinataire@example.com"; // <-- obligatoire
+  const subject = encodeURIComponent(removeAccents("bulletin de salaire"));
+  const body = encodeURIComponent(
+    removeAccents(shareText + urlToShare)
+  );
+
+  window.location.href = `mailto:${destinataire}?subject=${subject}&body=${body}`;
+  closePopup();
+});
+
+
+  // Copier le lien
+  async function copyLink() {
+    const $msg = $("#shareMessage");
+    try {
+      await navigator.clipboard.writeText(urlToShare);
+      $msg.text("Lien copié dans le presse-papier ✅").fadeIn();
+      setTimeout(() => { $msg.fadeOut(); closePopup(); }, 2000);
+    } catch {
+      $msg.text("Erreur lors de la copie ❌").fadeIn();
+      setTimeout(() => { $msg.fadeOut(); closePopup(); }, 2000);
+    }
+  }
+
+  $('#copyLinkBtn').on('click', copyLink);
+
+  // --- ACCESSIBILITÉ CLAVIER ---
+  $('.share-btn').on('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      $(this).click();
+    }
+  });
+
+  // --- FERMETURE POPUP ---
+  $overlay.on('click', closePopup);
+  $popup.find('.close-btn').on('click', closePopup);
+});
+	</script>

@@ -1,0 +1,1611 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<style>
+.dating::-webkit-datetime-edit-month-field,
+.dating::-webkit-datetime-edit-day-field,
+.dating::-webkit-datetime-edit-text,
+.dating::-webkit-calendar-picker-indicator {
+	display: none;
+}
+</style>
+
+<input type="hidden" id="id_reference"
+	value="{{ request.args.get('id', '') }}">
+<!------MAIN-CONTENT-------->
+<div class="main-content">
+	<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1 class="get-title-page page-title-2">DMT</h1>
+		</div>
+		<div class="baniere-right">
+			<div class="content-navigation">
+				<ul class="navigation">
+					<li class="active_nav active_nav_click section-btn" id="service"
+						data-index="0">
+						<a href="#">
+							<span class="icon"><i class="fas fa-signature"></i></span>
+							<span class="text">DMT</span>
+						</a>
+					</li>
+					<li class="active_nav_click section-btn" id="employe" data-index="1">
+						<a href="#">
+							<span class="icon"><i class="fas fa-users"></i></span>
+							<span class="text">Employe</span>
+						</a>
+					</li>
+					<li class="active_nav_click" id="infocomplete" style="display: none;">
+						<a href="#">
+							<span class="icon"><i class="fas fa-file-export"></i></span>
+							<span class="text">Exporter</span>
+						</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-file-contract"></i></div>
+		<!---------SOUS CONTAINT 1----------->
+		<div class="main-sous-content">
+			<div class="main-sous-content-div active-main-sous-content">
+				<div class="content-list content-list1">
+
+				</div>
+				<!----------------PAGINATION----------->
+				<div class="pagination">
+					<div class="showingInfo" id="showingInfo1"></div>
+					<div class="showingPage" id="pagination1"></div>
+				</div>
+
+			</div>
+			<!---------FIN SOUS CONTAINT 1----------->
+
+			<!---------SOUS CONTAINT 2----------->
+			<div class="main-sous-content-div">
+
+				<div class="content-list content-list2">
+
+				</div>
+				<div class="pagination">
+					<div class="showingInfo" id="showingInfo2"></div>
+					<div class="showingPage" id="pagination2"></div>
+				</div>
+				<!--<><><><><><><><><><><><><><><><><><><><><><><><><><> DEMO END <><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+			</div>
+			<!---------FIN SOUS CONTAINT 2----------->
+		</div>
+	</div>
+</div>
+<!------MODAL AJOUT INSCRIPTION-------->
+<form id="insertConge">
+	<div class="petit close-modal" id="ajouter-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">AJOUTER Dmt</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt id="ad_profil_imgPreview">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="text" name="id_contrat" id="id_contrat" hidden>
+						<input type="hidden" name="insert_id" id>
+						<h1 class="card-title" id="ad-title-name"></h1>
+						<!----------ProgressBar--------->
+
+						<!---------Form----------------->
+						<div class="nextstep nextstep-active">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Date <span
+											class="required-required">*</span></label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+										<input type="date" class="text-input contrat9 " name="date_effet"
+											placeholder="Cotisation amicale" id required="required"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);"
+											value="{{ current_date }}">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Groupe ethnique</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-users fa-icon"></i></span>
+										<input type="text" class="text-input" name="groupe_ethnique" id
+											required="required" placeholder="Groupe ethnique"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Pays</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-flag fa-icon"></i></span>
+										<select name="pays" class="js-searchBox" required="required">
+											<option value>Selectionnez</option>
+											<option value="Afghanistan">Afghanistan</option>
+											<option value="Albanie">Albanie</option>
+											<option value="Algérie">Algérie </option>
+											<option value="Allemagne">Allemagne</option>
+											<option value="États-Unis">États-Unis</option>
+											<option value="Andorre">Andorre</option>
+											<option value="Angola">Angola</option>
+											<option value="Antigua-et-Barbuda">Antigua-et-Barbuda</option>
+											<option value="Argentine">Argentine</option>
+											<option value="Arménie">Armenienne</option>
+											<option value="Australie">Australie</option>
+											<option value="Autriche">Autriche</option>
+											<option value="Azerbaïdjan">Azerbaïdjan</option>
+											<option value="Bahamas">Bahamas</option>
+											<option value="Bahreïn">Bahreïn </option>
+											<option value="Bangladesh">Bangladesh </option>
+											<option value="Barbade">Barbade </option>
+											<option value="Belgique">Belgique </option>
+											<option value="Belize">Belize</option>
+											<option value="Bénin">Bénin </option>
+											<option value="Bhoutan">Bhoutan </option>
+											<option value="Biélorussie">Biélorussie</option>
+											<option value="Birmanie">Birmanie </option>
+											<option value="Guinée-Bissau">Guinée-Bissau </option>
+											<option value="Bolivie">Bolivie </option>
+											<option value="Bosnie-Herzégovine">Bosnie-Herzégovine </option>
+											<option value="Botswana">Botswana</option>
+											<option value="Brésil">Brésil</option>
+											<option value="Royaume-Uni">Royaume-Uni </option>
+											<option value="Brunéi">Brunéi</option>
+											<option value="Bulgarie">Bulgarie </option>
+											<option value="Burkina Faso">Burkina Faso </option>
+											<option value="Burundi">Burundi </option>
+											<option value="Cambodge">Cambodge </option>
+											<option value="Cameroun">Cameroun </option>
+											<option value="Canada">Canada</option>
+											<option value="Cap-Vert">Cap-Vert</option>
+											<option value="Centrafrique">Centrafrique </option>
+											<option value="Chili">Chili </option>
+											<option value="Chine">Chine </option>
+											<option value="Chypre">Chypre </option>
+											<option value="Colombie">Colombie </option>
+											<option value="Comores">Comores </option>
+											<option value="Congo-Kinshasa">Congo-Kinshasa</option>
+											<option value="Îles Cook">Îles Cook</option>
+											<option value="Costa Rica">Costa Rica ()</option>
+											<option value="Croatie">Croatie </option>
+											<option value="Cuba">Cuba </option>
+											<option value="Danemark">Danemark </option>
+											<option value="Djibouti">Djibouti </option>
+											<option value="République dominicaine">République
+												dominicaine</option>
+											<option value="Dominique">Dominique </option>
+											<option value="Égypte">Égypte </option>
+											<option value="Émirats arabes unis">Émirats arabes unis </option>
+											<option value="Guinée équatoriale">Guinée équatoriale </option>
+											<option value="Équateur">Équateur </option>
+											<option value="Érythrée">Érythrée </option>
+											<option value="Espagne">Espagne </option>
+											<option value="Timor-Leste">Timor-Leste</option>
+											<option value="Estonie">Estonie</option>
+											<option value="Éthiopie">Éthiopie</option>
+											<option value="Fidji">Fidji</option>
+											<option value="Finlande">Finlande</option>
+											<option value="France">France</option>
+											<option value="Gabon">Gabon</option>
+											<option value="Gambie">Gambie</option>
+											<option value="Géorgie">Géorgie</option>
+											<option value="Ghana">Ghana</option>
+											<option value="Grenade">Grenade</option>
+											<option value="Guatemala">Guatemala</option>
+											<option value="Guinée">Guinée</option>
+											<option value="Guyana">Guyana</option>
+											<option value="Haïti">Haïti</option>
+											<option value="Grèce">Grèce</option>
+											<option value="Honduras">Honduras</option>
+											<option value="Hongrie">Hongrie</option>
+											<option value="Inde">Inde</option>
+											<option value="Indonésie">Indonésie</option>
+											<option value="Iraq">Iraq</option>
+											<option value="Iran">Iran</option>
+											<option value="Irlande">Irlande</option>
+											<option value="Islande">Islande </option>
+											<option value="Israël">Israël </option>
+											<option value="Italie">Italie </option>
+											<option value="Côte d'Ivoire">Côte d'Ivoire </option>
+											<option value="Jamaïque">Jamaïque </option>
+											<option value="Japon">Japon </option>
+											<option value="Jordanie">Jordanie </option>
+											<option value="Kazakhstan">Kazakhstan </option>
+											<option value="Kenya">Kenya </option>
+											<option value="Kirghizistan">Kirghizistan </option>
+											<option value="Kiribati">Kiribati </option>
+											<option value="Saint-Christophe-et-Niévès">Saint-Christophe-et-Niévès
+											</option>
+											<option value="Koweït">Koweït</option>
+											<option value="Laos">Laos</option>
+											<option value="Lesotho">Lesotho</option>
+											<option value="Lettonie">Lettonie</option>
+											<option value="Liban">Liban</option>
+											<option value="Libéria">Libéria</option>
+											<option value="Libye">Libye</option>
+											<option value="Liechtenstein">Liechtenstein</option>
+											<option value="Lituanie">Lituanie</option>
+											<option value="Luxembourg">Luxembourg</option>
+											<option value="Macédoine">Macédoine</option>
+											<option value="Malaisie">Malaisie</option>
+											<option value="Malawi">Malawi</option>
+											<option value="Maldives">Maldives</option>
+											<option value="Madagascar">Madagascar</option>
+											<option value="Mali">Mali</option>
+											<option value="Malte">Malte</option>
+											<option value="Maroc">Maroc</option>
+											<option value="Îles Marshall">Îles Marshall </option>
+											<option value="Maurice">Maurice </option>
+											<option value="Mauritanie">Mauritanie </option>
+											<option value="Mexique">Mexique </option>
+											<option value="Micronésie">Micronésie </option>
+											<option value="Moldovie">Moldovie </option>
+											<option value="Monaco">Monaco </option>
+											<option value="Mongolie">Mongolie </option>
+											<option value="Monténégro">Monténégro </option>
+											<option value="Mozambique">Mozambique </option>
+											<option value="Namibie">Namibie </option>
+											<option value="Nauru">Nauru </option>
+											<option value="Pays-Bas">Pays-Bas</option>
+											<option value="Nouvelle-Zélande">Nouvelle-Zélande</option>
+											<option value="Népal">Népal </option>
+											<option value="Nicaragua">Nicaragua </option>
+											<option value="Nigéria">Nigéria </option>
+											<option value="Niger">Niger </option>
+											<option value="Niue">Niue </option>
+											<option value="Corée du Nord">Corée du Nord</option>
+											<option value="Norvège">Norvège </option>
+											<option value="Oman">Oman </option>
+											<option value="Ouganda">Ouganda </option>
+											<option value="Ouzbékistan">Ouzbékistan </option>
+											<option value="Pakistan">Pakistan </option>
+											<option value="Palaos">Palaos </option>
+											<option value="Palestine">Palestine </option>
+											<option value="Panama">Panama </option>
+											<option
+												value="Papouasie-Nouvelle-Guinée">Papouasie-Nouvelle-Guinée</option>
+											<option value="Paraguay">Paraguay </option>
+											<option value="Pérou">Pérou </option>
+											<option value="Philippines">Philippines </option>
+											<option value="Pologne">Pologne </option>
+											<option value="Portugal">Portugal </option>
+											<option value="Qatar">Qatar </option>
+											<option value="Roumanie">Roumanie </option>
+											<option value="Russie">Russie </option>
+											<option value="Rwanda">Rwanda </option>
+											<option value="Saint-Lucie">Saint-Lucie </option>
+											<option value="Saint-Marin">Saint-Marin </option>
+											<option value="Saint-Vincent-et-les Grenadines">Saint-Vincent-et-les
+												Grenadines</option>
+											<option value="Îles Salomon">Îles Salomon </option>
+											<option value="Salvador">Salvador</option>
+											<option value="Samoa">Samoa</option>
+											<option value="Sao Tomé-et-Principe">Sao Tomé-et-Principe</option>
+											<option value="Arabie saoudite">Arabie saoudite</option>
+											<option value="Sénégal">Sénégal</option>
+											<option value="Serbie">Serbie</option>
+											<option value="Seychelles">Seychelles</option>
+											<option value="Sierra Leone">Sierra Leone</option>
+											<option value="Singapour">Singapour</option>
+											<option value="Slovaquie">Slovaquie</option>
+											<option value="Slovénie">Slovénie</option>
+											<option value="Somalie">Somalie</option>
+											<option value="Soudan">Soudan</option>
+											<option value="Sri Lanka">Sri Lanka </option>
+											<option value="Afrique du Sud">Afrique du Sud </option>
+											<option value="Corée du Sud">Corée du Sud </option>
+											<option value="Soudan du Sud">Soudan du Sud </option>
+											<option value="Suède">Suède </option>
+											<option value="Suisse">Suisse </option>
+											<option value="Suriname">Suriname </option>
+											<option value="Swaziland">Swaziland </option>
+											<option value="Syrie">Syrie </option>
+											<option value="Tadjikistan">Tadjikistan </option>
+											<option value="Tanzanie">Tanzanie </option>
+											<option value="Tchad">Tchad </option>
+											<option value="Tchéquie">Tchéquie </option>
+											<option value="Thaïlande">Thaïlande </option>
+											<option value="Togo">Togo </option>
+											<option value="Tonga">Tonga </option>
+											<option value="Trinité-et-Tobago">Trinité-et-Tobago</option>
+											<option value="Tunisie">Tunisie </option>
+											<option value="Turkménistan">Turkménistan </option>
+											<option value="Turquie">Turquie </option>
+											<option value="Tuvalu">Tuvalu </option>
+											<option value="Ukraine">Ukraine </option>
+											<option value="Uruguay">Uruguay </option>
+											<option value="Vanuatu">Vanuatu </option>
+											<option value="Vatican">Vatican </option>
+											<option value="Venezuela">Venezuela </option>
+											<option value="Viêt Nam">Viêt Nam</option>
+											<option value="Yémen">Yémen </option>
+											<option value="Zambie">Zambie </option>
+											<option value="Zimbabwe">Zimbabwe </option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Lieu de délivrance C.I.N</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-map-marker fa-icon"></i></span>
+										<input type="text" class="text-input" name="délivrée_cin_a" id
+											required="required" placeholder="Lieu de délivrance C.I.N"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date délivrance C.I.N</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input" name="délivrée_cin_le" id
+											value="{{ current_date }}"
+											required="required" placeholder="Date délivrance C.I.N"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">N° immatriculation C.C.P.E. - A.T </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="ccpe_at" id
+											required="required"
+											placeholder="N° immatriculation C.C.P.E. - A.T"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">N° immatriculation A.G.R.O.M </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="agrom" id
+											required="required"
+											placeholder="N° immatriculation l'A.G.R.O.M"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nom conjoint(es) </label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text" class="text-input etablissement"
+											name="nom_conjoint" id
+											required="required" placeholder="Nom conjoint(es)"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Noms des enfants à charge</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-child fa-icon"></i></span>
+										<input type="text" class="text-input etablissement" name="nom_enfant"
+											id
+											required="required" placeholder="Noms des enfants à charge "
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register btn-next-progress1"
+									id="inscriptdata">Enregistrer</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL AJOUT INSCRIPTION-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+
+	<div class="petit close-modal" id="modifier-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">MODIFIER Dmt</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="up_profil_imgPreview">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="edit_id" id="edit_id">
+
+						<h1 class="card-title" id="up-title-name"></h1>
+						<div class="nextstep-update nextstep-active-update">
+							<div class="user-details-register">
+								<div class="input-group">
+									<label class="label-details">Date <span
+											class="required-required">*</span></label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar  fa-icon"></i></span>
+										<input type="date" class="text-input contrat9 " name="date_effet"
+											placeholder="Cotisation amicale" id="date_effet"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);"
+											value="{{ current_date }}">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Groupe ethnique</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-users fa-icon"></i></span>
+										<input type="text" class="text-input" name="groupe_ethnique"
+											id="groupe_ethnique" required="required"
+											placeholder="Groupe ethnique"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Pays</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-flag fa-icon"></i></span>
+										<select name="pays" id="pays" class="js-searchBox"
+											required="required">
+											<option value>Selectionnez</option>
+											<option value="Afghanistan">Afghanistan</option>
+											<option value="Albanie">Albanie</option>
+											<option value="Algérie">Algérie </option>
+											<option value="Allemagne">Allemagne</option>
+											<option value="États-Unis">États-Unis</option>
+											<option value="Andorre">Andorre</option>
+											<option value="Angola">Angola</option>
+											<option value="Antigua-et-Barbuda">Antigua-et-Barbuda</option>
+											<option value="Argentine">Argentine</option>
+											<option value="Arménie">Armenienne</option>
+											<option value="Australie">Australie</option>
+											<option value="Autriche">Autriche</option>
+											<option value="Azerbaïdjan">Azerbaïdjan</option>
+											<option value="Bahamas">Bahamas</option>
+											<option value="Bahreïn">Bahreïn </option>
+											<option value="Bangladesh">Bangladesh </option>
+											<option value="Barbade">Barbade </option>
+											<option value="Belgique">Belgique </option>
+											<option value="Belize">Belize</option>
+											<option value="Bénin">Bénin </option>
+											<option value="Bhoutan">Bhoutan </option>
+											<option value="Biélorussie">Biélorussie</option>
+											<option value="Birmanie">Birmanie </option>
+											<option value="Guinée-Bissau">Guinée-Bissau </option>
+											<option value="Bolivie">Bolivie </option>
+											<option value="Bosnie-Herzégovine">Bosnie-Herzégovine </option>
+											<option value="Botswana">Botswana</option>
+											<option value="Brésil">Brésil</option>
+											<option value="Royaume-Uni">Royaume-Uni </option>
+											<option value="Brunéi">Brunéi</option>
+											<option value="Bulgarie">Bulgarie </option>
+											<option value="Burkina Faso">Burkina Faso </option>
+											<option value="Burundi">Burundi </option>
+											<option value="Cambodge">Cambodge </option>
+											<option value="Cameroun">Cameroun </option>
+											<option value="Canada">Canada</option>
+											<option value="Cap-Vert">Cap-Vert</option>
+											<option value="Centrafrique">Centrafrique </option>
+											<option value="Chili">Chili </option>
+											<option value="Chine">Chine </option>
+											<option value="Chypre">Chypre </option>
+											<option value="Colombie">Colombie </option>
+											<option value="Comores">Comores </option>
+											<option value="Congo-Kinshasa">Congo-Kinshasa</option>
+											<option value="Îles Cook">Îles Cook</option>
+											<option value="Costa Rica">Costa Rica ()</option>
+											<option value="Croatie">Croatie </option>
+											<option value="Cuba">Cuba </option>
+											<option value="Danemark">Danemark </option>
+											<option value="Djibouti">Djibouti </option>
+											<option value="République dominicaine">République
+												dominicaine</option>
+											<option value="Dominique">Dominique </option>
+											<option value="Égypte">Égypte </option>
+											<option value="Émirats arabes unis">Émirats arabes unis </option>
+											<option value="Guinée équatoriale">Guinée équatoriale </option>
+											<option value="Équateur">Équateur </option>
+											<option value="Érythrée">Érythrée </option>
+											<option value="Espagne">Espagne </option>
+											<option value="Timor-Leste">Timor-Leste</option>
+											<option value="Estonie">Estonie</option>
+											<option value="Éthiopie">Éthiopie</option>
+											<option value="Fidji">Fidji</option>
+											<option value="Finlande">Finlande</option>
+											<option value="France">France</option>
+											<option value="Gabon">Gabon</option>
+											<option value="Gambie">Gambie</option>
+											<option value="Géorgie">Géorgie</option>
+											<option value="Ghana">Ghana</option>
+											<option value="Grenade">Grenade</option>
+											<option value="Guatemala">Guatemala</option>
+											<option value="Guinée">Guinée</option>
+											<option value="Guyana">Guyana</option>
+											<option value="Haïti">Haïti</option>
+											<option value="Grèce">Grèce</option>
+											<option value="Honduras">Honduras</option>
+											<option value="Hongrie">Hongrie</option>
+											<option value="Inde">Inde</option>
+											<option value="Indonésie">Indonésie</option>
+											<option value="Iraq">Iraq</option>
+											<option value="Iran">Iran</option>
+											<option value="Irlande">Irlande</option>
+											<option value="Islande">Islande </option>
+											<option value="Israël">Israël </option>
+											<option value="Italie">Italie </option>
+											<option value="Côte d'Ivoire">Côte d'Ivoire </option>
+											<option value="Jamaïque">Jamaïque </option>
+											<option value="Japon">Japon </option>
+											<option value="Jordanie">Jordanie </option>
+											<option value="Kazakhstan">Kazakhstan </option>
+											<option value="Kenya">Kenya </option>
+											<option value="Kirghizistan">Kirghizistan </option>
+											<option value="Kiribati">Kiribati </option>
+											<option value="Saint-Christophe-et-Niévès">Saint-Christophe-et-Niévès
+											</option>
+											<option value="Koweït">Koweït</option>
+											<option value="Laos">Laos</option>
+											<option value="Lesotho">Lesotho</option>
+											<option value="Lettonie">Lettonie</option>
+											<option value="Liban">Liban</option>
+											<option value="Libéria">Libéria</option>
+											<option value="Libye">Libye</option>
+											<option value="Liechtenstein">Liechtenstein</option>
+											<option value="Lituanie">Lituanie</option>
+											<option value="Luxembourg">Luxembourg</option>
+											<option value="Macédoine">Macédoine</option>
+											<option value="Malaisie">Malaisie</option>
+											<option value="Malawi">Malawi</option>
+											<option value="Maldives">Maldives</option>
+											<option value="Madagascar">Madagascar</option>
+											<option value="Mali">Mali</option>
+											<option value="Malte">Malte</option>
+											<option value="Maroc">Maroc</option>
+											<option value="Îles Marshall">Îles Marshall </option>
+											<option value="Maurice">Maurice </option>
+											<option value="Mauritanie">Mauritanie </option>
+											<option value="Mexique">Mexique </option>
+											<option value="Micronésie">Micronésie </option>
+											<option value="Moldovie">Moldovie </option>
+											<option value="Monaco">Monaco </option>
+											<option value="Mongolie">Mongolie </option>
+											<option value="Monténégro">Monténégro </option>
+											<option value="Mozambique">Mozambique </option>
+											<option value="Namibie">Namibie </option>
+											<option value="Nauru">Nauru </option>
+											<option value="Pays-Bas">Pays-Bas</option>
+											<option value="Nouvelle-Zélande">Nouvelle-Zélande</option>
+											<option value="Népal">Népal </option>
+											<option value="Nicaragua">Nicaragua </option>
+											<option value="Nigéria">Nigéria </option>
+											<option value="Niger">Niger </option>
+											<option value="Niue">Niue </option>
+											<option value="Corée du Nord">Corée du Nord</option>
+											<option value="Norvège">Norvège </option>
+											<option value="Oman">Oman </option>
+											<option value="Ouganda">Ouganda </option>
+											<option value="Ouzbékistan">Ouzbékistan </option>
+											<option value="Pakistan">Pakistan </option>
+											<option value="Palaos">Palaos </option>
+											<option value="Palestine">Palestine </option>
+											<option value="Panama">Panama </option>
+											<option
+												value="Papouasie-Nouvelle-Guinée">Papouasie-Nouvelle-Guinée</option>
+											<option value="Paraguay">Paraguay </option>
+											<option value="Pérou">Pérou </option>
+											<option value="Philippines">Philippines </option>
+											<option value="Pologne">Pologne </option>
+											<option value="Portugal">Portugal </option>
+											<option value="Qatar">Qatar </option>
+											<option value="Roumanie">Roumanie </option>
+											<option value="Russie">Russie </option>
+											<option value="Rwanda">Rwanda </option>
+											<option value="Saint-Lucie">Saint-Lucie </option>
+											<option value="Saint-Marin">Saint-Marin </option>
+											<option value="Saint-Vincent-et-les Grenadines">Saint-Vincent-et-les
+												Grenadines</option>
+											<option value="Îles Salomon">Îles Salomon </option>
+											<option value="Salvador">Salvador</option>
+											<option value="Samoa">Samoa</option>
+											<option value="Sao Tomé-et-Principe">Sao Tomé-et-Principe</option>
+											<option value="Arabie saoudite">Arabie saoudite</option>
+											<option value="Sénégal">Sénégal</option>
+											<option value="Serbie">Serbie</option>
+											<option value="Seychelles">Seychelles</option>
+											<option value="Sierra Leone">Sierra Leone</option>
+											<option value="Singapour">Singapour</option>
+											<option value="Slovaquie">Slovaquie</option>
+											<option value="Slovénie">Slovénie</option>
+											<option value="Somalie">Somalie</option>
+											<option value="Soudan">Soudan</option>
+											<option value="Sri Lanka">Sri Lanka </option>
+											<option value="Afrique du Sud">Afrique du Sud </option>
+											<option value="Corée du Sud">Corée du Sud </option>
+											<option value="Soudan du Sud">Soudan du Sud </option>
+											<option value="Suède">Suède </option>
+											<option value="Suisse">Suisse </option>
+											<option value="Suriname">Suriname </option>
+											<option value="Swaziland">Swaziland </option>
+											<option value="Syrie">Syrie </option>
+											<option value="Tadjikistan">Tadjikistan </option>
+											<option value="Tanzanie">Tanzanie </option>
+											<option value="Tchad">Tchad </option>
+											<option value="Tchéquie">Tchéquie </option>
+											<option value="Thaïlande">Thaïlande </option>
+											<option value="Togo">Togo </option>
+											<option value="Tonga">Tonga </option>
+											<option value="Trinité-et-Tobago">Trinité-et-Tobago</option>
+											<option value="Tunisie">Tunisie </option>
+											<option value="Turkménistan">Turkménistan </option>
+											<option value="Turquie">Turquie </option>
+											<option value="Tuvalu">Tuvalu </option>
+											<option value="Ukraine">Ukraine </option>
+											<option value="Uruguay">Uruguay </option>
+											<option value="Vanuatu">Vanuatu </option>
+											<option value="Vatican">Vatican </option>
+											<option value="Venezuela">Venezuela </option>
+											<option value="Viêt Nam">Viêt Nam</option>
+											<option value="Yémen">Yémen </option>
+											<option value="Zambie">Zambie </option>
+											<option value="Zimbabwe">Zimbabwe </option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Lieu de délivrance C.I.N</label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-map-marker fa-icon"></i></span>
+										<input type="text" class="text-input" name="délivrée_cin_a"
+											id="délivrée_cin_a"
+											required="required" placeholder="Lieu de délivrance C.I.N"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Date délivrance C.I.N</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-calendar fa-icon"></i></span>
+										<input type="date" class="text-input" name="délivrée_cin_le"
+											id="délivrée_cin_le" required="required"
+											placeholder="Date délivrance C.I.N" value="{{ current_date }}"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">N° immatriculation C.C.P.E. - A.T </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="ccpe_at" id="ccpe_at"
+											required="required" placeholder="N° immatriculation C.C.P.E. - A.T"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">N° immatriculation A.G.R.O.M </label>
+									<div class="input-box">
+										<span class="span-left"><i
+												class="fa fa-sort-numeric-down fa-icon"></i></span>
+										<input type="text" class="text-input" name="agrom" id="agrom"
+											required="required" placeholder="N° immatriculation A.G.R.O.M"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Nom conjoint(es) </label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-user fa-icon"></i></span>
+										<input type="text" class="text-input etablissement"
+											name="nom_conjoint"
+											id="nom_conjoint" required="required" placeholder="Nom conjoint(es)"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Noms des enfants à charge</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-child fa-icon"></i></span>
+										<input type="text" class="text-input etablissement" name="nom_enfant"
+											id="nom_enfant" required="required"
+											placeholder="Noms des enfants à charge "
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit"
+									class="footer-button-register btn-next-progress-update1"
+									id="inscriptdata">Modifier</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------FIN MODAL MODIFIER-------->
+
+<!------MODAL SUPPRIMER-------->
+<form id="deleteForm">
+	<div class="petit close-modal" id="supprimer-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">supprimer Dmt</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+							<img
+								src="{{ url_for('static', filename='img/image/image-profil.png') }}"
+								alt class="profil_imgPreview"
+								id="del_profil_imgPreview">
+						</div>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<input type="hidden" name="delete_id" id="delete_id">
+						<h1 class="card-title" id="del-title-name"></h1>
+						<div class="nextstep-active-update">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-trash"></i> </span>
+										<input type="text" class="text-input" name id="nom_del" readonly>
+									</div>
+								</div>
+							</div>
+							<div class="footer-modal">
+								<button type="submit" class="footer-button-register"
+									id="deletedata">Supprimer</button>
+								<button type="button"
+									class="footer-button-close close-modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!------FIN MODAL SUPPRIMER-------->
+	<!------MODAL INFO-------->
+	<form id="saveLetter">
+		<div class="grand close-modal" id="lettre-modal">
+			<div class="modal-panel-grand">
+				<div class="overlay-inner">
+					<div class="modal-close">
+						<span class="title">indemnite</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="corps-modal">
+						<div class="container-letter">
+
+							<input type="hidden" name="id_lettre_indemnite" id="id_lettre_indemnite">
+							<textarea name="text-input" class="text-input" id="text-input" cols="30"
+								rows="10"></textarea>
+						</div>
+					</div>
+					<div class="footer-modal">
+						<button type="submit" class="footer-button-register"
+							id="btnsaveLetter">Enregistrer</button>
+						<button type="button"
+							class="footer-button-close close-modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!------FIN MODAL INFO-------->
+
+	<!--------FIN MODAL INFO GENERAL------->
+	<!--------MODAL INFO INDEMNITE------->
+	<div class="grand close-modal" id="indemnite-modal">
+		<div class="modal-panel-grand">
+			<div class="overlay-inner">
+				<div class="modal-close">
+					<span class="title">export</span>
+					<div class="btn-close-modal close-modal">
+						<i class="fa fa-times-circle"></i>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="user-details-register user-details-register-dasboard">
+						<div class="input-group">
+							<div class="input-box">
+								<button type="submit" class="footer-button-export"
+									id="Exportindemnite">EXCEL</button>
+								<button type="submit" class="footer-button-export"
+									id="ExportdataPdf">PDF</button>
+							</div>
+						</div>
+					</div>
+					<div class="tb_indemnite">
+
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="button"
+						class="footer-button-close close-modal">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="shareOverlay"></div>
+
+	<div id="sharePopup" role="dialog" aria-modal="true"
+		aria-labelledby="sharePopupTitle">
+		<div class="close-btn" aria-label="Fermer"><i class="fas fa-times"></i></div>
+		<div class="title" id="sharePopupTitle">Partager</div>
+		<div class="share-buttons">
+			<div class="share-btn" id="fbShare" title="Facebook" role="button"
+				tabindex="0" aria-label="Partager sur Facebook">
+				<i class="fab fa-facebook-f"></i>
+			</div>
+			<div class="share-btn" id="twShare" title="Twitter" role="button"
+				tabindex="0" aria-label="Partager sur Twitter">
+				<i class="fab fa-twitter"></i>
+			</div>
+			<div class="share-btn" id="waShare" title="WhatsApp" role="button"
+				tabindex="0" aria-label="Partager sur WhatsApp">
+				<i class="fab fa-whatsapp"></i>
+			</div>
+			<div class="share-btn" id="emailShare" title="Email" role="button"
+				tabindex="0" aria-label="Partager par Email">
+				<i class="fas fa-envelope"></i>
+			</div>
+			<div class="share-btn" id="copyLinkBtn" title="Copier le lien" role="button"
+				tabindex="0" aria-label="Copier le lien">
+				<i class="fas fa-link"></i>
+			</div>
+		</div>
+		<div id="shareMessage"
+			style="text-align:center; margin-top:8px; color:green; display:none;"></div>
+	</div>
+	<!--------FIN MODAL INFO INDEMNITE------->
+
+	<!------FOOTER-------->
+
+	{% include 'include/footer.html' %}
+
+	<script>
+function fetchdata() {
+	var id = $("#id_reference").val()
+	$.ajax({
+		url: "../controller/dmt/fetch_dmt",
+		type: "POST",
+		data: {
+			id: id
+		},
+		success: function(response) {
+			$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var a = 0; a < gp_data.length; a++) {
+				var div1 = `<div class="parent box result well">
+					 <div class="card">
+					    <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[a].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].prenom} ${gp_data[a].nom}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[a].matricule}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-chalkboard-teacher"></i><span>${gp_data[a].poste_occupe}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-map-marker"></i><span>${gp_data[a].adresse_e}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-phone fa-rotate-90"></i><span>${gp_data[a].telephone_e}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-envelope"></i><span>${gp_data[a].email_e}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						    <ul class="navigation_list">
+					               <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="updatebtn" data-id="${gp_data[a].id_dmt}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+					               		<span class="text">Modifier</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+						    	   <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="deletebtn" data-id="${gp_data[a].id_dmt}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-trash"></i></span>
+					               		<span class="text">Supprimer</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+					               <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count}" id="printbtn" data-id="${gp_data[a].id_dmt}">
+					               	<a href="#" target="_blank">
+					               		<span class="icon"><i class="fas fa-print"></i></span>
+					               		<span class="text">Imprimer</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+						    	   <li class="active_nav_click_list active_nav_click_list_${gp_data[a].count} btnShare"  data-id="${gp_data[a].id_dmt}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-share-alt"></i></span>
+					               		<span class="text">Partager</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+				            </ul>
+						</div>
+					</div>
+				  </div>`;
+				$('.content-list1').append(div1);
+			}
+			updateSectionItems(0);
+		},
+				error: function (xhr, status, error) {
+					console.error("Erreur AJAX:", error);
+				}
+	})
+
+	$.ajax({
+		url: "../controller/contrat/fetch_contrat",
+		type: "POST",
+		data: {
+			dmt: id
+		},
+		success: function(response) {
+			$('.content-list2').html(""); //insérer le texte de test.php dans votre div
+			var gp_data = response;
+			for (var a = 0; a < gp_data.length; a++) {
+				var div2 = `<div class="parent box result well">
+					 <div class="card">
+					    <div class="content-date-box">
+                            <div class="overlay">
+					            <div class="date-box">
+						        	<img src="${gp_data[a].photo}" alt="" id="">
+						        </div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].prenom} ${gp_data[a].nom}</h1>
+							<div class="card-content">
+								<div class="card-content-info">
+									<i class="fa fa-sort-numeric-down"></i><span>${gp_data[a].matricule}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-chalkboard-teacher"></i><span>${gp_data[a].poste_occupe}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-map-marker"></i><span>${gp_data[a].adresse_e}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-phone fa-rotate-90"></i><span>${gp_data[a].telephone_e}</span>
+								</div>
+								<div class="card-content-info">
+									<i class="fa fa-envelope"></i><span>${gp_data[a].email_e}</span>
+								</div>
+							</div>
+						</div>
+						<div class="content-navigation_list">
+						    <ul class="navigation_list">
+					               <li class="active_nav_list" id="servicebtn" data-id="${gp_data[a].id_contrat}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-plus"></i></span>
+					               		<span class="text">Ajouter</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+				            </ul>
+						</div>
+					</div>
+				  </div>`;
+				$('.content-list2').append(div2);
+			}
+			updateSectionItems(1);
+		},
+				error: function (xhr, status, error) {
+					console.error("Erreur AJAX:", error);
+				}
+	})
+}
+
+
+
+$('document').ready(function() {
+	fetchdata()
+})
+
+$("#btn-modal-lettre").click(function() {
+	$("#lettre-modal").fadeIn();
+});
+</script>
+	<script>
+        $(document).on("click", ".active_nav_click_list", function (e) {
+            e.preventDefault();
+			var encryptedId = $(this).data('id'); // récupère la valeur chiffrée
+			console.log("ID chiffré cliqué:", encryptedId);
+
+			// Exemple : si tu veux enlever la classe sur tous les éléments ayant l'ID simple
+			var simpleId = $(this).attr('class').match(/active_nav_click_list_(\d+)/)[1];
+			$(".active_nav_click_list_" + simpleId).removeClass("active_nav_list");
+			$(this).addClass("active_nav_list");
+
+			// Si tu veux faire une requête AJAX avec l’ID chiffré, tu peux l’utiliser ici
+		});
+$(document).on('click', '#printbtn', function(e) {
+	var id = $(this).data('id');
+	window.open(`../pdf/dmt?pdf=${id}`, '_blank');
+})
+
+$(document).on('click', '.shared-nav', function(e) {
+	var id = $(this).data('id');
+	var link = "../pdf/download_dmt?pdf=" + id
+	navigator.share({
+		text: 'Cliquez sur le lien pour télécharger le DMT !', // Text to be shared
+		url: link, // URL to be shared
+	})
+})
+$("#infocomplete").click(function() {
+	fetchtb_contrat()
+	$("#infocomplet-modal").fadeIn();
+});
+$("#infoindemnite").click(function() {
+	fetchtb_indemnite()
+	$("#indemnite-modal").fadeIn();
+});
+$("#infopersonnel").click(function() {
+	fetchtb_personnel()
+	$("#personnel-modal").fadeIn();
+});
+$('.fab-button').on('click', function() {
+	$(".fab-show").show(600);
+	$(".fab-hide").show();
+	$(".fab-button").hide();
+})
+$('.fab-hide').on('click', function() {
+	$(".fab-button").show();
+
+	$(".fab-show").hide(600);
+	$(".fab-hide").hide();
+})
+$(document).on('click', '.toggle-btn', function(e) {
+	var id = $(this).data('id');
+	$("#nav_" + id).toggleClass("active");
+	$("#toggle-btn-close_" + id).toggleClass("fa-times");
+})
+$(document).on('click', '.fab-button1', function(e) {
+	var id = $(this).data('id');
+	$("#fab-show1_" + id).toggle("slow");
+	$("#fas1_" + id).toggleClass("fa-times");
+	$("#fab-show1_" + id).attr(('style', 'display:block'))
+})
+$(document).on('click', '.partager', function(e) {
+	var id = $(this).data('id');
+	$("#li-partager_" + id).toggle("slow");
+})
+$('.js-searchBox').select2({
+	width: '100%'
+});
+
+//PHOTO
+$(document).on("change", "#photo", function() {
+	var file = this.files[0];
+	console.log(file);
+	if (file) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('#imgPreview').attr('src', e.target.result);
+		}
+		reader.readAsDataURL(file);
+	}
+})
+$(document).on("change", "#update_photo", function() {
+	var file = this.files[0];
+	console.log(file);
+	if (file) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('#update_imgPreview').attr('src', e.target.result);
+		}
+		reader.readAsDataURL(file);
+	}
+})
+$(document).ready(function(e) {
+	//INSERTION
+	$("#insertConge").on('submit', function(e) {
+		e.preventDefault();
+		$("#ajouter-modal").fadeOut();
+
+		$.ajax({
+			type: 'POST',
+			url: '../controller/dmt/save',
+			data: new FormData(this),
+			//dataType: 'json',
+			contentType: false,
+			cache: false,
+			processData: false,
+			success: function(response) {
+				console.log(response)
+				if (response === 'true') {
+					Swal.fire({
+						icon: 'success',
+						title: 'Existe',
+						text: "Le DMT a déja été creer.",
+						confirmButtonColor: '#127b8e',
+						showConfirmButton: false,
+						timer: 2000
+					})
+
+				} else {
+					Swal.fire({
+						icon: 'success',
+						title: 'Enregistré',
+						text: "Enregistrement effectué avec succés.",
+						confirmButtonColor: '#127b8e',
+						showConfirmButton: false,
+						timer: 2000
+					}).then(function() {
+						fetchdata()
+					});
+
+
+				}
+			},
+        error: function(xhr, status, error) {
+            console.error("Erreur AJAX :", status, error);
+            console.error("Réponse brute :", xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur AJAX',
+                text: 'Une erreur est survenue côté serveur ou réseau',
+                confirmButtonColor: '#127b8e',
+				 showConfirmButton: false,
+                    timer: 2000
+            });
+        }
+		});
+
+		$(this).find('input:text, input:password, input:file, textarea').val('');
+		$(this).find('select').val(null).trigger('change');
+	});
+	//UPDATE
+	$("#updateForm").on('submit', function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			type: 'POST',
+			url: '../controller/dmt/save',
+			data: new FormData(this),
+			//dataType: 'json',
+			contentType: false,
+			cache: false,
+			processData: false,
+			success: function(response) {
+
+				console.log(response);
+
+			},
+        error: function(xhr, status, error) {
+            console.error("Erreur AJAX :", status, error);
+            console.error("Réponse brute :", xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur AJAX',
+                text: 'Une erreur est survenue côté serveur ou réseau',
+                confirmButtonColor: '#127b8e',
+				 showConfirmButton: false,
+                    timer: 2000
+            });
+        }
+		});
+		$("#modifier-modal").fadeOut();
+		Swal.fire({
+			icon: 'success',
+			title: 'Modifié',
+			text: "Modification effectuée avec succés.",
+			confirmButtonColor: '#127b8e',
+			showConfirmButton: false,
+			timer: 2000
+		}).then(function() {});
+		fetchdata();
+
+	});
+	// SUPPRIMER
+	$("#deleteForm").on('submit', function(e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '../controller/dmt/save',
+			data: new FormData(this),
+			dataType: 'json',
+			contentType: false,
+			cache: false,
+			processData: false,
+
+			success: function(response) {
+				console.log(response);
+
+			},
+        error: function(xhr, status, error) {
+            console.error("Erreur AJAX :", status, error);
+            console.error("Réponse brute :", xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur AJAX',
+                text: 'Une erreur est survenue côté serveur ou réseau',
+                confirmButtonColor: '#127b8e',
+				 showConfirmButton: false,
+                    timer: 2000
+            });
+        }
+		});
+		$("#supprimer-modal").fadeOut();
+
+		Swal.fire({
+			icon: 'error',
+			title: 'Supprimé',
+			text: "Suppression effectuée avec succés.",
+			confirmButtonColor: '#127b8e',
+			showConfirmButton: false,
+			timer: 2000
+		}).then(function() {
+			fetchdata();
+		});
+
+	});
+	// INSERT LETTER
+
+	$("#saveLetter").on('submit', function(e) {
+		e.preventDefault();
+		var data = $('#saveLetter').serializeArray();
+		data.push({
+			name: 'text_input',
+			value: tinyMCE.get('text-input').getContent()
+		});
+		$.ajax({
+			type: 'POST',
+			url: '../controller/indemnite/insert_letter',
+			data: data,
+			//dataType: 'html',
+
+			success: function(response) {
+				fetchletter()
+			}
+		});
+		$("#lettre-modal").fadeOut();
+
+		Swal.fire({
+			icon: 'success',
+			title: 'Enregistré',
+			text: "Enregistrement effectué avec succés.",
+			confirmButtonColor: '#127b8e',
+			showConfirmButton: false,
+			timer: 2000
+		}).then(function() {
+
+			fetchletter();
+		});
+
+	});
+
+	//UPDATE LETTER
+
+});
+
+$(document).on("click", "#togglePassword", function(e) {
+	// toggle the type attribute
+	var password = $('#password');
+	if (password.attr("type") === "password") {
+		password.attr("type", "text");
+	} else {
+		password.attr("type", "password");
+	}
+	$("#show-eye").toggleClass('fa-eye');
+	$("#show-eye").toggleClass('fa-eye-slash');
+	// toggle the eye icon
+
+});
+$(document).on("click", "#update_togglePassword", function(e) {
+	// toggle the type attribute
+	var password = $('#update_password');
+	if (password.attr("type") === "password") {
+		password.attr("type", "text");
+	} else {
+		password.attr("type", "password");
+	}
+	$("#update_show-eye").toggleClass('fa-eye');
+	$("#update_show-eye").toggleClass('fa-eye-slash');
+	// toggle the eye icon
+
+});
+
+
+// SHOW UPDATE
+$(document).on('click', '#updatebtn', function(e) {
+
+	e.preventDefault();
+
+	var id_dmt = $(this).data('id');
+	$.ajax({
+		url: '../controller/dmt/fetch_dmt',
+		type: "post",
+		data: {
+			id_dmt: id_dmt
+		},
+		dataType: 'json',
+		success: function(data) {
+
+			console.log(data)
+			$("#edit_id").val(data.id_dmt);
+			$("#groupe_ethnique").val(data.groupe_ethnique);
+			$("#pays").val(data.pays).trigger("change");
+			$("#délivrée_cin_a").val(data.délivrée_cin_a);
+			$("#délivrée_cin_le").val(data.délivrée_cin_le);
+			$("#ccpe_at").val(data.ccpe_at);
+			$("#agrom").val(data.agrom);
+			$("#nom_conjoint").val(data.nom_conjoint);
+			$("#nom_enfant").val(data.nom_enfant);
+			$("#up-title-name").html(data.prenom + " " + data.nom);
+			$(".title-matricule").html(data.matricule);
+			$(".profil_imgPreview").attr("src", data.photo);
+			$("#modifier-modal").fadeIn();
+
+		}
+
+	});
+
+});
+//SHOW DELETE
+$(document).on('click', '#deletebtn', function(e) {
+
+	e.preventDefault();
+
+	var id_dmt = $(this).data('id');
+	$.ajax({
+		url: '../controller/dmt/fetch_dmt',
+		type: "post",
+		data: {
+			id_dmt: id_dmt
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data)
+
+			$("#delete_id").val(data.id_dmt);
+			$("#nom_del").val(data.groupe_ethnique)
+			$("#del-title-name").html(data.prenom + " " + data.nom);
+			$("#del_title-matricule").html(data.matricule);
+			$(".profil_imgPreview").attr("src", data.photo);
+			$("#supprimer-modal").fadeIn();
+		}
+	});
+});
+
+//SHOW INFO
+
+//SHOW INSCRIPTION
+$(document).on('click', '#servicebtn', function(e) {
+
+	e.preventDefault();
+
+	var id_contrat = $(this).data('id');
+	$.ajax({
+		url: '../controller/contrat/fetch_contrat',
+		type: "post",
+		data: {
+			id_contrat: id_contrat
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data)
+
+			$("#id_contrat").val(data.id_contrat);
+			$("#ad-title-name").html(data.prenom + " " + data.nom);
+			$("#ad-title-matricule").html(data.matricule);
+			$("#ad_profil_imgPreview").attr("src", data.photo);
+			$("#ajouter-modal").fadeIn();
+		}
+	});
+});
+
+
+$(document).on('input', '.searchBox2', function(e) {
+	var keyup = $(this).val();
+	$(".keyup-search").val(keyup);
+	if ($(".keyup-search").val(keyup)) {
+		$(".keyup-search").keyup()
+	}
+})
+</script>
+	<script>
+// SLIDER FORM NEXT ADD
+$('#ExportdataPdf').click(function() {
+	let table = $("#example1").clone();
+	console.log(table);
+	table.find(".no-export").each(function() {
+		$(this).remove();
+	});
+	const doc = new jsPDF('l', 'mm')
+	doc.autoTable({
+		html: table[0],
+		styles: {
+			overflow: 'linebreak',
+			fontSize: 8,
+			halign: 'center'
+		},
+	})
+	doc.save('Depart')
+})
+$('#Exportindemnite').click(function() {
+	let table = $("#example1").clone();
+	console.log(table);
+	table.find(".no-export").each(function() {
+		$(this).remove();
+	});
+	TableToExcel.convert(table[0], {
+		name: `Depart.xlsx`,
+		sheet: {
+			name: 'Depart'
+		}
+	});
+});
+
+$(function() {
+	function removeAccents(str) {
+  const accentsMap = new Map([
+    ['À','A'], ['Á','A'], ['Â','A'], ['Ã','A'], ['Ä','A'], ['Å','A'],
+    ['Æ','AE'], ['Ç','C'], ['È','E'], ['É','E'], ['Ê','E'], ['Ë','E'],
+    ['Ì','I'], ['Í','I'], ['Î','I'], ['Ï','I'], ['Ð','D'], ['Ñ','N'],
+    ['Ò','O'], ['Ó','O'], ['Ô','O'], ['Õ','O'], ['Ö','O'], ['Ø','O'],
+    ['Ù','U'], ['Ú','U'], ['Û','U'], ['Ü','U'], ['Ý','Y'], ['Þ','TH'],
+    ['ß','ss'], ['à','a'], ['á','a'], ['â','a'], ['ã','a'], ['ä','a'], ['å','a'],
+    ['æ','ae'], ['ç','c'], ['è','e'], ['é','e'], ['ê','e'], ['ë','e'],
+    ['ì','i'], ['í','i'], ['î','i'], ['ï','i'], ['ð','d'], ['ñ','n'],
+    ['ò','o'], ['ó','o'], ['ô','o'], ['õ','o'], ['ö','o'], ['ø','o'],
+    ['ù','u'], ['ú','u'], ['û','u'], ['ü','u'], ['ý','y'], ['þ','th'], ['ÿ','y']
+  ]);
+
+  return str.split('').map(char => accentsMap.get(char) || char).join('');
+}
+
+  const $overlay = $('#shareOverlay');
+  const $popup = $('#sharePopup');
+  let urlToShare = ""; // sera mis à jour au clic d’un bouton
+  const shareText = "Cliquez sur le lien pour télécharger le DMT : \r\n "; // texte partagé
+
+  // --- OUVERTURE / FERMETURE POPUP ---
+  function openPopup(link) {
+    urlToShare = link; 
+    console.log("Lien stocké :", urlToShare);
+    $overlay.fadeIn(150);
+    $popup.fadeIn(150);
+  }
+
+  function closePopup() {
+    $popup.fadeOut(150);
+    $overlay.fadeOut(150);
+  }
+
+  // --- CLIC SUR UN BOUTON DE PARTAGE ---
+  $(document).on('click', '.btnShare', function(e) {
+    e.preventDefault();
+    const id = $(this).data('id');  
+    const link = window.location.origin + "/pdf/dmt?pdf=" + id;
+    openPopup(link); 
+  });
+
+  // --- ACTIONS DE PARTAGE ---
+
+  // Facebook
+  $('#fbShare').on('click', function() {
+    const fbUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(urlToShare);
+    window.open(fbUrl, 'fbShareWindow', 'width=600,height=400');
+    closePopup();
+  });
+
+  // Twitter
+  $('#twShare').on('click', function() {
+    const twUrl = 'https://twitter.com/intent/tweet?url=' 
+                  + encodeURIComponent(urlToShare) 
+                  + '&text=' + encodeURIComponent(shareText);
+    window.open(twUrl, 'twShareWindow', 'width=600,height=400');
+    closePopup();
+  });
+
+  // WhatsApp
+  $('#waShare').on('click', function() {
+    const waUrl = 'https://api.whatsapp.com/send?text=' 
+                  + encodeURIComponent(shareText + " " + urlToShare);
+    window.open(waUrl, 'waShareWindow', 'width=600,height=600');
+    closePopup();
+  });
+
+  // Email
+$('#emailShare').on('click', function() {
+  const destinataire = "destinataire@example.com"; // <-- obligatoire
+  const subject = encodeURIComponent(removeAccents("DMT"));
+  const body = encodeURIComponent(
+    removeAccents(shareText + urlToShare)
+  );
+
+  window.location.href = `mailto:${destinataire}?subject=${subject}&body=${body}`;
+  closePopup();
+});
+
+
+  // Copier le lien
+  async function copyLink() {
+    const $msg = $("#shareMessage");
+    try {
+      await navigator.clipboard.writeText(urlToShare);
+      $msg.text("Lien copié dans le presse-papier ✅").fadeIn();
+      setTimeout(() => { $msg.fadeOut(); closePopup(); }, 2000);
+    } catch {
+      $msg.text("Erreur lors de la copie ❌").fadeIn();
+      setTimeout(() => { $msg.fadeOut(); closePopup(); }, 2000);
+    }
+  }
+
+  $('#copyLinkBtn').on('click', copyLink);
+
+  // --- ACCESSIBILITÉ CLAVIER ---
+  $('.share-btn').on('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      $(this).click();
+    }
+  });
+
+  // --- FERMETURE POPUP ---
+  $overlay.on('click', closePopup);
+  $popup.find('.close-btn').on('click', closePopup);
+});
+</script>

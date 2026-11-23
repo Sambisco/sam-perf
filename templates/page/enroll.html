@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Enregistrement Empreinte</title>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+<h2>Enregistrement Empreinte</h2>
+<input type="text" id="id_employe" placeholder="ID Employé">
+<button id="register_btn">Enregistrer</button>
+
+<script>
+$('#register_btn').click(function() {
+    const id_employe = $('#id_employe').val();
+    if (!id_employe) { alert("ID Employé manquant"); return; }
+
+    $.post("/controller_g/employe/enroll", { id_employe: id_employe }, function(data) {
+        if (data.error) { 
+            alert("Erreur: " + data.error); 
+            return;
+        }
+
+        const publicKey = JSON.parse(data);
+
+        navigator.credentials.create({ publicKey })
+            .then((credential) => {
+                console.log("Enregistrement réussi!", credential);
+                alert("Empreinte enregistrée !");
+            })
+            .catch((err) => {
+                console.error(err);
+                alert("Erreur lors de l'enregistrement: " + err);
+            });
+    });
+});
+</script>
+</body>
+</html>

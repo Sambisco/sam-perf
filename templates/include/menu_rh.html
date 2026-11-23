@@ -1,0 +1,125 @@
+
+<li>
+    <a href="{{ url_for('page', page_name='dashboard', id=id_m) }}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span class="link-name">Tableau de bord</span>
+    </a>
+     <ul class="sub-menu">
+        <li><a class="link-name" href="#">Tableau de bord</a></li>
+    </ul>
+</li>
+<li>
+    <a href="{{ url_for('page', page_name='region', id=id_m) }}">
+        <i class="fas fa-fw fa-building"></i>
+        <span class="link-name">Antenne Régionale</span>
+    </a>
+     <ul class="sub-menu">
+        <li><a class="link-name" href="#">Antenne Régionale</a></li>
+    </ul>
+</li>
+<li>
+    <a href="{{ url_for('page', page_name='departement', id=id_m) }}">
+        <i class="fas fa-fw fa-home"></i>
+        <span class="link-name">Service</span>
+    </a>
+     <ul class="sub-menu">
+        <li><a class="link-name" href="#">Service</a></li>
+    </ul>
+</li>
+<li>
+    <a href="{{ url_for('page', page_name='employe', id=id_m) }}">
+        <i class="fas fa-fw fa-question-circle"></i>
+        <span class="link-name">Recrutement</span>
+    </a>
+     <ul class="sub-menu">
+        <li><a class="link-name" href="#">Recrutement</a></li>
+    </ul>
+</li>
+<li>
+    <div class="iocn-link">
+        <a href="#">
+            <i class="fas fa-fw fa-file-contract"></i>
+            <span class="link-name">Contrat</span>
+        </a>
+        <i class="fa fa-chevron-down arrow"></i>
+    </div>
+    <ul class="sub-menu">
+        <li><a class="link-name" href="#">Contrat</a></li>
+        <li><a href="{{ url_for('page', page_name='contrat', id=id_m) }}">Contrat</a></li>
+        <li><a href="{{ url_for('page', page_name='dmt', id=id_m) }}">DMT</a></li>
+    </ul>
+</li>
+<li>
+    <a href="{{ url_for('page', page_name='employe_actif', id=id_m) }}">
+        <i class="fas fa-fw fa-users"></i>
+        <span class="link-name">Employé</span>
+    </a>
+     <ul class="sub-menu">
+        <li><a class="link-name" href="#">Employé</a></li>
+    </ul>
+</li>
+<li>
+    <a href="{{ url_for('page', page_name='depart', id=id_m) }}">
+        <i class="fas fa-fw fa-exclamation-triangle"></i>
+        <span class="link-name">Départ</span>
+    </a>
+     <ul class="sub-menu">
+        <li><a class="link-name" href="#">Départ</a></li>
+    </ul>
+</li>
+<li>
+    <div class="iocn-link">
+        <a href="#">
+            <i class="fas fa-file-contract"></i>
+            <span class="link-name">G. administratif</span>
+        </a>
+        <i class="fa fa-chevron-down arrow"></i>
+    </div>
+    <ul class="sub-menu">
+        <li><a class="link-name" href="#">G. administratif</a></li>
+        <li><a href="{{ url_for('page', page_name='document_administratif', id=id_m) }}">Document administratif</a></li>
+        <li><a href="{{ url_for('page', page_name='attestation_travail', id=id_m) }}">Attestation travail</a></li>
+        <li><a href="{{ url_for('page', page_name='certificat_travail', id=id_m) }}">Certificat travail</a></li>
+        <li><a href="{{ url_for('page', page_name='domiciliation_salaire', id=id_m) }}">Domiciliation salaire</a></li>
+        <li><a href="{{ url_for('page', page_name='affectation', id=id_m) }}">Affectation</a></li>
+        <li><a href="{{ url_for('page', page_name='indemnite', id=id_m) }}">Demande indemnité</a></li>
+        <li><a href="{{ url_for('page', page_name='conge_annuel', id=id_m) }}">Congé annuel</a></li>
+        <li><a href="{{ url_for('page', page_name='conge_maternite', id=id_m) }}">Congé maternité</a></li>
+    </ul>
+</li>
+<li>
+    <div class="iocn-link">
+        <a href="#">
+            <i class="fas fa-fw fa-money-bill"></i>
+            <span class="link-name">Rémunération</span>
+        </a>
+        <i class="fa fa-chevron-down arrow"></i>
+    </div>
+    <ul class="sub-menu">
+        <li><a class="link-name" href="#">Rémunération</a></li>
+        <li><a href="{{ url_for('page', page_name='indemnite_part', id=id_m) }}">Indemnité | Part</a></li>
+        <li><a href="{{ url_for('page', page_name='heure_jour', id=id_m) }}">Jour | Heure</a></li>
+        <li><a href="{{ url_for('page', page_name='cotisation', id=id_m) }}">Cotisation</a></li>
+        <li><a href="{{ url_for('page', page_name='salaire', id=id_m) }}">Salaire</a></li>
+        <li><a href="{{ url_for('page', page_name='paie_conge_annuel', id=id_m) }}">Congé annuel</a></li>
+        <li><a href="{{ url_for('page', page_name='paie_conge_maternite', id=id_m) }}">Congé maternité</a></li>
+        <li><a href="{{ url_for('page', page_name='statistique_salaire', id=id_m) }}">Statistique</a></li>
+    </ul>
+</li>
+<li>
+    <div class="iocn-link">
+        <a href="#">
+            <i class="fas fa-fw fa-qrcode"></i>
+            <span class="link-name">G. pointage</span>
+        </a>
+        <i class="fa fa-chevron-down arrow"></i>
+    </div>
+    <ul class="sub-menu">
+        <li><a class="link-name" href="#">G. pointage</a></li>
+        <li><a href="{{ url_for('page', page_name='gestion_pointage', id=id_m) }}">Suivi pointage</a></li>
+        <li><a href="{{ url_for('page', page_name='demande_absence', id=id_m) }}">Demande Absence</a></li>
+        <li><a href="{{ url_for('page', page_name='absence', id=id_m) }}">Absence</a></li>
+        <li><a href="{{ url_for('page', page_name='pointage', id=id_m) }}">Pointage QR code</a></li>
+        <li><a href="{{ url_for('page', page_name='face_scan', id=id_m) }}">Pointage facial</a></li>
+    </ul>
+</li>

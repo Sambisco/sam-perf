@@ -1,0 +1,544 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+	<!------MAIN-CONTENT-------->
+	<input type="hidden" id="id_reference" value="{{ request.args.get('id', '') }}">
+
+	<div class="main-content">
+		<div class="bloc-header">
+		<div class="overlay">
+
+		</div>
+		<div class="baniere-left">
+			<h1>Document administratif</h1>
+		</div>
+		<div class="baniere-right">
+			
+		</div>
+	</div>
+	<div class="section-content">
+		<div class="circle"><i class="fas fa-file-contract"></i></div>
+		<div class="main-sous-content">
+			
+			<div class="bouton-add-div" style="display: none;">
+				<div class="tooltip-add">Ajouter</div>
+				<button type="button" class="boutton-petit-modal petit-modal" id="btn-modal-ajouter"><i
+						class="fas fa-plus"></i></button>
+			</div>
+
+			<div class="content-list content-list1">
+
+			</div>
+			<!----------------PAGINATION----------->
+			<div class="pagination">
+				<div class="showingInfo" id="showingInfo1"></div>
+				<div class="showingPage" id="pagination1"></div>
+			</div>
+		</div>
+
+	</div>
+	</div>
+	<!------MODAL AJOUT-------->
+	<div class="petit close-modal" id="ajouter-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close">
+					<span class="title">AJOUTER Service</span>
+					<div class="btn-close-modal close-modal">
+						<i class="fa fa-times-circle"></i>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<form id="insertForm">
+							<input type="hidden" name="id_reference" id="get_id_reference">
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Service</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-home fa-icon"></i></span>
+										<input type="text" class="text-input" name="nom_departement" id=""
+											required="required" placeholder="Service"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="label-details">Batiment</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-arrow-up fa-icon"></i></span>
+										<input type="text" class="text-input" name="batiment" id="" required="required"
+											placeholder="Batiment"
+											onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register" id="insertdata">Enregister</button>
+					<button type="button" class="footer-button-close close-modal">Fermer</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!------FIN MODAL AJOUT-------->
+	<!------MODAL MODIFIER-------->
+	<form id="saveLetter">
+		<div class="grand close-modal" id="modifier-modal">
+			<div class="modal-panel-grand">
+				<div class="overlay-inner">
+					<div class="modal-close modal-close-no-3d">
+						<span class="title">Document administratif</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="corps-modal">
+						<div class="container-letter">
+
+							<input type="text" name="count_id" id="edit_id" hidden>
+							<input type="text" name="id_reference" id="get_id_reference" value="{{ request.args.get('id', '') }}" hidden>
+							<textarea name="corps_text" class="text-input" id="text-input" cols="30" rows="10"></textarea>
+						</div>
+					</div>
+					<div class="footer-modal">
+						<button type="submit" class="footer-button-register" id="btnsaveLetter">Enregistrer</button>
+						<button type="button" class="footer-button-close close-modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!------FIN MODAL MODIFIER-------->
+	<!------MODAL SUPPRIMER-------->
+	<div class="petit close-modal" id="supprimer-modal">
+		<div class="modal-panel-petit">
+			<div class="overlay-inner">
+				<div class="modal-close">
+					<span class="title">SUPPRIMER Service</span>
+					<div class="btn-close-modal close-modal">
+						<i class="fa fa-times-circle"></i>
+					</div>
+				</div>
+				<div class="corps-modal">
+					<div class="container-form">
+						<form id="deleteForm">
+							<input type="hidden" name="delete_id" id="delete_id">
+
+							<div class="user-details-login">
+								<div class="input-group">
+									<label class="label-details">Voulez-vous vraiment supprimer ?</label>
+									<div class="input-box">
+										<span class="span-left"><i class="fa fa-trash"></i> </span>
+										<input type="text" class="text-input" name="" id="nom_del" readonly>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+				<div class="footer-modal">
+					<button type="submit" class="footer-button-register" id="deletedata">Supprimer</button>
+					<button type="button" class="footer-button-close close-modal">Fermer</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!------FIN MODAL SUPPRIMER-------->
+
+	<!------FOOTER-------->
+		{% include 'include/footer.html' %}
+
+	<script>
+
+		$('document').ready(function() {
+			fetchdata()
+		})
+		function fetchdata() {
+			var id = $("#id_reference").val()
+			$.ajax({
+				url: "../controller/document_administratif/fetch_document_administratif",
+				type: "POST",
+				data: {
+					id: id
+				},
+				success: function(response) {
+					$('.content-list1').html(""); //insérer le texte de test.php dans votre div
+					var gp_data = response
+					for (var a = 0; a < gp_data.length; a++) {
+						var div1 = `<div class="parent box result well">
+					<div class="card">
+						<div class="content-date-box">
+                            <div class="overlay">
+					           <div class="date-box">${gp_data[a].acronym_prenom}</div>
+							</div>
+						</div>
+						<div class="content-box">
+							<h1 class="card-title">${gp_data[a].affectation}</h1>
+							<div class="card-content">
+							</div>
+							
+						</div>
+						<div class="content-navigation_list">
+						    <ul class="navigation_list">
+					               <li class="active_nav_list active_nav_click_list active_nav_click_list_${gp_data[a].count_id}" id="updatebtn" data-id="${gp_data[a].count_id}">
+					               	<a href="#">
+					               		<span class="icon"><i class="fas fa-fw fa-edit"></i></span>
+					               		<span class="text">Modifier</span>
+						    			<span class="lampe"></span>
+					               	</a>
+					               </li>
+				            </ul>
+                        </div>
+					</div>
+				  </div>`;
+						$('.content-list1').append(div1);
+					}
+					updateSectionItems(0);
+				},
+			})
+		}
+		$("#btn-modal-ajouter").click(function() {
+			$("#get_id_reference").val($("#id_reference").val());
+			$("#ajouter-modal").fadeIn();
+		});
+		$(document).on('click', '.toggle-btn', function(e) {
+			var id = $(this).data('id');
+			$("#nav_" + id).toggleClass("active");
+			$("#toggle-btn-close_" + id).toggleClass("fa-times");
+		})
+		$('.js-searchBox').select2({
+			width: '100%'
+		});
+		//PHOTO
+		$(document).on("change", "#photo", function() {
+			var file = this.files[0];
+			console.log(file);
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#imgPreview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(file);
+			}
+		})
+		$(document).on("change", "#update_photo", function() {
+			var file = this.files[0];
+			console.log(file);
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#update_imgPreview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(file);
+			}
+		})
+		$(document).ready(function(e) {
+			//INSERTION
+			$("#insertForm").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller/departement/insert',
+					data: new FormData(this),
+					//dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response)
+						if (response === 'true') {
+							Swal.fire({
+								icon: 'success',
+								title: 'Existe',
+								text: "Le département a déja été creer.",
+								confirmButtonColor: '#127b8e',
+								showConfirmButton: false,
+								timer: 2000
+							})
+
+						} else {
+							Swal.fire({
+								icon: 'success',
+								title: 'Enregistré',
+								text: "Enregistrement effectué avec succés.",
+								confirmButtonColor: '#127b8e',
+								showConfirmButton: false,
+								timer: 2000
+							}).then(function() {
+								fetchdata();
+							});
+						}
+					}
+				});
+				$("#ajouter-modal").fadeOut();
+
+				$(this).closest('form').find("input[type=text]").val("");
+			});
+			//UPDATE
+			$("#saveLetter").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller/document_administratif/save',
+					data: new FormData(this),
+					//dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response)
+					}
+				});
+				$("#modifier-modal").fadeOut();
+				Swal.fire({
+					icon: 'success',
+					title: 'Modifié',
+					text: "Modification effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+				});
+			});
+			// SUPPRIMER
+			$("#deleteForm").on('submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '../controller/departement/delete',
+					data: new FormData(this),
+					dataType: 'json',
+					contentType: false,
+					cache: false,
+					processData: false,
+
+					success: function(response) {
+						console.log(response)
+					}
+				});
+				$("#supprimer-modal").fadeOut();
+				Swal.fire({
+					icon: 'error',
+					title: 'Supprimé',
+					text: "Suppression effectuée avec succés.",
+					confirmButtonColor: '#127b8e',
+					showConfirmButton: false,
+					timer: 2000
+				}).then(function() {
+					fetchdata();
+				});
+			});
+		});
+		$(document).on("click", "#togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#show-eye").toggleClass('fa-eye');
+			$("#show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+
+		});
+		$(document).on("click", "#update_togglePassword", function(e) {
+			// toggle the type attribute
+			var password = $('#update_password');
+			if (password.attr("type") === "password") {
+				password.attr("type", "text");
+			} else {
+				password.attr("type", "password");
+			}
+			$("#update_show-eye").toggleClass('fa-eye');
+			$("#update_show-eye").toggleClass('fa-eye-slash');
+			// toggle the eye icon
+
+		});
+
+
+		// SHOW UPDATE
+		$(document).on('click', '#updatebtn', function(e) {
+
+			e.preventDefault();
+
+			var id_document_administratif = $(this).data('id');
+			$.ajax({
+				url: '../controller/document_administratif/fetch_document_administratif',
+				type: "post",
+				data: {
+					id_document_administratif: id_document_administratif
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log()
+					$("#edit_id").val(data.id_document_administratif);
+					tinymce.get('text-input').setContent(data.corps_text);
+
+					$("#modifier-modal").fadeIn();
+				}
+
+			});
+
+		});
+		//SHOW DELETE
+		$(document).on('click', '#deletebtn', function(e) {
+
+			e.preventDefault();
+
+			var id_departement = $(this).data('id');
+			$.ajax({
+				url: '../controller/departement/fetch_departement',
+				type: "post",
+				data: {
+					id_departement: id_departement
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data.logo)
+					$("#delete_id").val(data.id_departement);
+					$("#nom_del").val(data.nom_departement);
+					$("#supprimer-modal").fadeIn();
+
+				}
+
+			});
+
+		});
+		tinymce.init({
+			selector: 'textarea#text-input',
+			language: "fr_FR",
+			height: 650,
+			statusbar: false,
+			promotion: false,
+			editable_root: true,
+			editable_class: 'editable',
+			init_instance_callback: "insert_contents",
+			toolbar_sticky: true,
+			toolbar_mode: 'sliding',
+            pagebreak_separator: '<div class="page-break"></div>',
+			plugins: [
+				'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+				'searchreplace', 'wordcount', 'visualblocks', 'fullscreen', 'insertdatetime', 'media',
+				'table', 'emoticons', 'template', 'footnotes', 'pagebreak'
+			],
+			toolbar: "alignleft aligncenter alignright alignjustify  alignnone | anchor | blockquote blocks | backcolor | bold | copy | cut | fontfamily fontsize forecolor h1 h2 h3 h4 h5 h6 hr indent | italic | language | lineheight | newdocument | outdent | paste pastetext | redo | remove removeformat | selectall | strikethrough | styles | subscript superscript underline | undo | visualaid | a11ycheck advtablerownumbering typopgraphy anchor restoredraft casechange charmap checklist code codesample addcomment showcomments ltr rtl editimage fliph flipv imageoptions rotateleft rotateright emoticons export footnotes footnotesupdate formatpainter fullscreen help image insertdatetime link openlink unlink bullist numlist media mergetags mergetags_list nonbreaking pagebreak pageembed permanentpen preview quickimage quicklink quicktable cancel save searchreplace spellcheckdialog spellchecker | table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader | tableofcontents tableofcontentsupdate | template typography | insertfile | visualblocks visualchars | wordcount|pagebreak",
+			menu: {
+				favs: {
+					title: 'menu',
+					items: ' searchreplace | emoticons'
+				}
+			},
+			setup: function(e) {
+				e.on('change', function() {
+					tinymce.triggerSave();
+				})
+			},
+			theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+			menubar: 'favs file edit view insert format tools table',
+			templates: [{
+				title: "Advanced Template template example",
+				description: 'This template has additional markup that is shown in the "preview" of the template, but is not inserted in to TinyMCE.',
+				content: "<body>" +
+					'<p style="color: red; font-weight:bold;">This appears in the template preview, but will not be inserted in to TinyMCE.</p>' +
+					'<div class="mceTmpl">' +
+					"<p>This is the actual template content that will be inserted.</p>" +
+					"<ul>" +
+					"<li>And can include nested elements</li>" +
+					"<li>So your templates can still include your complex HTML</li>" +
+					"</ul>" +
+					"</div>" +
+					"</body>"
+			}],
+			content_style: `
+        body {
+          background: #fff;
+        }
+
+        /* Disable the blue "focus" border for the editable region */
+        .editable-section:focus-visible {
+          outline: none !important;
+        }
+
+        .header,
+        .footer {
+          font-size: 0.8rem;
+          color: #ddd;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 0 1rem 0;
+        }
+
+        .header .right-text {
+          text-align: right;
+        }
+
+        .footer {
+          padding:2rem 0 0 0;
+          text-align: center;
+        }
+
+        /* Apply page-like styling */
+        @media (min-width: 840px) {
+          html {
+            background: #eceef4;
+            min-height: 100%;
+            padding: 0.5rem;
+          }
+
+          body {
+            background-color: #fff;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+            box-sizing: border-box;
+            margin: 1rem auto 0;
+            max-width: 920px;
+            min-height: calc(100vh - 1rem);
+            padding: 2rem 6rem 2rem 6rem;
+          }
+        }
+      `,
+			image_title: true,
+			// enable automatic uploads of images represented by blob or data URIs
+			automatic_uploads: true,
+			// add custom filepicker only to Image dialog
+			file_picker_types: 'image',
+			file_picker_callback: function(cb, value, meta) {
+				var input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
+
+				input.onchange = function() {
+					var file = this.files[0];
+					var reader = new FileReader();
+
+					reader.onload = function() {
+						var id = 'blobid' + (new Date()).getTime();
+						var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						var base64 = reader.result.split(',')[1];
+						var blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
+
+						// call the callback and populate the Title field with the file name
+						cb(blobInfo.blobUri(), {
+							title: file.name
+						});
+					};
+					reader.readAsDataURL(file);
+				};
+
+				input.click();
+			}
+		});
+
+		//SHOW INFO
+	</script>

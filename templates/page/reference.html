@@ -1,0 +1,937 @@
+{% include 'include/css.html' %}
+{% include 'include/script.html' %}
+{% include 'include/sidebar.html' %}
+{% include 'include/header.html' %}
+
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/css/reference_style.css') }}">
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/css/reference_responsive.css') }}">
+
+<!------MAIN-CONTENT-------->
+<div class="main-content">
+    <div class="container">
+
+        <!-- ===== Header / Navbar ===== -->
+        <section class="userProfile card">
+            <figure>
+                <img src="{% if result_reference.logo %}
+                  {{ url_for('static', filename='img/logo/' ~ result_reference.logo) }}
+                {% else %}
+                  {{ url_for('static', filename='img/image/image.jpg') }}
+                {% endif %}"
+                    alt="profile" width="250" height="250">
+            </figure>
+        </section>
+
+        <!-- ===== Work & Skills Section ===== -->
+        <section class="work_skills card">
+
+            <!-- Republique -->
+            <div class="work">
+                <h1 class="heading">Republique</h1>
+                <div class="secondary">
+                    <h1>{{ result_reference.republique or "Republique" }}</h1>
+
+                    <span>
+                        <img src="{% if result_reference.drapeau %}
+                      {{ url_for('static', filename='img/drapeau/' ~ result_reference.drapeau) }}
+                    {% else %}
+                      {{ url_for('static', filename='img/image/image.jpg') }}
+                    {% endif %}"
+                            alt="logo" width="40" height="35">
+                    </span>
+
+                    <p>{{ result_reference.devise or "Devise" }}</p>
+                </div>
+
+                <!-- Organisme -->
+                <h1 class="heading">Organisme</h1>
+                <div class="primary">
+                    <h1>{{ result_reference.ministere or "Ministère" }}</h1>
+                    <p>{{ result_reference.entreprise or "Entreprise" }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== User Details Section ===== -->
+        <section class="userDetails card">
+            <div class="userName">
+                <h1 class="name">{{ result_reference.ministere or "Ministère"
+                    }}</h1>
+                <p>{{ result_reference.entreprise or "Entreprise" }}</p>
+            </div>
+
+            <div class="rank" style="display: none;">
+                <h1 class="heading">Antenne Regionale</h1>
+                <span>{{ result_reference.id_region or 0 }}</span>
+                <div class="rating">
+                    <i class="ri-star-fill rate"></i>
+                    <i class="ri-star-fill rate"></i>
+                    <i class="ri-star-fill rate"></i>
+                    <i class="ri-star-fill rate"></i>
+                    <i class="ri-star-fill rate underrate"></i>
+                </div>
+            </div>
+
+            <div class="btns">
+                <ul>
+                    <li class="sendMsg active">
+                        <i class="ri-check-fill ri"></i>
+                        {% if result_reference.id_reference %}
+                        <a href="#" data-id="{{  request.args.get('id', '') }}"
+                            id="updatebtn">Contacts</a>
+                        {% else %}
+                        <a href="#" id="btn-modal-ajouter">Contacts</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== Timeline & About Section ===== -->
+        <section class="timeline_about card">
+            <div class="tabs">
+                <ul>
+                    <li class="about active">
+                        <i class="ri-user-3-fill ri"></i>
+                        <span>À propos</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="contact_Info">
+                <h1 class="heading">Coordonnées</h1>
+                <ul>
+                    <li class="address">
+                        <h1 class="label">Adresse:</h1>
+                        <span class="info">{{ result_reference.adresse or
+                            " "
+                            }}</span>
+                    </li>
+
+                    <li class="phone">
+                        <h1 class="label">Téléphone:</h1>
+                        <span class="info">{{ result_reference.telephone or
+                            ""
+                            }}</span>
+                    </li>
+
+                    <li class="address">
+                        <h1 class="label">Fax:</h1>
+                        <span class="info">{{ result_reference.fax or " "
+                            }}</span>
+                    </li>
+
+                    <li class="address">
+                        <h1 class="label">B.P</h1>
+                        <span class="info">{{ result_reference.bp or " "
+                            }}</span>
+                    </li>
+
+                    <li class="email">
+                        <h1 class="label">E-mail:</h1>
+                        <span class="info">{{ result_reference.email or " "
+                            }}</span>
+                    </li>
+
+                    <li class="site">
+                        <h1 class="label">Site:</h1>
+                        <span class="info">{{ result_reference.web or " "
+                            }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="basic_info">
+                <h1 class="heading">INFORMATIONS DE BASE</h1>
+            </div>
+        </section>
+
+    </div>
+
+</div>
+{% include 'include/footer.html' %}
+<!------MODAL AJOUT-------->
+<form id="insertForm">
+
+    <div class="petit close-modal" id="ajouter-modal">
+        <div class="modal-panel-petit">
+            <div class="overlay-inner">
+                <div class="modal-close-content">
+                    <div class="modal-close">
+                        <span class="title">AJOUTER</span>
+                        <div class="btn-close-modal close-modal">
+                            <i class="fa fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="container-upload">
+                        <div class="upload">
+                            <img
+                                src=" {{ url_for('static', filename='img/image/image.jpg')}}"
+                                alt id="imgPreview">
+                            <div class="round">
+                                <input type="file" name="logo" id="photo"
+                                    class="file-upload">
+                                <i class="fa fa-camera"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="corps-modal">
+                    <div class="container-form">
+                        <input type="hidden" name="iduser" id="iduser"
+                            value="{{ request.args.get('id', '') }}">
+                        <input type="hidden" name="insert_id" id>
+
+                        <div class="nextstep nextstep-active">
+                            <div class="user-details-register">
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Republique</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-home fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="republique" id
+                                            required="required"
+                                            placeholder="Republique">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Devise</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-signature fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="devise" id required="required"
+                                            placeholder="Devise">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Ministére</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-home fa-icon"></i>
+                                        </span>
+                                        <input type="text" class="text-input"
+                                            name="ministere" id
+                                            placeholder="Ministére"
+                                            required="required">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Entreprise</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-home fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="entreprise" id
+                                            required="required"
+                                            placeholder="Entreprise"
+                                            onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Adresse</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-map-marker fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="adresse" id
+                                            required="required"
+                                            placeholder="Adresse"
+                                            onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Telephone</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-phone fa-rotate-90 fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="telephone" id
+                                            required="required"
+                                            placeholder="Telephone">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Fax</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-envelope fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="fax" id placeholder="fax">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">BP</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-sort-numeric-down  fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="bp" id placeholder="BP">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Email</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-envelope fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Site
+                                        web</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-globe  fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="web" placeholder="Site web">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Drapeau</label>
+                                    <div class="input-box">
+                                        <div class="input-box">
+                                            <input type="file" class="text-file"
+                                                name="drapeau"
+                                                placeholder="Nom de la mère">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-modal">
+                                <button type="submit"
+                                    class="footer-button-register"
+                                    id="insertdata">Enregister</button>
+                                <button type="button"
+                                    class="footer-button-close close-modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!------FIN MODAL AJOUT-------->
+<!------MODAL MODIFIER-------->
+<form id="updateForm">
+    <div class="petit close-modal" id="modifier-modal">
+        <div class="modal-panel-petit">
+            <div class="overlay-inner">
+                <div class="modal-close-content">
+					<div class="modal-close">
+						<span class="title">MODIFIER</span>
+						<div class="btn-close-modal close-modal">
+							<i class="fa fa-times-circle"></i>
+						</div>
+					</div>
+					<div class="container-upload">
+						<div class="upload">
+                                <img
+                                    src="{{ url_for('static', filename='img/image/image.jpg')}}"
+                                    alt
+                                    id="update_imgPreview">
+                                <div class="round">
+                                    <input type="file" name="logo"
+                                        id="update_photo"
+                                        class="file-upload">
+                                    <i class="fa fa-camera"></i>
+                                </div>
+                            </div>
+					</div>
+				</div>
+              
+                <div class="corps-modal">
+                    <div class="container-form">
+                        <input type="hidden" name="edit_id" id="edit_id">
+                      
+                        <div class="nextstep nextstep-active">
+                            <div class="user-details-register">
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Republique</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-home fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="republique" id="republique"
+                                            required="required"
+                                            placeholder="Republique">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Devise</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-signature fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="devise" id="devise"
+                                            required="required"
+                                            placeholder="Devise">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Ministére</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-home fa-icon"></i>
+                                        </span>
+                                        <input type="text" class="text-input"
+                                            name="ministere" id="ministere"
+                                            placeholder="Ministére"
+                                            required="required">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Entreprise</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-home fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="entreprise" id="entreprise"
+                                            required="required"
+                                            placeholder="Entreprise"
+                                            onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Adresse</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-map-marker fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="adresse" id="adresse"
+                                            required="required"
+                                            placeholder="Adresse"
+                                            onkeyup="this.value=this.value.charAt(0).toUpperCase()+this.value.substr(1);">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label
+                                        class="label-details">Telephone</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-phone fa-rotate-90 fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="telephone" id="telephone"
+                                            required="required"
+                                            placeholder="Telephone">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Fax</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-envelope fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="fax" id="fax"
+                                            placeholder="Fax">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">BP</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-sort-numeric-down  fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="bp" id="bp"
+                                            placeholder="BP">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Email</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-envelope fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="email" id="email"
+                                            placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Site
+                                        web</label>
+                                    <div class="input-box">
+                                        <span class="span-left"><i
+                                                class="fa fa-globe  fa-icon"></i></span>
+                                        <input type="text" class="text-input"
+                                            name="web" id="web"
+                                            placeholder="Site web">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="label-details">Drapeau</label>
+                                    <div class="input-box">
+                                        <div class="input-box">
+                                            <input type="file" class="text-file"
+                                                name="drapeau"
+                                                placeholder="Nom de la mère">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-modal">
+                                <button type="submit"
+                                    class="footer-button-register"
+                                    id="updatetdata">Modifier</button>
+                                <button type="button"
+                                    class="footer-button-close close-modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!------FIN MODAL MODIFIER-------->
+<!------MODAL SUPPRIMER-------->
+<div class="petit close-modal" id="supprimer-modal">
+    <div class="modal-panel-petit">
+        <div class="overlay-inner">
+            <div class="modal-close">
+                <span class="title">SUPPRIMER REGION</span>
+                <div class="btn-close-modal close-modal">
+                    <i class="fa fa-times-circle"></i>
+                </div>
+            </div>
+            <div class="corps-modal">
+                <div class="container-form">
+                    <form id="deleteForm">
+                        <input type="hidden" name="delete_id" id="delete_id">
+
+                        <div class="user-details-login">
+                            <div class="input-group">
+                                <label class="label-details">Voulez-vous
+                                    vraiment supprimer ?</label>
+                                <div class="input-box">
+                                    <span class="span-left"><i
+                                            class="fa fa-trash"></i> </span>
+                                    <input type="text" class="text-input" name
+                                        id="nom_del" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-modal">
+                    <button type="submit" class="footer-button-register"
+                        id="deletedata">Supprimer</button>
+                    <button type="button"
+                        class="footer-button-close close-modal">Fermer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!------FIN MODAL SUPPRIMER-------->
+<!------MODAL INFO-------->
+<div class="petit close-modal" id="info-modal">
+    <div class="modal-panel-petit">
+        <div class="overlay-inner">
+            <div class="modal-close">
+                <span class="title">INFO ETABLISSEMENT</span>
+                <div class="btn-close-modal close-modal">
+                    <i class="fa fa-times-circle"></i>
+                </div>
+            </div>
+            <div class="corps-modal">
+                <div class="container-form">
+                    <form action="#">
+                        <div class="upload">
+                            <img src="../img/image/image-profil.png" alt
+                                id="info7">
+                        </div>
+                        <div class="user-details-register">
+                            <div class="input-group">
+                                <label class="label-details">Region</label>
+                                <div class="input-box">
+                                    <div class="info1 empty"></div>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label class="label-details">Telephone</label>
+                                <div class="input-box">
+                                    <div class="info3 empty"></div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label class="label-details">Email</label>
+                                <div class="input-box">
+                                    <div class="info5 empty"></div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label class="label-details">Site web</label>
+                                <div class="input-box">
+                                    <div class="info6 empty"></div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label class="label-details">Cachet
+                                    electronique</label>
+                                <div class="input-box">
+                                    <div class="upload">
+                                        <img src="../img/image/image-profil.png"
+                                            alt id="info8">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-modal">
+                <button type="submit" class="footer-button-register"
+                    id="deletedata"
+                    style="display:none">Supprimer
+                </button>
+                <button type="button"
+                    class="footer-button-close close-modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!------FIN MODAL INFO-------->
+<!------FOOTER-------->
+
+<script>
+   $("#btn-modal-ajouter").click(function() {
+	$("#ajouter-modal").fadeIn();
+});
+
+    $(document).on('click', '.toggle-btn', function (e) {
+        var id = $(this).data('id');
+        $("#nav_" + id).toggleClass("active");
+        $("#toggle-btn-close_" + id).toggleClass("fa-times");
+    })
+    $(document).on('click', '.fab-button', function (e) {
+        var id = $(this).data('id');
+        $("#fab-show_" + id).toggle("slow");
+        $("#fas_" + id).toggleClass("fa-times");
+        $("#fab-show_" + id).attr(('style', 'display:block'))
+    })
+   
+		//PHOTO
+	$(document).on("change", "#photo", function(e) {
+    const file = this.files[0];
+    if (!file) return;
+
+    // --- Compression + redimensionnement 800px ---
+    compressImage(file, 800, 800, 0.9).then(finalBlob => {
+
+        const sizeKB = Math.round(finalBlob.size / 1024);
+        console.log("✔ Taille finale : " + sizeKB + " Ko");
+
+        // Remplacer le fichier dans l’input (optionnel)
+        const dt = new DataTransfer();
+        dt.items.add(new File([finalBlob], "photo_compressed.jpg", { type: "image/jpeg" }));
+        document.getElementById("photo").files = dt.files;
+
+        // Aperçu version compressée
+        $('#imgPreview').attr('src', URL.createObjectURL(finalBlob));
+    });
+});
+				// ==========================================================
+// 🔹 Aperçu + COMPRESSER (garde ton updateForm intact)
+// ==========================================================
+$(document).on("change", "#update_photo", function(e) {
+    const file = this.files[0];
+    if (!file) return;
+
+    // --- Compression + redimensionnement 800px ---
+    compressImage(file, 800, 800, 0.9).then(finalBlob => {
+
+        const sizeKB = Math.round(finalBlob.size / 1024);
+        console.log("✔ Taille finale : " + sizeKB + " Ko");
+
+        // Remplacer le fichier dans l’input (optionnel)
+        const dt = new DataTransfer();
+        dt.items.add(new File([finalBlob], "photo_compressed.jpg", { type: "image/jpeg" }));
+        document.getElementById("update_photo").files = dt.files;
+
+        // Aperçu version compressée
+        $('#update_imgPreview').attr('src', URL.createObjectURL(finalBlob));
+    });
+});
+
+// ==========================================================
+// 🔹 Fonction de compression
+// ==========================================================
+function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.9) {
+    return new Promise(function(resolve, reject) {
+        const img = new Image();
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        img.onload = function() {
+            const canvas = document.createElement("canvas");
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = Math.round(height * maxWidth / width);
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = Math.round(width * maxHeight / height);
+                    height = maxHeight;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(function(blob) {
+                resolve(blob);
+            }, "image/jpeg", quality);
+        };
+
+        img.onerror = function(err) {
+            reject(err);
+        };
+    });
+}
+    $(document).on("change", "#photo_cachet", function () {
+        var file = this.files[0];
+        console.log(file);
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imgPreview_cachet').attr('src', e.target.result_reference);
+            }
+            reader.readAsDataURL(file);
+        }
+    })
+    $(document).on("change", "#update_photo_cachet", function () {
+        var file = this.files[0];
+        console.log(file);
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#update_imgPreview_cachet').attr('src', e.target.result_reference);
+            }
+            reader.readAsDataURL(file);
+        }
+    })
+    $(document).on("keyup", ".etablissement", function (event) {
+        var textBox = event.target;
+        var start = textBox.selectionStart;
+        var end = textBox.selectionEnd;
+
+        // Capitalize the first letter of each word after a space
+        textBox.value = textBox.value.toLowerCase().replace(/(?:^|\s)\w/g, function (match) {
+            return match.toUpperCase();
+        });
+
+        textBox.setSelectionRange(start, end);
+    });
+    //INSERTION
+    $(document).ready(function (e) {
+        // Submit form data via Ajax
+       $("#insertForm").on('submit', function (e) {
+    e.preventDefault();
+
+    $.ajax({
+        type: 'POST',
+        url: '/controller/reference/save',
+        data: new FormData(this),
+        contentType: false,
+        cache: false,
+        processData: false,
+        beforeSend: function () {
+            $('#insertdata').attr("disabled", "disabled");
+        },
+        success: function (response) {
+            console.log(response);
+
+            if (response.status === "success") {
+                $("#ajouter-modal").fadeOut();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Enregistré',
+                    text: response.message,
+                    confirmButtonColor: '#127b8e',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(function () {
+                    let newIdEncrypted = response.new_id_encrypted || response.id_reference_encrypted;
+                    if (newIdEncrypted) {
+                        // Redirection vers la page avec le nouvel id encrypté en paramètre
+                        window.location.href = "/page/reference?id=" + encodeURIComponent(newIdEncrypted);
+                    } else {
+                        // Sinon recharge la page actuelle
+                        window.location.reload();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: response.message || "Une erreur est survenue",
+                });
+            }
+        },
+        error: function (err) {
+            console.error("Erreur AJAX:", err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur serveur',
+                text: "Impossible de sauvegarder la référence.",
+            });
+        },
+        complete: function () {
+            $('#insertdata').removeAttr("disabled");
+        }
+    });
+});
+
+
+        //MODIFIER
+       $("#updateForm").on('submit', function (e) {
+    e.preventDefault();
+
+    $.ajax({
+        type: 'POST',
+        url: '../controller/reference/save',
+        data: new FormData(this),
+        dataType: 'json',
+        contentType: false,
+        cache: false,
+        processData: false,
+
+        success: function (response) {
+            console.log(response);
+
+            $("#modifier-modal").fadeOut();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Modifié',
+                text: "Modification effectuée avec succès.",
+                confirmButtonColor: '#127b8e',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const newIdEncrypted = response.new_id_encrypted || urlParams.get("id");
+                window.location.href = "/page/reference?id=" + encodeURIComponent(newIdEncrypted);
+            });
+        },
+
+        error: function (err) {
+            console.error("Erreur AJAX:", err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur serveur',
+                text: "Impossible de modifier la référence.",
+            });
+        }
+    });
+});
+
+        // SUPPRIMER
+        $("#deleteForm").on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '../controller/region/delete',
+                data: new FormData(this),
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response)
+                }
+            });
+            $("#supprimer-modal").fadeOut();
+            Swal.fire({
+                icon: 'error',
+                title: 'Supprimé',
+                text: "Suppression effectuée avec succés.",
+                confirmButtonColor: '#127b8e',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(function () {
+                fetchdata();
+            });
+
+        });
+    })
+    //PAGINATION
+
+    // SHOW UPDATE
+    $(document).on('click', '#updatebtn', function (e) {
+        e.preventDefault();
+        var id_reference = $(this).data('id');
+        $.ajax({
+            url: "../controller/reference/fetch_reference_detailed",
+            type: "post",
+            data: {
+                id_reference: id_reference
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data.id_reference)
+                $("#edit_id").val(data.id_reference);
+                $("#republique").val(data.republique);
+                $("#devise").val(data.devise);
+                $("#ministere").val(data.ministere);
+                $("#entreprise").val(data.entreprise);
+                $("#adresse").val(data.adresse);
+                $("#telephone").val(data.telephone);
+                $("#fax").val(data.fax);
+                $("#bp").val(data.bp);
+                $("#email").val(data.email);
+                $("#web").val(data.web);
+                $("#update_imgPreview").attr("src", data.logo);
+                $("#modifier-modal").fadeIn();
+            }
+        });
+    });
+    //SHOW DELETE
+    $(document).on('click', '#deletebtn', function (e) {
+        e.preventDefault();
+        var id_region = $(this).data('id');
+        $.ajax({
+            url: "../controller/region/fetch_region",
+            type: "post",
+            data: {
+                id_region: id_region
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data.logo)
+                $("#delete_id").val(data.id_region);
+                $("#nom_del").val(data.region);
+                $("#supprimer-modal").fadeIn();
+            }
+        });
+    });
+    //SHOW INFO
+    
+</script>
